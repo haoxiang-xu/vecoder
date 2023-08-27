@@ -321,6 +321,13 @@ const DirItem = ({
         setExplorerExpand(true);
       }
       setExpandIconId("dir_item_component_arrow_icon_down0725");
+
+      setTimeout(() => {
+        setChildrenOnClicked(true);
+      }, 20);
+      setTimeout(() => {
+        setChildrenOnClicked(false);
+      }, 40);
     }
   }, [onCommand]);
   const getNewFileDefaultName = () => {
@@ -364,6 +371,13 @@ const DirItem = ({
         setExplorerExpand(true);
       }
       setExpandIconId("dir_item_component_arrow_icon_down0725");
+
+      setTimeout(() => {
+        setChildrenOnClicked(true);
+      }, 20);
+      setTimeout(() => {
+        setChildrenOnClicked(false);
+      }, 40);
     }
   }, [onCommand]);
   const getNewFolderDefaultName = () => {
@@ -391,6 +405,14 @@ const DirItem = ({
       if (!root) {
         parentDeleteFile(file);
       }
+
+      setTimeout(() => {
+        setChildrenOnClicked(true);
+      }, 20);
+      setTimeout(() => {
+        setChildrenOnClicked(false);
+      }, 40);
+
       setOnCommand("false");
     }
   }, [onCommand]);
@@ -430,6 +452,14 @@ const DirItem = ({
         } else {
           alert("File name already exist");
         }
+
+        setTimeout(() => {
+          setChildrenOnClicked(true);
+        }, 20);
+        setTimeout(() => {
+          setChildrenOnClicked(false);
+        }, 40);
+
         setOnCommand("false");
       }
     }
@@ -474,11 +504,7 @@ const DirItem = ({
   };
 
   return (
-    <div
-      className="dir_item_component_container0725"
-      draggable="true"
-      onDragStart={handleDragStart}
-    >
+    <div className="dir_item_component_container0725">
       <link
         href="https://fonts.googleapis.com/css?family=Roboto"
         rel="stylesheet"
@@ -517,6 +543,10 @@ const DirItem = ({
                   onContextMenu={handleFolderOnRightClick}
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
+                  draggable={onCommand !== "false" ? "false" : "true"}
+                  onDragStart={
+                    onCommand !== "false" ? undefined : handleDragStart
+                  }
                   style={
                     onRightClickItem !== null &&
                     isRightClicked &&
@@ -581,6 +611,10 @@ const DirItem = ({
                   onContextMenu={handleFolderOnRightClick}
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
+                  draggable={onCommand !== "false" ? "false" : "true"}
+                  onDragStart={
+                    onCommand !== "false" ? undefined : handleDragStart
+                  }
                   style={
                     onRightClickItem !== null &&
                     isRightClicked &&
@@ -639,6 +673,8 @@ const DirItem = ({
           ) : (
             <span
               id="dir_item_component_file_name0725"
+              draggable={onCommand !== "false" ? "false" : "true"}
+              onDragStart={onCommand !== "false" ? undefined : handleDragStart}
               style={
                 fileIcon !== undefined
                   ? {
