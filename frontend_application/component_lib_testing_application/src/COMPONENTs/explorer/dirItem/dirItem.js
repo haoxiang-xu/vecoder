@@ -520,6 +520,7 @@ const DirItem = ({
                     src={arrow_icon}
                     id={expandIconId}
                     onClick={handleExpandIconOnClick}
+                    loading="lazy"
                   />
                   {filename}
                   {isHovered ? (
@@ -531,6 +532,7 @@ const DirItem = ({
                         e.stopPropagation();
                         handleInfoIconOnClick();
                       }}
+                      loading="lazy"
                     />
                   ) : (
                     <div></div>
@@ -581,6 +583,7 @@ const DirItem = ({
                   <img
                     src={arrow_icon}
                     id="dir_item_component_unexpendable_arrow_icon_right0826"
+                    loading="lazy"
                   />
                   {filename}
                   {isHovered ? (
@@ -657,6 +660,7 @@ const DirItem = ({
                 <img
                   src={fileIcon !== undefined ? fileIcon : ""}
                   id="dir_item_component_script_icon0725"
+                  loading="lazy"
                 ></img>
               ) : (
                 <div></div>

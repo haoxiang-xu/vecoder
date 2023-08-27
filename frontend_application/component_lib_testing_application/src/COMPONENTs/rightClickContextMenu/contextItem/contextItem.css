@@ -106,11 +106,30 @@
   /*POSITION*/
   position: relative;
 
+  /*SIZE*/
+  left: 0pt;
+  top: 0pt;
+  height: 15pt;
+  width: 15pt;
+
+
+}
+#contextItem_component_br0802 {
+  border: 1pt solid #454545;
+}
+#contextItem_blur_loader0827 {
+  /*POSITION*/
+  display: flex;
+  position: relative;
+
+  /*SIZE*/
   left: -5pt;
   top: 0pt;
   height: 15pt;
   width: 15pt;
-}
-#contextItem_component_br0802 {
-  border: 1pt solid #454545;
+
+  /*STYLE*/
+  background-position: center;
+  background-size: cover;
+
 }

@@ -2,22 +2,32 @@ import React, { useState, useEffect, useRef } from "react";
 
 import "./contextItem.css";
 import trash_icon from "./ICONs/trash.png";
+import trash_icon_blur from "./ICONs/trash_blur.png";
 import newFile_icon from "./ICONs/new_file.png";
+import newFile_icon_blur from "./ICONs/new_file_blur.png";
 import newFolder_icon from "./ICONs/new_folder.png";
+import newFolder_icon_blur from "./ICONs/new_folder_blur.png";
 import insertFile_icon from "./ICONs/insert_file.png";
+import insertFile_icon_blur from "./ICONs/insert_file_blur.png";
 import rename_icon from "./ICONs/rename.png";
+import rename_icon_blur from "./ICONs/rename_blur.png";
 import copy_icon from "./ICONs/copy.png";
+import copy_icon_blur from "./ICONs/copy_blur.png";
 import paste_icon from "./ICONs/paste.png";
+import paste_icon_blur from "./ICONs/paste_blur.png";
 import unpaste_icon from "./ICONs/unpaste.png";
+import unpaste_icon_blur from "./ICONs/unpaste_blur.png";
 import cut_icon from "./ICONs/cut.png";
 
-const ContextItem = ({
-  item_function,
-  progressRightClickCommand,
-}) => {
+const ContextItem = ({ item_function, progressRightClickCommand }) => {
   const [contextItemContainerId, setContextItemContainerId] = useState(
     "contextItem_component_container0802"
   );
+  const [isImageLoaded, setImageLoaded] = useState(false);
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
+
   const ICONs = {
     newFile: newFile_icon,
     newFolder: newFolder_icon,
@@ -28,6 +38,16 @@ const ContextItem = ({
     unpaste: unpaste_icon,
     cut: cut_icon,
     delete: trash_icon,
+  };
+  const BACKGROUND_ICONs = {
+    newFile: newFile_icon_blur,
+    newFolder: newFolder_icon_blur,
+    insertFile: insertFile_icon_blur,
+    rename: rename_icon_blur,
+    copy: copy_icon_blur,
+    paste: paste_icon_blur,
+    unpaste: unpaste_icon_blur,
+    delete: trash_icon_blur,
   };
   const LABELs = {
     newFile: "New File...",
@@ -53,7 +73,9 @@ const ContextItem = ({
   };
   useEffect(() => {
     if (item_function === "unpaste") {
-      setContextItemContainerId("contextItem_component_container_unclickable0826");
+      setContextItemContainerId(
+        "contextItem_component_container_unclickable0826"
+      );
     }
   }, [item_function]);
 
@@ -74,10 +96,23 @@ const ContextItem = ({
       ) : (
         <div id={contextItemContainerId} onClick={handleItemOnClick}>
           {ICONs[item_function] !== undefined ? (
-            <img
-              src={ICONs[item_function]}
-              id="contextItem_component_icon0802"
-            />
+            <div
+              id="contextItem_blur_loader0827"
+              style={
+                isImageLoaded
+                  ? {}
+                  : {
+                      backgroundImage: `url(${BACKGROUND_ICONs[item_function]})`,
+                    }
+              }
+            >
+              <img
+                src={ICONs[item_function]}
+                id="contextItem_component_icon0802"
+                loading="lazy"
+                onLoad={handleImageLoad}
+              />
+            </div>
           ) : (
             <div></div>
           )}
