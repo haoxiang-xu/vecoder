@@ -42,6 +42,9 @@ const DirItem = ({
   parentDeleteFile,
   parentCheckNameExist,
   copyFile,
+  onSingleClickFile,
+  setOnSingleClickFile,
+  parentForceRefresh,
 }) => {
   //Files Icon and Text Color declaration
   const COLORs = {
@@ -98,6 +101,9 @@ const DirItem = ({
   };
 
   const [refresh, setRefresh] = useState(false);
+  const forceRefresh = () => {
+    setRefresh(!refresh);
+  };
 
   const [expanded, setExpanded] = useState(false);
   const [expandIconId, setExpandIconId] = useState(
@@ -121,6 +127,10 @@ const DirItem = ({
   const [isHovered, setIsHovered] = useState(false);
   const [isRightClicked, setIsRightClicked] = useState(false);
   const [onCommand, setOnCommand] = useState("false");
+
+  const [fileNameId, setFileNameId] = useState(
+    "dir_item_component_file_name0725"
+  );
 
   //UPDATE FILE
   useEffect(() => {
@@ -157,8 +167,9 @@ const DirItem = ({
       "dir_item_component_dir_list_unexpend_animation " + unexpandingTime + "s",
   };
   const [unexpendAnimation, setUnexpendAnimation] = useState({});
-  const handleExpandIconOnClick = () => {
+  const handleExpandIconOnClick = (event) => {
     setChildrenOnClicked(true);
+    handleOnLeftClick(event);
     if (root) {
       setExplorerExpand(!explorerExpand);
     }
@@ -207,9 +218,24 @@ const DirItem = ({
     setOnRightClickItem(file);
     setIsRightClicked(true);
   };
-  const handleInfoIconOnClick = (event) => {
-    file.type = "folder";
+  //SINGLE CLICK
+  const handleOnLeftClick = (event) => {
+    if (event.shiftKey) {
+      console.log("shift");
+    } else {
+      setOnSingleClickFile(file);
+    }
   };
+  useEffect(() => {
+    if (onSingleClickFile !== null) {
+      if (onSingleClickFile.filePath === file.filePath) {
+        setFileNameId("dir_item_component_file_name_on_selected0827");
+      } else {
+        setFileNameId("dir_item_component_file_name0725");
+      }
+    }
+  }, [onSingleClickFile]);
+
   useEffect(() => {
     if (onRightClickItem === null) {
       setIsRightClicked(false);
@@ -246,10 +272,12 @@ const DirItem = ({
           file.filePath.split("/").length - 1,
           renameInput
         );
+        parentSortFiles();
+
+        setOnSingleClickFile(JSON.parse(JSON.stringify(file)));
+        parentForceRefresh();
+
         setOnCommand("false");
-        if (!root) {
-          await parentSortFiles();
-        }
       } else {
         setInputBoxId("dir_item_component_input_box_shake0826");
         setTimeout(() => {
@@ -413,6 +441,7 @@ const DirItem = ({
         setChildrenOnClicked(false);
       }, 40);
 
+      setOnSingleClickFile(null);
       setOnCommand("false");
     }
   }, [onCommand]);
@@ -430,6 +459,7 @@ const DirItem = ({
     if (onCommand === "paste") {
       if (copyFile !== null) {
         const pasteFile = JSON.parse(JSON.stringify(copyFile));
+        setOnSingleClickFile(pasteFile);
 
         if (!checkNameExist(pasteFile.fileName)) {
           const pasteFileIndex = pasteFile.filePath.split("/").length - 1;
@@ -479,7 +509,7 @@ const DirItem = ({
   useEffect(() => {
     if (rightClickCommand !== undefined && rightClickCommand !== null) {
       if (rightClickCommand.target_file.filePath === file.filePath) {
-        console.log(rightClickCommand.command + " " + file.fileName);
+        //console.log(rightClickCommand.command + " " + file.fileName);
         if (rightClickCommand.command === "rename") {
           setOnCommand("rename");
         } else if (rightClickCommand.command === "newFile") {
@@ -500,7 +530,7 @@ const DirItem = ({
 
   //ONDRAG
   const handleDragStart = (event) => {
-    console.log("drag start" + file.filePath);
+    //console.log("drag start" + file.filePath);
   };
 
   return (
@@ -528,7 +558,7 @@ const DirItem = ({
                       onKeyDown={handleRenameInputOnKeyDown}
                       ref={inputRef}
                       style={{
-                        width: `calc(100% - ${9.7}pt)`,
+                        width: `calc(100% - ${10.7}pt)`,
                       }}
                     />
                   ) : (
@@ -536,9 +566,9 @@ const DirItem = ({
                   )}
                 </div>
               ) : (
-                /*If file not on command -> diplay folder name and expand arrow button*/
+                /* SPAN If file not on command -> diplay folder name and expand arrow button>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
                 <span
-                  id="dir_item_component_file_name0725"
+                  id={fileNameId}
                   onClick={handleExpandIconOnClick}
                   onContextMenu={handleFolderOnRightClick}
                   onMouseEnter={handleMouseEnter}
@@ -571,7 +601,6 @@ const DirItem = ({
                       id="dir_item_component_info_icon0731"
                       onClick={(e) => {
                         e.stopPropagation();
-                        handleInfoIconOnClick();
                       }}
                       loading="lazy"
                     />
@@ -597,7 +626,7 @@ const DirItem = ({
                       onKeyDown={handleRenameInputOnKeyDown}
                       ref={inputRef}
                       style={{
-                        width: `calc(100% - ${9.7}pt)`,
+                        width: `calc(100% - ${10.7}pt)`,
                       }}
                     />
                   ) : (
@@ -605,9 +634,10 @@ const DirItem = ({
                   )}
                 </div>
               ) : (
-                /*If file not on command -> diplay folder name and expand arrow button*/
+                /* SPAN If file not on command -> diplay folder name and expand arrow button>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
                 <span
-                  id="dir_item_component_file_name0725"
+                  id={fileNameId}
+                  onClick={(e) => handleOnLeftClick(e)}
                   onContextMenu={handleFolderOnRightClick}
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
@@ -638,7 +668,6 @@ const DirItem = ({
                       id="dir_item_component_info_icon0731"
                       onClick={(e) => {
                         e.stopPropagation();
-                        handleInfoIconOnClick();
                       }}
                     />
                   ) : (
@@ -663,7 +692,7 @@ const DirItem = ({
                   onKeyDown={handleRenameInputOnKeyDown}
                   ref={inputRef}
                   style={{
-                    width: `calc(100% - ${9.7}pt)`,
+                    width: `calc(100% - ${10.7}pt)`,
                   }}
                 />
               ) : (
@@ -671,8 +700,10 @@ const DirItem = ({
               )}
             </div>
           ) : (
+            /* SPAN file>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
             <span
-              id="dir_item_component_file_name0725"
+              id={fileNameId}
+              onClick={(e) => handleOnLeftClick(e)}
               draggable={onCommand !== "false" ? "false" : "true"}
               onDragStart={onCommand !== "false" ? undefined : handleDragStart}
               style={
@@ -735,6 +766,9 @@ const DirItem = ({
                 parentDeleteFile={deleteFile}
                 parentCheckNameExist={checkNameExist}
                 copyFile={copyFile}
+                onSingleClickFile={onSingleClickFile}
+                setOnSingleClickFile={setOnSingleClickFile}
+                parentForceRefresh={forceRefresh}
               />
             </li>
           ))}

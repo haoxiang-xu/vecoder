@@ -19,6 +19,8 @@ const Explorer = ({
   );
   const [explorerExpand, setExplorerExpand] = useState(false);
   const [childrenOnClicked, setChildrenOnClicked] = useState(null);
+  const [onSingleClickFile, setOnSingleClickFile] = useState(null);
+
   const explorerContainerRef = useRef(null);
 
   useEffect(() => {
@@ -70,6 +72,8 @@ const Explorer = ({
           rightClickCommand={rightClickCommand}
           setRightClickCommand={setRightClickCommand}
           copyFile={copyFile}
+          onSingleClickFile={onSingleClickFile}
+          setOnSingleClickFile={setOnSingleClickFile}
         />
       </div>
     </div>
