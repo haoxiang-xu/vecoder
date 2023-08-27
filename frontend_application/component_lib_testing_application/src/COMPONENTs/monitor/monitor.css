@@ -1,0 +1,22 @@
+#monitor_component_container0728 {
+  /*TRANSITION*/
+  transition: all 0.32s ease;
+
+  /*POSITION*/
+  position: absolute;
+  transform: translate(-50%, 0%);
+  left: 50%;
+
+  /*SIZE*/
+  width: 100%;
+  max-width: 512pt;
+  height: 100%;
+
+  /*STYLE*/
+  border-radius: 0pt;
+  /*border: 1px solid #ffffff;*/
+  box-sizing: border-box;
+  overflow: hidden;
+
+  user-select: none;
+}

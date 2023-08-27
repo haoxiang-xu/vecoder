@@ -1,0 +1,262 @@
+#dir_item_component_container0725 {
+  /*POSITION*/
+  display: flex;
+  position: relative;
+  align-items: center;
+
+  /*SIZE*/
+  width: 100%;
+
+  /*STYLE*/
+}
+#dir_item_component_file_name0725 {
+  /*POSITION*/
+  display: flex;
+  position: relative;
+
+  /*FONT*/
+  font-size: 11pt;
+  font-family: "Roboto";
+  letter-spacing: 0pt;
+  white-space: nowrap;
+  color: #cccccc;
+
+  /*SIZE*/
+  padding: 0pt 4pt 0pt 5pt;
+  right: 0pt;
+  left: 0pt;
+
+  /*STYLE*/
+  border-radius: 3pt;
+  overflow: hidden;
+
+  animation-timing-function: linear;
+  animation: dir_item_component_container_expand_animation 0.16s;
+}
+@keyframes dir_item_component_container_expand_animation {
+  0% {
+    height: 0pt;
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  45% {
+    height: 13.8pt;
+  }
+  100% {
+    height: 100%;
+    opacity: 1;
+  }
+}
+#dir_item_component_file_name0725:hover {
+  /*POSITION*/
+  display: flex;
+  position: relative;
+
+  /*FONT*/
+  font-size: 11pt;
+  font-family: "Roboto";
+  letter-spacing: 0pt;
+  white-space: nowrap;
+  color: #cccccc;
+
+  /*SIZE*/
+  padding: 0pt 4pt 0pt 5pt;
+
+  /*STYLE*/
+  background-color: #2a2d2e;
+  border-radius: 3pt;
+}
+#dir_item_component_script_name0725 {
+  /*POSITION*/
+  display: flex;
+  position: relative;
+
+  /*FONT*/
+  font-size: 11pt;
+  font-family: "Roboto";
+  letter-spacing: 0pt;
+  white-space: nowrap;
+  color: #cccccc;
+
+  /*SIZE*/
+  padding: 0pt 4pt 4pt 5pt;
+  right: 0pt;
+  left: 0pt;
+
+  /*STYLE*/
+  border-radius: 4pt;
+
+  user-select: none;
+}
+#dir_item_component_script_icon0725 {
+  transition: all 0.08s ease;
+
+  /*POSITION*/
+  position: relative;
+
+  left: -2pt;
+  top: 0.75pt;
+  height: 12pt;
+  width: 12pt;
+}
+#dir_item_component_arrow_icon_right0725 {
+  transition: all 0.08s ease;
+
+  /*POSITION*/
+  position: relative;
+
+  left: -2pt;
+  top: 1.5pt;
+  height: 10pt;
+  width: 10pt;
+}
+#dir_item_component_arrow_icon_down0725 {
+  transition: all 0.08s ease;
+
+  /*POSITION*/
+  position: relative;
+
+  left: -1.5pt;
+  top: 2pt;
+  height: 10pt;
+  width: 10pt;
+
+  transform: rotate(90deg);
+
+  user-select: none;
+}
+#dir_item_component_unexpendable_arrow_icon_right0826 {
+  /*POSITION*/
+  position: relative;
+
+  left: -2pt;
+  top: 1.5pt;
+  height: 10pt;
+  width: 10pt;
+
+  opacity: 0.32;
+}
+#dir_item_component_dir_list0725 {
+  /*POSITION*/
+  position: relative;
+  right: 0pt;
+
+  /*SIZE*/
+  padding: 0pt 0pt 0pt 0pt;
+  margin: 0pt 0pt 0pt 8pt;
+  height: wrap-content;
+
+  /*STYLE*/
+  list-style: none;
+  border-left: #4d4d4d solid 1pt;
+}
+#dir_item_component_dir_list0725 li {
+  /*POSITION*/
+  position: relative;
+  right: 0pt;
+  left: 0pt;
+
+  /*SIZE*/
+  padding: 3pt 0pt 0pt 0pt;
+
+  /*STYLE*/
+  list-style: none;
+}
+#dir_item_component_info_icon0731 {
+  /*POSITION*/
+  position: absolute;
+  transform: translate(-50%, -50%);
+  right: 0pt;
+  top: 50%;
+
+  /*SIZE*/
+  height: 12pt;
+  width: 12pt;
+
+  /*STYLE*/
+  background-color: #2a2d2e;
+
+  pointer-events: visible;
+}
+#dir_item_component_input_box0803 {
+  transition: all 0.08s ease;
+
+  /*POSITION*/
+  display: flex;
+  position: relative;
+
+  /*FONT*/
+  font-size: 11pt;
+  font-family: "Roboto";
+  letter-spacing: 0pt;
+  white-space: nowrap;
+  color: #cccccc;
+
+  /*SIZE*/
+  padding: 2pt 5pt 2pt 5pt;
+  margin: 2pt 0pt 2pt 0pt;
+
+  /*STYLE*/
+  background-color: #2a2d2e;
+  border-radius: 3pt;
+  border: none;
+  outline: none;
+
+  user-select: none;
+}
+#dir_item_component_input_box_shake0826 {
+  transition: all 0.08s ease;
+
+  /*POSITION*/
+  display: flex;
+  position: relative;
+
+  /*FONT*/
+  font-size: 11pt;
+  font-family: "Roboto";
+  letter-spacing: 0pt;
+  white-space: nowrap;
+  color: #cccccc;
+
+  /*SIZE*/
+  padding: 2pt 5pt 2pt 5pt;
+  margin: 2pt 0pt 2pt 0pt;
+
+  /*STYLE*/
+  background-color: #2a2d2e;
+  border-radius: 3pt;
+  border: none;
+  outline: none;
+
+  user-select: none;
+
+  animation-timing-function: linear;
+  animation: dir_item_component_input_box_shake_animation 0.16s;
+}
+@keyframes dir_item_component_input_box_shake_animation {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-2%);
+  }
+  40% {
+    transform: translateX(2%);
+  }
+  60% {
+    transform: translateX(-1%);
+  }
+  80% {
+    transform: translateX(1%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+#dir_item_component_input_box0803:focus {
+  outline: none;
+
+  user-select: none;
+}

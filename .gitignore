@@ -1,0 +1,12 @@
+frontend_application/component_lib_testing_application/node_modules
+frontend_application/component_lib_testing_application/node_modules/*
+frontend_application/component_lib_testing_application/node_modules/**/*
+
+backend_service/file_service/node_modules
+backend_service/file_service/node_modules/*
+backend_service/file_service/node_modules/**/*
+
+*/node_modules/*
+**/node_modules/*
+
+backend_service/file_service/.env
