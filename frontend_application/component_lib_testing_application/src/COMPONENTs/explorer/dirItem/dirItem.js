@@ -407,16 +407,18 @@ const DirItem = ({
   useEffect(() => {
     if (onCommand === "paste") {
       if (copyFile !== null) {
-        if (!checkNameExist(copyFile.fileName)) {
-          const copyFileIndex = copyFile.filePath.split("/").length - 1;
-          addPathNameAllChildren(copyFile, file.filePath, copyFileIndex);
+        const pasteFile = JSON.parse(JSON.stringify(copyFile));
 
-          const path = copyFile.filePath.split("/");
+        if (!checkNameExist(pasteFile.fileName)) {
+          const pasteFileIndex = pasteFile.filePath.split("/").length - 1;
+          addPathNameAllChildren(pasteFile, file.filePath, pasteFileIndex);
+
+          const path = pasteFile.filePath.split("/");
           const add_path = file.filePath.split("/");
-          let combinedPath = add_path.concat(path.slice(copyFileIndex));
-          copyFile.filePath = combinedPath.join("/");
+          let combinedPath = add_path.concat(path.slice(pasteFileIndex));
+          pasteFile.filePath = combinedPath.join("/");
 
-          file.files.push(copyFile);
+          file.files.push(pasteFile);
 
           //EXPAND FOLDER
           setExpanded(true);
