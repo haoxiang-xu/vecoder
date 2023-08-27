@@ -428,8 +428,8 @@ const DirItem = ({
         } else {
           alert("File name already exist");
         }
+        setOnCommand("false");
       }
-      setOnCommand("false");
     }
   }, [onCommand]);
   const addPathNameAllChildren = (file, addPath, copyFileIndex) => {
@@ -466,8 +466,17 @@ const DirItem = ({
     }
   }, [rightClickCommand]);
 
+  //ONDRAG
+  const handleDragStart = (event) => {
+    console.log("drag start" + file.filePath);
+  };
+
   return (
-    <div className="dir_item_component_container0725">
+    <div
+      className="dir_item_component_container0725"
+      draggable="true"
+      onDragStart={handleDragStart}
+    >
       <link
         href="https://fonts.googleapis.com/css?family=Roboto"
         rel="stylesheet"
