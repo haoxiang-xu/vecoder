@@ -10,6 +10,7 @@ const Monitor = ({
   setOnRightClickItem,
   rightClickCommand,
   setRightClickCommand,
+  copyFile,
 }) => {
   let raw_files = {
     fileName: "vecoder",
@@ -189,6 +190,7 @@ const Monitor = ({
           rightClickCommand={rightClickCommand}
           setRightClickCommand={setRightClickCommand}
           refeshKey={refeshKey}
+          copyFile={copyFile}
         />
       ) : (
         <div></div>

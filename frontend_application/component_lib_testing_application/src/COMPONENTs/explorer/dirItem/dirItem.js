@@ -41,6 +41,7 @@ const DirItem = ({
   parentSortFiles,
   parentDeleteFile,
   parentCheckNameExist,
+  copyFile,
 }) => {
   //Files Icon and Text Color declaration
   const COLORs = {
@@ -402,6 +403,46 @@ const DirItem = ({
     }
     setRefresh(!refresh);
   };
+  //PASTE
+  useEffect(() => {
+    if (onCommand === "paste") {
+      if (copyFile !== null) {
+        if (!checkNameExist(copyFile.fileName)) {
+          const copyFileIndex = copyFile.filePath.split("/").length - 1;
+          addPathNameAllChildren(copyFile, file.filePath, copyFileIndex);
+
+          const path = copyFile.filePath.split("/");
+          const add_path = file.filePath.split("/");
+          let combinedPath = add_path.concat(path.slice(copyFileIndex));
+          copyFile.filePath = combinedPath.join("/");
+
+          file.files.push(copyFile);
+
+          //EXPAND FOLDER
+          setExpanded(true);
+          if (setExplorerExpand) {
+            setExplorerExpand(true);
+          }
+          setExpandIconId("dir_item_component_arrow_icon_down0725");
+          sortFiles();
+        } else {
+          alert("File name already exist");
+        }
+      }
+      setOnCommand("false");
+    }
+  }, [onCommand]);
+  const addPathNameAllChildren = (file, addPath, copyFileIndex) => {
+    const add_path = addPath.split("/");
+
+    for (let i = 0; i < file.files.length; i++) {
+      const path = file.files[i].filePath.split("/");
+      let combinedPath = add_path.concat(path.slice(copyFileIndex));
+      file.files[i].filePath = combinedPath.join("/");
+
+      addPathNameAllChildren(file.files[i], addPath, copyFileIndex);
+    }
+  };
 
   useEffect(() => {
     if (rightClickCommand !== undefined && rightClickCommand !== null) {
@@ -415,6 +456,8 @@ const DirItem = ({
           setOnCommand("newFolder");
         } else if (rightClickCommand.command === "delete") {
           setOnCommand("delete");
+        } else if (rightClickCommand.command === "paste") {
+          setOnCommand("paste");
         }
         setRightClickCommand(null);
       } else {
@@ -640,6 +683,7 @@ const DirItem = ({
                 parentSortFiles={sortFiles}
                 parentDeleteFile={deleteFile}
                 parentCheckNameExist={checkNameExist}
+                copyFile={copyFile}
               />
             </li>
           ))}

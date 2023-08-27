@@ -23,6 +23,31 @@
   animation-timing-function: linear;
   animation: contextItem_component_container_expand_animation 0.16s;
 }
+#contextItem_component_container_unclickable0826 {
+  /*POSITION*/
+  display: flex;
+  position: relative;
+
+  /*FONT*/
+  font-size: 9pt;
+  font-family: "Roboto";
+  letter-spacing: 0pt;
+  white-space: nowrap;
+  color: #cccccc;
+
+  /*SIZE*/
+  padding: 6pt 4pt 6pt 12pt;
+  right: 0pt;
+  left: 0pt;
+
+  /*STYLE*/
+  border-radius: 4pt;
+
+  user-select: none;
+
+  animation-timing-function: linear;
+  animation: contextItem_component_container_expand_animation 0.16s;
+}
 @keyframes contextItem_component_container_expand_animation {
   0% {
     height: 0pt;

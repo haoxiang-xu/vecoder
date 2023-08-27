@@ -12,6 +12,7 @@ const Explorer = ({
   rightClickCommand,
   setRightClickCommand,
   refeshKey,
+  copyFile,
 }) => {
   const [explorerContainerId, setExplorerContainerId] = useState(
     "dir_list_component_container_hided0725"
@@ -68,6 +69,7 @@ const Explorer = ({
           setOnRightClickItem={setOnRightClickItem}
           rightClickCommand={rightClickCommand}
           setRightClickCommand={setRightClickCommand}
+          copyFile={copyFile}
         />
       </div>
     </div>

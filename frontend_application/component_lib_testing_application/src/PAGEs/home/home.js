@@ -11,6 +11,7 @@ const Home = () => {
   const [rightClickY, setRightClickY] = useState(-1);
   const [onRightClickItem, setOnRightClickItem] = useState(null);
   const [rightClickCommand, setRightClickCommand] = useState(null);
+  const [copyFile, setCopyFile] = useState(null);
 
   const handleRightClick = (event) => {
     event.preventDefault();
@@ -28,6 +29,14 @@ const Home = () => {
     setIsRightClicked(false);
     setOnRightClickItem(null);
   };
+  //COPY and CUT command
+  useEffect(() => {
+    if (rightClickCommand !== null) {
+      if (rightClickCommand.command === "copy") {
+        setCopyFile(rightClickCommand.target_file);
+      }
+    }
+  }, [rightClickCommand]);
 
   return (
     <div
@@ -40,6 +49,7 @@ const Home = () => {
         setOnRightClickItem={setOnRightClickItem}
         rightClickCommand={rightClickCommand}
         setRightClickCommand={setRightClickCommand}
+        copyFile={copyFile}
       />
       {isRightClicked ? (
         <RightClickContextMenu
@@ -48,6 +58,7 @@ const Home = () => {
           onRightClickItem={onRightClickItem}
           setOnRightClickItem={setOnRightClickItem}
           setRightClickCommand={setRightClickCommand}
+          copyFile={copyFile}
         />
       ) : (
         <div></div>
