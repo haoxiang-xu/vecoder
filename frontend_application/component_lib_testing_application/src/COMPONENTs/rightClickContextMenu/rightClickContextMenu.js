@@ -100,6 +100,7 @@ const RightClickContextMenu = ({
           key={"paste"}
           item_function={"paste"}
           progressRightClickCommand={progressRightClickCommand}
+          pasteFileName={copyFile.fileName}
         />,
         <ContextItem
           key={"hr2"}

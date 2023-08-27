@@ -100,6 +100,26 @@
   letter-spacing: 0pt;
   white-space: nowrap;
 }
+#contextItem_component_copyfile_label0827 {
+  /*POSITION*/
+  display: flex;
+  position: relative;
+  top: 2pt;
+  left: 2pt;
+
+  /*SIZE*/
+  width: 52pt;
+
+  /*FONT*/
+  font-size: 10pt;
+  font-family: "Roboto";
+  letter-spacing: 0pt;
+  white-space: nowrap;
+  color: #8c8c8c;
+
+  overflow: hidden;
+  opacity: 0.64;
+}
 #contextItem_component_icon0802 {
   transition: all 0.08s ease;
 
@@ -111,8 +131,6 @@
   top: 0pt;
   height: 15pt;
   width: 15pt;
-
-
 }
 #contextItem_component_br0802 {
   border: 1pt solid #454545;
@@ -131,5 +149,4 @@
   /*STYLE*/
   background-position: center;
   background-size: cover;
-
 }

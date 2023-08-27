@@ -19,7 +19,11 @@ import unpaste_icon from "./ICONs/unpaste.png";
 import unpaste_icon_blur from "./ICONs/unpaste_blur.png";
 import cut_icon from "./ICONs/cut.png";
 
-const ContextItem = ({ item_function, progressRightClickCommand }) => {
+const ContextItem = ({
+  item_function,
+  progressRightClickCommand,
+  pasteFileName,
+}) => {
   const [contextItemContainerId, setContextItemContainerId] = useState(
     "contextItem_component_container0802"
   );
@@ -122,6 +126,11 @@ const ContextItem = ({ item_function, progressRightClickCommand }) => {
           >
             {LABELs[item_function]}
           </span>
+          {item_function === "paste" ? (
+            <span id="contextItem_component_copyfile_label0827">{pasteFileName}</span>
+          ) : (
+            <div></div>
+          )}
         </div>
       )}
     </div>
