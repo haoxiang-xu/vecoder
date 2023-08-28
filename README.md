@@ -48,7 +48,7 @@
   - To Frontend Testing Application Directory `cd frontend_application/component_lib_testing_application`
   - Run Frontend Testing Application `npm start`
   - Heading to the Application `http://localhost:5000/`
-  
+
 [Github-shield]: https://img.shields.io/badge/Github-222222?style=for-the-badge&logo=Github&logoColor=FFFFFF&labelColor=181717
 [Github-url]: https://github.com/
 [Figma-shield]: https://img.shields.io/badge/Figma-222222?style=for-the-badge&logo=Figma&logoColor=000000&labelColor=F24E1E
@@ -65,7 +65,7 @@
 [MongoDB-install]: https://www.mongodb.com/try/download/community
 [VSC-shield]: https://img.shields.io/badge/Visual_Studio_Code-222222?style=for-the-badge&logo=VisualStudioCode&logoColor=FFFFFF&labelColor=007ACC
 [VSC-download-shield]: https://img.shields.io/badge/Visual_Studio_Code-v1.81.1-222222?style=for-the-badge&logo=VisualStudioCode&logoColor=FFFFFF&labelColor=007ACC
-[VSC-install]: https://www.postman.com/downloads/
+[VSC-install]: https://code.visualstudio.com/download
 [Postman-download-shield]: https://img.shields.io/badge/Postman-v10.17.4-222222?style=for-the-badge&logo=Postman&logoColor=FFFFFF&labelColor=FF6C37
 [Postman-install]: https://www.postman.com/downloads/
 [Docker-download-shield]: https://img.shields.io/badge/Docker-v4.20.1-222222?style=for-the-badge&logo=Docker&logoColor=FFFFFF&labelColor=2496ED
