@@ -45,8 +45,9 @@ const RightClickContextMenu = ({
         />,
         <ContextItem
           key={"paste"}
-          item_function={"unpaste"}
+          item_function={"paste"}
           progressRightClickCommand={progressRightClickCommand}
+          pasteFileName={copyFile.fileName}
         />,
         <ContextItem
           key={"duplicate"}
