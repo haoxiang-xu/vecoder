@@ -23,16 +23,11 @@
 
 #### Setup File Server
 
-1. To Backend File Server Directory
-   ### `cd backend_services/file_services`
-2. Run Backend File Server
-   ### `node App.js`
+1. To Backend File Server Directory `cd backend_services/file_services`
+2. Run Backend File Server `node App.js`
 
 #### Setup Frontend Testing Application
 
-1. To Frontend Testing Application Directory
-   ### `cd frontend_application/component_lib_testing_application`
-2. Run Frontend Testing Application
-   ### `npm start`
-3. Heading to the Application
-   ### `http://localhost:5000/`
+1. To Frontend Testing Application Directory `cd frontend_application/component_lib_testing_application`
+2. Run Frontend Testing Application `npm start`
+3. Heading to the Application `http://localhost:5000/`
