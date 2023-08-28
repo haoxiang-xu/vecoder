@@ -212,11 +212,11 @@ const DirItem = ({
     setIsHovered(false);
   };
   const handleFolderOnRightClick = () => {
-    setOnRightClickItem(file);
+    setOnRightClickItem(JSON.parse(JSON.stringify(file)));
     setIsRightClicked(true);
   };
   const handleFileOnRightClick = () => {
-    setOnRightClickItem(file);
+    setOnRightClickItem(JSON.parse(JSON.stringify(file)));
     setIsRightClicked(true);
   };
   //SINGLE CLICK
