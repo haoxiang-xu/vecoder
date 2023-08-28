@@ -1,8 +1,6 @@
 # VECODER
 
-## [ About Project ] 
-
-<hr>
+## [ About Project ]
 
 ### WebIDE+GPT: The Future of Code Development
 
@@ -22,8 +20,6 @@
 ![CodeMirror][CodeMirror-shield]
 
 ## [ Getting Started ]
-
-<hr>
 
 <span style="opacity: 0.32">Instructions to run this application on a local machine:</span>
 
