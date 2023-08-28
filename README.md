@@ -18,6 +18,9 @@
 ![intellijIdea][intellijIdea-shield]
 ![Prettier][Prettier-shield]
 ![CodeMirror][CodeMirror-shield]
+[![MonacoEditor][MonacoEditor-shield]][MonacoEditor-url]
+
+[![Languages](https://skillicons.dev/icons?i=js,html,css)](https://skillicons.dev)
 
 ## [ Getting Started ]
 
@@ -73,3 +76,5 @@
 [Prettier-shield]: https://img.shields.io/badge/Prettier-222222?style=for-the-badge&logo=Prettier&logoColor=000000&labelColor=F7B93E
 [intellijIdea-shield]: https://img.shields.io/badge/intellij_Idea-222222?style=for-the-badge&logo=intellijIdea&logoColor=000000&labelColor=0774EA
 [CodeMirror-shield]: https://img.shields.io/badge/codemirror-222222?style=for-the-badge&logo=codemirror&logoColor=000000&labelColor=D30707
+[MonacoEditor-shield]: https://img.shields.io/badge/monaco_Editor-222222?style=for-the-badge&logo=visualstudiocode&logoColor=FFFFFF&labelColor=68217A
+[MonacoEditor-url]: https://microsoft.github.io/monaco-editor/
