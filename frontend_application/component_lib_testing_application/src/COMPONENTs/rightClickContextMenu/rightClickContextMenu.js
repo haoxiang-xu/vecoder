@@ -21,7 +21,46 @@ const RightClickContextMenu = ({
   };
 
   if (onRightClickItem !== null) {
-    if (onRightClickItem.filePath.split("/").length === 1) {
+    if (
+      onRightClickItem.filePath.split("/").length === 1 &&
+      copyFile === null
+    ) {
+      contextItems = [
+        <ContextItem
+          key={"newFile"}
+          item_function={"newFile"}
+          progressRightClickCommand={progressRightClickCommand}
+        />,
+        <ContextItem
+          key={"newFolder"}
+          item_function={"newFolder"}
+          progressRightClickCommand={progressRightClickCommand}
+        />,
+        <ContextItem
+          key={"insertFile"}
+          item_function={"insertFile"}
+          progressRightClickCommand={progressRightClickCommand}
+        />,
+        <ContextItem
+          key={"hr1"}
+          item_function={"hr"}
+          progressRightClickCommand={progressRightClickCommand}
+        />,
+        <ContextItem
+          key={"unpaste"}
+          item_function={"unpaste"}
+          progressRightClickCommand={progressRightClickCommand}
+        />,
+        <ContextItem
+          key={"duplicate"}
+          item_function={"duplicate"}
+          progressRightClickCommand={progressRightClickCommand}
+        />,
+      ];
+    } else if (
+      onRightClickItem.filePath.split("/").length === 1 &&
+      copyFile !== null
+    ) {
       contextItems = [
         <ContextItem
           key={"newFile"}
