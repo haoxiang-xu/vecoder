@@ -18,6 +18,8 @@ import paste_icon_blur from "./ICONs/paste_blur.png";
 import unpaste_icon from "./ICONs/unpaste.png";
 import unpaste_icon_blur from "./ICONs/unpaste_blur.png";
 import cut_icon from "./ICONs/cut.png";
+import duplicate_icon from "./ICONs/duplicate.png";
+import duplicate_icon_blur from "./ICONs/duplicate_blur.png";
 
 const ContextItem = ({
   item_function,
@@ -42,6 +44,7 @@ const ContextItem = ({
     unpaste: unpaste_icon,
     cut: cut_icon,
     delete: trash_icon,
+    duplicate: duplicate_icon,
   };
   const BACKGROUND_ICONs = {
     newFile: newFile_icon_blur,
@@ -52,6 +55,7 @@ const ContextItem = ({
     paste: paste_icon_blur,
     unpaste: unpaste_icon_blur,
     delete: trash_icon_blur,
+    duplicate: duplicate_icon_blur,
   };
   const LABELs = {
     newFile: "New File...",
@@ -63,6 +67,7 @@ const ContextItem = ({
     unpaste: "Paste",
     cut: "Cut",
     delete: "Delete",
+    duplicate: "Duplicate",
   };
   const COLORs = {
     newFile: "#CCCCCC",
@@ -74,6 +79,7 @@ const ContextItem = ({
     unpaste: "#8C8C8C",
     cut: "#CCCCCC",
     delete: "#F1592A",
+    duplicate: "#CCCCCC",
   };
   useEffect(() => {
     if (item_function === "unpaste") {
@@ -127,7 +133,9 @@ const ContextItem = ({
             {LABELs[item_function]}
           </span>
           {item_function === "paste" ? (
-            <span id="contextItem_component_copyfile_label0827">{pasteFileName}</span>
+            <span id="contextItem_component_copyfile_label0827">
+              {pasteFileName}
+            </span>
           ) : (
             <div></div>
           )}

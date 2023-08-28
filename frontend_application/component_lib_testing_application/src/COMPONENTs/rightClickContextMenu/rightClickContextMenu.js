@@ -48,6 +48,11 @@ const RightClickContextMenu = ({
           item_function={"unpaste"}
           progressRightClickCommand={progressRightClickCommand}
         />,
+        <ContextItem
+          key={"duplicate"}
+          item_function={"duplicate"}
+          progressRightClickCommand={progressRightClickCommand}
+        />,
       ];
     } else if (onRightClickItem.fileType === "folder" && copyFile === null) {
       contextItems = [
@@ -79,6 +84,11 @@ const RightClickContextMenu = ({
         <ContextItem
           key={"paste"}
           item_function={"unpaste"}
+          progressRightClickCommand={progressRightClickCommand}
+        />,
+        <ContextItem
+          key={"duplicate"}
+          item_function={"duplicate"}
           progressRightClickCommand={progressRightClickCommand}
         />,
         <ContextItem
@@ -131,6 +141,11 @@ const RightClickContextMenu = ({
           pasteFileName={copyFile.fileName}
         />,
         <ContextItem
+          key={"duplicate"}
+          item_function={"duplicate"}
+          progressRightClickCommand={progressRightClickCommand}
+        />,
+        <ContextItem
           key={"hr2"}
           item_function={"hr"}
           progressRightClickCommand={progressRightClickCommand}
@@ -151,6 +166,11 @@ const RightClickContextMenu = ({
         <ContextItem
           key={"copy"}
           item_function={"copy"}
+          progressRightClickCommand={progressRightClickCommand}
+        />,
+        <ContextItem
+          key={"duplicate"}
+          item_function={"duplicate"}
           progressRightClickCommand={progressRightClickCommand}
         />,
         <ContextItem

@@ -109,6 +109,7 @@ const DirItem = ({
   const [expandIconId, setExpandIconId] = useState(
     "dir_item_component_arrow_icon_right0725"
   );
+  const [dirListId, setDirListId] = useState("dir_item_component_dir_list0725");
 
   //Generate File name, File Icon and Text Color
   const [filename, setFilename] = useState(file.fileName);
@@ -532,6 +533,12 @@ const DirItem = ({
   const handleDragStart = (event) => {
     //console.log("drag start" + file.filePath);
   };
+  const handleDragOver = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    //setDirListId("dir_item_component_dir_list_on_drag0827");
+    console.log("drag over " + file.fileName);
+  };
 
   return (
     <div className="dir_item_component_container0725">
@@ -750,29 +757,31 @@ const DirItem = ({
       )}
       {file.files.length !== 0 && expanded ? (
         /*If file has children -> Including the children file list*/
-        <ul id="dir_item_component_dir_list0725" style={root ? {} : {}}>
-          {dir.map((item, index) => (
-            <li key={index}>
-              <DirItem
-                file={item}
-                root={false}
-                parentFileLength={file.files.length}
-                setChildrenOnClicked={setChildrenOnClicked}
-                onRightClickItem={onRightClickItem}
-                setOnRightClickItem={setOnRightClickItem}
-                rightClickCommand={rightClickCommand}
-                setRightClickCommand={setRightClickCommand}
-                parentSortFiles={sortFiles}
-                parentDeleteFile={deleteFile}
-                parentCheckNameExist={checkNameExist}
-                copyFile={copyFile}
-                onSingleClickFile={onSingleClickFile}
-                setOnSingleClickFile={setOnSingleClickFile}
-                parentForceRefresh={forceRefresh}
-              />
-            </li>
-          ))}
-        </ul>
+        <div onDragOver={handleDragOver} style={{ height: "fit-content" }}>
+          <ul id={dirListId} style={root ? {} : {}}>
+            {dir.map((item, index) => (
+              <li key={index}>
+                <DirItem
+                  file={item}
+                  root={false}
+                  parentFileLength={file.files.length}
+                  setChildrenOnClicked={setChildrenOnClicked}
+                  onRightClickItem={onRightClickItem}
+                  setOnRightClickItem={setOnRightClickItem}
+                  rightClickCommand={rightClickCommand}
+                  setRightClickCommand={setRightClickCommand}
+                  parentSortFiles={sortFiles}
+                  parentDeleteFile={deleteFile}
+                  parentCheckNameExist={checkNameExist}
+                  copyFile={copyFile}
+                  onSingleClickFile={onSingleClickFile}
+                  setOnSingleClickFile={setOnSingleClickFile}
+                  parentForceRefresh={forceRefresh}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
       ) : (
         /*If file doesn't have children -> Leave empty*/
         <div style={unexpendAnimation}></div>
