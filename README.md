@@ -21,12 +21,12 @@
 
 ### Setup Process
 
-#### Setup File Server
+**Setup File Server**
 
 1. To Backend File Server Directory `cd backend_services/file_services`
 2. Run Backend File Server `node App.js`
 
-#### Setup Frontend Testing Application
+**Setup Frontend Testing Application**
 
 1. To Frontend Testing Application Directory `cd frontend_application/component_lib_testing_application`
 2. Run Frontend Testing Application `npm start`
