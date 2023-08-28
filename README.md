@@ -43,11 +43,13 @@
 - **Setup File Server**
 
   - To Backend File Server Directory `cd backend_services/file_services`
+  - To install required modules `npm install`
   - Run Backend File Server `node App.js`
 
 - **Setup Frontend Testing Application**
 
   - To Frontend Testing Application Directory `cd frontend_application/component_lib_testing_application`
+  - To install required modules `npm install`
   - Run Frontend Testing Application `npm start`
   - Heading to the Application `http://localhost:5000/`
 
