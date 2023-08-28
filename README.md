@@ -8,14 +8,10 @@
 
 ### Built with
 
-<div align="center">
-
-  [![OpenAI][OpenAI-shield]][OpenAI-url]
-  [![Node][Node-shield]][Node-install]
-  [![React][React-shield]][React-url]
-  [![MongoDB][MongoDB-shield]][MongoDB-install]
-
-</div>
+[![OpenAI][OpenAI-shield]][OpenAI-url]
+[![Node][Node-shield]][Node-install]
+[![React][React-shield]][React-url]
+[![MongoDB][MongoDB-shield]][MongoDB-install]
 
 ## Getting Started
 
@@ -25,12 +21,8 @@
 
 ### Required Installation
 
-<div align="center">
-
-  [![Node][Node-shield]][Node-install]
-  [![MongoDB][MongoDB-shield]][MongoDB-install]
-
-</div>
+[![Node][Node-shield]][Node-install]
+[![MongoDB][MongoDB-shield]][MongoDB-install]
 
 <span style="opacity: 0.32">Note: Ensure that all software and libraries are updated to their latest versions for optimal performance.</span>
 
@@ -38,15 +30,15 @@
 
 - **Setup File Server**
 
-    - To Backend File Server Directory ```cd backend_services/file_services```
-    - Run Backend File Server ```node App.js```
+  - To Backend File Server Directory `cd backend_services/file_services`
+  - Run Backend File Server `node App.js`
 
 - **Setup Frontend Testing Application**
 
-    - To Frontend Testing Application Directory ```cd frontend_application/component_lib_testing_application```
-    - Run Frontend Testing Application ```npm start```
-    - Heading to the Application ```http://localhost:5000/```
-  
+  - To Frontend Testing Application Directory `cd frontend_application/component_lib_testing_application`
+  - Run Frontend Testing Application `npm start`
+  - Heading to the Application `http://localhost:5000/`
+
 [OpenAI-shield]: https://img.shields.io/badge/OpenAI-222222?style=for-the-badge&logo=OpenAI&logoColor=cccccc
 [OpenAI-url]: https://openai.com/
 [React-shield]: https://img.shields.io/badge/React-222222?style=for-the-badge&logo=React&logoColor=61DAFB
