@@ -8,10 +8,14 @@
 
 ### Built with
 
-[![OpenAI][OpenAI-shield]][OpenAI-url]
-[![Node][Node-shield]][Node-install]
-[![React][React-shield]][React-url]
-[![MongoDB][MongoDB-shield]][MongoDB-install]
+<div align="center">
+
+  [![OpenAI][OpenAI-shield]][OpenAI-url]
+  [![Node][Node-shield]][Node-install]
+  [![React][React-shield]][React-url]
+  [![MongoDB][MongoDB-shield]][MongoDB-install]
+
+</div>
 
 ## Getting Started
 
@@ -21,8 +25,12 @@
 
 ### Required Installation
 
-[![Node][Node-shield]][Node-install]
-[![MongoDB][MongoDB-shield]][MongoDB-install]
+<div align="center">
+
+  [![Node][Node-shield]][Node-install]
+  [![MongoDB][MongoDB-shield]][MongoDB-install]
+
+</div>
 
 <span style="opacity: 0.32">Note: Ensure that all software and libraries are updated to their latest versions for optimal performance.</span>
 
