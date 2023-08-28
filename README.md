@@ -1,8 +1,8 @@
 # VECODER
 
-<hr>
-
 ## [ About Project ] 
+
+<hr>
 
 ### WebIDE+GPT: The Future of Code Development
 
