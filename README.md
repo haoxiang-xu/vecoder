@@ -2,8 +2,6 @@
 
 <hr>
 
-[![Issues][Github-shield]][Github-Issues-url]
-
 ### WebIDE+GPT: The Future of Code Development
 
 <span style="opacity: 0.64">WebIDE+GPT is a state-of-the-art web-based Integrated Development Environment (IDE) that leverages the power of GPT models to assist in coding. By utilizing a vector database, it establishes intricate relationships between files and code segments. This advanced interconnectivity is designed to significantly enhance the efficiency of developers by providing context-aware insights and coding suggestions.</span>
