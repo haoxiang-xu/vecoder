@@ -10,20 +10,14 @@ import close_icon from "./ICONs/close.png";
 import minus_icon from "./ICONs/minus.png";
 import more_icon from "./ICONs/more.png";
 
-const CodeEditor = ({ files }) => {
-  const [refresh, setRefresh] = useState(false);
-  const [fileList, setFileList] = useState(files);
+const CodeEditor = ({ fileName, code }) => {
+  const [language, setLanguage] = useState("javascript");
   const [roadMapVisible, setRoadMapVisible] = useState(false);
   const [lineNumbersVisible, setLineNumbersVisible] = useState("off");
   const [verticalScrollbarVisible, setVerticalScrollbarVisible] =
     useState(false);
   const [horizontalScrollbarVisible, setHorizontalScrollbarVisible] =
     useState(false);
-  const filesContainerRef = useRef(null);
-  const [filesContainerWidth, setFilesContainerWidth] = useState(0);
-  const [fileAverageContainerWidth, setFileAverageContainerWidth] = useState(0);
-
-  const [onSelectedIndex, setOnSelectedIndex] = useState(0);
 
   const handleRoadMapIconClick = () => {
     setRoadMapVisible(!roadMapVisible);
@@ -36,7 +30,7 @@ const CodeEditor = ({ files }) => {
     }
   };
   const handleMouseMove = (e) => {
-    const vertical_threshold = 112;
+    const vertical_threshold = 128;
     const horizontal_threshold = 256;
     const { clientX, clientY, currentTarget } = e;
     const { left, top, width, height } = currentTarget.getBoundingClientRect();
@@ -55,40 +49,6 @@ const CodeEditor = ({ files }) => {
       setHorizontalScrollbarVisible(false);
     }
   };
-  const handleFileCloseIconClick = (index) => () => {
-    const newFileList = [...fileList];
-    newFileList.splice(index, 1);
-    setFileList(newFileList);
-  };
-
-  useEffect(() => {
-    function handleResize() {
-      if (filesContainerRef.current) {
-        setFilesContainerWidth(
-          filesContainerRef.current.getBoundingClientRect().width
-        );
-      }
-    }
-
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
-    setFileAverageContainerWidth(
-      Math.max(filesContainerWidth / (fileList.length + 2) - 4.5, 21) + "pt"
-    );
-  }, [filesContainerWidth]);
-  useEffect(() => {
-    setFileAverageContainerWidth(
-      Math.max(filesContainerWidth / (fileList.length + 2) - 4.5, 21) + "pt"
-    );
-    setRefresh(!refresh);
-  }, [fileList]);
-  useEffect(() => {
-    setFileList(files);
-  }, [files]);
 
   return (
     <div
@@ -99,28 +59,20 @@ const CodeEditor = ({ files }) => {
         setHorizontalScrollbarVisible(false);
       }}
     >
-      <div id="code_editor_files_container0829" ref={filesContainerRef}>
-        {fileList.map((file, index) => (
-          <div
-            key={index}
-            id={index === onSelectedIndex? "code_editor_file_container_on_selected0830" : "code_editor_file_container0829"}
-            draggable={true}
-            style={{ width: fileAverageContainerWidth }}
-            onClick={() => {
-              setOnSelectedIndex(index);
-            }}
-          >
-            <div id="code_editor_fileName_container0829">{file.fileName}</div>
-            <img
-              src={close_file_icon}
-              id="code_editor_close_icon0829"
-              alt="close"
-              onClick={handleFileCloseIconClick(index)}
-            />
+      <div id="code_editor_files_container0829">
+        <div id="code_editor_file_container0829" draggable={true}>
+          <div id="code_editor_fileName_container0829">
+            fileName.js
           </div>
-        ))}
+          <img src={close_file_icon} id="code_editor_close_icon0829" />
+        </div>
+        <div id="code_editor_file_container0829" draggable={true}>
+          <div id="code_editor_fileName_container0829">
+            rightClickContextMenu.js
+          </div>
+          <img src={close_file_icon} id="code_editor_close_icon0829" />
+        </div>
       </div>
-
       <img
         src={road_map_icon}
         id="code_editor_road_map_icon0829"
@@ -143,7 +95,7 @@ const CodeEditor = ({ files }) => {
         height="100%"
         defaultLanguage="javascript"
         theme="vs-dark"
-        value={fileList[onSelectedIndex]? fileList[onSelectedIndex].content : ""}
+        value={code}
         automaticLayout={true}
         options={{
           minimap: {
