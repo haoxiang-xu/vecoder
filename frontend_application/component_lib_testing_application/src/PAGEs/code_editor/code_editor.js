@@ -6,30 +6,33 @@ const CodeEditorPage = () => {
   const files = [
     {
       fileName: "index.js",
-      content: `import React, { useState, useEffect, useRef } from "react";
-      import MonacoEditor from "@monaco-editor/react";
+      content: `
+import React, { useState, useEffect, useRef } from "react";
+import MonacoEditor from "@monaco-editor/react";
       
-      import "./codeEditor.css";
+import "./codeEditor.css";
       
-      import road_map_icon from "./ICONs/road-map.png";
-      import line_numbers_icon from "./ICONs/number-sign.png";
-      import close_file_icon from "./ICONs/delete.png";
-      import close_icon from "./ICONs/close.png";
-      import minus_icon from "./ICONs/minus.png";
-      import more_icon from "./ICONs/more.png";
+import road_map_icon from "./ICONs/road-map.png";
+import line_numbers_icon from "./ICONs/number-sign.png";
+import close_file_icon from "./ICONs/delete.png";
+import close_icon from "./ICONs/close.png";
+import minus_icon from "./ICONs/minus.png";
+import more_icon from "./ICONs/more.png";
       
-      const CodeEditor = ({ files }) => {
-        const [refresh, setRefresh] = useState(false);
-        const [fileList, setFileList] = useState(files);
-        const [roadMapVisible, setRoadMapVisible] = useState(false);
-        const [lineNumbersVisible, setLineNumbersVisible] = useState("off");
-        const [verticalScrollbarVisible, setVerticalScrollbarVisible] =
-          useState(false);
-        const [horizontalScrollbarVisible, setHorizontalScrollbarVisible] =
-          useState(false);
-        const filesContainerRef = useRef(null);
-        const [filesContainerWidth, setFilesContainerWidth] = useState(0);
-        const [fileAverageContainerWidth, setFileAverageContainerWidth] = useState(0);
+const CodeEditor = ({ files }) => {
+  const [refresh, setRefresh] = useState(false);
+  const [fileList, setFileList] = useState(files);
+  const [roadMapVisible, setRoadMapVisible] = useState(false);
+  const [lineNumbersVisible, setLineNumbersVisible] = useState("off");
+  const [verticalScrollbarVisible, setVerticalScrollbarVisible] =
+    useState(false);
+  const [horizontalScrollbarVisible, setHorizontalScrollbarVisible] =
+    useState(false);
+  const filesContainerRef = useRef(null);
+  const [filesContainerWidth, setFilesContainerWidth] = useState(0);
+  const [fileAverageContainerWidth, setFileAverageContainerWidth] = useState(0);
+      
+        const [onSelectedIndex, setOnSelectedIndex] = useState(0);
       
         const handleRoadMapIconClick = () => {
           setRoadMapVisible(!roadMapVisible);
@@ -105,16 +108,16 @@ const CodeEditorPage = () => {
               setHorizontalScrollbarVisible(false);
             }}
           >
-            <div
-              id="code_editor_files_container0829"
-              ref={filesContainerRef}
-            >
+            <div id="code_editor_files_container0829" ref={filesContainerRef}>
               {fileList.map((file, index) => (
                 <div
                   key={index}
-                  id="code_editor_file_container0829"
+                  id={index === onSelectedIndex? "code_editor_file_container_on_selected0830" : "code_editor_file_container0829"}
                   draggable={true}
                   style={{ width: fileAverageContainerWidth }}
+                  onClick={() => {
+                    setOnSelectedIndex(index);
+                  }}
                 >
                   <div id="code_editor_fileName_container0829">{file.fileName}</div>
                   <img
@@ -149,7 +152,7 @@ const CodeEditorPage = () => {
               height="100%"
               defaultLanguage="javascript"
               theme="vs-dark"
-              value={fileList[0].content}
+              value={fileList[onSelectedIndex]? fileList[onSelectedIndex].content : ""}
               automaticLayout={true}
               options={{
                 minimap: {
@@ -164,8 +167,8 @@ const CodeEditorPage = () => {
                   useShadows: false,
                   verticalHasArrows: false,
                   horizontalHasArrows: false,
-                  verticalScrollbarSize: verticalScrollbarVisible ? 6 : 0,
-                  horizontalScrollbarSize: horizontalScrollbarVisible ? 6 : 0,
+                  verticalScrollbarSize: 4,
+                  horizontalScrollbarSize: 4,
                 },
                 readOnly: false,
                 overflow: "hidden",
@@ -175,7 +178,9 @@ const CodeEditorPage = () => {
         );
       };
       
-      export default CodeEditor;`,
+      export default CodeEditor;
+      
+`,
     },
     {
       fileName: "index.html",
@@ -197,6 +202,35 @@ const CodeEditorPage = () => {
       fileName: "index.css",
       content: `#root {background-color: red;}`,
     },
+    {
+      fileName: "index.css",
+      content: `#root {background-color: red;}`,
+    },
+    {
+      fileName: "index.css",
+      content: `#root {background-color: red;}`,
+    },
+    {
+      fileName: "index.css",
+      content: `#root {background-color: red;}`,
+    },
+    {
+      fileName: "index.css",
+      content: `#root {background-color: red;}`,
+    },
+    {
+      fileName: "index.css",
+      content: `#root {background-color: red;}`,
+    },
+    {
+      fileName: "index.css",
+      content: `#root {background-color: red;}`,
+    },
+    {
+      fileName: "index.css",
+      content: `#root {background-color: red;}`,
+    },
+
   ];
 
   return (
