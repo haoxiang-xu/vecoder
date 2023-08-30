@@ -60,6 +60,24 @@ const CodeEditor = ({ files }) => {
     svg: image_icon,
   };
 
+  const LANGUAGEs = {
+    js: "javascript",
+    html: "html",
+    css: "css",
+    py: "python",
+    json: "json",
+    txt: "txt",
+    md: "markdown",
+    java: "java",
+    php: "php",
+    xml: "xml",
+    sql: "database",
+    cpp: "cpp",
+    cs: "csharp",
+    ipynb: "ipynb",
+    csv: "table",
+  };
+
   const [refresh, setRefresh] = useState(false);
   const [fileList, setFileList] = useState(files);
   const [logo_text, setLogoText] = useState("</>");
@@ -137,6 +155,7 @@ const CodeEditor = ({ files }) => {
     );
     for (let i = 0; i < fileList.length; i++) {
       fileList[i].fileType = fileList[i].fileName.split(".").pop();
+      fileList[i].fileLanguage = LANGUAGEs[fileList[i].fileType];
     }
     setRefresh(!refresh);
   }, [fileList]);
@@ -235,6 +254,7 @@ const CodeEditor = ({ files }) => {
           width="100%"
           height="100%"
           defaultLanguage="javascript"
+          language={fileList[onSelectedIndex].fileLanguage}
           theme="vs-dark"
           value={fileList[onSelectedIndex].content}
           automaticLayout={true}
@@ -251,8 +271,8 @@ const CodeEditor = ({ files }) => {
               useShadows: false,
               verticalHasArrows: false,
               horizontalHasArrows: false,
-              verticalScrollbarSize: 4,
-              horizontalScrollbarSize: 4,
+              verticalScrollbarSize: 6,
+              horizontalScrollbarSize: 6,
             },
             readOnly: false,
             overflow: "hidden",

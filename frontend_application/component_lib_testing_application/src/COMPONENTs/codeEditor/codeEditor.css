@@ -53,6 +53,7 @@
   border-radius: 4pt;
 }
 #code_editor_file_container0829 {
+  transition: all 0.2s ease;
   flex: 0 0 auto;
   white-space: nowrap;
   display: inline-block;
@@ -73,6 +74,8 @@
   overflow: hidden;
 }
 #code_editor_file_container_on_selected0830 {
+  transition: all 0.2s ease;
+  
   flex: 0 0 auto;
   white-space: nowrap;
   display: inline-block;

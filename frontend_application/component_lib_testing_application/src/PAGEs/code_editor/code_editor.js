@@ -183,54 +183,469 @@ const CodeEditor = ({ files }) => {
 `,
     },
     {
-      fileName: "index.html",
-      content: `<div id="root"></div>`,
+      fileName: "index.css",
+      content: `#code_editor_container0829 {
+        /*POSITION*/
+        width: 500pt;
+        height: 90%;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      
+        /*STYLE*/
+        border-radius: 12pt;
+        padding: 32pt 18pt 8pt 1pt;
+        box-shadow: 0px 4px 16px 8px rgba(0, 0, 0, 0.2);
+        box-sizing: border-box;
+        background-color: #1e1e1e;
+        user-select: none;
+      }
+      #code_editor_files_container0829 {
+        display: flex;
+        white-space: nowrap;
+      
+        /*POSITION*/
+        position: absolute;
+        top: 3pt;
+        left: 34pt;
+        right: 96pt;
+        padding: 0pt;
+      
+        /*SIZE*/
+        height: 25pt;
+      
+        /*STYLE*/
+      
+        box-sizing: border-box;
+      
+        overflow-x: auto;
+        overflow-y: hidden;
+      }
+      #code_editor_files_container0829::-webkit-scrollbar {
+        height: 2pt;
+      }
+      #code_editor_files_container0829::-webkit-scrollbar-track {
+        background: transparent;
+        border-radius: 4pt;
+      }
+      #code_editor_files_container0829::-webkit-scrollbar-thumb {
+        background: #2f3133;
+        border-radius: 4pt;
+      }
+      #code_editor_files_container0829::-webkit-scrollbar-thumb:hover {
+        background: #494d53;
+        box-shadow: 0px 2px 16px 2px rgba(0, 0, 0, 0.16);
+        border-radius: 4pt;
+      }
+      #code_editor_file_container0829 {
+        transition: all 0.2s ease;
+        flex: 0 0 auto;
+        white-space: nowrap;
+        display: inline-block;
+      
+        /*POSITION*/
+        position: relative;
+        margin: 3pt 0pt 0pt 3pt;
+      
+        /*SIZE*/
+        width: 128pt;
+        height: 19pt;
+      
+        /*STYLE*/
+        border-radius: 4pt;
+        border: #2a2d2e 1pt solid;
+        background-color: #1e1e1e;
+        box-sizing: border-box;
+        overflow: hidden;
+      }
+      #code_editor_file_container_on_selected0830 {
+        transition: all 0.2s ease;
+        
+        flex: 0 0 auto;
+        white-space: nowrap;
+        display: inline-block;
+      
+        /*POSITION*/
+        position: relative;
+        margin: 3pt 0pt 0pt 3pt;
+      
+        /*SIZE*/
+        width: 128pt;
+        height: 19pt;
+      
+        /*STYLE*/
+        border-radius: 4pt;
+        border: #2a2d2e 1pt solid;
+        background-color: #323232;
+        box-shadow: inset 0 0 0 1pt #4d4d4d;
+        box-sizing: border-box;
+        overflow: hidden;
+      }
+      #code_editor_file_container0829:hover {
+        background-color: #2a2d2e;
+      }
+      #code_editor_fileName_container0829 {
+        /*POSITION*/
+        position: absolute;
+        transform: translate(0%, -50%);
+      
+        /*SIZE*/
+        top: 50%;
+        left: 15pt;
+        right: 18pt;
+      
+        /*STYLE*/
+        font-size: 10pt;
+        color: #cccccc;
+        box-sizing: border-box;
+        overflow: hidden;
+      }
+      #code_editor_close_icon0829 {
+        transition: all 0.2s ease;
+      
+        /*POSITION*/
+        position: absolute;
+        transform: translate(0%, -50%);
+        top: 50%;
+        right: 3pt;
+        padding: 3pt;
+      
+        /*SIZE*/
+        height: 13pt;
+        width: 13pt;
+      
+        /*STYLE*/
+        border-radius: 2pt;
+        box-sizing: border-box;
+      }
+      #code_editor_close_icon0829:hover {
+        transition: all 0.2s ease;
+      
+        /*POSITION*/
+        position: absolute;
+        transform: translate(0%, -50%);
+        top: 50%;
+        right: 3pt;
+        padding: 3pt;
+      
+        /*SIZE*/
+        height: 13pt;
+        width: 13pt;
+      
+        /*STYLE*/
+        border-radius: 2pt;
+        background-color: #45494b;
+        box-sizing: border-box;
+      }
+      #code_editor_close_icon_centered0829 {
+        transition: all 0.2s ease;
+      
+        /*POSITION*/
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        padding: 3pt;
+      
+        /*SIZE*/
+        height: 13pt;
+        width: 13pt;
+      
+        /*STYLE*/
+        border-radius: 2pt;
+        box-sizing: border-box;
+      }
+      #code_editor_close_icon_centered0829:hover {
+        transition: all 0.2s ease;
+      
+        /*POSITION*/
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        padding: 3pt;
+      
+        /*SIZE*/
+        height: 13pt;
+        width: 13pt;
+      
+        /*STYLE*/
+        border-radius: 2pt;
+        box-sizing: border-box;
+        background-color: #45494b;
+      }
+      #code_editor_road_map_icon0829 {
+        transition: all 0.2s ease;
+      
+        /*POSITION*/
+        transform: translate(-50%, -50%);
+        position: absolute;
+        top: 16pt;
+        right: 56pt;
+        padding: 5pt;
+      
+        /*SIZE*/
+        height: 13pt;
+        width: 13pt;
+      
+        /*STYLE*/
+        border-radius: 4pt;
+      }
+      #code_editor_road_map_icon0829:hover {
+        transition: all 0.2s ease;
+      
+        /*POSITION*/
+        transform: translate(-50%, -50%);
+        position: absolute;
+        top: 16pt;
+        right: 56pt;
+        padding: 5pt;
+      
+        /*SIZE*/
+        height: 13pt;
+        width: 13pt;
+      
+        /*STYLE*/
+        border-radius: 4pt;
+        background-color: #2a2d2e;
+      }
+      #code_editor_line_numbers_icon0829 {
+        transition: all 0.2s ease;
+      
+        /*POSITION*/
+        transform: translate(-50%, -50%);
+        position: absolute;
+        top: 16pt;
+        left: 18pt;
+        padding: 6pt;
+      
+        /*SIZE*/
+        height: 11pt;
+        width: 11pt;
+      
+        /*STYLE*/
+        border-radius: 6pt;
+      }
+      #code_editor_line_numbers_icon0829:hover {
+        transition: all 0.2s ease;
+      
+        /*POSITION*/
+        transform: translate(-50%, -50%);
+        position: absolute;
+        top: 16pt;
+        left: 18pt;
+        padding: 6pt;
+      
+        /*SIZE*/
+        height: 11pt;
+        width: 11pt;
+      
+        /*STYLE*/
+        border-radius: 6pt;
+        background-color: #2a2d2e;
+      }
+      #code_editor_more_icon0830 {
+        transition: all 0.2s ease;
+      
+        /*POSITION*/
+        transform: translate(-50%, 0%);
+        position: absolute;
+        top: 6pt;
+        right: 38pt;
+        padding: 9pt 5pt 2pt 5pt;
+      
+        /*SIZE*/
+        height: 10pt;
+      
+        /*STYLE*/
+        border-radius: 4pt;
+        background-color: #1e1e1e;
+      }
+      #code_editor_more_icon0830:hover {
+        transition: all 0.2s ease;
+      
+        /*POSITION*/
+        transform: translate(-50%, 0%);
+        position: absolute;
+        top: 6pt;
+        right: 38pt;
+        padding: 9pt 5pt 2pt 5pt;
+      
+        /*SIZE*/
+        height: 10pt;
+      
+        /*STYLE*/
+        border-radius: 4pt;
+        background-color: #2a2d2e;
+      }
+      #code_editor_minus_icon0830 {
+        transition: all 0.2s ease;
+      
+        /*POSITION*/
+        transform: translate(-50%, -50%);
+        position: absolute;
+        top: 16pt;
+        right: 18pt;
+        padding: 5pt;
+      
+        /*SIZE*/
+        height: 10pt;
+      
+        /*STYLE*/
+        border-radius: 12pt;
+        background-color: #1e1e1e;
+      }
+      #code_editor_minus_icon0830:hover {
+        transition: all 0.2s ease;
+      
+        /*POSITION*/
+        transform: translate(-50%, -50%);
+        position: absolute;
+        top: 16pt;
+        right: 18pt;
+        padding: 5pt;
+      
+        /*SIZE*/
+        height: 10pt;
+      
+        /*STYLE*/
+        border-radius: 12pt;
+        background-color: #2a2d2e;
+      }
+      #code_editor_close_window_icon0830 {
+        transition: all 0.2s ease;
+      
+        /*POSITION*/
+        transform: translate(-50%, -50%);
+        position: absolute;
+        top: 16pt;
+        right: -3pt;
+        padding: 5pt;
+      
+        /*SIZE*/
+        height: 10pt;
+      
+        /*STYLE*/
+        border-radius: 12pt;
+        background-color: #1e1e1e;
+      }
+      #code_editor_close_window_icon0830:hover {
+        transition: all 0.2s ease;
+      
+        /*POSITION*/
+        transform: translate(-50%, -50%);
+        position: absolute;
+        top: 16pt;
+        right: -3pt;
+        padding: 5pt;
+      
+        /*SIZE*/
+        height: 10pt;
+      
+        /*STYLE*/
+        border-radius: 12pt;
+        background-color: #2a2d2e;
+      }
+      #code_editor_vertical_scrollbar_detector {
+        /*POSITION*/
+        position: absolute;
+        top: 32pt;
+        right: 0pt;
+        bottom: 0pt;
+        width: 32pt;
+      
+        box-sizing: border-box;
+      
+        /*STYLE*/
+        background-color: #a89a9a;
+        opacity: 0.32;
+        user-select: none;
+      }
+      #code_editor_logo_icon0830 {
+        /*POSITION*/
+        display: flex;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        align-items: center;
+        justify-content: center;
+      
+        /*FONT*/
+        font-size: 128pt;
+        font-family: Koulen;
+        font-weight: 900;
+        color: #111111;
+      
+        /*STYLE*/
+        padding: 4pt 11pt 0pt 11.25pt;
+        border-radius: 8pt;
+        user-select: none;
+      }
+      #code_editor_file_type_icon0830 {
+        transition: all 0.2s ease;
+      
+        /*POSITION*/
+        position: absolute;
+        top: 50%;
+        left: 4pt;
+        transform: translate(0%, -50%);
+      
+        /*SIZE*/
+        width: 10pt;
+      }
+      #code_editor_file_type_centered0830 {
+        transition: all 0.2s ease;
+      
+        /*POSITION*/
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      
+        /*SIZE*/
+        width: 10pt;
+      }`,
     },
     {
-      fileName: "index.css",
-      content: `#root {background-color: red;}`,
-    },
-    {
-      fileName: "index.css",
-      content: `#root {background-color: red;}`,
-    },
-    {
-      fileName: "index.css",
-      content: `#root {background-color: red;}`,
-    },
-    {
-      fileName: "index.css",
-      content: `#root {background-color: red;}`,
-    },
-    {
-      fileName: "index.css",
-      content: `#root {background-color: red;}`,
-    },
-    {
-      fileName: "index.css",
-      content: `#root {background-color: red;}`,
-    },
-    {
-      fileName: "index.css",
-      content: `#root {background-color: red;}`,
-    },
-    {
-      fileName: "index.css",
-      content: `#root {background-color: red;}`,
-    },
-    {
-      fileName: "index.css",
-      content: `#root {background-color: red;}`,
-    },
-    {
-      fileName: "index.css",
-      content: `#root {background-color: red;}`,
-    },
-    {
-      fileName: "index.css",
-      content: `#root {background-color: red;}`,
-    },
+      fileName: "index.py",
+      content: `import random
 
+      def get_compliment(color):
+          """Return a compliment based on the color."""
+          compliments = {
+              "red": ["You have fiery taste!", "A passionate choice!"],
+              "blue": ["You're cooler than a blue moon!", "Such a calming choice!"],
+              "green": ["You must love nature!", "A very earthy choice!"],
+              "yellow": ["Sunshine suits you!", "A bright and cheerful choice!"],
+              "purple": ["A royal choice indeed!", "Mysterious and deep!"],
+          }
+          
+          # Get a random compliment for the given color, or a default one.
+          return random.choice(compliments.get(color, ["That's a unique choice!"]))
+      
+      def main():
+          print("Hello! Let's talk about colors!")
+          
+          # Infinite loop until the user wants to exit.
+          while True:
+              color = input("What's your favorite color? (type 'exit' to quit) ").lower()
+              
+              if color == "exit":
+                  print("Goodbye!")
+                  break
+              
+              print(get_compliment(color))
+      
+      if __name__ == "__main__":
+          main()
+      `,
+    },
+    {
+      fileName: "index.css",
+      content: `#root {background-color: red;}`,
+    },
   ];
 
   return (
