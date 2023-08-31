@@ -202,7 +202,7 @@ const CodeEditor = ({ files }) => {
                 />
                 <img
                   src={ICONs[file.fileType]}
-                  id="code_editor_file_type_icon0830"
+                  id={onSelectedIndex === index ? "code_editor_file_type_icon0830" : "code_editor_file_type_icon_unselected0830"}
                   alt="file type"
                 />
               </div>
@@ -231,7 +231,7 @@ const CodeEditor = ({ files }) => {
                 ) : (
                   <img
                     src={ICONs[file.fileType]}
-                    id="code_editor_file_type_centered0830"
+                    id="code_editor_file_type_centered_unselected0830"
                     alt="file type"
                   />
                 )}
