@@ -151,13 +151,12 @@ const CodeEditor = ({ files }) => {
   }, [filesContainerWidth]);
   useEffect(() => {
     setFileAverageContainerWidth(
-      Math.max(filesContainerWidth / (fileList.length + 2) - 4.5, 21) + "pt"
+      Math.min(Math.max(filesContainerWidth / (fileList.length + 2) - 4.5, 21), 128) + "pt"
     );
     for (let i = 0; i < fileList.length; i++) {
       fileList[i].fileType = fileList[i].fileName.split(".").pop();
       fileList[i].fileLanguage = LANGUAGEs[fileList[i].fileType];
     }
-    setRefresh(!refresh);
   }, [fileList]);
   useEffect(() => {
     setFileList(files);
@@ -193,7 +192,7 @@ const CodeEditor = ({ files }) => {
           >
             <div id="code_editor_fileName_container0829">{file.fileName}</div>
 
-            {filesContainerWidth / (fileList.length + 2) - 4.5 >= 30 ? (
+            {filesContainerWidth / (fileList.length + 2) - 4.5 >= 35 ? (
               <div>
                 <img
                   src={close_file_icon}
@@ -212,13 +211,23 @@ const CodeEditor = ({ files }) => {
                 onMouseEnter={() => setOnHoverIndex(index)}
                 onMouseLeave={() => setOnHoverIndex(-1)}
               >
-                {onHoverIndex === index ? (
-                  <img
-                    src={close_file_icon}
-                    id="code_editor_close_icon_centered0829"
-                    alt="close"
-                    onClick={handleFileCloseIconClick(index)}
-                  />
+                {onSelectedIndex === index ? (
+                  <div>
+                    {onHoverIndex === index ? (
+                      <img
+                        src={close_file_icon}
+                        id="code_editor_close_icon_centered0829"
+                        alt="close"
+                        onClick={handleFileCloseIconClick(index)}
+                      />
+                    ) : (
+                      <img
+                        src={ICONs[file.fileType]}
+                        id="code_editor_file_type_centered0830"
+                        alt="file type"
+                      />
+                    )}
+                  </div>
                 ) : (
                   <img
                     src={ICONs[file.fileType]}
