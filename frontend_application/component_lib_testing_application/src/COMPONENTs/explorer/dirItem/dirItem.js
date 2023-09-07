@@ -357,6 +357,7 @@ const DirItem = ({
       setTimeout(() => {
         setChildrenOnClicked(false);
       }, 40);
+      sortFiles();
     }
   }, [onCommand]);
   const getNewFileDefaultName = () => {
@@ -407,6 +408,7 @@ const DirItem = ({
       setTimeout(() => {
         setChildrenOnClicked(false);
       }, 40);
+      sortFiles();
     }
   }, [onCommand]);
   const getNewFolderDefaultName = () => {
