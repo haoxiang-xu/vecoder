@@ -2,6 +2,8 @@
 
 ## [ About Project ]
 
+[![VSC][vscode-repo-shield]][vscode-repo-url]
+
 ### WebIDE+GPT: The Future of Code Development
 
 <span style="opacity: 0.64">WebIDE+GPT is a state-of-the-art web-based Integrated Development Environment (IDE) that leverages the power of GPT models to assist in coding. By utilizing a vector database, it establishes intricate relationships between files and code segments. This advanced interconnectivity is designed to significantly enhance the efficiency of developers by providing context-aware insights and coding suggestions.</span>
@@ -52,6 +54,8 @@
   - Run Frontend Testing Application `npm start`
   - Heading to the Application `http://localhost:5000/`
 
+[vscode-repo-shield]: https://img.shields.io/badge/Open_With_Visual_Studio_Code-222222?style=for-the-badge&logo=VisualStudioCode&logoColor=FFFFFF&labelColor=007ACC
+[vscode-repo-url]: git-client://clone?repo=https%3A%2F%2Fgithub.com%2Fhaoxiang-xu%2Fvecoder
 [Github-shield]: https://img.shields.io/badge/Github-222222?style=for-the-badge&logo=Github&logoColor=FFFFFF&labelColor=181717
 [Github-url]: https://github.com/
 [Figma-shield]: https://img.shields.io/badge/Figma-222222?style=for-the-badge&logo=Figma&logoColor=000000&labelColor=F24E1E
