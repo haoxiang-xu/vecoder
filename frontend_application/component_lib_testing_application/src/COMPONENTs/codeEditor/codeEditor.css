@@ -67,7 +67,7 @@
 
   /*STYLE*/
   border-radius: 2pt;
-  border: #4d4d4d 1pt solid;
+  border: #4d4d4d 0pt solid;
   background-color: #1e1e1e;
   box-sizing: border-box;
   overflow: hidden;
@@ -89,8 +89,8 @@
 
   /*STYLE*/
   border-radius: 2pt;
-  background-color: #1e1e1e;
-  border: 1pt #cccccc solid;
+  background-color: #4d4d4d;
+  border: 0pt #cccccc solid;
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -147,7 +147,7 @@
 
   /*STYLE*/
   border-radius: 1pt;
-  background-color: #45494b;
+  background-color: #5d5d5d;
   box-sizing: border-box;
 }
 #code_editor_close_icon_centered0829 {
@@ -199,7 +199,7 @@
 
   /*STYLE*/
   border-radius: 4pt;
-  background-color: #2a2d2e;
+  background-color: #4d4d4d;
 }
 #code_editor_line_numbers_icon0829 {
   transition: all 0.2s ease;
@@ -234,7 +234,7 @@
 
   /*STYLE*/
   border-radius: 6pt;
-  background-color: #2a2d2e;
+  background-color: #4d4d4d;
 }
 #code_editor_more_icon0830 {
   transition: all 0.2s ease;
@@ -268,7 +268,7 @@
 
   /*STYLE*/
   border-radius: 4pt;
-  background-color: #2a2d2e;
+  background-color: #4d4d4d;
 }
 #code_editor_minus_icon0830 {
   transition: all 0.2s ease;
@@ -302,7 +302,7 @@
 
   /*STYLE*/
   border-radius: 12pt;
-  background-color: #2a2d2e;
+  background-color: #4d4d4d;
 }
 #code_editor_close_window_icon0830 {
   transition: all 0.2s ease;
@@ -336,7 +336,7 @@
 
   /*STYLE*/
   border-radius: 12pt;
-  background-color: #2a2d2e;
+  background-color: #4d4d4d;
 }
 #code_editor_vertical_scrollbar_detector {
   /*POSITION*/
