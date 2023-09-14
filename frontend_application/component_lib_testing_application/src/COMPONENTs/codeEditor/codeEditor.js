@@ -186,14 +186,19 @@ const CodeEditor = ({ files, setFiles }) => {
                 : "code_editor_file_container0829"
             }
             draggable={true}
-            style={{ width: fileAverageContainerWidth }}
+            style={
+              index === onSelectedIndex
+                ? {}
+                : { width: fileAverageContainerWidth }
+            }
             onClick={() => {
               setOnSelectedIndex(index);
             }}
           >
             <div id="code_editor_fileName_container0829">{file.fileName}</div>
 
-            {filesContainerWidth / (files.length + 2) - 4.5 >= 35 ? (
+            {filesContainerWidth / (files.length + 2) - 4.5 >= 35 ||
+            index === onSelectedIndex ? (
               <div>
                 <img
                   src={close_file_icon}
