@@ -199,7 +199,7 @@
 
   /*STYLE*/
   border-radius: 4pt;
-  background-color: #4d4d4d;
+  background-color: #333333;
 }
 #code_editor_line_numbers_icon0829 {
   transition: all 0.2s ease;
@@ -234,7 +234,7 @@
 
   /*STYLE*/
   border-radius: 6pt;
-  background-color: #4d4d4d;
+  background-color: #333333;
 }
 #code_editor_more_icon0830 {
   transition: all 0.2s ease;
@@ -268,7 +268,7 @@
 
   /*STYLE*/
   border-radius: 4pt;
-  background-color: #4d4d4d;
+  background-color: #333333;
 }
 #code_editor_minus_icon0830 {
   transition: all 0.2s ease;
@@ -302,7 +302,7 @@
 
   /*STYLE*/
   border-radius: 12pt;
-  background-color: #4d4d4d;
+  background-color: #333333;
 }
 #code_editor_close_window_icon0830 {
   transition: all 0.2s ease;
@@ -336,7 +336,7 @@
 
   /*STYLE*/
   border-radius: 12pt;
-  background-color: #4d4d4d;
+  background-color: #333333;
 }
 #code_editor_vertical_scrollbar_detector {
   /*POSITION*/
