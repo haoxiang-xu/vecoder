@@ -20,6 +20,32 @@ const RightClickContextMenu = ({
     });
   };
 
+  const menuRef = useRef(null);
+  const [position, setPosition] = useState({ top: y, left: x });
+
+  useEffect(() => {
+    if (menuRef.current) {
+      const menuWidth = menuRef.current.offsetWidth;
+      const menuHeight = menuRef.current.offsetHeight;
+
+      let newTop = y;
+      let newLeft = x;
+
+      if (y + menuHeight > window.innerHeight) {
+        newTop = window.innerHeight - menuHeight;
+      }
+
+      if (x + menuWidth > window.innerWidth) {
+        newLeft = window.innerWidth - menuWidth;
+      }
+
+      setPosition({
+        top: newTop,
+        left: newLeft,
+      });
+    }
+  }, [x, y]);
+
   if (onRightClickItem !== null) {
     if (
       onRightClickItem.filePath.split("/").length === 1 &&
@@ -237,7 +263,8 @@ const RightClickContextMenu = ({
       {onRightClickItem !== null ? (
         <div
           id="rightClickContextMenu_component_container0802"
-          style={{ top: y, left: x }}
+          ref={menuRef}
+          style={position}
         >
           {contextItems}
         </div>
