@@ -32,7 +32,7 @@ import settings_icon from "./ICONs/FILETYPE_ICONs/settings.png";
 import ipynb_icon from "./ICONs/FILETYPE_ICONs/ipynb.png";
 import table_icon from "./ICONs/FILETYPE_ICONs/table.png";
 
-const CodeEditor = ({ files }) => {
+const CodeEditor = ({ files, setFiles }) => {
   const ICONs = {
     js: javascript_icon,
     html: html_icon,
@@ -79,7 +79,6 @@ const CodeEditor = ({ files }) => {
   };
 
   const [refresh, setRefresh] = useState(false);
-  const [fileList, setFileList] = useState(files);
   const [logo_text, setLogoText] = useState("</>");
   const [roadMapVisible, setRoadMapVisible] = useState(false);
   const [lineNumbersVisible, setLineNumbersVisible] = useState("off");
@@ -125,9 +124,9 @@ const CodeEditor = ({ files }) => {
     }
   };
   const handleFileCloseIconClick = (index) => () => {
-    const newFileList = [...fileList];
+    const newFileList = [...files];
     newFileList.splice(index, 1);
-    setFileList(newFileList);
+    setFiles(newFileList);
   };
 
   useEffect(() => {
@@ -146,20 +145,22 @@ const CodeEditor = ({ files }) => {
 
   useEffect(() => {
     setFileAverageContainerWidth(
-      Math.max(filesContainerWidth / (fileList.length + 2) - 4.5, 21) + "pt"
+      Math.max(filesContainerWidth / (files.length + 2) - 4.5, 21) + "pt"
     );
   }, [filesContainerWidth]);
   useEffect(() => {
     setFileAverageContainerWidth(
-      Math.min(Math.max(filesContainerWidth / (fileList.length + 2) - 4.5, 21), 128) + "pt"
+      Math.min(
+        Math.max(filesContainerWidth / (files.length + 2) - 4.5, 21),
+        128
+      ) + "pt"
     );
-    for (let i = 0; i < fileList.length; i++) {
-      fileList[i].fileType = fileList[i].fileName.split(".").pop();
-      fileList[i].fileLanguage = LANGUAGEs[fileList[i].fileType];
+    for (let i = 0; i < files.length; i++) {
+      files[i].fileType = files[i].fileName.split(".").pop();
+      files[i].fileLanguage = LANGUAGEs[files[i].fileType];
     }
-  }, [fileList]);
-  useEffect(() => {
-    setFileList(files);
+
+    setRefresh(!refresh);
   }, [files]);
 
   return (
@@ -176,7 +177,7 @@ const CodeEditor = ({ files }) => {
         rel="stylesheet"
       ></link>
       <div id="code_editor_files_container0829" ref={filesContainerRef}>
-        {fileList.map((file, index) => (
+        {files.map((file, index) => (
           <div
             key={index}
             id={
@@ -192,7 +193,7 @@ const CodeEditor = ({ files }) => {
           >
             <div id="code_editor_fileName_container0829">{file.fileName}</div>
 
-            {filesContainerWidth / (fileList.length + 2) - 4.5 >= 35 ? (
+            {filesContainerWidth / (files.length + 2) - 4.5 >= 35 ? (
               <div>
                 <img
                   src={close_file_icon}
@@ -202,7 +203,11 @@ const CodeEditor = ({ files }) => {
                 />
                 <img
                   src={ICONs[file.fileType]}
-                  id={onSelectedIndex === index ? "code_editor_file_type_icon0830" : "code_editor_file_type_icon_unselected0830"}
+                  id={
+                    onSelectedIndex === index
+                      ? "code_editor_file_type_icon0830"
+                      : "code_editor_file_type_icon_unselected0830"
+                  }
                   alt="file type"
                 />
               </div>
@@ -255,7 +260,7 @@ const CodeEditor = ({ files }) => {
       <img src={close_icon} id="code_editor_close_window_icon0830" />
       <img src={more_icon} id="code_editor_more_icon0830" />
 
-      {fileList[onSelectedIndex] ? (
+      {files[onSelectedIndex] ? (
         <MonacoEditor
           top="0px"
           left="0px"
@@ -263,9 +268,9 @@ const CodeEditor = ({ files }) => {
           width="100%"
           height="100%"
           defaultLanguage="javascript"
-          language={fileList[onSelectedIndex].fileLanguage}
+          language={files[onSelectedIndex].fileLanguage}
           theme="vs-dark"
-          value={fileList[onSelectedIndex].content}
+          value={files[onSelectedIndex].content}
           automaticLayout={true}
           options={{
             minimap: {

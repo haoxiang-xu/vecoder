@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import CodeEditor from "../../COMPONENTs/codeEditor/codeEditor";
 import axios from "axios";
 
 const CodeEditorPage = () => {
-  const files = [
+  const raw_files = [
     {
       fileName: "index.js",
       content: `
@@ -1310,9 +1310,11 @@ const CodeEditor = ({ files }) => {
     },
   ];
 
+  const [files, setFiles] = useState(raw_files);
+
   return (
     <div id="app_page_container0803">
-      <CodeEditor files={files} />
+      <CodeEditor files={files} setFiles={setFiles} />
     </div>
   );
 };
