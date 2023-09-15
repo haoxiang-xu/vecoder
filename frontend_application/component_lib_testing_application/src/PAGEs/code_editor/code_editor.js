@@ -1308,6 +1308,18 @@ const CodeEditor = ({ files }) => {
       fileName: "index.css",
       content: `#root {background-color: red;}`,
     },
+    {
+      fileName: "index.css",
+      content: `#root {background-color: red;}`,
+    },
+    {
+      fileName: "index.css",
+      content: `#root {background-color: red;}`,
+    },
+    {
+      fileName: "index.css",
+      content: `#root {background-color: red;}`,
+    },
   ];
 
   const [files, setFiles] = useState(raw_files);

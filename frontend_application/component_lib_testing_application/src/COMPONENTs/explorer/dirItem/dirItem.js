@@ -748,6 +748,7 @@ const DirItem = ({
                   src={fileIcon !== undefined ? fileIcon : ""}
                   id="dir_item_component_script_icon0725"
                   loading="lazy"
+                  draggable={"false"}
                 ></img>
               ) : (
                 <div></div>

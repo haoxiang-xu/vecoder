@@ -59,7 +59,6 @@ const CodeEditor = ({ files, setFiles }) => {
     csv: table_icon,
     svg: image_icon,
   };
-
   const LANGUAGEs = {
     js: "javascript",
     html: "html",
@@ -91,7 +90,10 @@ const CodeEditor = ({ files, setFiles }) => {
   const [fileAverageContainerWidth, setFileAverageContainerWidth] = useState(0);
 
   const [onSelectedIndex, setOnSelectedIndex] = useState(0);
+  const [onDragIndex, setOnDragIndex] = useState(-1);
+  const [onDropIndex, setOnDropIndex] = useState(-1);
   const [onHoverIndex, setOnHoverIndex] = useState(-1);
+  const [onSwapIndex, setOnSwapIndex] = useState(-1);
 
   const handleRoadMapIconClick = () => {
     setRoadMapVisible(!roadMapVisible);
@@ -128,7 +130,40 @@ const CodeEditor = ({ files, setFiles }) => {
     newFileList.splice(index, 1);
     setFiles(newFileList);
   };
+  const handleFileOnDragStart = (e, index) => {
+    //e.preventDefault();
+    setOnSelectedIndex(index);
+    setOnDragIndex(index);
+  };
+  const handleFileOnDragEnd = (e) => {
+    //e.preventDefault();
+    if (onDropIndex !== -1) {
+      const newFileList = [...files];
+      const dragFile = newFileList.splice(onDragIndex, 1)[0];
+      newFileList.splice(onDropIndex, 0, dragFile);
+      setFiles(newFileList);
+      setOnSelectedIndex(onDropIndex);
+    }
+    setOnDragIndex(-1);
+    setOnDropIndex(-1);
+    setOnSwapIndex(-1);
+  };
+  const handleOnDragOver = (e) => {
+    e.preventDefault();
+    //get drag file index
+    const dragIndex = onDragIndex;
+    //get drop file after index
+    const dropIndex = [...filesContainerRef.current.children].indexOf(
+      e.target.closest("#code_editor_file_container0829")
+    );
 
+    if (dropIndex !== onDropIndex && dropIndex !== -1) {
+      setOnDropIndex(dropIndex);
+    }
+  };
+  useEffect(() => {
+    setOnSwapIndex(onDropIndex);
+  }, [onDropIndex]);
   useEffect(() => {
     function handleResize() {
       if (filesContainerRef.current) {
@@ -142,7 +177,6 @@ const CodeEditor = ({ files, setFiles }) => {
     handleResize();
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
   useEffect(() => {
     setFileAverageContainerWidth(
       Math.max(filesContainerWidth / (files.length + 2) - 4.5, 21) + "pt"
@@ -176,7 +210,16 @@ const CodeEditor = ({ files, setFiles }) => {
         href="https://fonts.googleapis.com/css?family=Koulen"
         rel="stylesheet"
       ></link>
-      <div id="code_editor_files_container0829" ref={filesContainerRef}>
+      <div
+        id="code_editor_files_container0829"
+        ref={filesContainerRef}
+        onDragOver={(e) => {
+          handleOnDragOver(e);
+        }}
+        onDragLeave={(e) => {
+          setOnDropIndex(-1);
+        }}
+      >
         {files.map((file, index) => (
           <div
             key={index}
@@ -188,11 +231,24 @@ const CodeEditor = ({ files, setFiles }) => {
             draggable={true}
             style={
               index === onSelectedIndex
-                ? {}
+                ? index === onDragIndex
+                  ? { width: fileAverageContainerWidth }
+                  : {}
+                : index === onSwapIndex
+                ? {
+                    width: fileAverageContainerWidth,
+                    backgroundColor: "#7d7d7d",
+                  }
                 : { width: fileAverageContainerWidth }
             }
             onClick={() => {
               setOnSelectedIndex(index);
+            }}
+            onDragStart={(e) => {
+              handleFileOnDragStart(e, index);
+            }}
+            onDragEnd={() => {
+              handleFileOnDragEnd();
             }}
           >
             <div id="code_editor_fileName_container0829">{file.fileName}</div>
@@ -200,12 +256,17 @@ const CodeEditor = ({ files, setFiles }) => {
             {filesContainerWidth / (files.length + 2) - 4.5 >= 35 ||
             index === onSelectedIndex ? (
               <div>
-                <img
-                  src={close_file_icon}
-                  id="code_editor_close_icon0829"
-                  alt="close"
-                  onClick={handleFileCloseIconClick(index)}
-                />
+                {index === onDragIndex ? (
+                  <div></div>
+                ) : (
+                  <img
+                    src={close_file_icon}
+                    id="code_editor_close_icon0829"
+                    alt="close"
+                    onClick={handleFileCloseIconClick(index)}
+                    draggable={false}
+                  />
+                )}
                 <img
                   src={ICONs[file.fileType]}
                   id={
@@ -213,6 +274,7 @@ const CodeEditor = ({ files, setFiles }) => {
                       ? "code_editor_file_type_icon0830"
                       : "code_editor_file_type_icon_unselected0830"
                   }
+                  draggable={false}
                   alt="file type"
                 />
               </div>

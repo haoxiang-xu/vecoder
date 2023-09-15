@@ -94,8 +94,30 @@
   box-sizing: border-box;
   overflow: hidden;
 }
+#code_editor_file_container_on_selected0830:active {
+  transition: all 0.1s ease;
+
+  flex: 0 0 auto;
+  white-space: nowrap;
+  display: inline-block;
+
+  /*POSITION*/
+  position: relative;
+  margin: 3pt 0pt 0pt 3pt;
+
+  /*SIZE*/
+  width: 128pt;
+  height: 19pt;
+
+  /*STYLE*/
+  border-radius: 2pt;
+  background-color: #7d7d7d;
+  border: 0pt #cccccc solid;
+  box-sizing: border-box;
+  overflow: hidden;
+}
 #code_editor_file_container0829:hover {
-  background-color: #2a2d2e;
+  background-color: #424242;
 }
 #code_editor_fileName_container0829 {
   /*POSITION*/
@@ -147,7 +169,7 @@
 
   /*STYLE*/
   border-radius: 1pt;
-  background-color: #5d5d5d;
+  background-color: #7d7d7d;
   box-sizing: border-box;
 }
 #code_editor_close_icon_centered0829 {
@@ -387,6 +409,7 @@
   width: 13pt;
 
   /*STYLE*/
+  user-select: none;
 }
 #code_editor_file_type_icon_unselected0830 {
   transition: all 0.2s ease;
