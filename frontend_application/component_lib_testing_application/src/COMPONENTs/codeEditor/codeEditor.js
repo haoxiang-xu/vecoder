@@ -132,11 +132,15 @@ const CodeEditor = ({ files, setFiles }) => {
   };
   const handleFileOnDragStart = (e, index) => {
     //e.preventDefault();
+    e.target.style.opacity = 0.1;
+
     setOnSelectedIndex(index);
     setOnDragIndex(index);
   };
   const handleFileOnDragEnd = (e) => {
     //e.preventDefault();
+    e.target.style.opacity = 1;
+
     if (onDropIndex !== -1) {
       const newFileList = [...files];
       const dragFile = newFileList.splice(onDragIndex, 1)[0];
@@ -247,8 +251,8 @@ const CodeEditor = ({ files, setFiles }) => {
             onDragStart={(e) => {
               handleFileOnDragStart(e, index);
             }}
-            onDragEnd={() => {
-              handleFileOnDragEnd();
+            onDragEnd={(e) => {
+              handleFileOnDragEnd(e);
             }}
           >
             <div id="code_editor_fileName_container0829">{file.fileName}</div>
