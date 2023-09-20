@@ -2,6 +2,8 @@
 
 ## [ About Project ]
 
+https://github.com/haoxiang-xu/vecoder/assets/59581718/d5867fd2-9d87-4e4b-9795-ff352ee5fd87
+
 [![VSC][vscode-repo-shield]][vscode-repo-url]
 
 ### WebIDE+GPT: The Future of Code Development
