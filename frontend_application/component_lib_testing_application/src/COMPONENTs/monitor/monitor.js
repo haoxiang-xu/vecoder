@@ -263,6 +263,13 @@ const Monitor = ({
           onMouseDown={() => {
             setOnResize(true);
           }}
+          style={explorerTop==0?{
+            borderRadius:"0px",
+            top:"0px",
+            bottom:"0px"
+          }:{
+            borderRadius:"4px"
+          }}
         ></div>
       </div>
     </div>
