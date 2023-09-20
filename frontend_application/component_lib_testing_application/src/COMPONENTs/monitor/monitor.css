@@ -8,7 +8,7 @@
 
   /*SIZE*/
   width: 100%;
-  min-width: 200pt;
+  min-width: 207.5pt;
   height: 100%;
 
   /*STYLE*/
@@ -37,12 +37,12 @@
 
   /*POSITION*/
   position: absolute;
-  top: 0pt;
-  bottom: 0pt;
-  right: 58pt;
+  top: 1pt;
+  bottom: 1pt;
+  right: 59pt;
 
   /*SIZE*/
-  width: 5pt;
+  width: 3pt;
 
   /*STYLE*/
   background-color: #1f1f1f;
@@ -55,12 +55,12 @@
 
   /*POSITION*/
   position: absolute;
-  top: 0pt;
-  bottom: 0pt;
-  right: 58pt;
+  top: 1pt;
+  bottom: 1pt;
+  right: 57pt;
 
   /*SIZE*/
-  width: 5pt;
+  width: 7pt;
 
   /*STYLE*/
   background-color: #2e2e2e;
@@ -75,10 +75,10 @@
   position: absolute;
   top: 0pt;
   bottom: 0pt;
-  right: 58pt;
+  right: 57pt;
 
   /*SIZE*/
-  width: 5pt;
+  width: 7pt;
 
   /*STYLE*/
   background-color: #0d66ac;

@@ -36,7 +36,6 @@ const Explorer = ({
         const explorerBottom = explorerRect.bottom;
         setExplorerTop(explorerTop);
         setExplorerBottom(window.innerHeight - explorerBottom);
-
       }
     };
     handleResize();
@@ -54,6 +53,18 @@ const Explorer = ({
     }
   }, [startOnClick]);
 
+  //SCROLLABLE
+  const [scrollable, setScrollable] = useState(false);
+  useEffect(() => {
+    if (explorerContainerRef.current) {
+      if (explorerContainerRef.current.offsetWidth > 16) {
+        setScrollable(true);
+      } else {
+        setScrollable(false);
+      }
+    }
+  }, [explorerContainerRef.current?.offsetWidth]);
+
   return (
     <div>
       <div
@@ -62,6 +73,9 @@ const Explorer = ({
             ? "dir_list_component_container_expanded0725"
             : explorerContainerId
         }
+        style={{
+          overflowY: scrollable ? "scroll" : "hidden",
+        }}
         ref={explorerContainerRef}
       >
         <DirItem
