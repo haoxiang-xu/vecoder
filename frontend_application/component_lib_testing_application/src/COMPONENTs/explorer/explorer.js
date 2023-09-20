@@ -9,6 +9,7 @@ const Explorer = ({
   setExplorerTop,
   onRightClickItem,
   setOnRightClickItem,
+  setExplorerBottom,
   rightClickCommand,
   setRightClickCommand,
   refeshKey,
@@ -32,7 +33,10 @@ const Explorer = ({
         const explorerRect =
           explorerContainerRef.current.getBoundingClientRect();
         const explorerTop = explorerRect.top;
+        const explorerBottom = explorerRect.bottom;
         setExplorerTop(explorerTop);
+        setExplorerBottom(window.innerHeight - explorerBottom);
+
       }
     };
     handleResize();

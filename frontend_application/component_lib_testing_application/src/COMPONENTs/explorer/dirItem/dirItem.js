@@ -222,7 +222,7 @@ const DirItem = ({
   //SINGLE CLICK
   const handleOnLeftClick = (event) => {
     if (event.shiftKey) {
-      console.log("shift");
+      console.log("shift from file: " + file.fileName);
     } else {
       setOnSingleClickFile(file);
     }

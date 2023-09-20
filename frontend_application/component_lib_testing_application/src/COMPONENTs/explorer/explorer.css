@@ -7,7 +7,7 @@
   left: 50%;
   right: 0pt;
   transform: translate(0%, -50%);
-  margin: 0pt 16pt 0pt 38pt;
+  margin: 0pt 64pt 0pt 38pt;
   padding: 8pt 2.5pt 8pt 8pt;
 
   /*SIZE*/
@@ -34,7 +34,7 @@
   left: 50%;
   right: 0pt;
   transform: translate(0%, -50%);
-  margin: 0pt 16pt 0pt 38pt;
+  margin: 0pt 64pt 0pt 38pt;
   padding: 8pt 2.5pt 8pt 8pt;
 
   /*SIZE*/
@@ -46,7 +46,6 @@
   overflow-y: scroll;
   overflow-x: hidden;
 
-
   border-radius: 8pt;
 
   animation-timing-function: linear;
@@ -54,15 +53,15 @@
 }
 @keyframes dir_list_component_container_appear_animation {
   0% {
-    margin: 0pt 16pt 0pt 32pt;
+    margin: 0pt 64pt 0pt 32pt;
     opacity: 0;
   }
   80% {
-    margin: 0pt 16pt 0pt 32pt;
+    margin: 0pt 64pt 0pt 32pt;
     opacity: 0;
   }
   100% {
-    margin: 0pt 16pt 0pt 38pt;
+    margin: 0pt 64pt 0pt 38pt;
     opacity: 1;
   }
 }

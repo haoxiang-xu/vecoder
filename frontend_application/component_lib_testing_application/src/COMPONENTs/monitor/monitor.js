@@ -156,6 +156,7 @@ const Monitor = ({
   };
   const [startOnClick, setStartOnClick] = useState(false);
   const [explorerTop, setExplorerTop] = useState(-1);
+  const [explorerBottom, setExplorerBottom] = useState(-1);
   const [files, setFiles] = useState(raw_files);
   const [refeshKey, setRefeshKey] = useState(0);
 
@@ -172,8 +173,53 @@ const Monitor = ({
     setRefeshKey(refeshKey + 1);
   };
 
+  // RESIZER
+  const monitorContainerRef = useRef(null);
+  const [width, setWidth] = useState("512pt");
+  const [resizerStartX, setResizerStartX] = useState(0);
+  const [resizerEndX, setResizerEndX] = useState(0);
+  const [onResize, setOnResize] = useState(false);
+  const resizerOnDrag = (e) => {
+    setResizerEndX(e.clientX);
+  };
+  const resizerOnClick = (e) => {
+    setResizerStartX(e.clientX);
+  };
+  const resizerOnRelease = (e) => {
+    setResizerStartX(e.clientX);
+    setOnResize(false);
+  };
+  useEffect(() => {
+    if (onResize) {
+      setWidth(
+        Math.min(
+          window.innerWidth,
+          monitorContainerRef.current.offsetWidth +
+            2 * (resizerEndX - resizerStartX)
+        ) + "px"
+      );
+      setResizerStartX(resizerEndX);
+    }
+  }, [resizerEndX, resizerStartX]);
+
   return (
-    <div id="monitor_component_container0728">
+    <div
+      id="monitor_component_container0728"
+      ref={monitorContainerRef}
+      style={{ width: width }}
+      onMouseUp={(e) => {
+        resizerOnRelease(e);
+      }}
+      onMouseLeave={(e) => {
+        resizerOnRelease(e);
+      }}
+      onMouseDown={(e) => {
+        resizerOnClick(e);
+      }}
+      onMouseMove={(e) => {
+        resizerOnDrag(e);
+      }}
+    >
       <StartIcon
         startOnClick={startOnClick}
         setStartOnClick={setStartOnClick}
@@ -185,6 +231,7 @@ const Monitor = ({
           files={files}
           startOnClick={startOnClick}
           setExplorerTop={setExplorerTop}
+          setExplorerBottom={setExplorerBottom}
           onRightClickItem={onRightClickItem}
           setOnRightClickItem={setOnRightClickItem}
           rightClickCommand={rightClickCommand}
@@ -195,6 +242,29 @@ const Monitor = ({
       ) : (
         <div></div>
       )}
+      <div
+        id="monitor_component_resizer0919"
+        style={
+          explorerTop != -1 && explorerBottom != -1
+            ? {
+                top: explorerTop + "px",
+                bottom: explorerBottom + "px",
+              }
+            : {
+                height: "0px",
+              }
+        }
+        onMouseUp={(e) => {
+          resizerOnRelease(e);
+        }}
+      >
+        <div
+          id="monitor_component_visual_resizer0919"
+          onMouseDown={() => {
+            setOnResize(true);
+          }}
+        ></div>
+      </div>
     </div>
   );
 };
