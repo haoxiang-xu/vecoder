@@ -1,8 +1,7 @@
 # VECODER
 
 ## [ About Project ]
-
-https://github.com/haoxiang-xu/vecoder/assets/59581718/d5867fd2-9d87-4e4b-9795-ff352ee5fd87
+![Screenshot 2023-09-20 115220](https://github.com/haoxiang-xu/vecoder/assets/59581718/a18b72b4-bfea-4c3c-96ae-0fa66460ca03)
 
 [![VSC][vscode-repo-shield]][vscode-repo-url]
 
