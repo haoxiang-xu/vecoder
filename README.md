@@ -1,7 +1,6 @@
 # VECODER
 
 ## [ About Project ]
-[![VSC][vscode-repo-shield]][vscode-repo-url]
 
 ### WebIDE+GPT:
 
