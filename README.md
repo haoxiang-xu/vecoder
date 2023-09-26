@@ -6,7 +6,7 @@
 
 <span style="opacity: 0.64">WebIDE+GPT is a state-of-the-art web-based Integrated Development Environment (IDE) that leverages the power of GPT models to assist in coding. By utilizing a vector database, it establishes intricate relationships between files and code segments. This advanced interconnectivity is designed to significantly enhance the efficiency of developers by providing context-aware insights and coding suggestions.</span>
 
-![UIOverView](https://github.com/haoxiang-xu/vecoder/assets/59581718/71404e03-3f69-4abc-95d8-da3b283c7498)
+![UI](https://github.com/haoxiang-xu/vecoder/assets/59581718/99afb87b-610f-48f2-b547-00e5e4605e55)
 
 ### Built with
 
