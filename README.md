@@ -1,6 +1,6 @@
 # VECODER
 
-## [ About Project ]
+## [ About the Project ]
 
 ### WebIDE+GPT:
 
