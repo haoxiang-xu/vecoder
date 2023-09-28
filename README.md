@@ -1,13 +1,12 @@
 # VECODER
 
-## [ About Project ]
-[![VSC][vscode-repo-shield]][vscode-repo-url]
+## [ About the Project ]
 
 ### WebIDE+GPT:
 
 <span style="opacity: 0.64">WebIDE+GPT is a state-of-the-art web-based Integrated Development Environment (IDE) that leverages the power of GPT models to assist in coding. By utilizing a vector database, it establishes intricate relationships between files and code segments. This advanced interconnectivity is designed to significantly enhance the efficiency of developers by providing context-aware insights and coding suggestions.</span>
 
-![UI-Overview](https://github.com/haoxiang-xu/vecoder/assets/59581718/a18b72b4-bfea-4c3c-96ae-0fa66460ca03)
+![UI](https://github.com/haoxiang-xu/vecoder/assets/59581718/99afb87b-610f-48f2-b547-00e5e4605e55)
 
 ### Built with
 
