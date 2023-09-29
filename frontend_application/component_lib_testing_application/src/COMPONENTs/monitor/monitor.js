@@ -175,7 +175,7 @@ const Monitor = ({
 
   // RESIZER
   const monitorContainerRef = useRef(null);
-  const [width, setWidth] = useState(window.innerWidth + "px");
+  const [width, setWidth] = useState(Math.min(750, window.innerWidth) + "px");
   const [resizerStartX, setResizerStartX] = useState(0);
   const [resizerEndX, setResizerEndX] = useState(0);
   const [onResize, setOnResize] = useState(false);
