@@ -9,4 +9,6 @@ backend_service/file_service/node_modules/**/*
 */node_modules/*
 **/node_modules/*
 
-backend_service/file_service/.env
+backend_services/file_service/.env
+backend_services/code_services/codeServicesEnv
+backend_services/code_services/models
