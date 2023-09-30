@@ -3,12 +3,12 @@ import React, { useState, useEffect, useRef } from "react";
 import "./rightClickContextMenu.css";
 
 import ContextItem from "./contextItem/contextItem";
-import { all } from "axios";
 
 const RightClickContextMenu = ({
   x,
   y,
   onRightClickItem,
+  setOnRightClickItem,
   setRightClickCommand,
   copyFile,
 }) => {
@@ -21,6 +21,7 @@ const RightClickContextMenu = ({
     });
   };
 
+  const [refresh, setRefresh] = useState(true); //this is to refresh the component when window size changes
   const menuRef = useRef(null);
   const [menuStyle, setMenuStyle] = useState(
     "rightClickContextMenu_component_container0802"
@@ -104,11 +105,6 @@ const RightClickContextMenu = ({
           item_function={"unpaste"}
           progressRightClickCommand={progressRightClickCommand}
         />,
-        <ContextItem
-          key={"duplicate"}
-          item_function={"duplicate"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
       ];
     } else if (
       onRightClickItem.filePath.split("/").length === 1 &&
@@ -141,11 +137,6 @@ const RightClickContextMenu = ({
           progressRightClickCommand={progressRightClickCommand}
           pasteFileName={copyFile.fileName}
         />,
-        <ContextItem
-          key={"duplicate"}
-          item_function={"duplicate"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
       ];
     } else if (onRightClickItem.fileType === "folder" && copyFile === null) {
       contextItems = [
@@ -177,11 +168,6 @@ const RightClickContextMenu = ({
         <ContextItem
           key={"paste"}
           item_function={"unpaste"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
-          key={"duplicate"}
-          item_function={"duplicate"}
           progressRightClickCommand={progressRightClickCommand}
         />,
         <ContextItem
@@ -234,11 +220,6 @@ const RightClickContextMenu = ({
           pasteFileName={copyFile.fileName}
         />,
         <ContextItem
-          key={"duplicate"}
-          item_function={"duplicate"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
           key={"hr2"}
           item_function={"hr"}
           progressRightClickCommand={progressRightClickCommand}
@@ -259,11 +240,6 @@ const RightClickContextMenu = ({
         <ContextItem
           key={"copy"}
           item_function={"copy"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
-          key={"duplicate"}
-          item_function={"duplicate"}
           progressRightClickCommand={progressRightClickCommand}
         />,
         <ContextItem
