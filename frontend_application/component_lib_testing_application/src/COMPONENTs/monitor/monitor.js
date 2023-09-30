@@ -230,6 +230,7 @@ const Monitor = ({
         setStartOnClick={setStartOnClick}
         explorerTop={explorerTop}
         getFilesFromDatabase={getFilesFromDatabase}
+        setOnRightClickItem={setOnRightClickItem}
       />
       {startOnClick ? (
         <Explorer

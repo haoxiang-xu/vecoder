@@ -7,6 +7,7 @@ const StartIcon = ({
   setStartOnClick,
   explorerTop,
   getFilesFromDatabase,
+  setOnRightClickItem
 }) => {
   const title_list = [
     "VECODER",

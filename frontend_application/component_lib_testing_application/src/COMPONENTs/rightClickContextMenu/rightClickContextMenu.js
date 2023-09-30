@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./rightClickContextMenu.css";
 
 import ContextItem from "./contextItem/contextItem";
+import { all } from "axios";
 
 const RightClickContextMenu = ({
   x,
@@ -21,29 +22,55 @@ const RightClickContextMenu = ({
   };
 
   const menuRef = useRef(null);
+  const [menuStyle, setMenuStyle] = useState(
+    "rightClickContextMenu_component_container0802"
+  );
   const [position, setPosition] = useState({ top: y, left: x });
 
   useEffect(() => {
-    if (menuRef.current) {
-      const menuWidth = menuRef.current.offsetWidth;
-      const menuHeight = menuRef.current.offsetHeight;
+    const setMenuPosition = (transitionTime) => {
+      if (menuRef.current) {
+        const menuWidth = menuRef.current.offsetWidth;
+        const menuHeight = menuRef.current.offsetHeight;
 
-      let newTop = y;
-      let newLeft = x;
+        let newTop = y;
+        let newLeft = x;
 
-      if (y + menuHeight > window.innerHeight) {
-        newTop = window.innerHeight - menuHeight;
+        setMenuStyle("rightClickContextMenu_component_container0802");
+
+        if (y + menuHeight > window.innerHeight) {
+          newTop = newTop - menuHeight;
+          setMenuStyle(
+            "rightClickContextMenu_component_container_leftbottom0930"
+          );
+        }
+
+        if (x + menuWidth > window.innerWidth) {
+          newLeft = newLeft - menuWidth;
+          setMenuStyle("rightClickContextMenu_component_container_rigttop0930");
+        }
+
+        if (
+          y + menuHeight > window.innerHeight &&
+          x + menuWidth > window.innerWidth
+        ) {
+          setMenuStyle(
+            "rightClickContextMenu_component_container_rightbottom0930"
+          );
+        }
+
+        setPosition({
+          top: newTop,
+          left: newLeft,
+          transition: "all " + transitionTime + "s ease",
+        });
       }
+    };
 
-      if (x + menuWidth > window.innerWidth) {
-        newLeft = window.innerWidth - menuWidth;
-      }
-
-      setPosition({
-        top: newTop,
-        left: newLeft,
-      });
-    }
+    setMenuPosition(0.0);
+    setTimeout(() => {
+      setMenuPosition(0.08);
+    }, 80);
   }, [x, y]);
 
   if (onRightClickItem !== null) {
@@ -261,11 +288,7 @@ const RightClickContextMenu = ({
   return (
     <div>
       {onRightClickItem !== null ? (
-        <div
-          id="rightClickContextMenu_component_container0802"
-          ref={menuRef}
-          style={position}
-        >
+        <div id={menuStyle} ref={menuRef} style={position}>
           {contextItems}
         </div>
       ) : (
