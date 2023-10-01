@@ -186,13 +186,22 @@ const Monitor = ({
     try {
       const response = await axios.post("http://localhost:8000/getFiles/all");
       forceExplorerRefresh();
-      setFiles(response.data[0]);
+      if (response.data[0] !== undefined) {
+        setFiles(setAllFilesToUnexpanded(response.data[0]));
+      }
     } catch (err) {
       console.error("[ERROR]: " + err);
     }
   };
   const forceExplorerRefresh = () => {
     setRefeshKey(refeshKey + 1);
+  };
+  const setAllFilesToUnexpanded = (files) => {
+    files.expanded = false;
+    for (let i = 0; i < files.files.length; i++) {
+      files.files[i] = setAllFilesToUnexpanded(files.files[i]);
+    }
+    return files;
   };
 
   // RESIZER
