@@ -194,8 +194,8 @@ const CodeEditor = ({ files, setFiles }) => {
       ) + "pt"
     );
     for (let i = 0; i < files.length; i++) {
-      files[i].fileType = files[i].fileName.split(".").pop();
-      files[i].fileLanguage = LANGUAGEs[files[i].fileType];
+      files[i].file_type = files[i].file_name?.split(".").pop();
+      files[i].file_language = LANGUAGEs[files[i].file_type];
     }
 
     setRefresh(!refresh);
@@ -255,7 +255,7 @@ const CodeEditor = ({ files, setFiles }) => {
               handleFileOnDragEnd(e);
             }}
           >
-            <div id="code_editor_fileName_container0829">{file.fileName}</div>
+            <div id="code_editor_fileName_container0829">{file.file_name}</div>
 
             {filesContainerWidth / (files.length + 2) - 4.5 >= 35 ||
             index === onSelectedIndex ? (
@@ -272,7 +272,7 @@ const CodeEditor = ({ files, setFiles }) => {
                   />
                 )}
                 <img
-                  src={ICONs[file.fileType]}
+                  src={ICONs[file.file_type]}
                   id={
                     onSelectedIndex === index
                       ? "code_editor_file_type_icon0830"
@@ -298,7 +298,7 @@ const CodeEditor = ({ files, setFiles }) => {
                       />
                     ) : (
                       <img
-                        src={ICONs[file.fileType]}
+                        src={ICONs[file.file_type]}
                         id="code_editor_file_type_centered0830"
                         alt="file type"
                       />
@@ -306,7 +306,7 @@ const CodeEditor = ({ files, setFiles }) => {
                   </div>
                 ) : (
                   <img
-                    src={ICONs[file.fileType]}
+                    src={ICONs[file.file_type]}
                     id="code_editor_file_type_centered_unselected0830"
                     alt="file type"
                   />
@@ -339,9 +339,9 @@ const CodeEditor = ({ files, setFiles }) => {
           width="100%"
           height="100%"
           defaultLanguage="javascript"
-          language={files[onSelectedIndex].fileLanguage}
+          language={files[onSelectedIndex].file_language}
           theme="vs-dark"
-          value={files[onSelectedIndex].content}
+          value={files[onSelectedIndex].file_content}
           automaticLayout={true}
           options={{
             minimap: {

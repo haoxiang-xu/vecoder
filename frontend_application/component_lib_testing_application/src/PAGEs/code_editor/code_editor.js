@@ -5,8 +5,8 @@ import axios from "axios";
 const CodeEditorPage = () => {
   const raw_files = [
     {
-      fileName: "index.js",
-      content: `
+      file_name: "index.js",
+      file_content: `
 import React, { useState, useEffect, useRef } from "react";
 import MonacoEditor from "@monaco-editor/react";
       
@@ -183,8 +183,8 @@ const CodeEditor = ({ files }) => {
 `,
     },
     {
-      fileName: "index.css",
-      content: `#code_editor_container0829 {
+      file_name: "index.css",
+      file_content: `#code_editor_container0829 {
         /*POSITION*/
         width: 500pt;
         height: 90%;
@@ -609,8 +609,8 @@ const CodeEditor = ({ files }) => {
       }`,
     },
     {
-      fileName: "index.py",
-      content: `import random
+      file_name: "index.py",
+      file_content: `import random
 
       def get_compliment(color):
           """Return a compliment based on the color."""
@@ -643,12 +643,12 @@ const CodeEditor = ({ files }) => {
       `,
     },
     {
-      fileName: "index.css",
-      content: `#root {background-color: red;}`,
+      file_name: "index.css",
+      file_content: `#root {background-color: red;}`,
     },
     {
-      fileName: "index.js",
-      content: `
+      file_name: "index.js",
+      file_content: `
 import React, { useState, useEffect, useRef } from "react";
 import MonacoEditor from "@monaco-editor/react";
       
@@ -825,8 +825,8 @@ const CodeEditor = ({ files }) => {
 `,
     },
     {
-      fileName: "index.css",
-      content: `#code_editor_container0829 {
+      file_name: "index.css",
+      file_content: `#code_editor_container0829 {
         /*POSITION*/
         width: 500pt;
         height: 90%;
@@ -1251,8 +1251,8 @@ const CodeEditor = ({ files }) => {
       }`,
     },
     {
-      fileName: "index.py",
-      content: `import random
+      file_name: "index.py",
+      file_content: `import random
 
       def get_compliment(color):
           """Return a compliment based on the color."""
@@ -1285,40 +1285,20 @@ const CodeEditor = ({ files }) => {
       `,
     },
     {
-      fileName: "index.css",
-      content: `#root {background-color: red;}`,
+      file_name: "index.css",
+      file_content: `#root {background-color: red;}`,
     },
     {
-      fileName: "index.css",
-      content: `#root {background-color: red;}`,
+      file_name: "index.css",
+      file_content: `#root {background-color: red;}`,
     },
     {
-      fileName: "index.css",
-      content: `#root {background-color: red;}`,
+      file_name: "index.css",
+      file_content: `#root {background-color: red;}`,
     },
     {
-      fileName: "index.css",
-      content: `#root {background-color: red;}`,
-    },
-    {
-      fileName: "index.css",
-      content: `#root {background-color: red;}`,
-    },
-    {
-      fileName: "index.css",
-      content: `#root {background-color: red;}`,
-    },
-    {
-      fileName: "index.css",
-      content: `#root {background-color: red;}`,
-    },
-    {
-      fileName: "index.css",
-      content: `#root {background-color: red;}`,
-    },
-    {
-      fileName: "index.css",
-      content: `#root {background-color: red;}`,
+      file_name: "index.css",
+      file_content: `#root {background-color: red;}`,
     },
   ];
 
