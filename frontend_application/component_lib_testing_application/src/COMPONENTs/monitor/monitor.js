@@ -16,60 +16,51 @@ const Monitor = ({
     fileName: "vecoder",
     fileType: "folder",
     filePath: "vecoder",
-    expanded: false,
     files: [
       {
         fileName: "vecoder_sample",
         fileType: "folder",
         filePath: "vecoder/vecoder_sample",
-        expanded: false,
         files: [
           {
             fileName: "public",
             fileType: "folder",
             filePath: "vecoder/vecoder_sample/public",
-            expanded: false,
             files: [
               {
                 fileName: "favicon.icon",
                 fileType: "file",
                 filePath: "vecoder/vecoder_sample/public/favicon.icon",
-                expanded: false,
                 files: [],
               },
               {
                 fileName: "index.html",
                 fileType: "file",
                 filePath: "vecoder/vecoder_sample/public/index.html",
-                expanded: false,
                 files: [],
               },
               {
                 fileName: "logo192.png",
                 fileType: "file",
                 filePath: "vecoder/vecoder_sample/public/logo192.png",
-                expanded: false,
                 files: [],
               },
               {
                 fileName: "logo512.png",
                 fileType: "file",
                 filePath: "vecoder/vecoder_sample/public/logo512.png",
-                expanded: false,
                 files: [],
               },
               {
                 fileName: "manifest.json",
                 fileType: "file",
                 filePath: "vecoder/vecoder_sample/public/manifest.json",
-                expanded: false,
                 files: [],
               },
               {
                 fileName: "robots.txt",
                 fileType: "file",
                 filePath: "vecoder/vecoder_sample/public/robots.txt",
-                expanded: false,
                 files: [],
               },
             ],
@@ -78,33 +69,28 @@ const Monitor = ({
             fileName: "src",
             fileType: "folder",
             filePath: "vecoder/vecoder_sample/src",
-            expanded: false,
             files: [
               {
                 fileName: "COMPONENTs",
                 fileType: "folder",
                 filePath: "vecoder/vecoder_sample/src/COMPONENTs",
-                expanded: false,
                 files: [
                   {
                     fileName: "explorer",
                     fileType: "folder",
                     filePath: "vecoder/vecoder_sample/src/COMPONENTs/explorer",
-                    expanded: false,
                     files: [
                       {
                         fileName: "dirItem",
                         fileType: "folder",
                         filePath:
                           "vecoder/vecoder_sample/src/COMPONENTs/explorer/dirItem",
-                        expanded: false,
                         files: [
                           {
                             fileName: "dirItem.css",
                             fileType: "file",
                             filePath:
                               "vecoder/vecoder_sample/src/COMPONENTs/explorer/dirItem/dirItem.css",
-                            expanded: false,
                             files: [],
                           },
                           {
@@ -112,7 +98,6 @@ const Monitor = ({
                             fileType: "file",
                             filePath:
                               "vecoder/vecoder_sample/src/COMPONENTs/explorer/dirItem/dirItem.js",
-                            expanded: false,
                             files: [],
                           },
                         ],
@@ -125,21 +110,18 @@ const Monitor = ({
                 fileName: "App.css",
                 fileType: "file",
                 filePath: "vecoder/vecoder_sample/src/App.css",
-                expanded: false,
                 files: [],
               },
               {
                 fileName: "App.js",
                 fileType: "file",
                 filePath: "vecoder/vecoder_sample/src/App.js",
-                expanded: false,
                 files: [],
               },
               {
                 fileName: "App.test.js",
                 fileType: "file",
                 filePath: "vecoder/vecoder_sample/src/App.test.js",
-                expanded: false,
                 files: [],
               },
             ],
@@ -148,28 +130,24 @@ const Monitor = ({
             fileName: ".gitignore",
             fileType: "file",
             filePath: "vecoder/vecoder_sample/.gitignore",
-            expanded: false,
             files: [],
           },
           {
             fileName: "package.json",
             fileType: "file",
             filePath: "vecoder/vecoder_sample/package.json",
-            expanded: false,
             files: [],
           },
           {
             fileName: "package-lock.json",
             fileType: "file",
             filePath: "vecoder/vecoder_sample/package-lock.json",
-            expanded: false,
             files: [],
           },
           {
             fileName: "README.md",
             fileType: "file",
             filePath: "vecoder/vecoder_sample/README.md",
-            expanded: false,
             files: [],
           },
         ],
