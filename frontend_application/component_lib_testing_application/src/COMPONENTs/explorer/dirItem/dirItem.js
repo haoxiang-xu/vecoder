@@ -108,7 +108,9 @@ const DirItem = ({
   //EXPAND
   const [expanded, setExpanded] = useState(false);
   const [expandIconId, setExpandIconId] = useState(
-    "dir_item_component_arrow_icon_right0725"
+    file.fileExpend
+      ? "dir_item_component_arrow_icon_down0725"
+      : "dir_item_component_arrow_icon_right0725"
   );
 
   const [dirListId, setDirListId] = useState("dir_item_component_dir_list0725");
@@ -141,6 +143,7 @@ const DirItem = ({
     setFileIcon(ICONs[file.fileName.split(".").pop()]);
     setFileTextColor(COLORs[file.fileName.split(".").pop()]);
     setDir(file.files);
+    setExpanded(file.fileExpend);
   }, [file]);
 
   const DirListRef = useRef();
@@ -206,15 +209,19 @@ const DirItem = ({
         ...dirListExpendAnimation,
         ...dirListExpendKeyframes,
       });
+      setUnexpendAnimation({});
       setExpandIconId("dir_item_component_arrow_icon_down0725");
       setExpanded(true);
+      file.fileExpend = true;
     } else {
+      setExpendAnimation({});
       setUnexpendAnimation({
         ...dirListUnexpendAnimation,
         ...dirListUnexpendKeyframes,
       });
       setExpandIconId("dir_item_component_arrow_icon_right0725");
       setExpanded(false);
+      file.fileExpend = false;
     }
 
     setTimeout(() => {
