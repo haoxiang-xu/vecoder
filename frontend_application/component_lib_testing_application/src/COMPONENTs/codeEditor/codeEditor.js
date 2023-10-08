@@ -200,6 +200,68 @@ const CodeEditor = ({ files, setFiles }) => {
 
     setRefresh(!refresh);
   }, [files]);
+  useEffect(() => {
+    files[onSelectedIndex].fileLanguage =
+      LANGUAGEs[files[onSelectedIndex].fileType];
+    setRefresh(!refresh);
+  }, [onSelectedIndex]);
+
+  //MONACO EDITOR
+  const monacoRef = useRef(null);
+  function registerInlineCompletions(editor, monaco) {
+    monaco.languages.registerCompletionItemProvider("javascript", {
+      provideCompletionItems: function (model, position) {
+        const word = model.getWordAtPosition(position);
+        const range = word
+          ? new monaco.Range(
+              position.lineNumber,
+              word.startColumn,
+              position.lineNumber,
+              word.endColumn
+            )
+          : null;
+
+        if (range) {
+          return {
+            suggestions: [
+              {
+                label: "Appended Text",
+                kind: monaco.languages.CompletionItemKind.Text,
+                documentation: "The text to append",
+                insertText: " // Appended text",
+                range: range,
+              },
+            ],
+          };
+        }
+
+        return [];
+      },
+    });
+  }
+  function handleEditorDidMount(editor, monaco) {
+    monacoRef.current = editor;
+    registerInlineCompletions(editor, monaco);
+  }
+  const appendTextToSelection = (appendText) => {
+    if (!monacoRef.current) return;
+
+    const selection = monacoRef.current.getSelection();
+    const selectedText = monacoRef.current
+      .getModel()
+      .getValueInRange(selection);
+    const newText = selectedText + appendText;
+
+    monacoRef.current.executeEdits(null, [
+      {
+        range: selection,
+        text: newText,
+      },
+    ]);
+  };
+  const handleAppendTextClick = () => {
+    appendTextToSelection(" // Appended text");
+  };
 
   return (
     <div
@@ -333,6 +395,7 @@ const CodeEditor = ({ files, setFiles }) => {
 
       {files[onSelectedIndex] ? (
         <MonacoEditor
+          onMount={handleEditorDidMount}
           top="0px"
           left="0px"
           position="absolute"
@@ -342,11 +405,12 @@ const CodeEditor = ({ files, setFiles }) => {
           language={files[onSelectedIndex].fileLanguage}
           theme="vs-dark"
           value={files[onSelectedIndex].fileContent}
-          automaticLayout={true}
           options={{
+            contextmenu: false,
             minimap: {
               enabled: roadMapVisible,
             },
+            roundedSelection: true,
             fontSize: 14,
             fontFamily: "Consolas",
             lineNumbers: lineNumbersVisible,
@@ -368,6 +432,12 @@ const CodeEditor = ({ files, setFiles }) => {
           <div id="code_editor_logo_icon0830">{logo_text}</div>
         </div>
       )}
+      <button
+        style={{ position: "absolute", bottom: "0pt" }}
+        onClick={handleAppendTextClick}
+      >
+        Append Text
+      </button>
     </div>
   );
 };
