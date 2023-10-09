@@ -6,9 +6,15 @@ backend_service/file_service/node_modules
 backend_service/file_service/node_modules/*
 backend_service/file_service/node_modules/**/*
 
+backend_service/code_service/node_modules
+backend_service/code_service/node_modules/*
+backend_service/code_service/node_modules/**/*
+
 */node_modules/*
 **/node_modules/*
 
-backend_services/file_service/.env
-backend_services/code_services/codeServicesEnv
+backend_services/file_services/.env
+backend_services/code_services/.env
+
 backend_services/code_services/models
+

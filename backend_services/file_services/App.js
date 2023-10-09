@@ -10,7 +10,7 @@ const insertFilesController = require("./CONTROLLERs/insertFilesController");
 const getFilesController = require("./CONTROLLERs/getFilesController");
 
 const app = express();
-const PORT = process.env.BACKEND_PORT;
+const PORT = process.env.BACKEND_FILE_SERVICES_PORT;
 const cors_options = {
   origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE"],

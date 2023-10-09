@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import MonacoEditor from "@monaco-editor/react";
+import axios from "axios";
 
 import "./codeEditor.css";
 
@@ -213,9 +214,9 @@ const CodeEditor = ({
     setRefresh(!refresh);
   }, [onSelectedIndex]);
 
-  //MONACO EDITOR
+  //MONACO: INITALIZE MONACO EDITOR
   const monacoRef = useRef(null);
-  function registerInlineCompletions(editor, monaco) {
+  const registerInlineCompletions = (editor, monaco) => {
     monaco.languages.registerCompletionItemProvider("javascript", {
       provideCompletionItems: function (model, position) {
         const word = model.getWordAtPosition(position);
@@ -245,11 +246,22 @@ const CodeEditor = ({
         return [];
       },
     });
-  }
-  function handleEditorDidMount(editor, monaco) {
+  };
+  const handleEditorDidMount = (editor, monaco) => {
     monacoRef.current = editor;
+    defineTheme(monaco);
     registerInlineCompletions(editor, monaco);
-  }
+  };
+  //MONACO: PERSONAL MONACO THEME
+  const defineTheme = (monaco) => {
+    monaco.editor.defineTheme("customTheme", {
+      base: "vs-dark",
+      inherit: true,
+      rules: [],
+      colors: {},
+    });
+    monaco.editor.setTheme("customTheme");
+  };
   const appendTextToSelection = (appendText) => {
     if (!monacoRef.current) return;
     const selection = monacoRef.current.getSelection();
@@ -261,13 +273,26 @@ const CodeEditor = ({
       },
     ]);
   };
-  const handleAppendTextClick = () => {
+  const handleAppendTextClick = async (command) => {
     const selection = monacoRef.current.getSelection();
     const selectedText = monacoRef.current
       .getModel()
       .getValueInRange(selection);
 
-    const appendText = " // Appended text";
+    let appendText = " // Appended text";
+
+    if (command === "continue") {
+      try {
+        const response = await axios.post("http://localhost:8200/openAI");
+        if (response !== undefined) {
+          appendText = String(response.data.data);
+        }
+      } catch (err) {
+        console.error("[ERROR]: " + err);
+      }
+    } else {
+      appendText = "";
+    }
 
     appendTextToSelection(selectedText + appendText);
   };
@@ -277,7 +302,18 @@ const CodeEditor = ({
   };
   const handleOnClick = (event) => {
     setOnRightClickItem(null);
-  }
+  };
+  useEffect(() => {
+    if (
+      rightClickCommand &&
+      rightClickCommand.command === "continue" &&
+      rightClickCommand.target_file.fileType === "codeEditor"
+    ) {
+      handleAppendTextClick("continue");
+      setRightClickCommand(null);
+      setOnRightClickItem(null);
+    }
+  }, [rightClickCommand]);
 
   return (
     <div
@@ -450,12 +486,6 @@ const CodeEditor = ({
           <div id="code_editor_logo_icon0830">{logo_text}</div>
         </div>
       )}
-      <button
-        style={{ position: "absolute", bottom: "0pt" }}
-        onClick={handleAppendTextClick}
-      >
-        Append Text
-      </button>
     </div>
   );
 };
