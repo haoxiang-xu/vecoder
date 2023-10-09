@@ -41,11 +41,10 @@
 
 ### Setup Process
 
-- **Setup File Server**
+- **Setup using Docker**
+  - run `docker-compose up -d`
 
-  - To Backend File Server Directory `cd backend_services/file_services`
-  - To install required modules `npm install`
-  - Run Backend File Server `node App.js`
+#### OR
 
 - **Setup Frontend Testing Application**
 
@@ -53,6 +52,18 @@
   - To install required modules `npm install`
   - Run Frontend Testing Application `npm start`
   - Heading to the Application `http://localhost:5000/`
+
+- **Setup Backend File Server**
+
+  - To Backend File Server Directory `cd backend_services/file_services`
+  - To install required modules `npm install`
+  - Run Backend File Server `npm start`
+
+- **Setup Backend Code Server**
+
+  - To Backend File Server Directory `cd backend_services/code_services`
+  - To install required modules `npm install`
+  - Run Backend File Server `npm start`
 
 [vscode-repo-shield]: https://img.shields.io/badge/Open_With_Visual_Studio_Code-222222?style=for-the-badge&logo=VisualStudioCode&logoColor=FFFFFF&labelColor=007ACC
 [vscode-repo-url]: git-client://clone?repo=https%3A%2F%2Fgithub.com%2Fhaoxiang-xu%2Fvecoder
