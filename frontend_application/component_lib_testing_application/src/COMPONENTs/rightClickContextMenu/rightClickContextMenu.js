@@ -75,9 +75,38 @@ const RightClickContextMenu = ({
   }, [x, y]);
 
   if (onRightClickItem !== null) {
-    if (
+    if (onRightClickItem.fileType == "codeEditor") {
+      contextItems = [
+        <ContextItem
+          key={"continue"}
+          item_function={"continue"}
+          progressRightClickCommand={progressRightClickCommand}
+        />,
+        <ContextItem
+          key={"fix"}
+          item_function={"fix"}
+          progressRightClickCommand={progressRightClickCommand}
+        />,
+        <ContextItem
+          key={"hr1"}
+          item_function={"hr"}
+          progressRightClickCommand={progressRightClickCommand}
+        />,
+        <ContextItem
+          key={"copy"}
+          item_function={"copy"}
+          progressRightClickCommand={progressRightClickCommand}
+        />,
+        <ContextItem
+          key={"unpaste"}
+          item_function={"unpaste"}
+          progressRightClickCommand={progressRightClickCommand}
+        />,
+      ];
+    } else if (
       onRightClickItem.filePath.split("/").length === 1 &&
-      copyFile === null
+      copyFile === null &&
+      onRightClickItem.fileType === "folder"
     ) {
       contextItems = [
         <ContextItem
@@ -108,7 +137,8 @@ const RightClickContextMenu = ({
       ];
     } else if (
       onRightClickItem.filePath.split("/").length === 1 &&
-      copyFile !== null
+      copyFile !== null &&
+      onRightClickItem.fileType === "folder"
     ) {
       contextItems = [
         <ContextItem
@@ -258,6 +288,7 @@ const RightClickContextMenu = ({
           progressRightClickCommand={progressRightClickCommand}
         />,
       ];
+    } else {
     }
   }
 

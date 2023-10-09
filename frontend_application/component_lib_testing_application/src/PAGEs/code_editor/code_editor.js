@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import CodeEditor from "../../COMPONENTs/codeEditor/codeEditor";
+import RightClickContextMenu from "../../COMPONENTs/rightClickContextMenu/rightClickContextMenu";
 import axios from "axios";
 
 const CodeEditorPage = () => {
@@ -643,11 +644,51 @@ export default CodeEditor;
     },
   ];
 
+  //Right Click Menu
+  const [isRightClicked, setIsRightClicked] = useState(false);
+  const [rightClickX, setRightClickX] = useState(-1);
+  const [rightClickY, setRightClickY] = useState(-1);
+  const [onRightClickItem, setOnRightClickItem] = useState(null);
+  const [rightClickCommand, setRightClickCommand] = useState(null);
+  const [copyFile, setCopyFile] = useState(null);
+
+  const handleRightClick = (event) => {
+    event.preventDefault();
+    setIsRightClicked(true);
+
+    const boundingRect = event.currentTarget.getBoundingClientRect();
+
+    const rightClickX = event.clientX - boundingRect.left;
+    const rightClickY = event.clientY - boundingRect.top;
+
+    setRightClickX(rightClickX);
+    setRightClickY(rightClickY);
+  };
+
   const [files, setFiles] = useState(raw_files);
 
   return (
-    <div id="app_page_container0803">
-      <CodeEditor files={files} setFiles={setFiles} />
+    <div id="app_page_container0803" onContextMenu={handleRightClick}>
+      <CodeEditor
+        files={files}
+        setFiles={setFiles}
+        onRightClickItem={onRightClickItem}
+        setOnRightClickItem={setOnRightClickItem}
+        rightClickCommand={rightClickCommand}
+        setRightClickCommand={setRightClickCommand}
+      />
+      {isRightClicked ? (
+        <RightClickContextMenu
+          x={rightClickX}
+          y={rightClickY}
+          onRightClickItem={onRightClickItem}
+          setOnRightClickItem={setOnRightClickItem}
+          setRightClickCommand={setRightClickCommand}
+          copyFile={copyFile}
+        />
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 };

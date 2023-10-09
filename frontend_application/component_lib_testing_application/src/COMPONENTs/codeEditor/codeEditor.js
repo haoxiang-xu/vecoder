@@ -32,7 +32,14 @@ import settings_icon from "./ICONs/FILETYPE_ICONs/settings.png";
 import ipynb_icon from "./ICONs/FILETYPE_ICONs/ipynb.png";
 import table_icon from "./ICONs/FILETYPE_ICONs/table.png";
 
-const CodeEditor = ({ files, setFiles }) => {
+const CodeEditor = ({
+  files,
+  setFiles,
+  onRightClickItem,
+  setOnRightClickItem,
+  rightClickCommand,
+  setRightClickCommand,
+}) => {
   const ICONs = {
     js: javascript_icon,
     html: html_icon,
@@ -245,23 +252,32 @@ const CodeEditor = ({ files, setFiles }) => {
   }
   const appendTextToSelection = (appendText) => {
     if (!monacoRef.current) return;
-
     const selection = monacoRef.current.getSelection();
-    const selectedText = monacoRef.current
-      .getModel()
-      .getValueInRange(selection);
-    const newText = selectedText + appendText;
 
     monacoRef.current.executeEdits(null, [
       {
         range: selection,
-        text: newText,
+        text: appendText,
       },
     ]);
   };
   const handleAppendTextClick = () => {
-    appendTextToSelection(" // Appended text");
+    const selection = monacoRef.current.getSelection();
+    const selectedText = monacoRef.current
+      .getModel()
+      .getValueInRange(selection);
+
+    const appendText = " // Appended text";
+
+    appendTextToSelection(selectedText + appendText);
   };
+  //CONTEXT MENU
+  const handleRightClick = (event) => {
+    setOnRightClickItem({ fileType: "codeEditor" });
+  };
+  const handleOnClick = (event) => {
+    setOnRightClickItem(null);
+  }
 
   return (
     <div
@@ -271,6 +287,8 @@ const CodeEditor = ({ files, setFiles }) => {
         setVerticalScrollbarVisible(false);
         setHorizontalScrollbarVisible(false);
       }}
+      onContextMenu={(e) => handleRightClick(e)}
+      onClick={(e) => handleOnClick(e)}
     >
       <link
         href="https://fonts.googleapis.com/css?family=Koulen"
