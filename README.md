@@ -14,6 +14,7 @@
 [![OpenAI][OpenAI-shield]][OpenAI-url]
 [![Node][Node-shield]][Node-install]
 [![React][React-shield]][React-url]
+[![Express][Express-shield]][Express-url]
 [![MongoDB][MongoDB-shield]][MongoDB-install]
 [![Figma][Figma-shield]][Figma-url]
 [![VSC][VSC-shield]][VSC-install]
@@ -21,6 +22,8 @@
 ![Prettier][Prettier-shield]
 [![CodeMirror][CodeMirror-shield]][CoderMirror-url]
 [![MonacoEditor][MonacoEditor-shield]][MonacoEditor-url]
+[![Electron][Electron-shield]][Electron-url]
+[![Nodemon][Nodemon-shield]][Nodemon-url]
 
 [![Languages](https://skillicons.dev/icons?i=js,html,css)](https://skillicons.dev)
 
@@ -31,13 +34,13 @@
 ### Required Installation
 
 [![Node][Node-download-shield]][Node-install]
-[![MongoDB][MongoDB-download-shield]][MongoDB-install]
+[![Docker][Docker-download-shield]][Docker-install]
 
 ### Recommended Installation for further development
 
 [![VSC][VSC-download-shield]][VSC-install]
 [![Postman][Postman-download-shield]][Postman-install]
-[![Docker][Docker-download-shield]][Docker-install]
+[![MongoDB][MongoDB-download-shield]][MongoDB-install]
 
 ### Setup Process
 
@@ -94,3 +97,9 @@
 [CoderMirror-url]: https://codemirror.net/
 [MonacoEditor-shield]: https://img.shields.io/badge/monaco_Editor-222222?style=for-the-badge&logo=visualstudiocode&logoColor=FFFFFF&labelColor=68217A
 [MonacoEditor-url]: https://microsoft.github.io/monaco-editor/
+[Electron-shield]: https://img.shields.io/badge/Electron-222222?style=for-the-badge&logo=Electron&logoColor=000000&labelColor=47848F
+[Electron-url]: https://www.electronjs.org/
+[Nodemon-shield]: https://img.shields.io/badge/Nodemon-222222?style=for-the-badge&logo=Nodemon&logoColor=000000&labelColor=76D04B
+[Nodemon-url]: https://www.npmjs.com/package/nodemon
+[Express-shield]: https://img.shields.io/badge/Express-222222?style=for-the-badge&logo=Express&logoColor=000000&labelColor=FFFFFF
+[Express-url]: https://expressjs.com/
