@@ -7,6 +7,7 @@ const StartIcon = ({
   setStartOnClick,
   explorerTop,
   getFilesFromDatabase,
+  setOnRightClickItem
 }) => {
   const title_list = [
     "VECODER",
@@ -21,7 +22,7 @@ const StartIcon = ({
   const [logo_title, setLogoTitle] = useState(title_list[0]);
   const logoTitleRef = useRef(logo_title);
   const [intervalId, setIntervalId] = useState(null);
-  const [logo_subtitle, setLogoSubtitle] = useState("POWERED BY GPT CODEX");
+  const [logo_subtitle, setLogoSubtitle] = useState("POWERED BY GPT");
 
   const [inputContainerId, setInputContainerId] = useState(
     "web_logo_section_component_logo_title_container0725"

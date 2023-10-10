@@ -9,6 +9,8 @@
   width: 100%;
 }
 #web_logo_section_component_logo_icon0725 {
+  transition: all 0.64s ease;
+
   /*POSITION*/
   display: flex;
   position: relative;

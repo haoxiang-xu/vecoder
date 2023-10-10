@@ -105,10 +105,14 @@ const DirItem = ({
     setRefresh(!refresh);
   };
 
+  //EXPAND
   const [expanded, setExpanded] = useState(false);
   const [expandIconId, setExpandIconId] = useState(
-    "dir_item_component_arrow_icon_right0725"
+    file.fileExpend
+      ? "dir_item_component_arrow_icon_down0725"
+      : "dir_item_component_arrow_icon_right0725"
   );
+
   const [dirListId, setDirListId] = useState("dir_item_component_dir_list0725");
 
   //Generate File name, File Icon and Text Color
@@ -139,23 +143,27 @@ const DirItem = ({
     setFileIcon(ICONs[file.fileName.split(".").pop()]);
     setFileTextColor(COLORs[file.fileName.split(".").pop()]);
     setDir(file.files);
+    setExpanded(file.fileExpend);
   }, [file]);
 
+  const DirListRef = useRef();
+
+  //EXPAND RELATED
   const expandingTime = Math.min(
-    Math.max(parentFileLength * 0.015, 0.32),
-    0.64
+    Math.max(file.files.length * 0.015, 0.08),
+    0.16
   );
   const unexpandingTime = Math.min(
     Math.max(file.files.length * 0.015, 0.32),
-    1.28
+    0.64
   );
   let dirListUnexpendKeyframes = {
     "0%": {
-      height: 6.6 + "px",
+      height: "6.6px",
       opacity: 0,
     },
     "90%": {
-      height: 1.2 + "px",
+      height: "1.2px",
       opacity: 0,
     },
     "100%": {
@@ -163,11 +171,41 @@ const DirItem = ({
       opacity: 0,
     },
   };
-  const dirListAnimation = {
+  let dirListExpendKeyframes = {
+    "0%": {
+      opacity: 0,
+      height: "0pt",
+    },
+    "40%": {
+      opacity: 0,
+    },
+    "60%": {
+      height: "10pt",
+      opacity: 0,
+    },
+    "100%": {
+      opacity: 1,
+      height: "13pt",
+    },
+  };
+  const dirListUnexpendAnimation = {
     animation:
       "dir_item_component_dir_list_unexpend_animation " + unexpandingTime + "s",
   };
+  const dirListExpendAnimation = {
+    animation:
+      "dir_item_component_dir_list_expend_animation " + expandingTime + "s",
+  };
+  const [expendAnimation, setExpendAnimation] = useState({});
   const [unexpendAnimation, setUnexpendAnimation] = useState({});
+  useEffect(() => {
+    if (expanded) {
+      setExpandIconId("dir_item_component_arrow_icon_down0725");
+    } else {
+      setExpandIconId("dir_item_component_arrow_icon_right0725");
+    }
+  }, [expanded]);
+
   const handleExpandIconOnClick = (event) => {
     setChildrenOnClicked(true);
     handleOnLeftClick(event);
@@ -175,16 +213,26 @@ const DirItem = ({
       setExplorerExpand(!explorerExpand);
     }
     if (!expanded) {
+      setExpendAnimation({
+        ...dirListExpendAnimation,
+        ...dirListExpendKeyframes,
+      });
+      setUnexpendAnimation({});
       setExpandIconId("dir_item_component_arrow_icon_down0725");
       setExpanded(true);
+      file.fileExpend = true;
     } else {
+      setExpendAnimation({});
       setUnexpendAnimation({
-        ...dirListAnimation,
+        ...dirListUnexpendAnimation,
         ...dirListUnexpendKeyframes,
       });
       setExpandIconId("dir_item_component_arrow_icon_right0725");
       setExpanded(false);
+      file.fileExpend = false;
     }
+
+    forceRefresh();
 
     setTimeout(() => {
       setChildrenOnClicked(true);
@@ -346,6 +394,7 @@ const DirItem = ({
 
       //EXPAND FOLDER
       setExpanded(true);
+      file.expanded = true;
       if (setExplorerExpand) {
         setExplorerExpand(true);
       }
@@ -397,6 +446,7 @@ const DirItem = ({
         target_file: newFolder,
       });
       setExpanded(true);
+      file.expanded = true;
       if (setExplorerExpand) {
         setExplorerExpand(true);
       }
@@ -462,6 +512,7 @@ const DirItem = ({
     if (onCommand === "paste") {
       if (copyFile !== null) {
         const pasteFile = JSON.parse(JSON.stringify(copyFile));
+        pasteFile.expanded = false;
         setOnSingleClickFile(pasteFile);
 
         if (!checkNameExist(pasteFile.fileName)) {
@@ -477,6 +528,7 @@ const DirItem = ({
 
           //EXPAND FOLDER
           setExpanded(true);
+          file.expanded = true;
           if (setExplorerExpand) {
             setExplorerExpand(true);
           }
@@ -603,19 +655,6 @@ const DirItem = ({
                     loading="lazy"
                   />
                   {filename}
-                  {isHovered ? (
-                    /*If tag on hover -> highlight tag*/
-                    <img
-                      src={info_icon}
-                      id="dir_item_component_info_icon0731"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                      }}
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div></div>
-                  )}
                 </span>
               )}
             </div>
@@ -760,10 +799,14 @@ const DirItem = ({
       )}
       {file.files.length !== 0 && expanded ? (
         /*If file has children -> Including the children file list*/
-        <div onDragOver={handleDragOver} style={{ height: "fit-content" }}>
-          <ul id={dirListId} style={root ? {} : {}}>
+        <div
+          onDragOver={handleDragOver}
+          ref={DirListRef}
+          style={{ height: "fit-content" }}
+        >
+          <ul id={dirListId}>
             {dir.map((item, index) => (
-              <li key={index}>
+              <li key={index} style={expendAnimation}>
                 <DirItem
                   file={item}
                   root={false}
@@ -793,6 +836,16 @@ const DirItem = ({
         {`
           @keyframes dir_item_component_dir_list_unexpend_animation {
             ${Object.entries(dirListUnexpendKeyframes)
+              .map(
+                ([key, value]) =>
+                  `${key} { ${Object.entries(value)
+                    .map(([k, v]) => `${k}: ${v};`)
+                    .join(" ")} }`
+              )
+              .join(" ")}
+          }
+          @keyframes dir_item_component_dir_list_expend_animation {
+            ${Object.entries(dirListExpendKeyframes)
               .map(
                 ([key, value]) =>
                   `${key} { ${Object.entries(value)

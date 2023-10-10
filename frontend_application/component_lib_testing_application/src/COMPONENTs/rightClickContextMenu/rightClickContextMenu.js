@@ -8,6 +8,7 @@ const RightClickContextMenu = ({
   x,
   y,
   onRightClickItem,
+  setOnRightClickItem,
   setRightClickCommand,
   copyFile,
 }) => {
@@ -20,36 +21,92 @@ const RightClickContextMenu = ({
     });
   };
 
+  const [refresh, setRefresh] = useState(true); //this is to refresh the component when window size changes
   const menuRef = useRef(null);
+  const [menuStyle, setMenuStyle] = useState(
+    "rightClickContextMenu_component_container0802"
+  );
   const [position, setPosition] = useState({ top: y, left: x });
 
   useEffect(() => {
-    if (menuRef.current) {
-      const menuWidth = menuRef.current.offsetWidth;
-      const menuHeight = menuRef.current.offsetHeight;
+    const setMenuPosition = (transitionTime) => {
+      if (menuRef.current) {
+        const menuWidth = menuRef.current.offsetWidth;
+        const menuHeight = menuRef.current.offsetHeight;
 
-      let newTop = y;
-      let newLeft = x;
+        let newTop = y;
+        let newLeft = x;
 
-      if (y + menuHeight > window.innerHeight) {
-        newTop = window.innerHeight - menuHeight;
+        setMenuStyle("rightClickContextMenu_component_container0802");
+
+        if (y + menuHeight > window.innerHeight) {
+          newTop = newTop - menuHeight;
+          setMenuStyle(
+            "rightClickContextMenu_component_container_leftbottom0930"
+          );
+        }
+
+        if (x + menuWidth > window.innerWidth) {
+          newLeft = newLeft - menuWidth;
+          setMenuStyle("rightClickContextMenu_component_container_rigttop0930");
+        }
+
+        if (
+          y + menuHeight > window.innerHeight &&
+          x + menuWidth > window.innerWidth
+        ) {
+          setMenuStyle(
+            "rightClickContextMenu_component_container_rightbottom0930"
+          );
+        }
+
+        setPosition({
+          top: newTop,
+          left: newLeft,
+          transition: "all " + transitionTime + "s ease",
+        });
       }
+    };
 
-      if (x + menuWidth > window.innerWidth) {
-        newLeft = window.innerWidth - menuWidth;
-      }
-
-      setPosition({
-        top: newTop,
-        left: newLeft,
-      });
-    }
+    setMenuPosition(0.0);
+    setTimeout(() => {
+      setMenuPosition(0.08);
+    }, 80);
   }, [x, y]);
 
   if (onRightClickItem !== null) {
-    if (
+    if (onRightClickItem.fileType == "codeEditor") {
+      contextItems = [
+        <ContextItem
+          key={"continue"}
+          item_function={"continue"}
+          progressRightClickCommand={progressRightClickCommand}
+        />,
+        <ContextItem
+          key={"fix"}
+          item_function={"fix"}
+          progressRightClickCommand={progressRightClickCommand}
+        />,
+        <ContextItem
+          key={"hr1"}
+          item_function={"hr"}
+          progressRightClickCommand={progressRightClickCommand}
+        />,
+        <ContextItem
+          key={"copy"}
+          item_function={"copy"}
+          progressRightClickCommand={progressRightClickCommand}
+        />,
+        <ContextItem
+          key={"unpaste"}
+          item_function={"unpaste"}
+          progressRightClickCommand={progressRightClickCommand}
+        />,
+      ];
+    } else if (
       onRightClickItem.filePath.split("/").length === 1 &&
-      copyFile === null
+      copyFile === null &&
+      onRightClickItem.fileType === "folder"
     ) {
       contextItems = [
         <ContextItem
@@ -77,15 +134,11 @@ const RightClickContextMenu = ({
           item_function={"unpaste"}
           progressRightClickCommand={progressRightClickCommand}
         />,
-        <ContextItem
-          key={"duplicate"}
-          item_function={"duplicate"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
       ];
     } else if (
       onRightClickItem.filePath.split("/").length === 1 &&
-      copyFile !== null
+      copyFile !== null &&
+      onRightClickItem.fileType === "folder"
     ) {
       contextItems = [
         <ContextItem
@@ -113,11 +166,6 @@ const RightClickContextMenu = ({
           item_function={"paste"}
           progressRightClickCommand={progressRightClickCommand}
           pasteFileName={copyFile.fileName}
-        />,
-        <ContextItem
-          key={"duplicate"}
-          item_function={"duplicate"}
-          progressRightClickCommand={progressRightClickCommand}
         />,
       ];
     } else if (onRightClickItem.fileType === "folder" && copyFile === null) {
@@ -150,11 +198,6 @@ const RightClickContextMenu = ({
         <ContextItem
           key={"paste"}
           item_function={"unpaste"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
-          key={"duplicate"}
-          item_function={"duplicate"}
           progressRightClickCommand={progressRightClickCommand}
         />,
         <ContextItem
@@ -207,11 +250,6 @@ const RightClickContextMenu = ({
           pasteFileName={copyFile.fileName}
         />,
         <ContextItem
-          key={"duplicate"}
-          item_function={"duplicate"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
           key={"hr2"}
           item_function={"hr"}
           progressRightClickCommand={progressRightClickCommand}
@@ -235,11 +273,6 @@ const RightClickContextMenu = ({
           progressRightClickCommand={progressRightClickCommand}
         />,
         <ContextItem
-          key={"duplicate"}
-          item_function={"duplicate"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
           key={"hr2"}
           item_function={"hr"}
           progressRightClickCommand={progressRightClickCommand}
@@ -255,17 +288,14 @@ const RightClickContextMenu = ({
           progressRightClickCommand={progressRightClickCommand}
         />,
       ];
+    } else {
     }
   }
 
   return (
     <div>
       {onRightClickItem !== null ? (
-        <div
-          id="rightClickContextMenu_component_container0802"
-          ref={menuRef}
-          style={position}
-        >
+        <div id={menuStyle} ref={menuRef} style={position}>
           {contextItems}
         </div>
       ) : (

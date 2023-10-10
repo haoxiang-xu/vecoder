@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import MonacoEditor from "@monaco-editor/react";
+import axios from "axios";
 
 import "./codeEditor.css";
 
@@ -32,7 +33,14 @@ import settings_icon from "./ICONs/FILETYPE_ICONs/settings.png";
 import ipynb_icon from "./ICONs/FILETYPE_ICONs/ipynb.png";
 import table_icon from "./ICONs/FILETYPE_ICONs/table.png";
 
-const CodeEditor = ({ files, setFiles }) => {
+const CodeEditor = ({
+  files,
+  setFiles,
+  onRightClickItem,
+  setOnRightClickItem,
+  rightClickCommand,
+  setRightClickCommand,
+}) => {
   const ICONs = {
     js: javascript_icon,
     html: html_icon,
@@ -194,12 +202,118 @@ const CodeEditor = ({ files, setFiles }) => {
       ) + "pt"
     );
     for (let i = 0; i < files.length; i++) {
-      files[i].fileType = files[i].fileName.split(".").pop();
+      files[i].fileType = files[i].fileName?.split(".").pop();
       files[i].fileLanguage = LANGUAGEs[files[i].fileType];
     }
 
     setRefresh(!refresh);
   }, [files]);
+  useEffect(() => {
+    files[onSelectedIndex].fileLanguage =
+      LANGUAGEs[files[onSelectedIndex].fileType];
+    setRefresh(!refresh);
+  }, [onSelectedIndex]);
+
+  //MONACO: INITALIZE MONACO EDITOR
+  const monacoRef = useRef(null);
+  const registerInlineCompletions = (editor, monaco) => {
+    monaco.languages.registerCompletionItemProvider("javascript", {
+      provideCompletionItems: function (model, position) {
+        const word = model.getWordAtPosition(position);
+        const range = word
+          ? new monaco.Range(
+              position.lineNumber,
+              word.startColumn,
+              position.lineNumber,
+              word.endColumn
+            )
+          : null;
+
+        if (range) {
+          return {
+            suggestions: [
+              {
+                label: "Appended Text",
+                kind: monaco.languages.CompletionItemKind.Text,
+                documentation: "The text to append",
+                insertText: " // Appended text",
+                range: range,
+              },
+            ],
+          };
+        }
+
+        return [];
+      },
+    });
+  };
+  const handleEditorDidMount = (editor, monaco) => {
+    monacoRef.current = editor;
+    defineTheme(monaco);
+    registerInlineCompletions(editor, monaco);
+  };
+  //MONACO: PERSONAL MONACO THEME
+  const defineTheme = (monaco) => {
+    monaco.editor.defineTheme("customTheme", {
+      base: "vs-dark",
+      inherit: true,
+      rules: [],
+      colors: {},
+    });
+    monaco.editor.setTheme("customTheme");
+  };
+  const appendTextToSelection = (appendText) => {
+    if (!monacoRef.current) return;
+    const selection = monacoRef.current.getSelection();
+
+    monacoRef.current.executeEdits(null, [
+      {
+        range: selection,
+        text: appendText,
+      },
+    ]);
+  };
+  const handleAppendTextClick = async (command) => {
+    const selection = monacoRef.current.getSelection();
+    const selectedText = monacoRef.current
+      .getModel()
+      .getValueInRange(selection);
+
+    let appendText = " // Appended text";
+
+    if (command === "continue") {
+      try {
+        const response = await axios.post("http://localhost:8200/openAI");
+        if (response !== undefined) {
+          appendText = String(response.data.data);
+        }
+      } catch (err) {
+        console.error("[ERROR]: " + err);
+      }
+    } else {
+      appendText = "";
+    }
+
+    appendTextToSelection(selectedText + appendText);
+  };
+  //CONTEXT MENU
+  const handleRightClick = (event) => {
+    setOnRightClickItem({ fileType: "codeEditor" });
+  };
+  const handleOnClick = (event) => {
+    setOnRightClickItem(null);
+  };
+  useEffect(() => {
+    if (
+      rightClickCommand &&
+      rightClickCommand.command === "continue" &&
+      rightClickCommand.target_file.fileType === "codeEditor"
+    ) {
+      handleAppendTextClick("continue");
+      setRightClickCommand(null);
+      setOnRightClickItem(null);
+    }
+  }, [rightClickCommand]);
 
   return (
     <div
@@ -209,6 +323,8 @@ const CodeEditor = ({ files, setFiles }) => {
         setVerticalScrollbarVisible(false);
         setHorizontalScrollbarVisible(false);
       }}
+      onContextMenu={(e) => handleRightClick(e)}
+      onClick={(e) => handleOnClick(e)}
     >
       <link
         href="https://fonts.googleapis.com/css?family=Koulen"
@@ -333,6 +449,7 @@ const CodeEditor = ({ files, setFiles }) => {
 
       {files[onSelectedIndex] ? (
         <MonacoEditor
+          onMount={handleEditorDidMount}
           top="0px"
           left="0px"
           position="absolute"
@@ -341,12 +458,13 @@ const CodeEditor = ({ files, setFiles }) => {
           defaultLanguage="javascript"
           language={files[onSelectedIndex].fileLanguage}
           theme="vs-dark"
-          value={files[onSelectedIndex].content}
-          automaticLayout={true}
+          value={files[onSelectedIndex].fileContent}
           options={{
+            contextmenu: false,
             minimap: {
               enabled: roadMapVisible,
             },
+            roundedSelection: true,
             fontSize: 14,
             fontFamily: "Consolas",
             lineNumbers: lineNumbersVisible,
