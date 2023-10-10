@@ -148,6 +148,7 @@ const DirItem = ({
 
   const DirListRef = useRef();
 
+  //EXPAND RELATED
   const expandingTime = Math.min(
     Math.max(file.files.length * 0.015, 0.08),
     0.16
@@ -197,6 +198,13 @@ const DirItem = ({
   };
   const [expendAnimation, setExpendAnimation] = useState({});
   const [unexpendAnimation, setUnexpendAnimation] = useState({});
+  useEffect(() => {
+    if (expanded) {
+      setExpandIconId("dir_item_component_arrow_icon_down0725");
+    } else {
+      setExpandIconId("dir_item_component_arrow_icon_right0725");
+    }
+  }, [expanded]);
 
   const handleExpandIconOnClick = (event) => {
     setChildrenOnClicked(true);
@@ -223,6 +231,8 @@ const DirItem = ({
       setExpanded(false);
       file.fileExpend = false;
     }
+
+    forceRefresh();
 
     setTimeout(() => {
       setChildrenOnClicked(true);
