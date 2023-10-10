@@ -281,20 +281,47 @@ const CodeEditor = ({
 
     let appendText = " // Appended text";
 
-    if (command === "continue") {
+    if (command.command === "continue") {
+      const requestBody = {
+        language: files[onSelectedIndex].fileLanguage,
+        prompt: selectedText,
+      };
+
       try {
-        const response = await axios.post("http://localhost:8200/openAI");
+        const response = await axios.post(
+          "http://localhost:8200/openAI/continue",
+          requestBody
+        );
         if (response !== undefined) {
-          appendText = String(response.data.data);
+          appendText = String(response.data.data.content);
+          console.log(appendText);
         }
       } catch (err) {
         console.error("[ERROR]: " + err);
       }
+      appendTextToSelection(selectedText + appendText);
+    } else if (command.command === "fix") {
+      const requestBody = {
+        language: files[onSelectedIndex].fileLanguage,
+        prompt: selectedText,
+      };
+
+      try {
+        const response = await axios.post(
+          "http://localhost:8200/openAI/fix",
+          requestBody
+        );
+        if (response !== undefined) {
+          appendText = String(response.data.data.content);
+          console.log(appendText);
+        }
+      } catch (err) {
+        console.error("[ERROR]: " + err);
+      }
+      appendTextToSelection(appendText);
     } else {
       appendText = "";
     }
-
-    appendTextToSelection(selectedText + appendText);
   };
   //CONTEXT MENU
   const handleRightClick = (event) => {
@@ -306,10 +333,9 @@ const CodeEditor = ({
   useEffect(() => {
     if (
       rightClickCommand &&
-      rightClickCommand.command === "continue" &&
       rightClickCommand.target_file.fileType === "codeEditor"
     ) {
-      handleAppendTextClick("continue");
+      handleAppendTextClick(rightClickCommand);
       setRightClickCommand(null);
       setOnRightClickItem(null);
     }

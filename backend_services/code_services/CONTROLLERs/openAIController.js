@@ -22,4 +22,64 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.post("/continue", async (req, res) => {
+  try {
+    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+    const instruction =
+      "You will be provided with a piece of " +
+      req.body.language +
+      " code, and your task is to continue writing it." +
+      " Don't explain the code, just generate the code itself." +
+      " Don't overthink the problem, If there's no clue, just return an empty string." +
+      " Make sure all indentations are correct.";
+
+    const chatCompletion = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [
+        { role: "system", content: instruction },
+        { role: "user", content: req.body.prompt },
+      ],
+    });
+
+    res.json({
+      data: chatCompletion.choices[0].message,
+    });
+  } catch (error) {
+    console.error(error);
+    res.json({ openAIControllerError: String(error) });
+  }
+});
+
+router.post("/fix", async (req, res) => {
+  try {
+    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+    const instruction =
+      "You will be provided with a piece of " +
+      req.body.language +
+      " code, and your task is to" +
+      " (1) find and fix logic errors in it, if necessary." +
+      " (2) fix indentations, if necessary." +
+      " (3) find and fix syntax errors, if necessary." +
+      " Don't explain the code, just generate the code itself." +
+      " Don't overthink the problem, If there's no clue, just return an empty string.";
+
+    const chatCompletion = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [
+        { role: "system", content: instruction },
+        { role: "user", content: req.body.prompt },
+      ],
+    });
+
+    res.json({
+      data: chatCompletion.choices[0].message,
+    });
+  } catch (error) {
+    console.error(error);
+    res.json({ openAIControllerError: String(error) });
+  }
+});
+
 module.exports = router;
