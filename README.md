@@ -2,9 +2,13 @@
 
 ## [ About the Project ]
 
-### WebCodeEditor+LLMs:
+### CodeEditor+LLMs(Large Language Models):
 
-<span style="opacity: 0.64">WebCodeEditor+LLMs is a state-of-the-art web-based Code Editor that leverages the power of large language models to assist in coding. By utilizing a vector database, it establishes intricate relationships between files and code segments. This advanced interconnectivity is designed to significantly enhance the efficiency of developers by providing context-aware insights and coding suggestions.</span>
+<span style="opacity: 0.64">CodeEditor+LLMs is a state-of-the-art Code Editor that leverages the power of large language models to assist in coding. By utilizing a vector database, it establishes intricate relationships between files and code segments. This advanced interconnectivity is designed to significantly enhance the efficiency of developers by providing context-aware insights and coding suggestions.</span>
+
+### AI-Enhanced UI:
+
+<span style="opacity: 0.64">This is a specialized UI designed specifically for AI supported application. While most AI applications focus primarily on functionality, they often overlook the importance of a better user experience. We possess incredibly powerful LLMs, but our interactions with them still resemble the command-line interface era. I believe that instead of merely providing code editors or IDE extensions for LLMs, we need a comprehensive overhaul of the entire code editor UI to align with the new paradigm of AI interaction in this era.</span>
 
 ![UI](https://github.com/haoxiang-xu/vecoder/assets/59581718/99afb87b-610f-48f2-b547-00e5e4605e55)
 
@@ -29,7 +33,7 @@
 
 ## [ Getting Started ]
 
-<span style="opacity: 0.32">Instructions to run this application on a local machine:</span>
+### UI Prototype
 
 [![Figma][Figma-page-shield]][Figma-page]
 
@@ -44,12 +48,16 @@
 [![Postman][Postman-download-shield]][Postman-install]
 [![MongoDB][MongoDB-download-shield]][MongoDB-install]
 
-### Setup Process
+### Setup Process 
+<span style="opacity: 0.32">Instructions to run this application on a local machine</span><br><br>
+<span style="opacity: 0.32">1.Run the whole application in a docker container</span>
 
 - **Setup using Docker**
   - run `docker-compose up -d`
 
 #### OR
+
+<span style="opacity: 0.32">2.Run the frontend and backend applications separately</span>
 
 - **Setup Frontend Testing Application**
 
