@@ -138,7 +138,7 @@
   position: absolute;
   transform: translate(0%, -50%);
   top: 50%;
-  right: 2pt;
+  right: 3.5pt;
   padding: 3pt;
 
   /*SIZE*/
@@ -156,7 +156,7 @@
   position: absolute;
   transform: translate(0%, -50%);
   top: 50%;
-  right: 2pt;
+  right: 3.5pt;
   padding: 3pt;
 
   /*SIZE*/
@@ -398,7 +398,7 @@
   /*POSITION*/
   position: absolute;
   top: 50%;
-  left: 4pt;
+  left: 3.5pt;
   transform: translate(0%, -50%);
 
   /*SIZE*/
@@ -413,7 +413,7 @@
   /*POSITION*/
   position: absolute;
   top: 50%;
-  left: 4pt;
+  left: 3.5pt;
   transform: translate(0%, -50%);
 
   /*SIZE*/
