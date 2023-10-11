@@ -9,7 +9,7 @@
 
   /*STYLE*/
   border-radius:6pt;
-  padding: 32pt 18pt 8pt 1pt;
+  padding: 32pt 12pt 6pt 3pt;
   box-shadow: 0px 4px 16px 8px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
   background-color: #1e1e1e;
@@ -22,7 +22,7 @@
   /*POSITION*/
   position: absolute;
   top: 3pt;
-  left: 34pt;
+  left: 4pt;
   right: 96pt;
   padding: 0pt;
 
@@ -30,7 +30,6 @@
   height: 27pt;
 
   /*STYLE*/
-
   box-sizing: border-box;
 
   overflow-x: auto;
@@ -116,7 +115,6 @@
   box-sizing: border-box;
   overflow: hidden;
 }
-
 #code_editor_fileName_container0829 {
   /*POSITION*/
   position: absolute;

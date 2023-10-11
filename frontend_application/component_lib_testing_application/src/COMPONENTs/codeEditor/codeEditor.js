@@ -294,12 +294,11 @@ const CodeEditor = ({
         );
         if (response !== undefined) {
           appendText = String(response.data.data.content);
-          console.log(appendText);
         }
       } catch (err) {
         console.error("[ERROR]: " + err);
       }
-      appendTextToSelection(selectedText + appendText);
+      appendTextToSelection(appendText);
     } else if (command.command === "fix") {
       const requestBody = {
         language: files[onSelectedIndex].fileLanguage,
@@ -313,7 +312,6 @@ const CodeEditor = ({
         );
         if (response !== undefined) {
           appendText = String(response.data.data.content);
-          console.log(appendText);
         }
       } catch (err) {
         console.error("[ERROR]: " + err);
@@ -459,16 +457,16 @@ const CodeEditor = ({
         ))}
       </div>
 
-      <img
+      {/* <img
         src={road_map_icon}
         id="code_editor_road_map_icon0829"
         onClick={handleRoadMapIconClick}
-      />
-      <img
+      /> */}
+      {/* <img
         src={line_numbers_icon}
         id="code_editor_line_numbers_icon0829"
         onClick={handleLineNumbersIconClick}
-      />
+      /> */}
       <img src={minus_icon} id="code_editor_minus_icon0830" />
       <img src={close_icon} id="code_editor_close_window_icon0830" />
       <img src={more_icon} id="code_editor_more_icon0830" />
@@ -476,8 +474,8 @@ const CodeEditor = ({
       {files[onSelectedIndex] ? (
         <MonacoEditor
           onMount={handleEditorDidMount}
-          top="0px"
-          left="0px"
+          top="0pt"
+          left="0pt"
           position="absolute"
           width="100%"
           height="100%"

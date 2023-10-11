@@ -31,6 +31,8 @@
 
 <span style="opacity: 0.32">Instructions to run this application on a local machine:</span>
 
+[![Figma][Figma-page-shield]][Figma-page]
+
 ### Required Installation
 
 [![Node][Node-download-shield]][Node-install]
@@ -84,6 +86,8 @@
 [MongoDB-shield]: https://img.shields.io/badge/MongoDB-222222?style=for-the-badge&logo=MongoDB&logoColor=ffffff&labelColor=47A248
 [MongoDB-download-shield]: https://img.shields.io/badge/MongoDB-v1.10.6-222222?style=for-the-badge&logo=MongoDB&logoColor=FFFFFF&labelColor=47A248
 [MongoDB-install]: https://www.mongodb.com/try/download/community
+[Figma-page-shield]: https://img.shields.io/badge/Figma-UIPrototype-222222?style=for-the-badge&logo=Figma&logoColor=FFFFFF&labelColor=F24E1E
+[Figma-page]: https://www.figma.com/file/IbzJCuwGLDJ18cluXIt2CF/COMPONENTS_DESIGN?type=design&node-id=0%3A1&mode=design&t=ZaaoGH6wUChQICuO-1
 [VSC-shield]: https://img.shields.io/badge/Visual_Studio_Code-222222?style=for-the-badge&logo=VisualStudioCode&logoColor=FFFFFF&labelColor=007ACC
 [VSC-download-shield]: https://img.shields.io/badge/Visual_Studio_Code-v1.81.1-222222?style=for-the-badge&logo=VisualStudioCode&logoColor=FFFFFF&labelColor=007ACC
 [VSC-install]: https://code.visualstudio.com/download
