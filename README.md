@@ -22,7 +22,6 @@
 [![MongoDB][MongoDB-shield]][MongoDB-install]
 [![Figma][Figma-shield]][Figma-url]
 [![VSC][VSC-shield]][VSC-install]
-![intellijIdea][intellijIdea-shield]
 ![Prettier][Prettier-shield]
 [![CodeMirror][CodeMirror-shield]][CoderMirror-url]
 [![MonacoEditor][MonacoEditor-shield]][MonacoEditor-url]
@@ -48,7 +47,8 @@
 [![Postman][Postman-download-shield]][Postman-install]
 [![MongoDB][MongoDB-download-shield]][MongoDB-install]
 
-### Setup Process 
+### Setup Process
+
 <span style="opacity: 0.32">Instructions to run this application on a local machine</span><br><br>
 <span style="opacity: 0.32">1.Run the whole application in a docker container</span>
 
