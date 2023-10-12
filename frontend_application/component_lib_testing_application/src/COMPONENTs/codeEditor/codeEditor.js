@@ -285,6 +285,7 @@ const CodeEditor = ({
       const requestBody = {
         language: files[onSelectedIndex].fileLanguage,
         prompt: selectedText,
+        analyzeCode: String(files[onSelectedIndex].fileAnalysis),
       };
 
       try {
@@ -303,6 +304,7 @@ const CodeEditor = ({
       const requestBody = {
         language: files[onSelectedIndex].fileLanguage,
         prompt: selectedText,
+        analyzeCode: files[onSelectedIndex].fileAnalysis,
       };
 
       try {
@@ -338,6 +340,31 @@ const CodeEditor = ({
       setOnRightClickItem(null);
     }
   }, [rightClickCommand]);
+  //ANALYZE CODE
+  const analyzeCode = async () => {
+    const requestBody = {
+      language: files[onSelectedIndex].fileLanguage,
+      prompt: files[onSelectedIndex].fileContent,
+    };
+
+    // try {
+    //   const response = await axios.post(
+    //     "http://localhost:8200/openAI/analyze",
+    //     requestBody
+    //   );
+    //   if (response !== undefined) {
+    //     console.log(response.data.data.content);
+    //     return response.data.data.content;
+    //   }
+    // } catch (err) {
+    //   console.error("[ERROR]: " + err);
+    // }
+  };
+  useEffect(() => {
+    if (files[onSelectedIndex].fileAnalysis === undefined) {
+      files[onSelectedIndex].fileAnalysis = analyzeCode();
+    }
+  }, onSelectedIndex);
 
   return (
     <div
