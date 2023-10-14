@@ -281,20 +281,47 @@ const CodeEditor = ({
 
     let appendText = " // Appended text";
 
-    if (command === "continue") {
+    if (command.command === "continue") {
+      const requestBody = {
+        language: files[onSelectedIndex].fileLanguage,
+        prompt: selectedText,
+        analyzeCode: String(files[onSelectedIndex].fileAnalysis),
+      };
+
       try {
-        const response = await axios.post("http://localhost:8200/openAI");
+        const response = await axios.post(
+          "http://localhost:8200/openAI/continue",
+          requestBody
+        );
         if (response !== undefined) {
-          appendText = String(response.data.data);
+          appendText = String(response.data.data.content);
         }
       } catch (err) {
         console.error("[ERROR]: " + err);
       }
+      appendTextToSelection(appendText);
+    } else if (command.command === "fix") {
+      const requestBody = {
+        language: files[onSelectedIndex].fileLanguage,
+        prompt: selectedText,
+        analyzeCode: files[onSelectedIndex].fileAnalysis,
+      };
+
+      try {
+        const response = await axios.post(
+          "http://localhost:8200/openAI/fix",
+          requestBody
+        );
+        if (response !== undefined) {
+          appendText = String(response.data.data.content);
+        }
+      } catch (err) {
+        console.error("[ERROR]: " + err);
+      }
+      appendTextToSelection(appendText);
     } else {
       appendText = "";
     }
-
-    appendTextToSelection(selectedText + appendText);
   };
   //CONTEXT MENU
   const handleRightClick = (event) => {
@@ -306,14 +333,38 @@ const CodeEditor = ({
   useEffect(() => {
     if (
       rightClickCommand &&
-      rightClickCommand.command === "continue" &&
       rightClickCommand.target_file.fileType === "codeEditor"
     ) {
-      handleAppendTextClick("continue");
+      handleAppendTextClick(rightClickCommand);
       setRightClickCommand(null);
       setOnRightClickItem(null);
     }
   }, [rightClickCommand]);
+  //ANALYZE CODE
+  const analyzeCode = async () => {
+    const requestBody = {
+      language: files[onSelectedIndex].fileLanguage,
+      prompt: files[onSelectedIndex].fileContent,
+    };
+
+    // try {
+    //   const response = await axios.post(
+    //     "http://localhost:8200/openAI/analyze",
+    //     requestBody
+    //   );
+    //   if (response !== undefined) {
+    //     console.log(response.data.data.content);
+    //     return response.data.data.content;
+    //   }
+    // } catch (err) {
+    //   console.error("[ERROR]: " + err);
+    // }
+  };
+  useEffect(() => {
+    if (files[onSelectedIndex].fileAnalysis === undefined) {
+      files[onSelectedIndex].fileAnalysis = analyzeCode();
+    }
+  }, onSelectedIndex);
 
   return (
     <div
@@ -433,16 +484,16 @@ const CodeEditor = ({
         ))}
       </div>
 
-      <img
+      {/* <img
         src={road_map_icon}
         id="code_editor_road_map_icon0829"
         onClick={handleRoadMapIconClick}
-      />
-      <img
+      /> */}
+      {/* <img
         src={line_numbers_icon}
         id="code_editor_line_numbers_icon0829"
         onClick={handleLineNumbersIconClick}
-      />
+      /> */}
       <img src={minus_icon} id="code_editor_minus_icon0830" />
       <img src={close_icon} id="code_editor_close_window_icon0830" />
       <img src={more_icon} id="code_editor_more_icon0830" />
@@ -450,8 +501,8 @@ const CodeEditor = ({
       {files[onSelectedIndex] ? (
         <MonacoEditor
           onMount={handleEditorDidMount}
-          top="0px"
-          left="0px"
+          top="0pt"
+          left="0pt"
           position="absolute"
           width="100%"
           height="100%"

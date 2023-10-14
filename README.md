@@ -2,9 +2,13 @@
 
 ## [ About the Project ]
 
-### WebCodeEditor+LLMs:
+### CodeEditor+LLMs(Large Language Models):
 
-<span style="opacity: 0.64">WebCodeEditor+LLMs is a state-of-the-art web-based Code Editor that leverages the power of large language models to assist in coding. By utilizing a vector database, it establishes intricate relationships between files and code segments. This advanced interconnectivity is designed to significantly enhance the efficiency of developers by providing context-aware insights and coding suggestions.</span>
+<span style="opacity: 0.64">CodeEditor+LLMs is a state-of-the-art Code Editor that leverages the power of large language models to assist in coding. By utilizing a vector database, it establishes intricate relationships between files and code segments. This advanced interconnectivity is designed to significantly enhance the efficiency of developers by providing context-aware insights and coding suggestions.</span>
+
+### AI-Enhanced UI:
+
+<span style="opacity: 0.64">This is a specialized UI designed specifically for AI supported application. While most AI applications focus primarily on functionality, they often overlook the importance of a better user experience. We possess incredibly powerful LLMs, but our interactions with them still resemble the command-line interface era. I believe that instead of merely providing code editors or IDE extensions for LLMs, we need a comprehensive overhaul of the entire code editor UI to align with the new paradigm of AI interaction in this era.</span>
 
 ![UI](https://github.com/haoxiang-xu/vecoder/assets/59581718/99afb87b-610f-48f2-b547-00e5e4605e55)
 
@@ -14,37 +18,46 @@
 [![OpenAI][OpenAI-shield]][OpenAI-url]
 [![Node][Node-shield]][Node-install]
 [![React][React-shield]][React-url]
+[![Express][Express-shield]][Express-url]
 [![MongoDB][MongoDB-shield]][MongoDB-install]
 [![Figma][Figma-shield]][Figma-url]
 [![VSC][VSC-shield]][VSC-install]
-![intellijIdea][intellijIdea-shield]
 ![Prettier][Prettier-shield]
 [![CodeMirror][CodeMirror-shield]][CoderMirror-url]
 [![MonacoEditor][MonacoEditor-shield]][MonacoEditor-url]
+[![Electron][Electron-shield]][Electron-url]
+[![Nodemon][Nodemon-shield]][Nodemon-url]
 
 [![Languages](https://skillicons.dev/icons?i=js,html,css)](https://skillicons.dev)
 
 ## [ Getting Started ]
 
-<span style="opacity: 0.32">Instructions to run this application on a local machine:</span>
+### UI Prototype
+
+[![Figma][Figma-page-shield]][Figma-page]
 
 ### Required Installation
 
 [![Node][Node-download-shield]][Node-install]
-[![MongoDB][MongoDB-download-shield]][MongoDB-install]
+[![Docker][Docker-download-shield]][Docker-install]
 
 ### Recommended Installation for further development
 
 [![VSC][VSC-download-shield]][VSC-install]
 [![Postman][Postman-download-shield]][Postman-install]
-[![Docker][Docker-download-shield]][Docker-install]
+[![MongoDB][MongoDB-download-shield]][MongoDB-install]
 
 ### Setup Process
+
+<span style="opacity: 0.32">Instructions to run this application on a local machine</span><br><br>
+<span style="opacity: 0.32">1.Run the whole application in a docker container</span>
 
 - **Setup using Docker**
   - run `docker-compose up -d`
 
 #### OR
+
+<span style="opacity: 0.32">2.Run the frontend and backend applications separately</span>
 
 - **Setup Frontend Testing Application**
 
@@ -81,6 +94,8 @@
 [MongoDB-shield]: https://img.shields.io/badge/MongoDB-222222?style=for-the-badge&logo=MongoDB&logoColor=ffffff&labelColor=47A248
 [MongoDB-download-shield]: https://img.shields.io/badge/MongoDB-v1.10.6-222222?style=for-the-badge&logo=MongoDB&logoColor=FFFFFF&labelColor=47A248
 [MongoDB-install]: https://www.mongodb.com/try/download/community
+[Figma-page-shield]: https://img.shields.io/badge/Figma-UIPrototype-222222?style=for-the-badge&logo=Figma&logoColor=FFFFFF&labelColor=F24E1E
+[Figma-page]: https://www.figma.com/file/IbzJCuwGLDJ18cluXIt2CF/COMPONENTS_DESIGN?type=design&node-id=0%3A1&mode=design&t=ZaaoGH6wUChQICuO-1
 [VSC-shield]: https://img.shields.io/badge/Visual_Studio_Code-222222?style=for-the-badge&logo=VisualStudioCode&logoColor=FFFFFF&labelColor=007ACC
 [VSC-download-shield]: https://img.shields.io/badge/Visual_Studio_Code-v1.81.1-222222?style=for-the-badge&logo=VisualStudioCode&logoColor=FFFFFF&labelColor=007ACC
 [VSC-install]: https://code.visualstudio.com/download
@@ -94,3 +109,9 @@
 [CoderMirror-url]: https://codemirror.net/
 [MonacoEditor-shield]: https://img.shields.io/badge/monaco_Editor-222222?style=for-the-badge&logo=visualstudiocode&logoColor=FFFFFF&labelColor=68217A
 [MonacoEditor-url]: https://microsoft.github.io/monaco-editor/
+[Electron-shield]: https://img.shields.io/badge/Electron-222222?style=for-the-badge&logo=Electron&logoColor=000000&labelColor=47848F
+[Electron-url]: https://www.electronjs.org/
+[Nodemon-shield]: https://img.shields.io/badge/Nodemon-222222?style=for-the-badge&logo=Nodemon&logoColor=000000&labelColor=76D04B
+[Nodemon-url]: https://www.npmjs.com/package/nodemon
+[Express-shield]: https://img.shields.io/badge/Express-222222?style=for-the-badge&logo=Express&logoColor=000000&labelColor=FFFFFF
+[Express-url]: https://expressjs.com/
