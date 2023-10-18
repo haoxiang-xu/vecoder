@@ -709,18 +709,6 @@ const DirItem = ({
                     loading="lazy"
                   />
                   {filename}
-                  {isHovered ? (
-                    /*If tag on hover -> highlight tag*/
-                    <img
-                      src={info_icon}
-                      id="dir_item_component_info_icon0731"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                      }}
-                    />
-                  ) : (
-                    <div></div>
-                  )}
                 </span>
               )}
             </div>
