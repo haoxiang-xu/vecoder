@@ -9,6 +9,8 @@ services:
     tty: true
     environment:
       - PORT=5000
+    volumes:
+      - ./frontend_application/component_lib_testing_application:/app
 
   backend_file_services:
     build: ./backend_services/file_services
@@ -17,6 +19,8 @@ services:
       - "8000:8000"
     environment:
       - PORT=8000
+    volumes:
+      - ./backend_services/file_services:/app
 
   backend_code_services:
     build: ./backend_services/code_services
@@ -25,3 +29,5 @@ services:
       - "8200:8200"
     environment:
       - PORT=8200
+    volumes:
+      - ./backend_services/code_services:/app

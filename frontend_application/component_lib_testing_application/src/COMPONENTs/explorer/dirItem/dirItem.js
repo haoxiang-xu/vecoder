@@ -118,13 +118,6 @@ const DirItem = ({
   //Generate File name, File Icon and Text Color
   const [filename, setFilename] = useState(file.fileName);
   const [renameInput, setRenameInput] = useState(filename);
-  useEffect(() => {
-    setFilename(file.fileName);
-    if (file.fileName.split(".").pop() !== file.fileName) {
-      setFileIcon(ICONs[file.fileName.split(".").pop()]);
-      setFileTextColor(COLORs[file.fileName.split(".").pop()]);
-    }
-  }, [file.fileName]);
   const [fileIcon, setFileIcon] = useState();
   const [fileTextColor, setFileTextColor] = useState();
 
@@ -139,11 +132,19 @@ const DirItem = ({
 
   //UPDATE FILE
   useEffect(() => {
+    setFilename(file.fileName);
+    if (file.fileName.split(".").pop() !== file.fileName) {
+      setFileIcon(ICONs[file.fileName.split(".").pop()]);
+      setFileTextColor(COLORs[file.fileName.split(".").pop()]);
+    }
+  }, [file.fileName]);
+  useEffect(() => {
+    setFilename(file.fileName);
     setRenameInput(file.fileName);
     setFileIcon(ICONs[file.fileName.split(".").pop()]);
     setFileTextColor(COLORs[file.fileName.split(".").pop()]);
     setDir(file.files);
-    setExpanded(file.fileExpend);
+    //setExpanded(file.fileExpend);
   }, [file]);
 
   const DirListRef = useRef();
@@ -171,7 +172,7 @@ const DirItem = ({
       opacity: 0,
     },
   };
-  let dirListExpendKeyframes = {
+  const [dirListExpendKeyframes, setDirListExpendKeyframes] = useState({
     "0%": {
       opacity: 0,
       height: "0pt",
@@ -179,15 +180,14 @@ const DirItem = ({
     "40%": {
       opacity: 0,
     },
-    "60%": {
-      height: "10pt",
+    "70%": {
       opacity: 0,
     },
     "100%": {
-      opacity: 1,
       height: "13pt",
+      opacity: 1,
     },
-  };
+  });
   const dirListUnexpendAnimation = {
     animation:
       "dir_item_component_dir_list_unexpend_animation " + unexpandingTime + "s",
