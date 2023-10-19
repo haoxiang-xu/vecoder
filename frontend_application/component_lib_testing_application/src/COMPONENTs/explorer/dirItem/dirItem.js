@@ -144,7 +144,7 @@ const DirItem = ({
     setFileIcon(ICONs[file.fileName.split(".").pop()]);
     setFileTextColor(COLORs[file.fileName.split(".").pop()]);
     setDir(file.files);
-    //setExpanded(file.fileExpend);
+    setExpanded(file.fileExpend);
   }, [file]);
 
   const DirListRef = useRef();
@@ -219,8 +219,15 @@ const DirItem = ({
       });
       setUnexpendAnimation({});
       setExpandIconId("dir_item_component_arrow_icon_down0725");
+      setTimeout(() => {
+        setExpandIconId("dir_item_component_arrow_icon_down_no_animation1018");
+      }, expandingTime * 1000);
       setExpanded(true);
       file.fileExpend = true;
+      //REMOVE ANIMATION
+      setTimeout(() => {
+        setExpendAnimation({});
+      }, expandingTime * 1000);
     } else {
       setExpendAnimation({});
       setUnexpendAnimation({
@@ -228,8 +235,15 @@ const DirItem = ({
         ...dirListUnexpendKeyframes,
       });
       setExpandIconId("dir_item_component_arrow_icon_right0725");
+      setTimeout(() => {
+        setExpandIconId("dir_item_component_arrow_icon_right_no_animation1018");
+      }, expandingTime * 1000);
       setExpanded(false);
       file.fileExpend = false;
+      //REMOVE ANIMATION
+      setTimeout(() => {
+        setUnexpendAnimation({});
+      }, unexpandingTime * 1000);
     }
 
     forceRefresh();
