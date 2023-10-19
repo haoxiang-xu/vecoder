@@ -275,6 +275,7 @@ const Monitor = ({
           setRightClickCommand={setRightClickCommand}
           refeshKey={refeshKey}
           copyFile={copyFile}
+          explorerTop={explorerTop}
         />
       ) : (
         <div></div>

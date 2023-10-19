@@ -144,7 +144,7 @@ const DirItem = ({
     setFileIcon(ICONs[file.fileName.split(".").pop()]);
     setFileTextColor(COLORs[file.fileName.split(".").pop()]);
     setDir(file.files);
-    setExpanded(file.fileExpend);
+    //setExpanded(file.fileExpend);
   }, [file]);
 
   const DirListRef = useRef();
@@ -519,6 +519,7 @@ const DirItem = ({
         break;
       }
     }
+    setOnSingleClickFile(null);
     setRefresh(!refresh);
   };
   //PASTE

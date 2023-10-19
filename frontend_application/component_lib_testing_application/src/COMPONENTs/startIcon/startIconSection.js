@@ -23,6 +23,7 @@ const StartIcon = ({
   const logoTitleRef = useRef(logo_title);
   const [intervalId, setIntervalId] = useState(null);
   const [logo_subtitle, setLogoSubtitle] = useState("POWERED BY GPT");
+  const logoRef = useRef(null);
 
   const [inputContainerId, setInputContainerId] = useState(
     "web_logo_section_component_logo_title_container0725"
@@ -183,12 +184,13 @@ const StartIcon = ({
   return (
     <div
       id="web_logo_section_component_container0725"
+      ref={logoRef}
       style={
         startOnClick && explorerTop !== -1
           ? {
               transition: "all 0.32s ease",
               top: explorerTop + "px",
-              transform: "translate(-50%, -25%)",
+              transform: explorerTop === 0 ? "translate(-50%, 0%)" : "translate(-50%, -25%)",
             }
           : {
               transition: "all 0.32s",

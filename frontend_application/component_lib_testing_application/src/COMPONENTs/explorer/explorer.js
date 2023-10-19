@@ -14,6 +14,7 @@ const Explorer = ({
   setRightClickCommand,
   refeshKey,
   copyFile,
+  explorerTop,
 }) => {
   const [explorerContainerId, setExplorerContainerId] = useState(
     "dir_list_component_container_hided0725"
@@ -70,7 +71,7 @@ const Explorer = ({
       <div
         id={
           explorerExpand
-            ? "dir_list_component_container_expanded0725"
+            ? explorerTop === 0 ? "dir_list_component_container_expanded_max1018" : "dir_list_component_container_expanded0725"
             : explorerContainerId
         }
         style={{
