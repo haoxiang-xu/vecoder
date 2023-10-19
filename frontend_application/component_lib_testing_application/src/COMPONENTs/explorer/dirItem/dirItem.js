@@ -99,12 +99,10 @@ const DirItem = ({
     csv: table_icon,
     svg: image_icon,
   };
-
   const [refresh, setRefresh] = useState(false);
   const forceRefresh = () => {
     setRefresh(!refresh);
   };
-
   //EXPAND
   const [expanded, setExpanded] = useState(false);
   const [expandIconId, setExpandIconId] = useState(
@@ -112,9 +110,7 @@ const DirItem = ({
       ? "dir_item_component_arrow_icon_down0725"
       : "dir_item_component_arrow_icon_right0725"
   );
-
   const [dirListId, setDirListId] = useState("dir_item_component_dir_list0725");
-
   //Generate File name, File Icon and Text Color
   const [filename, setFilename] = useState(file.fileName);
   const [renameInput, setRenameInput] = useState(filename);
@@ -144,7 +140,7 @@ const DirItem = ({
     setFileIcon(ICONs[file.fileName.split(".").pop()]);
     setFileTextColor(COLORs[file.fileName.split(".").pop()]);
     setDir(file.files);
-    //setExpanded(file.fileExpend);
+    setExpanded(file.fileExpend);
   }, [file]);
 
   const DirListRef = useRef();
