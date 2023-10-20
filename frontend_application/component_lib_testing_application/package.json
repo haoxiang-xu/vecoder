@@ -12,8 +12,9 @@
     "react-dom": "^18.2.0",
     "react-monaco-editor": "^0.54.0",
     "react-router-dom": "^6.15.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "react-spinners": "^0.13.8",
+    "reactflow": "^11.9.4",
     "web-vitals": "^2.1.4"
   },
   "main": "main.js",
