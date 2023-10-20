@@ -150,10 +150,12 @@ const DirItem = ({
     Math.max(file.files.length * 0.015, 0.08),
     0.16
   );
+
   const unexpandingTime = Math.min(
     Math.max(file.files.length * 0.015, 0.32),
     0.64
   );
+
   let dirListUnexpendKeyframes = {
     "0%": {
       height: "6.6px",
@@ -170,18 +172,10 @@ const DirItem = ({
   };
   const [dirListExpendKeyframes, setDirListExpendKeyframes] = useState({
     "0%": {
-      opacity: 0,
-      height: "0pt",
-    },
-    "40%": {
-      opacity: 0,
-    },
-    "70%": {
-      opacity: 0,
+      top: "-13pt",
     },
     "100%": {
-      height: "13pt",
-      opacity: 1,
+      top: "0pt",
     },
   });
   const dirListUnexpendAnimation = {
