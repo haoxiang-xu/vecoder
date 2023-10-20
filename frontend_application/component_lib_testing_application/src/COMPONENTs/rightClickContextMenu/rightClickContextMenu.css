@@ -17,7 +17,6 @@
   border-radius: 0pt 8pt 8pt 8pt;
   box-shadow: 0px 4px 16px 8px rgba(0, 0, 0, 0.24);
   border: 2px solid #2a2d2e;
-  backdrop-filter: blur(16px);
 }
 #rightClickContextMenu_component_container_rigttop0930 {
   /*POSITION*/
@@ -38,7 +37,6 @@
   border-radius: 8pt 0pt 8pt 8pt;
   box-shadow: 0px 4px 16px 8px rgba(0, 0, 0, 0.2);
   border: 2px solid #2a2d2e;
-  backdrop-filter: blur(16px);
 }
 #rightClickContextMenu_component_container_leftbottom0930 {
   /*POSITION*/
@@ -59,7 +57,6 @@
   border-radius: 8pt 8pt 8pt 0pt;
   box-shadow: 0px 4px 16px 8px rgba(0, 0, 0, 0.2);
   border: 2px solid #2a2d2e;
-  backdrop-filter: blur(16px);
 }
 #rightClickContextMenu_component_container_rightbottom0930 {
   /*POSITION*/
@@ -80,5 +77,4 @@
   border-radius: 8pt 8pt 0pt 8pt;
   box-shadow: 0px 4px 16px 8px rgba(0, 0, 0, 0.2);
   border: 2px solid #2a2d2e;
-  backdrop-filter: blur(16px);
 }
