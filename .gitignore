@@ -17,3 +17,5 @@ backend_services/code_services/.env
 
 backend_services/code_services/models
 
+.venv
+
