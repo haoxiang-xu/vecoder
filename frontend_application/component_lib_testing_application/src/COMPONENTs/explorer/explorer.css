@@ -1,5 +1,5 @@
 #dir_list_component_container0725 {
-  transition: all 0.32s ease;
+  transition: all 0.08s ease;
 
   /*POSITION*/
   position: absolute;
@@ -47,8 +47,6 @@
   /*STYLE*/
   overflow-y: scroll;
   overflow-x: hidden;
-
-  border-radius: 8pt;
 
   animation-timing-function: linear;
   animation: dir_list_component_container_appear_animation 1.6s;
