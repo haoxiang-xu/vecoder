@@ -1,0 +1,11 @@
+.background_UI_Frame_1 {
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    /* drop shadow x0 y0 blur15px spread0 black62%*/
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.62);
+}
+
+.background_UI_Frame_2 {
+    background-color: #303030;
+    border-radius: 10px;
+}
