@@ -11,8 +11,12 @@ import ReactFlow, {
 import DescriptionNode from '../description_node/description_node';
 
 import 'reactflow/dist/style.css';
+import './graph.css';
 
 const nodeTypes = { descNode: DescriptionNode };
+
+// STUFF THAT NEEDS TO COME FROM BACKEND
+// v v v v v v v v v v v v v v v v v v v 
 
 const initialNodes = [
   { id: '1', type: 'descNode', position: { x: 0, y: 0 }, data: { label: 'test 1', description: 'what is this?', icon: '/java.png' } },
@@ -20,7 +24,9 @@ const initialNodes = [
   { id: '3', type: 'descNode', position: { x: 0, y: 500}, data: { label: 'test 3' } },
 
 ];
-const initialEdges = [{ id: 'e1-2', source: '1', target: '2' }];
+const initialEdges = [{ id: 'e1-2', source: '1', target: '2', type: 'smoothstep' }];
+
+// ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ 
 
 export default function Graph() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
@@ -37,12 +43,10 @@ export default function Graph() {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         nodeTypes={nodeTypes}
-        connectionLineType='smoothstep'
         fitView
       >
         <Controls />
-        <MiniMap />
-        <Background variant="cross" gap={100} size={10} />
+        <Background variant="cross" color='#505050' gap={100} size={10} />
       </ReactFlow>
     </div>
   );

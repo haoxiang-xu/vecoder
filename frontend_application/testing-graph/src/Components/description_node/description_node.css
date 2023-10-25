@@ -18,8 +18,7 @@
 
 .descriptionNode_title {
     display: flex;
-    align-items: center;
-    margin-bottom: 0.5em;
+    height: 2em;
 }
 
 .descriptionNode_label {
@@ -32,6 +31,23 @@
     height: 1em;
     width: 1em;
     margin-right: 0.5em;
+}
+
+#action_buttons {
+    margin-left: auto;
+}
+
+.descriptionNode_action {
+    margin-left: 0.2em;
+    height: 1em;
+    width: 1em;
+    padding: 0.1em;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.descriptionNode_action:hover {
+    outline: solid 1px#cccccc;
 }
 
 .descriptionNode textarea {
