@@ -56,3 +56,16 @@
     color: #cccccc;
     border: none;
 }
+
+.descriptionNode .react-flow__handle {
+    width: 0.5em;
+    height: 0.5em;
+}
+
+.descriptionNode .react-flow__handle.react-flow__handle-top {
+    background: red;
+}
+
+.descriptionNode .react-flow__handle.react-flow__handle-bottom {
+    background: blue;
+}

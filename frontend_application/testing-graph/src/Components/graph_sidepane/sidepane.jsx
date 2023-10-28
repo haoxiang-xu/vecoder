@@ -20,7 +20,7 @@ export default function GraphSidepane() {
             type: "descNode",
             position: {
                 x: x,
-                y: y
+                y: y,
             },
             data: {
                 label: `Node ${id}`,
@@ -49,10 +49,11 @@ export default function GraphSidepane() {
     );
 }
 
-function convertEmToPixels (em) {
+function convertEmToPixels(em) {
     // Get the root font size in pixels
-    var rootFontSize = parseFloat (getComputedStyle (document.documentElement).fontSize);
+    var rootFontSize = parseFloat(
+        getComputedStyle(document.documentElement).fontSize
+    );
     // Multiply by the EM value to get the pixel value
     return em * rootFontSize;
-  }
-  
+}

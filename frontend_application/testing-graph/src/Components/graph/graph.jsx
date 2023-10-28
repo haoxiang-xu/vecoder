@@ -1,9 +1,5 @@
 import React, { useCallback } from "react";
-import ReactFlow, {
-    Controls,
-    Background,
-    addEdge,
-} from "reactflow";
+import ReactFlow, { Controls, Background, addEdge } from "reactflow";
 
 import DescriptionNode from "../description_node/description_node";
 
@@ -12,17 +8,16 @@ import "./graph.css";
 
 const nodeTypes = { descNode: DescriptionNode };
 
-// STUFF THAT NEEDS TO COME FROM BACKEND
-// v v v v v v v v v v v v v v v v v v v
-
-// ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
-
 export default function Graph(props) {
     const [nodes, setNodes, onNodesChange] = props.nodeBundle;
     const [edges, setEdges, onEdgesChange] = props.edgeBundle;
 
     const onConnect = useCallback(
-        (params) => setEdges((eds) => addEdge(params, eds)),
+        (params) => {
+            params.type = "smoothstep";
+            params.animated = true;
+            setEdges((eds) => addEdge(params, eds));
+        },
         [setEdges]
     );
 
@@ -35,7 +30,7 @@ export default function Graph(props) {
                 onEdgesChange={onEdgesChange}
                 onConnect={onConnect}
                 nodeTypes={nodeTypes}
-                // fitView
+                fitView
             >
                 <Controls />
                 <Background
