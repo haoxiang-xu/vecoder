@@ -58,9 +58,8 @@ function DescriptionNode({ data }) {
                     id={data.nodeID}
                     onChange={descChange}
                     className="nodrag background_UI_Frame_2"
-                >
-                    {data.description}
-                </textarea>
+                    defaultValue={data.description}
+                />
             </div>
         </div>
     );

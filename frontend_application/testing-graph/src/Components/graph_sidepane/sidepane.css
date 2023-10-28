@@ -1,0 +1,16 @@
+#graph_sidepane_add_edge_button {
+    color: #cccccc;
+    width: calc(100% - 2em);
+    height: 4em;
+    cursor: pointer;
+    margin: 1em;
+}
+
+#graph_sidepane_add_edge_button:hover {
+    background-color: #545454;
+}
+
+#graph_sidepane {
+    width: 20rem;
+    margin: 1em;
+}
