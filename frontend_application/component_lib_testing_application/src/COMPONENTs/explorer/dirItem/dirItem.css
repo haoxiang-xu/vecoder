@@ -120,6 +120,9 @@
 
   transform: rotate(90deg);
 
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
 .dir_item_component_arrow_icon_down_no_animation1018 {
@@ -135,6 +138,9 @@
 
   transform: rotate(90deg);
 
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
 .dir_item_component_unexpendable_arrow_icon_right0826 {
@@ -201,6 +207,9 @@
 
   box-shadow: inset 0 0 0 1pt #0d66ac;
 
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
 .dir_item_component_input_box_shake0826 {
@@ -261,5 +270,8 @@
 .dir_item_component_input_box0803:focus {
   outline: none;
 
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
