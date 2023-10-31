@@ -1,31 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
 
 import "./dirItem.css";
 import arrow_icon from "./ICONs/arrow.png";
-import info_icon from "./ICONs/info.png";
-
-import javascript_icon from "./ICONs/FILETYPE_ICONs/js.png";
-import html_icon from "./ICONs/FILETYPE_ICONs/html.png";
-import css_icon from "./ICONs/FILETYPE_ICONs/css.png";
-import png_icon from "./ICONs/FILETYPE_ICONs/png.png";
-import pdf_icon from "./ICONs/FILETYPE_ICONs/pdf.png";
-import gitignore_icon from "./ICONs/FILETYPE_ICONs/gitignore.png";
-import python_icon from "./ICONs/FILETYPE_ICONs/python.png";
-import json_icon from "./ICONs/FILETYPE_ICONs/json.png";
-import txt_icon from "./ICONs/FILETYPE_ICONs/txt.png";
-import markdown_icon from "./ICONs/FILETYPE_ICONs/markdown.png";
-import java_icon from "./ICONs/FILETYPE_ICONs/java.png";
-import php_icon from "./ICONs/FILETYPE_ICONs/php.png";
-import image_icon from "./ICONs/FILETYPE_ICONs/photo.png";
-import xml_icon from "./ICONs/FILETYPE_ICONs/xml.png";
-import app_icon from "./ICONs/FILETYPE_ICONs/application.png";
-import database_icon from "./ICONs/FILETYPE_ICONs/database.png";
-import cpp_icon from "./ICONs/FILETYPE_ICONs/cpp.png";
-import csharp_icon from "./ICONs/FILETYPE_ICONs/csharp.png";
-import settings_icon from "./ICONs/FILETYPE_ICONs/settings.png";
-import ipynb_icon from "./ICONs/FILETYPE_ICONs/ipynb.png";
-import table_icon from "./ICONs/FILETYPE_ICONs/table.png";
+import { ICON_MANAGER } from "../../../icon_manager";
 
 const DirItem = ({
   file,
@@ -46,58 +23,8 @@ const DirItem = ({
   parentForceRefresh,
 }) => {
   //Files Icon and Text Color declaration
-  const COLORs = {
-    js: "#CCCCCC",
-    html: "#CCCCCC",
-    css: "#CCCCCC",
-    png: "#8C8C8C",
-    pdf: "#8C8C8C",
-    gitignore: "#8C8C8C",
-    py: "#CCCCCC",
-    json: "#CCCCCC",
-    txt: "#8C8C8C",
-    md: "#CCCCCC",
-    java: "#CCCCCC",
-    php: "#CCCCCC",
-    jpg: "#8C8C8C",
-    jpeg: "#8C8C8C",
-    icon: "#8C8C8C",
-    xml: "#CCCCCC",
-    exe: "#CCCCCC",
-    sql: "#CCCCCC",
-    cpp: "#CCCCCC",
-    cs: "#CCCCCC",
-    config: "#8C8C8C",
-    ipynb: "#CCCCCC",
-    csv: "#CCCCCC",
-    svg: "#8C8C8C",
-  };
-  const ICONs = {
-    js: javascript_icon,
-    html: html_icon,
-    css: css_icon,
-    png: image_icon,
-    pdf: pdf_icon,
-    gitignore: gitignore_icon,
-    py: python_icon,
-    json: json_icon,
-    txt: txt_icon,
-    md: markdown_icon,
-    java: java_icon,
-    php: php_icon,
-    jpg: image_icon,
-    jpeg: image_icon,
-    icon: image_icon,
-    xml: xml_icon,
-    exe: app_icon,
-    sql: database_icon,
-    cpp: cpp_icon,
-    cs: csharp_icon,
-    config: settings_icon,
-    ipynb: ipynb_icon,
-    csv: table_icon,
-    svg: image_icon,
-  };
+  const FILE_TYPE_STYLING_MANAGER = ICON_MANAGER().FILE_TYPE_STYLING_MANAGER;
+
   const [refresh, setRefresh] = useState(false);
   const forceRefresh = () => {
     setRefresh(!refresh);
@@ -128,15 +55,25 @@ const DirItem = ({
   useEffect(() => {
     setFilename(file.fileName);
     if (file.fileName.split(".").pop() !== file.fileName) {
-      setFileIcon(ICONs[file.fileName.split(".").pop()]);
-      setFileTextColor(COLORs[file.fileName.split(".").pop()]);
+      setFileIcon(
+        FILE_TYPE_STYLING_MANAGER[file.fileName.split(".").pop()]?.ICON
+      );
+      setFileTextColor(
+        FILE_TYPE_STYLING_MANAGER[file.fileName.split(".").pop()]
+          ?.LABEL_COLOR || "#C8C8C8"
+      );
     }
   }, [file.fileName]);
   useEffect(() => {
     setFilename(file.fileName);
     setRenameInput(file.fileName);
-    setFileIcon(ICONs[file.fileName.split(".").pop()]);
-    setFileTextColor(COLORs[file.fileName.split(".").pop()]);
+    setFileIcon(
+      FILE_TYPE_STYLING_MANAGER[file.fileName.split(".").pop()]?.ICON
+    );
+    setFileTextColor(
+      FILE_TYPE_STYLING_MANAGER[file.fileName.split(".").pop()]?.LABEL_COLOR ||
+        "#C8C8C8"
+    );
     setDir(file.files);
     setExpanded(file.fileExpend);
   }, [file]);
