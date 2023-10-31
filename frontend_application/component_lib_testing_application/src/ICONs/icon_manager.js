@@ -7,33 +7,33 @@ export const ICON_MANAGER = () => {
   };
   try {
     //CODE FILE TYPES
-    const JS512 = require("./ICONs/FILETYPE_ICONs/512X512/js.png");
-    const HTML512 = require("./ICONs/FILETYPE_ICONs/512X512/html.png");
-    const CSS512 = require("./ICONs/FILETYPE_ICONs/512X512/css.png");
-    const JSON512 = require("./ICONs/FILETYPE_ICONs/512X512/json.png");
-    const CPP512 = require("./ICONs/FILETYPE_ICONs/512X512/cpp.png");
-    const CS512 = require("./ICONs/FILETYPE_ICONs/512X512/cs.png");
-    const PY512 = require("./ICONs/FILETYPE_ICONs/512X512/py.png");
-    const JAVA512 = require("./ICONs/FILETYPE_ICONs/512X512/java.png");
-    const PHP512 = require("./ICONs/FILETYPE_ICONs/512X512/php.png");
-    const IPYNB512 = require("./ICONs/FILETYPE_ICONs/512X512/ipynb.png");
-    const XML512 = require("./ICONs/FILETYPE_ICONs/512X512/xml.png");
+    const JS512 = require("./FILETYPE_ICONs/512X512/js.png");
+    const HTML512 = require("./FILETYPE_ICONs/512X512/html.png");
+    const CSS512 = require("./FILETYPE_ICONs/512X512/css.png");
+    const JSON512 = require("./FILETYPE_ICONs/512X512/json.png");
+    const CPP512 = require("./FILETYPE_ICONs/512X512/cpp.png");
+    const CS512 = require("./FILETYPE_ICONs/512X512/cs.png");
+    const PY512 = require("./FILETYPE_ICONs/512X512/py.png");
+    const JAVA512 = require("./FILETYPE_ICONs/512X512/java.png");
+    const PHP512 = require("./FILETYPE_ICONs/512X512/php.png");
+    const IPYNB512 = require("./FILETYPE_ICONs/512X512/ipynb.png");
+    const XML512 = require("./FILETYPE_ICONs/512X512/xml.png");
     //IMAGE FILE TYPES
-    const JPG512 = require("./ICONs/FILETYPE_ICONs/512X512/jpg.png");
-    const PNG512 = require("./ICONs/FILETYPE_ICONs/512X512/png.png");
-    const SVG512 = require("./ICONs/FILETYPE_ICONs/512X512/svg.png");
+    const JPG512 = require("./FILETYPE_ICONs/512X512/jpg.png");
+    const PNG512 = require("./FILETYPE_ICONs/512X512/png.png");
+    const SVG512 = require("./FILETYPE_ICONs/512X512/svg.png");
     //DOCUMENT FILE TYPES
-    const TXT512 = require("./ICONs/FILETYPE_ICONs/512X512/txt.png");
-    const PDF512 = require("./ICONs/FILETYPE_ICONs/512X512/pdf.png");
-    const PPTX512 = require("./ICONs/FILETYPE_ICONs/512X512/pptx.png");
-    const XLSX512 = require("./ICONs/FILETYPE_ICONs/512X512/xlsx.png");
-    const DOC512 = require("./ICONs/FILETYPE_ICONs/512X512/doc.png");
+    const TXT512 = require("./FILETYPE_ICONs/512X512/txt.png");
+    const PDF512 = require("./FILETYPE_ICONs/512X512/pdf.png");
+    const PPTX512 = require("./FILETYPE_ICONs/512X512/pptx.png");
+    const XLSX512 = require("./FILETYPE_ICONs/512X512/xlsx.png");
+    const DOC512 = require("./FILETYPE_ICONs/512X512/doc.png");
     //DATABASE FILE TYPES
-    const SQL512 = require("./ICONs/FILETYPE_ICONs/512X512/sql.png");
+    const SQL512 = require("./FILETYPE_ICONs/512X512/sql.png");
     //OTHER FILE TYPES
-    const GITIGNORE512 = require("./ICONs/FILETYPE_ICONs/512X512/gitignore.png");
-    const MD512 = require("./ICONs/FILETYPE_ICONs/512X512/md.png");
-    const ENV512 = require("./ICONs/FILETYPE_ICONs/512X512/env.png");
+    const GITIGNORE512 = require("./FILETYPE_ICONs/512X512/gitignore.png");
+    const MD512 = require("./FILETYPE_ICONs/512X512/md.png");
+    const ENV512 = require("./FILETYPE_ICONs/512X512/env.png");
 
     FILE_TYPE_STYLING_MANAGER = {
       //CODE FILE TYPES

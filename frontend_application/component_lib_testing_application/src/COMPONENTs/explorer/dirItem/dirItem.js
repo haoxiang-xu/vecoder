@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 
 import "./dirItem.css";
 import arrow_icon from "./ICONs/arrow.png";
-import { ICON_MANAGER } from "../../../icon_manager";
+import { ICON_MANAGER } from "../../../ICONs/icon_manager";
 
 const DirItem = ({
   file,
