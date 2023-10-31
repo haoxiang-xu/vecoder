@@ -23,7 +23,17 @@ const DirItem = ({
   parentForceRefresh,
 }) => {
   //Files Icon and Text Color declaration
-  const FILE_TYPE_STYLING_MANAGER = ICON_MANAGER().FILE_TYPE_STYLING_MANAGER;
+  let FILE_TYPE_STYLING_MANAGER = {
+    default: {
+      ICON: null,
+      LABEL_COLOR: "#C8C8C8",
+    },
+  };
+  try{
+    FILE_TYPE_STYLING_MANAGER = ICON_MANAGER().FILE_TYPE_STYLING_MANAGER;
+  }catch(e){
+    console.log(e);
+  }
 
   const [refresh, setRefresh] = useState(false);
   const forceRefresh = () => {
