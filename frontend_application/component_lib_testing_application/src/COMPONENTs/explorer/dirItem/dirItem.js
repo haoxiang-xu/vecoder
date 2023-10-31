@@ -32,7 +32,6 @@ const DirItem = ({
   root,
   explorerExpand,
   setExplorerExpand,
-  parentFileLength,
   setChildrenOnClicked,
   onRightClickItem,
   setOnRightClickItem,
@@ -105,12 +104,12 @@ const DirItem = ({
   };
   //EXPAND
   const [expanded, setExpanded] = useState(false);
-  const [expandIconId, setExpandIconId] = useState(
+  const [expandIconClassName, setExpandIconClassName] = useState(
     file.fileExpend
       ? "dir_item_component_arrow_icon_down0725"
       : "dir_item_component_arrow_icon_right0725"
   );
-  const [dirListId, setDirListId] = useState("dir_item_component_dir_list0725");
+  const dirListClassName = "dir_item_component_dir_list0725";
   //Generate File name, File Icon and Text Color
   const [filename, setFilename] = useState(file.fileName);
   const [renameInput, setRenameInput] = useState(filename);
@@ -118,11 +117,10 @@ const DirItem = ({
   const [fileTextColor, setFileTextColor] = useState();
 
   const [dir, setDir] = useState(file.files);
-  const [isHovered, setIsHovered] = useState(false);
   const [isRightClicked, setIsRightClicked] = useState(false);
   const [onCommand, setOnCommand] = useState("false");
 
-  const [fileNameId, setFileNameId] = useState(
+  const [fileNameClassName, setFileNameClassName] = useState(
     "dir_item_component_file_name0725"
   );
 
@@ -150,12 +148,10 @@ const DirItem = ({
     Math.max(file.files.length * 0.015, 0.08),
     0.16
   );
-
   const unexpandingTime = Math.min(
     Math.max(file.files.length * 0.015, 0.32),
     0.64
   );
-
   let dirListUnexpendKeyframes = {
     "0%": {
       height: "6.6px",
@@ -173,9 +169,14 @@ const DirItem = ({
   const [dirListExpendKeyframes, setDirListExpendKeyframes] = useState({
     "0%": {
       top: "-13pt",
+      opacity: 0,
+    },
+    "20%": {
+      opacity: 0,
     },
     "100%": {
       top: "0pt",
+      opacity: 1,
     },
   });
   const dirListUnexpendAnimation = {
@@ -190,9 +191,9 @@ const DirItem = ({
   const [unexpendAnimation, setUnexpendAnimation] = useState({});
   useEffect(() => {
     if (expanded) {
-      setExpandIconId("dir_item_component_arrow_icon_down0725");
+      setExpandIconClassName("dir_item_component_arrow_icon_down0725");
     } else {
-      setExpandIconId("dir_item_component_arrow_icon_right0725");
+      setExpandIconClassName("dir_item_component_arrow_icon_right0725");
     }
   }, [expanded]);
 
@@ -208,9 +209,11 @@ const DirItem = ({
         ...dirListExpendKeyframes,
       });
       setUnexpendAnimation({});
-      setExpandIconId("dir_item_component_arrow_icon_down0725");
+      setExpandIconClassName("dir_item_component_arrow_icon_down0725");
       setTimeout(() => {
-        setExpandIconId("dir_item_component_arrow_icon_down_no_animation1018");
+        setExpandIconClassName(
+          "dir_item_component_arrow_icon_down_no_animation1018"
+        );
       }, expandingTime * 1000);
       setExpanded(true);
       file.fileExpend = true;
@@ -224,9 +227,11 @@ const DirItem = ({
         ...dirListUnexpendAnimation,
         ...dirListUnexpendKeyframes,
       });
-      setExpandIconId("dir_item_component_arrow_icon_right0725");
+      setExpandIconClassName("dir_item_component_arrow_icon_right0725");
       setTimeout(() => {
-        setExpandIconId("dir_item_component_arrow_icon_right_no_animation1018");
+        setExpandIconClassName(
+          "dir_item_component_arrow_icon_right_no_animation1018"
+        );
       }, expandingTime * 1000);
       setExpanded(false);
       file.fileExpend = false;
@@ -237,31 +242,6 @@ const DirItem = ({
     }
 
     forceRefresh();
-
-    setTimeout(() => {
-      setChildrenOnClicked(true);
-    }, 40);
-    setTimeout(() => {
-      setChildrenOnClicked(true);
-    }, 80);
-    setTimeout(() => {
-      setChildrenOnClicked(true);
-    }, 160);
-    setTimeout(() => {
-      setChildrenOnClicked(true);
-    }, 320);
-    setTimeout(() => {
-      setChildrenOnClicked(true);
-    }, 640);
-    setTimeout(() => {
-      setChildrenOnClicked(false);
-    }, 650);
-  };
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-  const handleMouseLeave = () => {
-    setIsHovered(false);
   };
   const handleFolderOnRightClick = () => {
     setOnRightClickItem(JSON.parse(JSON.stringify(file)));
@@ -282,9 +262,9 @@ const DirItem = ({
   useEffect(() => {
     if (onSingleClickFile !== null) {
       if (onSingleClickFile.filePath === file.filePath) {
-        setFileNameId("dir_item_component_file_name_on_selected0827");
+        setFileNameClassName("dir_item_component_file_name_on_selected0827");
       } else {
-        setFileNameId("dir_item_component_file_name0725");
+        setFileNameClassName("dir_item_component_file_name0725");
       }
     }
   }, [onSingleClickFile]);
@@ -298,7 +278,7 @@ const DirItem = ({
   //ON COMMAND
   //RENAME
   const inputRef = useRef();
-  const [inputBoxId, setInputBoxId] = useState(
+  const [inputBoxClassName, setInputBoxClassName] = useState(
     "dir_item_component_input_box0803"
   );
   useEffect(() => {
@@ -332,9 +312,9 @@ const DirItem = ({
 
         setOnCommand("false");
       } else {
-        setInputBoxId("dir_item_component_input_box_shake0826");
+        setInputBoxClassName("dir_item_component_input_box_shake0826");
         setTimeout(() => {
-          setInputBoxId("dir_item_component_input_box0803");
+          setInputBoxClassName("dir_item_component_input_box0803");
         }, 160);
       }
     }
@@ -402,7 +382,7 @@ const DirItem = ({
       if (setExplorerExpand) {
         setExplorerExpand(true);
       }
-      setExpandIconId("dir_item_component_arrow_icon_down0725");
+      setExpandIconClassName("dir_item_component_arrow_icon_down0725");
 
       setTimeout(() => {
         setChildrenOnClicked(true);
@@ -454,7 +434,7 @@ const DirItem = ({
       if (setExplorerExpand) {
         setExplorerExpand(true);
       }
-      setExpandIconId("dir_item_component_arrow_icon_down0725");
+      setExpandIconClassName("dir_item_component_arrow_icon_down0725");
 
       setTimeout(() => {
         setChildrenOnClicked(true);
@@ -537,7 +517,7 @@ const DirItem = ({
           if (setExplorerExpand) {
             setExplorerExpand(true);
           }
-          setExpandIconId("dir_item_component_arrow_icon_down0725");
+          setExpandIconClassName("dir_item_component_arrow_icon_down0725");
           sortFiles();
         } else {
           alert("File name already exist");
@@ -565,7 +545,7 @@ const DirItem = ({
       addPathNameAllChildren(file.files[i], addPath, copyFileIndex);
     }
   };
-
+  //RIGHT CLICK COMMAND MAIN
   useEffect(() => {
     if (rightClickCommand !== undefined && rightClickCommand !== null) {
       if (rightClickCommand.target_file.filePath === file.filePath) {
@@ -588,19 +568,8 @@ const DirItem = ({
     }
   }, [rightClickCommand]);
 
-  //ONDRAG
-  const handleDragStart = (event) => {
-    //console.log("drag start" + file.filePath);
-  };
-  const handleDragOver = (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    //setDirListId("dir_item_component_dir_list_on_drag0827");
-    console.log("drag over " + file.fileName);
-  };
-
   return (
-    <div className="dir_item_component_container0725">
+    <div>
       <link
         href="https://fonts.googleapis.com/css?family=Roboto"
         rel="stylesheet"
@@ -619,7 +588,7 @@ const DirItem = ({
                     <input
                       type="text"
                       value={renameInput}
-                      id={inputBoxId}
+                      className={inputBoxClassName}
                       onChange={handleRenameInputOnChange}
                       onKeyDown={handleRenameInputOnKeyDown}
                       ref={inputRef}
@@ -634,15 +603,9 @@ const DirItem = ({
               ) : (
                 /* SPAN If file not on command -> diplay folder name and expand arrow button>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
                 <span
-                  id={fileNameId}
+                  className={fileNameClassName}
                   onClick={handleExpandIconOnClick}
                   onContextMenu={handleFolderOnRightClick}
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                  draggable={onCommand !== "false" ? "false" : "true"}
-                  onDragStart={
-                    onCommand !== "false" ? undefined : handleDragStart
-                  }
                   style={
                     onRightClickItem !== null &&
                     isRightClicked &&
@@ -655,7 +618,7 @@ const DirItem = ({
                 >
                   <img
                     src={arrow_icon}
-                    id={expandIconId}
+                    className={expandIconClassName}
                     onClick={handleExpandIconOnClick}
                     loading="lazy"
                   />
@@ -674,7 +637,7 @@ const DirItem = ({
                     <input
                       type="text"
                       value={renameInput}
-                      id={inputBoxId}
+                      className={inputBoxClassName}
                       onChange={handleRenameInputOnChange}
                       onKeyDown={handleRenameInputOnKeyDown}
                       ref={inputRef}
@@ -689,15 +652,9 @@ const DirItem = ({
               ) : (
                 /* SPAN If file not on command -> diplay folder name and expand arrow button>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
                 <span
-                  id={fileNameId}
+                  className={fileNameClassName}
                   onClick={(e) => handleOnLeftClick(e)}
                   onContextMenu={handleFolderOnRightClick}
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                  draggable={onCommand !== "false" ? "false" : "true"}
-                  onDragStart={
-                    onCommand !== "false" ? undefined : handleDragStart
-                  }
                   style={
                     onRightClickItem !== null &&
                     isRightClicked &&
@@ -710,7 +667,7 @@ const DirItem = ({
                 >
                   <img
                     src={arrow_icon}
-                    id="dir_item_component_unexpendable_arrow_icon_right0826"
+                    className="dir_item_component_unexpendable_arrow_icon_right0826"
                     loading="lazy"
                   />
                   {filename}
@@ -728,7 +685,7 @@ const DirItem = ({
                 <input
                   type="text"
                   value={renameInput}
-                  id={inputBoxId}
+                  className={inputBoxClassName}
                   onChange={handleRenameInputOnChange}
                   onKeyDown={handleRenameInputOnKeyDown}
                   ref={inputRef}
@@ -743,10 +700,8 @@ const DirItem = ({
           ) : (
             /* SPAN file>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
             <span
-              id={fileNameId}
+              className={fileNameClassName}
               onClick={(e) => handleOnLeftClick(e)}
-              draggable={onCommand !== "false" ? "false" : "true"}
-              onDragStart={onCommand !== "false" ? undefined : handleDragStart}
               style={
                 fileIcon !== undefined
                   ? {
@@ -778,7 +733,7 @@ const DirItem = ({
               {fileIcon !== undefined ? (
                 <img
                   src={fileIcon !== undefined ? fileIcon : ""}
-                  id="dir_item_component_script_icon0725"
+                  className="dir_item_component_script_icon0725"
                   loading="lazy"
                   draggable={"false"}
                 ></img>
@@ -792,18 +747,13 @@ const DirItem = ({
       )}
       {file.files.length !== 0 && expanded ? (
         /*If file has children -> Including the children file list*/
-        <div
-          onDragOver={handleDragOver}
-          ref={DirListRef}
-          style={{ height: "fit-content" }}
-        >
-          <ul id={dirListId}>
+        <div ref={DirListRef} style={{ height: "fit-content" }}>
+          <ul className={dirListClassName}>
             {dir.map((item, index) => (
               <li key={index} style={expendAnimation}>
                 <DirItem
                   file={item}
                   root={false}
-                  parentFileLength={file.files.length}
                   setChildrenOnClicked={setChildrenOnClicked}
                   onRightClickItem={onRightClickItem}
                   setOnRightClickItem={setOnRightClickItem}
