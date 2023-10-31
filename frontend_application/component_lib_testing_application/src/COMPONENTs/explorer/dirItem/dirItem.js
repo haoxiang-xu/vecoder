@@ -29,9 +29,9 @@ const DirItem = ({
       LABEL_COLOR: "#C8C8C8",
     },
   };
-  try{
+  try {
     FILE_TYPE_STYLING_MANAGER = ICON_MANAGER().FILE_TYPE_STYLING_MANAGER;
-  }catch(e){
+  } catch (e) {
     console.log(e);
   }
 
