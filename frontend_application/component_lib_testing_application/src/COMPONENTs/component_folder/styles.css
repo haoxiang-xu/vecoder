@@ -1,0 +1,51 @@
+/* Add these styles in your CSS file */
+
+.vscode__tabs {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+}
+
+.vscode__tabs ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.vscode__tabs ul .tab {
+    padding: 10px 15px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.vscode__tabs ul .tab:hover {
+    background-color: #eee;
+}
+
+.vscode__tabs ul .tab.active {
+    background-color: #fff;
+    border-bottom: 2px solid #007ACC;
+}
+
+.vscode__editor {
+    position: relative;
+}
+
+.vscode__editor textarea {
+    width: 100%;
+    height: calc(100% - 35px);
+    resize: none;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.vscode__tabs ul .tab.resizable {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 10px;
+    height: 100%;
+    background-color: #ccc;
+    cursor: ew-resize;
+    z-index: 1;
+}

@@ -13,6 +13,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/upload" element={<UploadFile />} />
         <Route path="/codeeditor" element={<CodeEditorPage />} />
+
       </Routes>
     </Router>
   );
