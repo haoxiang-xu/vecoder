@@ -11,7 +11,7 @@ import cancelImage from "./cancel.png";
 
 function DescriptionNode({ data }) {
     const descChange = useCallback((evt) => {
-        console.log(evt.target.value);
+        setTextAreaValue(evt.target.value);
         setIsUnsaved(true);
     }, []);
 
@@ -22,10 +22,11 @@ function DescriptionNode({ data }) {
 
     const handleCancel = useCallback(() => {
         setIsUnsaved(false);
-        // TODO: Reset to original description
+        setTextAreaValue(data.description);
     }, []);
 
     const [isUnsaved, setIsUnsaved] = useState(false);
+    const [textAreaValue, setTextAreaValue] = useState(data.description);
 
     return (
         <div className="descriptionNode background_UI_Frame_1">
@@ -58,7 +59,7 @@ function DescriptionNode({ data }) {
                     id={data.nodeID}
                     onChange={descChange}
                     className="nodrag background_UI_Frame_2"
-                    defaultValue={data.description}
+                    value={textAreaValue}
                 />
             </div>
         </div>
