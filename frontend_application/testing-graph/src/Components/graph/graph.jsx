@@ -64,33 +64,37 @@ function organizeNodes(nodes, edges) {
     console.log("rootNodes", rootNodes);
     console.log("completedNodeIds", completedNodeIds);
     
-    rootNodes.forEach((node, counter) => {
-        counter = addNodes(node, completedNodeIds, finalNodeStructure, 1, counter);
+    let xPositionMax = 0;
+    rootNodes.forEach((node) => {
+        xPositionMax = addNodes(node, completedNodeIds, finalNodeStructure, 1, xPositionMax) + 1;
     });
 
     return finalNodeStructure;
 }
 
-function addNodes(node, visitedNodeIDs, finalNodeStructure, level, childNum) {
+function addNodes(node, visitedNodeIDs, finalNodeStructure, yPosition, xPosition) {
     // Add node to visitedNodeIDs    
-    visitedNodeIDs.push(node.nodeID);
+    visitedNodeIDs.push(node.id);
     
     console.log("children nodes", node.children);
-    // Add children to finalNodeStructure with y = (level + 1) * 400 and x = index * 400, then recursively add children
-    node.children.forEach((child, index) => {
+    // Add children to finalNodeStructure with y = (yPosition + 1) * 400 and x = index * 400, then recursively add children
+    let xPositionMax = xPosition;
+    node.children.forEach((child) => {
         if (!visitedNodeIDs.includes(child.id)) {
-            addNodes(child, visitedNodeIDs, finalNodeStructure, level + 1, childNum + index);
+            xPositionMax = addNodes(child, visitedNodeIDs, finalNodeStructure, yPosition + 1, xPositionMax) + 1;
         }
     });
 
-    // Add node to finalNodeStructure with y = level * 400 and x = index * 400, and remove children and parents
+    // Add node to finalNodeStructure with y = yPosition * 400 and x = index * 400, and remove children and parents
     node.position = {
-        x: childNum * 500,
-        y: level * 400,
+        x: xPosition * 500,
+        y: yPosition * 400,
     };
     delete node.children;
     delete node.parents;
     finalNodeStructure.push(node);
+
+    return xPositionMax;
 }
 
 export default function Graph(props) {
