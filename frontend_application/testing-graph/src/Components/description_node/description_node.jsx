@@ -18,6 +18,7 @@ function DescriptionNode({ data }) {
     const handleSave = useCallback(() => {
         setIsUnsaved(false);
         // TODO: Save to database and send to backend AI
+        data.description = textAreaValue; // Do not execute this line if the save fails
     }, []);
 
     const handleCancel = useCallback(() => {

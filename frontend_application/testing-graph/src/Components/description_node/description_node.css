@@ -63,9 +63,9 @@
 }
 
 .descriptionNode .react-flow__handle.react-flow__handle-top {
-    background: red;
+    background: blue;
 }
 
 .descriptionNode .react-flow__handle.react-flow__handle-bottom {
-    background: blue;
+    background: red;
 }
