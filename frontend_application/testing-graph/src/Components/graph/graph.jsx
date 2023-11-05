@@ -1,19 +1,24 @@
+// React Component Imports
 import React, { useCallback, useEffect } from "react";
-import ReactFlow, {
-    useReactFlow,
-    Controls,
-    ControlButton,
-    Background,
-    addEdge,
-} from "reactflow";
-
+import ReactFlow, { useReactFlow, Controls, ControlButton, Background, addEdge } from "reactflow";
 import DescriptionNode from "../description_node/description_node";
 
+// Styling Imports
 import "reactflow/dist/style.css";
 import "./graph.css";
 
+// Icon Imports
+import { ReactComponent as AutoArrangeIcon } from "./auto_arrange.svg";
+
+// Node Types for ReactFlow
 const nodeTypes = { descNode: DescriptionNode };
 
+/**
+ * Automatically organizes the nodes in the graph
+ * @param {*} nodes - Array of nodes
+ * @param {*} edges - Array of edges
+ * @returns - Array of nodes with updated positions
+ */
 function organizeNodes(nodes, edges) {
     // Combine the nodes and edges into one structure {nodeID, children[], parents[]}
     let nodeStructure = [];
@@ -23,6 +28,7 @@ function organizeNodes(nodes, edges) {
             sourceNode = nodes.find((node) => node.id === edge.source);
             sourceNode.children = [];
             sourceNode.parents = [];
+            sourceNode.visited = false;
             nodeStructure.push(sourceNode);
         }
 
@@ -31,6 +37,7 @@ function organizeNodes(nodes, edges) {
             targetNode = nodes.find((node) => node.id === edge.target);
             targetNode.children = [];
             targetNode.parents = [];
+            targetNode.visited = false;
             nodeStructure.push(targetNode);
         }
 
@@ -40,17 +47,18 @@ function organizeNodes(nodes, edges) {
 
     // Push nodes that are not in the nodeStructure into finalNodeStructure, chnage position.y and position.x with y = 0 and x = index * 400
     let finalNodeStructure = [];
-    let completedNodeIds = [];
-    nodes.forEach((node) => {
+
+    // Lone node handler
+    nodes.forEach((node, index) => {
         if (!nodeStructure.find((n) => n.id === node.id)) {
             node.position = {
-                x: completedNodeIds.length * 500,
+                x: index * 500,
                 y: 0,
             };
             node.children = [];
             node.parents = [];
+            node.visited = false;
             finalNodeStructure.push(node);
-            completedNodeIds.push(node.id);
         }
     });
 
@@ -62,42 +70,57 @@ function organizeNodes(nodes, edges) {
     console.log("nodes", nodes);
     console.log("edges", edges);
     console.log("rootNodes", rootNodes);
-    console.log("completedNodeIds", completedNodeIds);
-    
-    let xPositionMax = 0;
+
+    let xPositionArray = [0];
     rootNodes.forEach((node) => {
-        xPositionMax = addNodes(node, completedNodeIds, finalNodeStructure, 1, xPositionMax) + 1;
+        addNodes(node, finalNodeStructure, 1, xPositionArray);
+        console.log("MaxPosition", Math.max(...xPositionArray));
+        xPositionArray = [Math.max(...xPositionArray) + 1];
     });
 
-    if (rootNodes.length === 0) {
-        addNodes(nodeStructure[0], completedNodeIds, finalNodeStructure, 1, xPositionMax);
+    while (finalNodeStructure.length < nodes.length) {
+        let unvisitedNodes = nodeStructure.filter((node) => !node.visited);
+        addNodes(unvisitedNodes[0], finalNodeStructure, 1, xPositionArray);
+        xPositionArray = [Math.max(...xPositionArray) + 1];
     }
     return finalNodeStructure;
 }
 
-function addNodes(node, visitedNodeIDs, finalNodeStructure, yPosition, xPosition) {
-    // Add node to visitedNodeIDs    
-    visitedNodeIDs.push(node.id);
-    
-    console.log("children nodes", node.children);
-    // Add children to finalNodeStructure with y = (yPosition + 1) * 400 and x = index * 400, then recursively add children
-    let xPositionMax = xPosition;
+/**
+ * Helper function for organizeNodes, recursively adds nodes to finalNodeStructure while updating their positions
+ * @param {*} node - Node to add
+ * @param {*} finalNodeStructure - Array of nodes with updated positions
+ * @param {*} yPosition - Current y (grid) position
+ * @param {*} xPositionArray - Current x (grid) position array | each y-level's max x (grid) position
+ */
+function addNodes(node, finalNodeStructure, yPosition, xPositionArray) {
+    // If node has already been visited, end recursion
+    if (node.visited) return;
+
+    // Mark node as visited
+    node.visited = true;
+
+    console.log("xPositionArray", xPositionArray);
+    if (xPositionArray[yPosition] === undefined) {
+        xPositionArray[yPosition] = xPositionArray[yPosition - 1];
+    } else {
+        xPositionArray[yPosition]++;
+    }
+
     node.children.forEach((child) => {
-        if (!visitedNodeIDs.includes(child.id)) {
-            xPositionMax = addNodes(child, visitedNodeIDs, finalNodeStructure, yPosition + 1, xPositionMax) + 1;
+        if (!child.visited) {
+            addNodes(child, finalNodeStructure, yPosition + 1, xPositionArray);
         }
     });
 
     // Add node to finalNodeStructure with y = yPosition * 400 and x = index * 400, and remove children and parents
     node.position = {
-        x: xPosition * 500,
+        x: xPositionArray[yPosition] * 500,
         y: yPosition * 400,
     };
     delete node.children;
     delete node.parents;
     finalNodeStructure.push(node);
-
-    return xPositionMax;
 }
 
 export default function Graph(props) {
@@ -126,7 +149,6 @@ export default function Graph(props) {
                 let newNodes = organizeNodes(nodes, edges);
                 console.log("newnodes", newNodes);
                 setNodes(newNodes);
-
             }
         }
 
@@ -136,7 +158,11 @@ export default function Graph(props) {
         return () => {
             window.removeEventListener("keydown", handleKeyDown);
         };
-    }, [reactFlow, nodes, edges]);
+    }, [reactFlow, nodes, edges, setNodes]);
+
+    const handleAutoArrange = useCallback(() => {
+        setNodes(organizeNodes(nodes, edges));
+    }, [nodes, edges, setNodes]);
 
     const onConnect = useCallback(
         (params) => {
@@ -160,14 +186,11 @@ export default function Graph(props) {
                 fitView
             >
                 <Controls>
-                    <ControlButton onClick={organizeNodes}>Null</ControlButton>
+                    <ControlButton onClick={handleAutoArrange}>
+                        <AutoArrangeIcon />
+                    </ControlButton>
                 </Controls>
-                <Background
-                    variant="cross"
-                    color="#505050"
-                    gap={100}
-                    size={10}
-                />
+                <Background variant="cross" color="#505050" gap={100} size={10} />
             </ReactFlow>
         </div>
     );
