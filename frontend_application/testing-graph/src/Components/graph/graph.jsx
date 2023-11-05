@@ -69,6 +69,9 @@ function organizeNodes(nodes, edges) {
         xPositionMax = addNodes(node, completedNodeIds, finalNodeStructure, 1, xPositionMax) + 1;
     });
 
+    if (rootNodes.length === 0) {
+        addNodes(nodeStructure[0], completedNodeIds, finalNodeStructure, 1, xPositionMax);
+    }
     return finalNodeStructure;
 }
 
