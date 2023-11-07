@@ -21,7 +21,6 @@ router.post("/", async (req, res) => {
     res.json({ openAIControllerError: String(error) });
   }
 });
-
 router.post("/continue", async (req, res) => {
   try {
     const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });

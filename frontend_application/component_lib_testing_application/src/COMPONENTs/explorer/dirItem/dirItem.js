@@ -51,7 +51,7 @@ const DirItem = ({
   const [filename, setFilename] = useState(file.fileName);
   const [renameInput, setRenameInput] = useState(filename);
   const [fileIcon, setFileIcon] = useState();
-  const [fileTextColor, setFileTextColor] = useState();
+  const [fileTextColor, setFileTextColor] = useState("#C8C8C8");
 
   const [dir, setDir] = useState(file.files);
   const [isRightClicked, setIsRightClicked] = useState(false);
@@ -64,25 +64,12 @@ const DirItem = ({
   //UPDATE FILE
   useEffect(() => {
     setFilename(file.fileName);
-    if (file.fileName.split(".").pop() !== file.fileName) {
-      setFileIcon(
-        FILE_TYPE_STYLING_MANAGER[file.fileName.split(".").pop()]?.ICON
-      );
-      setFileTextColor(
-        FILE_TYPE_STYLING_MANAGER[file.fileName.split(".").pop()]
-          ?.LABEL_COLOR || "#C8C8C8"
-      );
-    }
-  }, [file.fileName]);
-  useEffect(() => {
-    setFilename(file.fileName);
     setRenameInput(file.fileName);
     setFileIcon(
       FILE_TYPE_STYLING_MANAGER[file.fileName.split(".").pop()]?.ICON
     );
     setFileTextColor(
-      FILE_TYPE_STYLING_MANAGER[file.fileName.split(".").pop()]?.LABEL_COLOR ||
-        "#C8C8C8"
+      FILE_TYPE_STYLING_MANAGER[file.fileName.split(".").pop()]?.LABEL_COLOR
     );
     setDir(file.files);
     setExpanded(file.fileExpend);
@@ -266,7 +253,7 @@ const DirItem = ({
       }
     }
     if (event.key === "Escape") {
-      setOnCommand("false");
+      setOnCommand("delete");
     }
   };
   const checkNameExist = (name) => {
@@ -588,9 +575,6 @@ const DirItem = ({
                       onChange={handleRenameInputOnChange}
                       onKeyDown={handleRenameInputOnKeyDown}
                       ref={inputRef}
-                      style={{
-                        width: `calc(100% - ${10.7}pt)`,
-                      }}
                     />
                   ) : (
                     <div></div>
