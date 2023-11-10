@@ -32,10 +32,24 @@ router.post("/jsonTesting", async (req, res) => {
     const chatCompletion = await openai.chat.completions.create({
       model: "gpt-4-1106-preview",
       temperature: 0.2,
-      messages: [{"role": "system", "content": "You are a helpful assistant. only return json format response."},
-      {"role": "user", "content": "Who won the world series in 2020?"},
-      {"role": "assistant", "content": "The Los Angeles Dodgers won the World Series in 2020."},
-      {"role": "user", "content": "Where was it played?"}],
+      messages: [
+        {
+          role: "system",
+          content:
+            "You are a helpful assistant. Your task is to analyize what the function does and only return json format response.",
+        },
+        {
+          role: "user",
+          content:
+            "Give a list of Function name, description, input type, input variable, output type, output variable",
+        },
+        //{"role": "assistant", "content": ""},
+        {
+          role: "user",
+          content:
+            "How many function are there? If there are more than 1, try to give the relationship between them ",
+        },
+      ],
       max_tokens: 100,
       response_format: { type: "json_object" },
     });
