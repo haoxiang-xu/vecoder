@@ -32,10 +32,10 @@ router.post("/jsonTesting", async (req, res) => {
     const chatCompletion = await openai.chat.completions.create({
       model: "gpt-4-1106-preview",
       temperature: 0.2,
-      messages: [{"role": "system", "content": "You are a helpful assistant. only return json format response."},
-      {"role": "user", "content": "Who won the world series in 2020?"},
-      {"role": "assistant", "content": "The Los Angeles Dodgers won the World Series in 2020."},
-      {"role": "user", "content": "Where was it played?"}],
+      messages: [{ "role": "system", "content": "You are a helpful assistant. only return json format response." },
+      { "role": "user", "content": "Who won the world series in 2020?" },
+      { "role": "assistant", "content": "The Los Angeles Dodgers won the World Series in 2020." },
+      { "role": "user", "content": "Where was it played?" }],
       max_tokens: 100,
       response_format: { type: "json_object" },
     });
@@ -48,6 +48,67 @@ router.post("/jsonTesting", async (req, res) => {
     res.json({ openAIControllerError: String(error) });
   }
 });
+
+router.post("/fileType", async (req, res) => {
+  try {
+    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+    const instruction =
+      " You will be provided with a piece of " +
+      " Java"+
+      " code, and your task is to get the type of files and short brief of file descriptions (50 - 100 words), in json format (format should be constant)." +
+      " For example: " +
+      " File name: xxx \n" +
+      " File type: xxx \n" + 
+      " File short description: xxxxxx ";
+
+    const chatCompletion = await openai.chat.completions.create({
+      model: "gpt-4-1106-preview",
+      temperature: 0.2,
+      messages: [
+        { role: "system", content: instruction },
+        { role: "user", content: req.body.prompt },
+      ],
+      response_format: { type: "json_object" }
+    });
+
+    res.json({
+      data: chatCompletion.choices[0].message,
+    });
+  } catch (error) {
+    console.error(error);
+    res.json({ openAIControllerError: String(error) });
+  }
+});
+router.post("/filePath", async (req, res) => {
+  try {
+    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+    const instruction =
+      "You will be provided with a piece of " +
+      req.body.language +
+      " code, and your task is to get the absolute path of files in my PC." +
+      " Don't overthink the question, just output the path of files." +
+      " For example, format: This file is at 'C:/../..'" + 
+      " Format should be constant." + 
+      " If you can't find the path, just return the result 'empty' in json format, format should be constant";
+
+    const chatCompletion = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      temperature: 0.1,
+      messages: [
+        { role: "system", content: instruction },
+        { role: "user", content: req.body.prompt },
+      ],
+    });
+
+    res.json({
+      data: chatCompletion.choices[0].message,
+    });
+  } catch (error) {
+    console.error(error);
+    res.json({ openAIControllerError: String(error) });
+  }
+});
+
 router.post("/continue", async (req, res) => {
   try {
     const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
