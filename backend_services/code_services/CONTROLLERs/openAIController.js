@@ -8,13 +8,40 @@ router.post("/", async (req, res) => {
   try {
     const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-    const chatCompletion = await openai.completions.create({
-      model: "gpt-3.5-turbo-instruct",
-      prompt: req.body.prompt,
+    const chatCompletion = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [
+        { role: "system", content: "You are a helpful assistant." },
+        { role: "user", content: "Hello!" },
+      ],
+      max_tokens: 100,
     });
 
     res.json({
-      data: chatCompletion.choices[0].text,
+      data: chatCompletion.choices[0].message,
+    });
+  } catch (error) {
+    console.error(error);
+    res.json({ openAIControllerError: String(error) });
+  }
+});
+router.post("/jsonTesting", async (req, res) => {
+  try {
+    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+    const chatCompletion = await openai.chat.completions.create({
+      model: "gpt-4-1106-preview",
+      temperature: 0.2,
+      messages: [{"role": "system", "content": "You are a helpful assistant. only return json format response."},
+      {"role": "user", "content": "Who won the world series in 2020?"},
+      {"role": "assistant", "content": "The Los Angeles Dodgers won the World Series in 2020."},
+      {"role": "user", "content": "Where was it played?"}],
+      max_tokens: 100,
+      response_format: { type: "json_object" },
+    });
+
+    res.json({
+      data: chatCompletion.choices[0].message,
     });
   } catch (error) {
     console.error(error);
