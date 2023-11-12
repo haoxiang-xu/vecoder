@@ -71,6 +71,7 @@ function organizeNodes(nodes, edges) {
     console.log("edges", edges);
     console.log("rootNodes", rootNodes);
 
+    // Handles trees where there's a root (no parent node)
     let xPositionArray = [0];
     rootNodes.forEach((node) => {
         addNodes(node, finalNodeStructure, 1, xPositionArray);
@@ -78,6 +79,7 @@ function organizeNodes(nodes, edges) {
         xPositionArray = [Math.max(...xPositionArray) + 1];
     });
 
+    // Handles trees where there is a cyclic structure (A -> B -> C -> A)
     while (finalNodeStructure.length < nodes.length) {
         let unvisitedNodes = nodeStructure.filter((node) => !node.visited);
         addNodes(unvisitedNodes[0], finalNodeStructure, 1, xPositionArray);
@@ -91,31 +93,41 @@ function organizeNodes(nodes, edges) {
  * @param {*} node - Node to add
  * @param {*} finalNodeStructure - Array of nodes with updated positions
  * @param {*} yPosition - Current y (grid) position
- * @param {*} xPositionArray - Current x (grid) position array | each y-level's max x (grid) position
+ * @param {*} max_x_positions - Keeps track of the current maximum x (grid) position for each y (grid) position
  */
-function addNodes(node, finalNodeStructure, yPosition, xPositionArray) {
+function addNodes(node, finalNodeStructure, yPosition, max_x_positions) {
     // If node has already been visited, end recursion
     if (node.visited) return;
 
     // Mark node as visited
     node.visited = true;
 
-    console.log("xPositionArray", xPositionArray);
-    if (xPositionArray[yPosition] === undefined) {
-        xPositionArray[yPosition] = xPositionArray[yPosition - 1];
-    } else {
-        xPositionArray[yPosition]++;
+    console.log("xPositionArray", max_x_positions);
+
+    // Initialize value in xPositionArray to previous yPosition's maxXValue if not defined for current yPosition
+    if (max_x_positions[yPosition] === undefined) {
+        max_x_positions[yPosition] = max_x_positions[yPosition - 1];
+    }
+    // Else increment current yPosition's maxXValue
+    else {
+        max_x_positions[yPosition]++;
     }
 
+    // If node has children, update current node maximum xPosition to maximum value of previous subtree's maximum xPosition
+    if (node.children.length > 0) {
+        // ... todo
+    }
+    
+    // Recursively add children
     node.children.forEach((child) => {
         if (!child.visited) {
-            addNodes(child, finalNodeStructure, yPosition + 1, xPositionArray);
+            addNodes(child, finalNodeStructure, yPosition + 1, max_x_positions);
         }
     });
 
-    // Add node to finalNodeStructure with y = yPosition * 400 and x = index * 400, and remove children and parents
+    // Add node to finalNodeStructure and remove children and parents
     node.position = {
-        x: xPositionArray[yPosition] * 500,
+        x: max_x_positions[yPosition] * 500,
         y: yPosition * 400,
     };
     delete node.children;
