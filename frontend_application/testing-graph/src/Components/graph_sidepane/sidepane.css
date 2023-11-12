@@ -1,16 +1,37 @@
-#graph_sidepane_add_edge_button {
-    color: #cccccc;
-    width: calc(100% - 2em);
-    height: 4em;
-    cursor: pointer;
+#graph_sidepane {
+    width: 20rem;
+    height: calc(100vh - 2em);
     margin: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+#graph_sidepane_add_edge_button {
+    /* Unset user agent styles */
+    box-sizing: unset;
+    display: unset;
+    padding-block: unset;
+    padding-inline: unset;
+    border-width: unset;
+    border-style: unset;
+    border-color: unset;
+    border-image: unset;
+
+    color: #cccccc;
+    height: 10em;
+    cursor: pointer;
+    margin-bottom: 1em;
+}
+
+#graph_sidepane_add_edge_button svg {
+    margin-bottom: 1em;
+    margin-top: 0.5em;
 }
 
 #graph_sidepane_add_edge_button:hover {
     background-color: #545454;
 }
 
-#graph_sidepane {
-    width: 20rem;
-    margin: 1em;
+.explorer_container {
+    height: calc(100vh - 10em);
 }

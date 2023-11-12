@@ -1,0 +1,185 @@
+/* Explorer Items */
+
+.explorer_item {
+  transition: all 0.12s ease;
+
+  display: flex;
+  position: relative;
+
+  font-size: 11pt;
+  font-family: "Roboto";
+  letter-spacing: 0pt;
+  white-space: nowrap;
+  color: #cccccc;
+
+  padding: 1pt 4pt 1pt 5pt;
+  right: 0pt;
+  left: 0pt;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  border-radius: 0pt;
+  overflow: hidden;
+}
+
+.explorer_item:hover {
+  background-color: #2a2d2e;
+  border-radius: 3pt;
+}
+
+.explorer_item.selected {
+  background-color: #323232;
+  border-radius: 3pt;
+
+  box-shadow: inset 0 0 0 1pt #4d4d4d;
+  overflow: hidden;
+}
+
+
+/* Explorer Icons */
+
+.explorer_icon {
+  transition: all 0.08s ease;
+  position: relative;
+}
+
+.explorer_icon.no_animation {
+  transition: unset;
+}
+
+.explorer_icon.script_icon {
+  left: -2pt;
+  top: 0.75pt;
+  height: 12pt;
+  width: 12pt;
+}
+
+.explorer_icon.arrow_icon_right {
+  left: -2pt;
+  top: 1.5pt;
+  height: 10pt;
+  width: 10pt;
+}
+
+.explorer_icon.arrow_icon_down {
+  left: -1.5pt;
+  top: 2pt;
+  height: 10pt;
+  width: 10pt;
+  transform: rotate(90deg);
+}
+
+.explorer_icon.unexpandable_icon {
+  left: -2pt;
+  top: 1.5pt;
+  height: 10pt;
+  width: 10pt;
+
+  opacity: 0.15;
+}
+
+
+/* List Components */
+
+.dir_item_component_dir_list0725 {
+  position: relative;
+  right: 0pt;
+
+  padding: 0pt 0pt 0pt 0pt;
+  margin: 0pt 0pt 0pt 8pt;
+  height: auto;
+
+  list-style: none;
+  border-left: #4d4d4d solid 1pt;
+}
+.dir_item_component_dir_list0725 li {
+  position: relative;
+  right: 0pt;
+  left: 0pt;
+
+  padding: 2pt 0pt 0pt 0pt;
+
+  list-style: none;
+}
+
+
+/* Input Box */
+
+.explorer_input {
+  transition: all 0.08s ease;
+
+  /*POSITION*/
+  display: flex;
+  position: relative;
+  left: 1pt;
+
+  /*FONT*/
+  font-size: 11pt;
+  font-family: "Roboto";
+  letter-spacing: 0pt;
+  white-space: nowrap;
+  color: #cccccc;
+
+  /*SIZE*/
+  padding: 2pt 5pt 2pt 5pt;
+  margin: 2pt 0pt 2pt 0pt;
+
+  /*STYLE*/
+  background-color: #2a2d2e;
+  border-radius: 3pt;
+  border: none;
+  outline: none;
+
+  box-shadow: inset 0 0 0 1pt #0d66ac;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.shake_component_animation {
+  animation: dir_item_component_input_box_shake_aniamtion 0.16s ease-in-out;
+}
+
+@keyframes dir_item_component_input_box_shake_aniamtion {
+  0% {
+    transform: translateX(0pt);
+  }
+  12.5% {
+    transform: translateX(2pt);
+  }
+  25% {
+    transform: translateX(0pt);
+  }
+  37.5% {
+    transform: translateX(-2pt);
+  }
+  50% {
+    transform: translateX(0pt);
+  }
+  62.5% {
+    transform: translateX(2pt);
+  }
+  75% {
+    transform: translateX(0pt);
+  }
+  87.5% {
+    transform: translateX(-2pt);
+  }
+  100% {
+    transform: translateX(0pt);
+  }
+}
+
+.dir_item_component_input_box0803:focus {
+  outline: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

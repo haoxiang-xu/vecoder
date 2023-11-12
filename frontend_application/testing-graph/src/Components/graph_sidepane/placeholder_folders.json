@@ -1,0 +1,415 @@
+{
+    "fileName": "vecoder",
+    "fileType": "folder",
+    "filePath": "vecoder",
+    "fileExpend": false,
+    "files": [
+        {
+            "fileName": "projectX",
+            "fileType": "folder",
+            "filePath": "projectX",
+            "fileExpend": false,
+            "files": [
+                {
+                    "fileName": "source_code",
+                    "fileType": "folder",
+                    "filePath": "projectX/source_code",
+                    "fileExpend": false,
+                    "files": [
+                        {
+                            "fileName": "main",
+                            "fileType": "folder",
+                            "filePath": "projectX/source_code/main",
+                            "fileExpend": false,
+                            "files": [
+                                {
+                                    "fileName": "app",
+                                    "fileType": "folder",
+                                    "filePath": "projectX/source_code/main/app",
+                                    "fileExpend": false,
+                                    "files": [
+                                        {
+                                            "fileName": "components",
+                                            "fileType": "folder",
+                                            "filePath": "projectX/source_code/main/app/components",
+                                            "fileExpend": false,
+                                            "files": [
+                                                {
+                                                    "fileName": "header",
+                                                    "fileType": "folder",
+                                                    "filePath": "projectX/source_code/main/app/components/header",
+                                                    "fileExpend": false,
+                                                    "files": [
+                                                        {
+                                                            "fileName": "header.css",
+                                                            "fileType": "file",
+                                                            "filePath": "projectX/source_code/main/app/components/header/header.css",
+                                                            "fileExpend": false,
+                                                            "files": []
+                                                        },
+                                                        {
+                                                            "fileName": "header.js",
+                                                            "fileType": "file",
+                                                            "filePath": "projectX/source_code/main/app/components/header/header.js",
+                                                            "fileExpend": false,
+                                                            "files": []
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "fileName": "styles",
+                                            "fileType": "folder",
+                                            "filePath": "projectX/source_code/main/app/styles",
+                                            "fileExpend": false,
+                                            "files": [
+                                                {
+                                                    "fileName": "main.css",
+                                                    "fileType": "file",
+                                                    "filePath": "projectX/source_code/main/app/styles/main.css",
+                                                    "fileExpend": false,
+                                                    "files": []
+                                                },
+                                                {
+                                                    "fileName": "theme.css",
+                                                    "fileType": "file",
+                                                    "filePath": "projectX/source_code/main/app/styles/theme.css",
+                                                    "fileExpend": false,
+                                                    "files": []
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "fileName": "tests",
+                            "fileType": "folder",
+                            "filePath": "projectX/source_code/tests",
+                            "fileExpend": false,
+                            "files": [
+                                {
+                                    "fileName": "unit",
+                                    "fileType": "folder",
+                                    "filePath": "projectX/source_code/tests/unit",
+                                    "fileExpend": false,
+                                    "files": [
+                                        {
+                                            "fileName": "test_main.js",
+                                            "fileType": "file",
+                                            "filePath": "projectX/source_code/tests/unit/test_main.js",
+                                            "fileExpend": false,
+                                            "files": []
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "fileName": "config",
+                            "fileType": "folder",
+                            "filePath": "projectX/source_code/config",
+                            "fileExpend": false,
+                            "files": [
+                                {
+                                    "fileName": "settings.json",
+                                    "fileType": "file",
+                                    "filePath": "projectX/source_code/config/settings.json",
+                                    "fileExpend": false,
+                                    "files": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "fileName": "docs",
+                    "fileType": "folder",
+                    "filePath": "projectX/docs",
+                    "fileExpend": false,
+                    "files": [
+                        {
+                            "fileName": "user_guide",
+                            "fileType": "folder",
+                            "filePath": "projectX/docs/user_guide",
+                            "fileExpend": false,
+                            "files": [
+                                {
+                                    "fileName": "getting_started.md",
+                                    "fileType": "file",
+                                    "filePath": "projectX/docs/user_guide/getting_started.md",
+                                    "fileExpend": false,
+                                    "files": []
+                                },
+                                {
+                                    "fileName": "features.md",
+                                    "fileType": "file",
+                                    "filePath": "projectX/docs/user_guide/features.md",
+                                    "fileExpend": false,
+                                    "files": []
+                                }
+                            ]
+                        },
+                        {
+                            "fileName": "api_reference",
+                            "fileType": "folder",
+                            "filePath": "projectX/docs/api_reference",
+                            "fileExpend": false,
+                            "files": [
+                                {
+                                    "fileName": "endpoints.md",
+                                    "fileType": "file",
+                                    "filePath": "projectX/docs/api_reference/endpoints.md",
+                                    "fileExpend": false,
+                                    "files": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "fileName": "assets",
+                    "fileType": "folder",
+                    "filePath": "projectX/assets",
+                    "fileExpend": false,
+                    "files": [
+                        {
+                            "fileName": "images",
+                            "fileType": "folder",
+                            "filePath": "projectX/assets/images",
+                            "fileExpend": false,
+                            "files": [
+                                {
+                                    "fileName": "logo.png",
+                                    "fileType": "file",
+                                    "filePath": "projectX/assets/images/logo.png",
+                                    "fileExpend": false,
+                                    "files": []
+                                }
+                            ]
+                        },
+                        {
+                            "fileName": "fonts",
+                            "fileType": "folder",
+                            "filePath": "projectX/assets/fonts",
+                            "fileExpend": false,
+                            "files": [
+                                {
+                                    "fileName": "main_font.ttf",
+                                    "fileType": "file",
+                                    "filePath": "projectX/assets/fonts/main_font.ttf",
+                                    "fileExpend": false,
+                                    "files": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "fileName": "vecoder_sample",
+            "fileType": "folder",
+            "filePath": "vecoder/vecoder_sample",
+            "fileExpend": false,
+            "files": [
+                {
+                    "fileName": "public",
+                    "fileType": "folder",
+                    "filePath": "vecoder/vecoder_sample/public",
+                    "fileExpend": false,
+                    "files": [
+                        {
+                            "fileName": "favicon.icon",
+                            "fileType": "file",
+                            "filePath": "vecoder/vecoder_sample/public/favicon.icon",
+                            "fileExpend": false,
+                            "files": []
+                        },
+                        {
+                            "fileName": "index.html",
+                            "fileType": "file",
+                            "filePath": "vecoder/vecoder_sample/public/index.html",
+                            "fileExpend": false,
+                            "files": []
+                        },
+                        {
+                            "fileName": "logo192.png",
+                            "fileType": "file",
+                            "filePath": "vecoder/vecoder_sample/public/logo192.png",
+                            "fileExpend": false,
+                            "files": []
+                        },
+                        {
+                            "fileName": "logo512.png",
+                            "fileType": "file",
+                            "filePath": "vecoder/vecoder_sample/public/logo512.png",
+                            "fileExpend": false,
+                            "files": []
+                        },
+                        {
+                            "fileName": "manifest.json",
+                            "fileType": "file",
+                            "filePath": "vecoder/vecoder_sample/public/manifest.json",
+                            "fileExpend": false,
+                            "files": []
+                        },
+                        {
+                            "fileName": "robots.txt",
+                            "fileType": "file",
+                            "filePath": "vecoder/vecoder_sample/public/robots.txt",
+                            "fileExpend": false,
+                            "files": []
+                        }
+                    ]
+                },
+                {
+                    "fileName": "src",
+                    "fileType": "folder",
+                    "filePath": "vecoder/vecoder_sample/src",
+                    "fileExpend": false,
+                    "files": [
+                        {
+                            "fileName": "COMPONENTs",
+                            "fileType": "folder",
+                            "filePath": "vecoder/vecoder_sample/src/COMPONENTs",
+                            "fileExpend": false,
+                            "files": [
+                                {
+                                    "fileName": "explorer",
+                                    "fileType": "folder",
+                                    "filePath": "vecoder/vecoder_sample/src/COMPONENTs/explorer",
+                                    "fileExpend": false,
+                                    "files": [
+                                        {
+                                            "fileName": "dirItem",
+                                            "fileType": "folder",
+                                            "filePath": "vecoder/vecoder_sample/src/COMPONENTs/explorer/dirItem",
+                                            "fileExpend": false,
+                                            "files": [
+                                                {
+                                                    "fileName": "dirItem.css",
+                                                    "fileType": "file",
+                                                    "filePath": "vecoder/vecoder_sample/src/COMPONENTs/explorer/dirItem/dirItem.css",
+                                                    "fileExpend": false,
+                                                    "files": []
+                                                },
+                                                {
+                                                    "fileName": "dirItem.js",
+                                                    "fileType": "file",
+                                                    "filePath": "vecoder/vecoder_sample/src/COMPONENTs/explorer/dirItem/dirItem.js",
+                                                    "fileExpend": false,
+                                                    "files": []
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "fileName": "App.css",
+                            "fileType": "file",
+                            "filePath": "vecoder/vecoder_sample/src/App.css",
+                            "fileExpend": false,
+                            "files": []
+                        },
+                        {
+                            "fileName": "App.js",
+                            "fileType": "file",
+                            "filePath": "vecoder/vecoder_sample/src/App.js",
+                            "fileExpend": false,
+                            "files": []
+                        },
+                        {
+                            "fileName": "App.test.js",
+                            "fileType": "file",
+                            "filePath": "vecoder/vecoder_sample/src/App.test.js",
+                            "fileExpend": false,
+                            "files": []
+                        }
+                    ]
+                },
+                {
+                    "fileName": ".gitignore",
+                    "fileType": "file",
+                    "filePath": "vecoder/vecoder_sample/.gitignore",
+                    "fileExpend": false,
+                    "files": []
+                },
+                {
+                    "fileName": "package.json",
+                    "fileType": "file",
+                    "filePath": "vecoder/vecoder_sample/package.json",
+                    "fileExpend": false,
+                    "files": []
+                },
+                {
+                    "fileName": "package-lock.json",
+                    "fileType": "file",
+                    "filePath": "vecoder/vecoder_sample/package-lock.json",
+                    "fileExpend": false,
+                    "files": []
+                },
+                {
+                    "fileName": "README.md",
+                    "fileType": "file",
+                    "filePath": "vecoder/vecoder_sample/README.md",
+                    "fileExpend": false,
+                    "files": []
+                },
+                {
+                    "fileName": "node_modules",
+                    "fileType": "folder",
+                    "filePath": "vecoder/vecoder_sample/node_modules",
+                    "fileExpend": false,
+                    "files": []
+                },
+                {
+                    "fileName": "build",
+                    "fileType": "folder",
+                    "filePath": "vecoder/vecoder_sample/build",
+                    "fileExpend": false,
+                    "files": []
+                },
+                {
+                    "fileName": "config",
+                    "fileType": "folder",
+                    "filePath": "vecoder/vecoder_sample/config",
+                    "fileExpend": false,
+                    "files": []
+                },
+                {
+                    "fileName": "scripts",
+                    "fileType": "folder",
+                    "filePath": "vecoder/vecoder_sample/scripts",
+                    "fileExpend": false,
+                    "files": []
+                }
+            ]
+        },
+        {
+            "fileName": "additional_folder1",
+            "fileType": "folder",
+            "filePath": "vecoder/additional_folder1",
+            "fileExpend": false,
+            "files": []
+        },
+        {
+            "fileName": "additional_folder2",
+            "fileType": "folder",
+            "filePath": "vecoder/additional_folder2",
+            "fileExpend": false,
+            "files": []
+        },
+        {
+            "fileName": "additional_folder3",
+            "fileType": "folder",
+            "filePath": "vecoder/additional_folder3",
+            "fileExpend": false,
+            "files": []
+        }
+    ]
+}

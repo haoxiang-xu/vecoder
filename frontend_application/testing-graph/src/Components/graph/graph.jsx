@@ -152,6 +152,8 @@ export default function Graph(props) {
                 });
             }
 
+            /* Debugging purposes
+
             if (event.key === "Escape") {
                 console.log("nodes", nodes);
                 console.log("edges", edges);
@@ -162,6 +164,8 @@ export default function Graph(props) {
                 console.log("newnodes", newNodes);
                 setNodes(newNodes);
             }
+            
+            */
         }
 
         window.addEventListener("keydown", handleKeyDown);
