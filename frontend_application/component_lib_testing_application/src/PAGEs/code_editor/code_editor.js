@@ -7,6 +7,7 @@ const CodeEditorPage = () => {
   let raw_files = [
     {
       fileName: "code_editor.js",
+      fileLanguage: "javascript",
       fileContent: `
 import React, { useState, useEffect, useRef } from "react";
 import MonacoEditor from "@monaco-editor/react";
@@ -184,6 +185,7 @@ export default CodeEditor;
     },
     {
       fileName: "code_editor.css",
+      fileLanguage: "css",
       fileContent: `#code_editor_container0829 {
         /*POSITION*/
         width: 500pt;
@@ -610,6 +612,7 @@ export default CodeEditor;
     },
     {
       fileName: "main.py",
+      fileLanguage: "python",
       fileContent: `import random
 
       def get_compliment(color):
