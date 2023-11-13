@@ -15,7 +15,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/upload" element={<UploadFile />} />
         <Route path="/codeeditor" element={<CodeEditorPage />}></Route>
-        <Route path="/container" component={ContainerPage} />
+        <Route path="/container" element={<ContainerPage />} />
       </Routes>
     </Router>
   );
