@@ -99,12 +99,10 @@ const DirItem = ({
     csv: table_icon,
     svg: image_icon,
   };
-
   const [refresh, setRefresh] = useState(false);
   const forceRefresh = () => {
     setRefresh(!refresh);
   };
-
   //EXPAND
   const [expanded, setExpanded] = useState(false);
   const [expandIconId, setExpandIconId] = useState(
@@ -112,19 +110,10 @@ const DirItem = ({
       ? "dir_item_component_arrow_icon_down0725"
       : "dir_item_component_arrow_icon_right0725"
   );
-
   const [dirListId, setDirListId] = useState("dir_item_component_dir_list0725");
-
   //Generate File name, File Icon and Text Color
   const [filename, setFilename] = useState(file.fileName);
   const [renameInput, setRenameInput] = useState(filename);
-  useEffect(() => {
-    setFilename(file.fileName);
-    if (file.fileName.split(".").pop() !== file.fileName) {
-      setFileIcon(ICONs[file.fileName.split(".").pop()]);
-      setFileTextColor(COLORs[file.fileName.split(".").pop()]);
-    }
-  }, [file.fileName]);
   const [fileIcon, setFileIcon] = useState();
   const [fileTextColor, setFileTextColor] = useState();
 
@@ -139,6 +128,14 @@ const DirItem = ({
 
   //UPDATE FILE
   useEffect(() => {
+    setFilename(file.fileName);
+    if (file.fileName.split(".").pop() !== file.fileName) {
+      setFileIcon(ICONs[file.fileName.split(".").pop()]);
+      setFileTextColor(COLORs[file.fileName.split(".").pop()]);
+    }
+  }, [file.fileName]);
+  useEffect(() => {
+    setFilename(file.fileName);
     setRenameInput(file.fileName);
     setFileIcon(ICONs[file.fileName.split(".").pop()]);
     setFileTextColor(COLORs[file.fileName.split(".").pop()]);
@@ -153,10 +150,12 @@ const DirItem = ({
     Math.max(file.files.length * 0.015, 0.08),
     0.16
   );
+
   const unexpandingTime = Math.min(
     Math.max(file.files.length * 0.015, 0.32),
     0.64
   );
+
   let dirListUnexpendKeyframes = {
     "0%": {
       height: "6.6px",
@@ -171,23 +170,14 @@ const DirItem = ({
       opacity: 0,
     },
   };
-  let dirListExpendKeyframes = {
+  const [dirListExpendKeyframes, setDirListExpendKeyframes] = useState({
     "0%": {
-      opacity: 0,
-      height: "0pt",
-    },
-    "40%": {
-      opacity: 0,
-    },
-    "60%": {
-      height: "10pt",
-      opacity: 0,
+      top: "-13pt",
     },
     "100%": {
-      opacity: 1,
-      height: "13pt",
+      top: "0pt",
     },
-  };
+  });
   const dirListUnexpendAnimation = {
     animation:
       "dir_item_component_dir_list_unexpend_animation " + unexpandingTime + "s",
@@ -219,8 +209,15 @@ const DirItem = ({
       });
       setUnexpendAnimation({});
       setExpandIconId("dir_item_component_arrow_icon_down0725");
+      setTimeout(() => {
+        setExpandIconId("dir_item_component_arrow_icon_down_no_animation1018");
+      }, expandingTime * 1000);
       setExpanded(true);
       file.fileExpend = true;
+      //REMOVE ANIMATION
+      setTimeout(() => {
+        setExpendAnimation({});
+      }, expandingTime * 1000);
     } else {
       setExpendAnimation({});
       setUnexpendAnimation({
@@ -228,8 +225,15 @@ const DirItem = ({
         ...dirListUnexpendKeyframes,
       });
       setExpandIconId("dir_item_component_arrow_icon_right0725");
+      setTimeout(() => {
+        setExpandIconId("dir_item_component_arrow_icon_right_no_animation1018");
+      }, expandingTime * 1000);
       setExpanded(false);
       file.fileExpend = false;
+      //REMOVE ANIMATION
+      setTimeout(() => {
+        setUnexpendAnimation({});
+      }, unexpandingTime * 1000);
     }
 
     forceRefresh();
@@ -505,6 +509,7 @@ const DirItem = ({
         break;
       }
     }
+    setOnSingleClickFile(null);
     setRefresh(!refresh);
   };
   //PASTE
@@ -709,18 +714,6 @@ const DirItem = ({
                     loading="lazy"
                   />
                   {filename}
-                  {isHovered ? (
-                    /*If tag on hover -> highlight tag*/
-                    <img
-                      src={info_icon}
-                      id="dir_item_component_info_icon0731"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                      }}
-                    />
-                  ) : (
-                    <div></div>
-                  )}
                 </span>
               )}
             </div>
