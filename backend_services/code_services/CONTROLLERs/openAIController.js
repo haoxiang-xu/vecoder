@@ -123,7 +123,7 @@ router.post("/structureDescribe", async (req, res) => {
 
     const chatCompletion = await openai.chat.completions.create({
       model: "gpt-4-1106-preview",
-      temperature: 0.1,
+      temperature: 0,
       messages: [
         { role: "system", content: instruction },
         { role: "user", content: req.body.prompt },
