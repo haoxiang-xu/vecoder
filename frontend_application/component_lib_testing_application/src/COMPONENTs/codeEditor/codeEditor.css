@@ -13,6 +13,10 @@
   box-shadow: 0px 4px 16px 8px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
   background-color: #1e1e1e;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
 #code_editor_files_container0829 {
@@ -369,6 +373,9 @@
   /*STYLE*/
   background-color: #a89a9a;
   opacity: 0.32;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
 #code_editor_logo_icon0830 {
@@ -390,6 +397,9 @@
   /*STYLE*/
   padding: 4pt 11pt 0pt 11.25pt;
   border-radius: 8pt;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
 #code_editor_file_type_icon0830 {
@@ -405,6 +415,9 @@
   width: 13pt;
 
   /*STYLE*/
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
 #code_editor_file_type_icon_unselected0830 {
