@@ -309,7 +309,7 @@ const CodeEditor = ({
 
       try {
         const response = await axios.post(
-          "http://localhost:8200/openAI/fix",
+          "http://localhost:8200/openAI/analyzeFilePath",
           requestBody
         );
         if (response !== undefined) {
