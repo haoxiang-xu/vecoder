@@ -70,7 +70,7 @@ const Editor = ({
     });
     monaco.editor.setTheme("customTheme");
   };
-  ////Register completion provider for monaco editor
+  ////Register snippet completion provider for monaco editor
   const registerCompletionProvider = (monaco) => {
     monaco.languages.registerCompletionItemProvider("javascript", {
       provideCompletionItems: (model, position) => {
@@ -78,6 +78,31 @@ const Editor = ({
         return { suggestions: suggestions };
       },
     });
+  };
+  ////Register inline completion provider for monaco editor
+  const registerInlineCompletionProvider = (monaco) => {
+    const inlineCompletionProvider = {
+      provideInlineCompletions: (model, position, context, token) => {
+        return {
+          items: [
+            {
+              insertText: "InlineCompletion",
+              range: {
+                startLineNumber: position.lineNumber,
+                startColumn: position.column,
+                endLineNumber: position.lineNumber,
+                endColumn: position.column,
+              },
+            },
+          ],
+        };
+      },
+      freeInlineCompletions: () => {},
+    };
+    monaco.languages.registerInlineCompletionsProvider(
+      "javascript",
+      inlineCompletionProvider
+    );
   };
   ////Get suggestions based on prefix for monaco editor
   const getSuggestionsBasedOnPrefix = (model, position) => {
@@ -144,7 +169,9 @@ const Editor = ({
           options={editor_options}
           onChange={(value) => editor_setContent(value)}
           onMount={(editor, monaco) => {
-            defineTheme(monaco), registerCompletionProvider(monaco);
+            defineTheme(monaco),
+              registerCompletionProvider(monaco),
+              registerInlineCompletionProvider(monaco);
           }}
         ></MonacoEditor>
       );
