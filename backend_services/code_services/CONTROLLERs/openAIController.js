@@ -54,11 +54,11 @@ router.post("/fileType", async (req, res) => {
     const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
     const instruction =
       " You will be provided with a piece of " +
-      " Java"+
+      " Java" +
       " code, and your task is to get the type of files and short brief of file descriptions (50 - 100 words), in json format (format should be constant)." +
       " For example: " +
       " File name: xxx \n" +
-      " File type: xxx \n" + 
+      " File type: xxx \n" +
       " File short description: xxxxxx ";
 
     const chatCompletion = await openai.chat.completions.create({
@@ -87,12 +87,42 @@ router.post("/filePath", async (req, res) => {
       req.body.language +
       " code, and your task is to get the absolute path of files in my PC." +
       " Don't overthink the question, just output the path of files." +
-      " For example, format: This file is at 'C:/../..'" + 
-      " Format should be constant." + 
+      " For example, format: This file is at 'C:/../..'" +
+      " Format should be constant." +
       " If you can't find the path, just return the result 'empty' in json format, format should be constant";
 
     const chatCompletion = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
+      temperature: 0.1,
+      messages: [
+        { role: "system", content: instruction },
+        { role: "user", content: req.body.prompt },
+      ],
+    });
+
+    res.json({
+      data: chatCompletion.choices[0].message,
+    });
+  } catch (error) {
+    console.error(error);
+    res.json({ openAIControllerError: String(error) });
+  }
+});
+
+//这个api需要修改
+router.post("/structureDescribe", async (req, res) => {
+  try {
+    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+    const instruction =
+      req.body.language +
+      ", give me a React demo project structure" +
+      " where you list all the files in a json format" +
+      " and indentation is required between primary and secondary files."+
+      " Format and answers should be constant (No explanations, just list the structure)."+
+      " No prefixes like \"names:\" or \"types:\".  header should be \"' ' ' \n.\""
+
+    const chatCompletion = await openai.chat.completions.create({
+      model: "gpt-4-1106-preview",
       temperature: 0.1,
       messages: [
         { role: "system", content: instruction },
