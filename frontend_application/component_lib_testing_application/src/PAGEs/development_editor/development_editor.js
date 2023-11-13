@@ -179,16 +179,19 @@ const DevelopmentEditor = () => {
   const [diffContent, setDiffContent] = useState(
     'import React, { useState } from "react";'
   );
+  const [onSelected, setOnSelected] = useState(null);
 
   return (
     <Editor
       editor_content={content}
       editor_setContent={setContent}
-      //editor_diffContent={diffContent}
-      //editor_setDiffContent={setDiffContent}
       editor_language={"javascript"}
       editor_height={"900px"}
       editor_width={"700px"}
+      setOnSelected={setOnSelected}
+
+      //editor_diffContent={diffContent}
+      //editor_setDiffContent={setDiffContent}
     ></Editor>
   );
 };

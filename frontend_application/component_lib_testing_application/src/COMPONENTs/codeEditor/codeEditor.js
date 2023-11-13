@@ -222,36 +222,48 @@ const CodeEditor = ({
     });
     monaco.editor.setTheme("customTheme");
   };
-  const appendTextToSelection = (appendText) => {
+  const appendTextToSelection = (appendText, range) => {
     if (!monacoRef.current) return;
-    const selection = monacoRef.current.getSelection();
 
     monacoRef.current.executeEdits(null, [
       {
-        range: selection,
+        range: range,
         text: appendText,
       },
     ]);
   };
+  const overwriteTextInSelection = (newText, range) => {
+    if (!monacoRef.current) return;
+
+    monacoRef.current.executeEdits("", [
+      {
+        range: range,
+        text: newText,
+        forceMoveMarkers: true,
+      },
+    ]);
+
+    // Optionally, you might want to push an undo stop for a better undo/redo experience
+    monacoRef.current.pushUndoStop();
+  };
+
   const handleAppendTextClick = async (command) => {
     const selection = monacoRef.current.getSelection();
     const selectedText = monacoRef.current
       .getModel()
       .getValueInRange(selection);
+    const editor = monacoRef.current;
+    const model = editor.getModel();
 
-    var createDiffEditor = monaco.editor.createDiffEditor(
-      document.getElementById("code_editor_container0829"),
-      {
-        enableSplitViewResizing: false,
-        renderSideBySide: false,
-      }
-    );
-    createDiffEditor.setModel({
-      original: monacoRef.current.getModel(),
-      modified: monaco.editor.createModel(
-        content + " // Appended text",
-        files[onSelectedIndex].fileLanguage
-      ),
+    // Convert the start and end positions of the selection to absolute offsets
+    const startOffset = model.getOffsetAt(selection.getStartPosition());
+    const endOffset = model.getOffsetAt(selection.getEndPosition());
+
+    const range = model.getValueInRange({
+      startLineNumber: selection.startLineNumber,
+      startColumn: startOffset,
+      endLineNumber: selection.endLineNumber,
+      endColumn: endOffset,
     });
 
     let appendText = " // Appended text";
@@ -274,7 +286,7 @@ const CodeEditor = ({
       } catch (err) {
         console.error("[ERROR]: " + err);
       }
-      appendTextToSelection(appendText);
+      appendTextToSelection(appendText, selection);
     } else if (command.command === "fix") {
       const requestBody = {
         language: files[onSelectedIndex].fileLanguage,
@@ -293,7 +305,7 @@ const CodeEditor = ({
       } catch (err) {
         console.error("[ERROR]: " + err);
       }
-      appendTextToSelection(appendText);
+      overwriteTextInSelection(appendText, selection);
     } else {
       appendText = "";
     }
