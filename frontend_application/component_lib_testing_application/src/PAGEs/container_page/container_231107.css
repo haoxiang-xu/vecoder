@@ -1,0 +1,135 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #222;
+    color: #fff;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    position: relative;
+}
+
+button#openEditorBtn {
+    background-color: #444;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.editor-tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 10px;
+    padding: 10px 0;
+}
+
+.editor-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background-color: #2f2f2f;
+    border-radius: 8px;
+    border: 1px solid #444;
+    margin: 10px;
+    overflow: auto;
+    position: relative;
+}
+
+.tab {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 8px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    cursor: move;
+}
+
+.file-name {
+    flex: 1;
+    margin: 0 10px 0 0;
+}
+
+.tab-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.close-btn,
+.minimize-btn,
+.maximize-btn {
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.3s;
+    font-size: 14px;
+    color: #fff;
+    margin-right: 5px;
+}
+
+.close-btn:hover,
+.minimize-btn:hover,
+.maximize-btn:hover {
+    opacity: 1;
+}
+
+.code-container {
+    margin: 10px auto;
+    position: relative;
+}
+
+.code-lines {
+    counter-reset: line;
+    float: left;
+    padding: 10px;
+    color: #777;
+    user-select: none;
+}
+
+.code-content {
+    margin-left: 40px;
+    padding: 10px;
+    white-space: pre-wrap;
+    counter-increment: line;
+}
+
+.code-content::before {
+    content: counter(line);
+    display: inline-block;
+    width: 30px;
+    margin-right: 10px;
+    color: #aaa;
+    text-align: right;
+}
+
+/* Resizable Handles */
+.ui-resizable-handle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #444;
+    border: 2px solid #fff;
+}
+
+.ui-resizable-s {
+    bottom: -5px;
+    left: 0;
+    right: 0;
+    cursor: row-resize;
+}
+
+.ui-resizable-e {
+    right: -5px;
+    top: 0;
+    bottom: 0;
+    cursor: col-resize;
+}
