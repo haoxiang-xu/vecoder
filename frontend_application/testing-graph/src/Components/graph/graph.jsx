@@ -127,7 +127,7 @@ function addNodes(node, finalNodeStructure, yPosition, max_x_positions) {
 
     // Add node to finalNodeStructure and remove children and parents
     node.position = {
-        x: max_x_positions[yPosition] * 500,
+        x: max_x_positions[yPosition] * 500 + (Math.random() * 30 - 60), // Add some randomness to prevent connection line overlap
         y: yPosition * 400,
     };
     delete node.children;
@@ -202,7 +202,7 @@ export default function Graph(props) {
                 fitView
             >
                 <Controls>
-                    <ControlButton onClick={handleAutoArrange}>
+                    <ControlButton onClick={handleAutoArrange} title="Auto-arrange Nodes">
                         <AutoArrangeIcon />
                     </ControlButton>
                 </Controls>

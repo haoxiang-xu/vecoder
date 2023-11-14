@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 
-import DirItem from "./dirItem/dirItem.js";
+import DirItem from "./dirItem/dirItem";
 import "./explorer.css";
 
 const Explorer = ({
