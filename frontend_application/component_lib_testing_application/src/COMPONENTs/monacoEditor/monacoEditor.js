@@ -67,7 +67,7 @@ const Editor = ({
     registerInlineCompletionProvider(monaco);
   }
   ////Get monaco editor on selected content
-  const updateEditorOnSelected = (monacoRef) => {
+  const getEditorOnSelected = (monacoRef) => {
     const select_range = monacoRef.current.getSelection();
     const selectedText = monacoRef.current
       .getModel()
@@ -75,7 +75,6 @@ const Editor = ({
 
     setOnSelected({ selectedText: selectedText, select_range: select_range });
   };
-
   /*MONACO EDITOR FUNCTIONs-----------------------------------------------------------------------*/
 
   return (

@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Editor from "../../COMPONENTs/monacoEditor/monacoEditor";
 
 const DevelopmentEditor = () => {
+  /* Editor parameters ------------------------------------------------- */
+  const editorRef = useRef(null);
   const [content, setContent] = useState(`
   import React, { useState, useEffect, useRef } from "react";
   import MonacoEditor from "@monaco-editor/react";
@@ -176,23 +178,41 @@ const DevelopmentEditor = () => {
   export default CodeEditor;
         
   `);
+  const [editorWidth, setWidth] = useState("900px");
+  const [editorHeight, setHeight] = useState("700px");
   const [diffContent, setDiffContent] = useState(
     'import React, { useState } from "react";'
   );
   const [onSelected, setOnSelected] = useState(null);
+  /* Editor parameters ------------------------------------------------- */
+
+  /* updating Editor ------------------------------------------------- */
+  useEffect(() => {
+    const editor = editorRef.current;
+    if (editor) {
+      const newWidth = `${editor.clientWidth - 20}px`;
+      setWidth(newWidth);
+      const newHeight = `${editor.clientHeight - 10}px`;
+      setHeight(newHeight);
+    }
+  }, [editorRef.current?.clientWidth, editorRef.current?.clientHeight]);
+
+  /* updating Editor ------------------------------------------------- */
 
   return (
-    <Editor
-      editor_content={content}
-      editor_setContent={setContent}
-      editor_language={"javascript"}
-      editor_height={"900px"}
-      editor_width={"700px"}
-      setOnSelected={setOnSelected}
+    <div id="code_editor_container0829" ref={editorRef}>
+      <Editor
+        editor_content={content}
+        editor_setContent={setContent}
+        editor_language={"javascript"}
+        editor_height={editorHeight}
+        editor_width={editorWidth}
+        setOnSelected={setOnSelected}
 
-      //editor_diffContent={diffContent}
-      //editor_setDiffContent={setDiffContent}
-    ></Editor>
+        //editor_diffContent={diffContent}
+        //editor_setDiffContent={setDiffContent}
+      ></Editor>
+    </div>
   );
 };
 
