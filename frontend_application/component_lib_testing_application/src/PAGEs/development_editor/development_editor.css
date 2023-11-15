@@ -1,0 +1,145 @@
+/*Editor Container*/
+.code_editor_container1113 {
+  /*POSITION*/
+  width: 98%;
+  height: 98%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  /*STYLE*/
+  border-radius: 4pt;
+  padding: 32pt 4pt 4pt 4pt;
+  box-shadow: 0px 4px 16px 8px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: #1e1e1e;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+/*Editor Top Section ------------------------------------------ */
+
+/*Editor Top Right Container*/
+.code_editor_top_right_section1113 {
+  /*POSITION*/
+  width: 100%;
+  height: 26pt;
+  position: absolute;
+  top: 0%;
+  right: 0%;
+
+  /*STYLE*/
+  box-sizing: border-box;
+}
+.code_editor_close_icon1113 {
+  transition: all 0.2s ease;
+
+  /*POSITION*/
+  width: 8pt;
+  height: 8pt;
+  position: absolute;
+  top: 4pt;
+  right: 4pt;
+
+  /*STYLE*/
+  border-radius: 2pt;
+  padding: 5pt;
+}
+.code_editor_close_icon1113:hover {
+  transition: all 0.2s ease;
+
+  /*STYLE*/
+  background-color: #2e2e2e;
+}
+.code_editor_close_icon1113:active {
+  transition: all 0.1s ease;
+
+  /*STYLE*/
+  background-color: #4d4d4d;
+}
+
+/*Editor Bar Container*/
+.file_selection_bar_container1114 {
+  /*POSITION*/
+  display: flex;
+  position: absolute;
+  left: 4pt;
+  right: 26pt;
+  top: 0%;
+  height: 28pt;
+
+  /*STYLE*/
+  background-color: #1e1e1e;
+  overflow-y: hidden;
+}
+.file_selection_bar_container1114::-webkit-scrollbar {
+  height: 3pt;
+}
+.file_selection_bar_container1114::-webkit-scrollbar-track {
+  background: transparent;
+}
+.file_selection_bar_container1114::-webkit-scrollbar-thumb {
+  background: #3a3a3a;
+}
+.file_selection_bar_container1114::-webkit-scrollbar-thumb:hover {
+  background: #4d4d4d;
+}
+
+/*Editor File Selectio Bar Item*/
+.file_selection_bar_item1114 {
+  transition: all 0.2s ease;
+
+  /*POSITION*/
+  height: 18pt;
+  position: relative;
+  width: 100pt;
+  flex: 0 0 auto;
+  white-space: nowrap;
+  display: inline-block;
+  overflow: hidden;
+
+  /*STYLE*/
+  background-color: #1e1e1e;
+  color: white;
+
+  border-radius: 2pt;
+  margin: 4pt 4pt 4pt 0pt;
+}
+.file_selection_bar_item1114:hover {
+  transition: all 0.2s ease;
+  background-color: #2e2e2e;
+}
+.file_selection_bar_item_selected1114 {
+  transition: all 0.2s ease;
+
+  /*STYLE*/
+  background-color: #4d4d4d;
+}
+.file_selection_bar_file_text1114 {
+  /*POSITION*/
+  transform: translate(0%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 17pt;
+
+  /*SIZE*/
+  font-size: 10pt;
+  color: #cccccc;
+}
+.file_selection_bar_item_filetype_icon1114 {
+  /*POSITION*/
+  transform: translate(0%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 3pt;
+
+  /*SIZE*/
+  width: 12pt;
+  height: 12pt;
+}
+
+/*Editor Top Section ------------------------------------------ */

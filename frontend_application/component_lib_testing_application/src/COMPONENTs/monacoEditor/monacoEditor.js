@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import MonacoEditor from "@monaco-editor/react";
 import { MonacoDiffEditor } from "react-monaco-editor";
 
@@ -7,8 +7,6 @@ const Editor = ({
   editor_content,
   editor_setContent,
   editor_language,
-  editor_height,
-  editor_width,
 
   setOnSelected,
 
@@ -45,7 +43,7 @@ const Editor = ({
       ...baseEditorOptions,
       readOnly: true,
       enableSplitViewResizing: false,
-      renderSideBySide: false,
+      renderSideBySide: true,
     }),
     [baseEditorOptions]
   );
@@ -80,7 +78,7 @@ const Editor = ({
   return (
     <div
       className="MONACO_EDITOR_CONTAINER"
-      style={{ height: editor_height, width: editor_width }}
+      style={{ height: "100%", width: "100%" }}
     >
       {editor_diffContent ? (
         <MonacoDiffEditor

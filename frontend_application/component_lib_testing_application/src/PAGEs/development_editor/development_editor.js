@@ -1,9 +1,32 @@
 import React, { useState, useRef, useEffect } from "react";
 import Editor from "../../COMPONENTs/monacoEditor/monacoEditor";
+import "./development_editor.css";
+import { ICON_MANAGER } from "../../ICONs/icon_manager";
 
-const DevelopmentEditor = () => {
+/* ICONs ----------------------------------------------------------------- */
+import close_icon_16X16 from "./ICONs/16X16/close.png";
+import close_icon_512X512 from "./ICONs/512X512/close.png";
+/* ICONs ----------------------------------------------------------------- */
+
+const VecoderEditor = () => {
+  /* Load ICON manager -------------------------------- */
+  let FILE_TYPE_STYLING_MANAGER = {
+    default: {
+      ICON: null,
+      LABEL_COLOR: "#C8C8C8",
+    },
+  };
+  try {
+    FILE_TYPE_STYLING_MANAGER = ICON_MANAGER().FILE_TYPE_STYLING_MANAGER;
+  } catch (e) {
+    console.log(e);
+  }
+  /* Load ICON manager -------------------------------- */
+
   /* Editor parameters ------------------------------------------------- */
-  const editorRef = useRef(null);
+  //// Editor container ref
+  const editorContainerRef = useRef(null);
+  //// Editor content
   const [content, setContent] = useState(`
   import React, { useState, useEffect, useRef } from "react";
   import MonacoEditor from "@monaco-editor/react";
@@ -178,42 +201,76 @@ const DevelopmentEditor = () => {
   export default CodeEditor;
         
   `);
-  const [editorWidth, setWidth] = useState("900px");
-  const [editorHeight, setHeight] = useState("700px");
   const [diffContent, setDiffContent] = useState(
     'import React, { useState } from "react";'
   );
-  const [onSelected, setOnSelected] = useState(null);
+  const [onSelected, setOnSelected] = useState(0);
   /* Editor parameters ------------------------------------------------- */
 
-  /* updating Editor ------------------------------------------------- */
-  useEffect(() => {
-    const editor = editorRef.current;
-    if (editor) {
-      const newWidth = `${editor.clientWidth - 20}px`;
-      setWidth(newWidth);
-      const newHeight = `${editor.clientHeight - 10}px`;
-      setHeight(newHeight);
-    }
-  }, [editorRef.current?.clientWidth, editorRef.current?.clientHeight]);
+  const files = [
+    { file_name: "monacoEditor.js" },
+    { file_name: "monacoEditor.html" },
+    { file_name: "monacoStyleEditor.css" },
+    { file_name: "index.py" },
+    { file_name: "monacoEditor.html" },
+    { file_name: "monacoStyleEditor.css" },
+    { file_name: "index.js" },
+  ];
 
-  /* updating Editor ------------------------------------------------- */
-
+  /* File Selection Bar parameters ------------------------------------------------- */
+  const [onSelectedIndex, setOnSelectedIndex] = useState(null);
+  /* File Selection Bar parameters ------------------------------------------------- */
   return (
-    <div id="code_editor_container0829" ref={editorRef}>
+    <div className="code_editor_container1113" ref={editorContainerRef}>
       <Editor
         editor_content={content}
         editor_setContent={setContent}
         editor_language={"javascript"}
-        editor_height={editorHeight}
-        editor_width={editorWidth}
         setOnSelected={setOnSelected}
 
         //editor_diffContent={diffContent}
         //editor_setDiffContent={setDiffContent}
       ></Editor>
+
+      {/*Editor Top Bar Container -------------------------------------------------------------- */}
+      {/*Editor Top Right Section*/}
+      <div className="code_editor_top_right_section1113">
+        <img
+          src={close_icon_512X512}
+          className="code_editor_close_icon1113"
+          alt="close"
+        />
+      </div>
+      {/*Editor File Selection Bar*/}
+      <div className="file_selection_bar_container1114">
+        {files.map((file, index) => (
+          <div
+            key={index}
+            className={`file_selection_bar_item1114 ${
+              onSelectedIndex === index
+                ? "file_selection_bar_item_selected1114"
+                : ""
+            }`}
+            onClick={() => {
+              setOnSelectedIndex(index);
+            }}
+          >
+            <img
+              src={
+                FILE_TYPE_STYLING_MANAGER[file.file_name.split(".").pop()]?.ICON
+              }
+              className="file_selection_bar_item_filetype_icon1114"
+              alt="close"
+            />
+            <span className="file_selection_bar_file_text1114">
+              {file.file_name}
+            </span>
+          </div>
+        ))}
+      </div>
+      {/*Editor Top Bar Container -------------------------------------------------------------- */}
     </div>
   );
 };
 
-export default DevelopmentEditor;
+export default VecoderEditor;
