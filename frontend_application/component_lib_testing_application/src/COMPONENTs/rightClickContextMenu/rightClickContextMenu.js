@@ -143,7 +143,7 @@ const RightClickContextMenu = ({
             progressRightClickCommand={progressRightClickCommand}
           />
         );
-      if (onRightClickItem.content.fileType === "folder") {
+      if (onRightClickItem.content.fileType && onRightClickItem.content.fileType === "folder") {
         if (onRightClickItem.content.filePath.split("/").length === 1) {
           // If the condition is true, assign the first set of items
           contextItems = [
