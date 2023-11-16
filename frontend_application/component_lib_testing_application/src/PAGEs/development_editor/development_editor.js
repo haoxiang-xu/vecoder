@@ -562,9 +562,12 @@ class Car {
     setRightClickX(rightClickX);
     setRightClickY(rightClickY);
   };
-
+  const handleOnClick = (event) => {
+    setIsRightClicked(false);
+    setOnRightClickItem(null);
+  };
   return (
-    <div onContextMenu={handleRightClick}>
+    <div onContextMenu={handleRightClick} onClick={handleOnClick}>
       <div className="explorer_container1116">
         <Explorer
           files={files_structure}

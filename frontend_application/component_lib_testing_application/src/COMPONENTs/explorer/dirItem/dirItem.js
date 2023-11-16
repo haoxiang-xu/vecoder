@@ -178,11 +178,11 @@ const DirItem = ({
     forceRefresh();
   };
   const handleFolderOnRightClick = () => {
-    setOnRightClickItem(JSON.parse(JSON.stringify(file)));
+    setOnRightClickItem({ source: "vecoder_explorer/" + file.filePath, condition: null, content: JSON.parse(JSON.stringify(file))});
     setIsRightClicked(true);
   };
   const handleFileOnRightClick = () => {
-    setOnRightClickItem(JSON.parse(JSON.stringify(file)));
+    setOnRightClickItem({ source: "vecoder_explorer/" + file.filePath, condition: null, content: JSON.parse(JSON.stringify(file))});
     setIsRightClicked(true);
   };
   //SINGLE CLICK
@@ -543,7 +543,7 @@ const DirItem = ({
                   style={
                     onRightClickItem !== null &&
                     isRightClicked &&
-                    onRightClickItem.fileName === file.fileName
+                    onRightClickItem.content.fileName === file.fileName
                       ? {
                           backgroundColor: "#2a2d2e",
                         }
@@ -589,7 +589,7 @@ const DirItem = ({
                   style={
                     onRightClickItem !== null &&
                     isRightClicked &&
-                    onRightClickItem.fileName === file.fileName
+                    onRightClickItem.content.fileName === file.fileName
                       ? {
                           backgroundColor: "#2a2d2e",
                         }
@@ -643,7 +643,7 @@ const DirItem = ({
                         "s",
                       ...(onRightClickItem !== null &&
                       isRightClicked &&
-                      onRightClickItem.fileName === file.fileName
+                      onRightClickItem.content.fileName === file.fileName
                         ? {
                             backgroundColor: "#2a2d2e",
                           }
@@ -652,7 +652,7 @@ const DirItem = ({
                   : {
                       ...(onRightClickItem !== null &&
                       isRightClicked &&
-                      onRightClickItem.fileName === file.fileName
+                      onRightClickItem.content.fileName === file.fileName
                         ? {
                             backgroundColor: "#2a2d2e",
                           }

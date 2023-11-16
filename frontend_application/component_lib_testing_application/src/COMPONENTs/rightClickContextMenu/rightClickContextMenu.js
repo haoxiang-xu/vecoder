@@ -127,191 +127,122 @@ const RightClickContextMenu = ({
         />,
         pasteItem,
       ];
-    } else if (
-      onRightClickItem.filePath.split("/").length === 1 &&
-      copyFile === null &&
-      onRightClickItem.fileType === "folder"
-    ) {
-      contextItems = [
-        <ContextItem
-          key={"newFile"}
-          item_function={"newFile"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
-          key={"newFolder"}
-          item_function={"newFolder"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
-          key={"insertFile"}
-          item_function={"insertFile"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
-          key={"hr1"}
-          item_function={"hr"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
-          key={"unpaste"}
-          item_function={"unpaste"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-      ];
-    } else if (
-      onRightClickItem.filePath.split("/").length === 1 &&
-      copyFile !== null &&
-      onRightClickItem.fileType === "folder"
-    ) {
-      contextItems = [
-        <ContextItem
-          key={"newFile"}
-          item_function={"newFile"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
-          key={"newFolder"}
-          item_function={"newFolder"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
-          key={"insertFile"}
-          item_function={"insertFile"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
-          key={"hr1"}
-          item_function={"hr"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
-          key={"paste"}
-          item_function={"paste"}
-          progressRightClickCommand={progressRightClickCommand}
-          pasteFileName={copyFile.fileName}
-        />,
-      ];
-    } else if (onRightClickItem.fileType === "folder" && copyFile === null) {
-      contextItems = [
-        <ContextItem
-          key={"newFile"}
-          item_function={"newFile"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
-          key={"newFolder"}
-          item_function={"newFolder"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
-          key={"insertFile"}
-          item_function={"insertFile"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
-          key={"hr1"}
-          item_function={"hr"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
-          key={"copy"}
-          item_function={"copy"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
-          key={"paste"}
-          item_function={"unpaste"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
-          key={"hr2"}
-          item_function={"hr"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
-          key={"rename"}
-          item_function={"rename"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
-          key={"delete"}
-          item_function={"delete"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-      ];
-    } else if (onRightClickItem.fileType === "folder" && copyFile !== null) {
-      contextItems = [
-        <ContextItem
-          key={"newFile"}
-          item_function={"newFile"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
-          key={"newFolder"}
-          item_function={"newFolder"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
-          key={"insertFile"}
-          item_function={"insertFile"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
-          key={"hr1"}
-          item_function={"hr"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
-          key={"copy"}
-          item_function={"copy"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
-          key={"paste"}
-          item_function={"paste"}
-          progressRightClickCommand={progressRightClickCommand}
-          pasteFileName={copyFile.fileName}
-        />,
-        <ContextItem
-          key={"hr2"}
-          item_function={"hr"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
-          key={"rename"}
-          item_function={"rename"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
-          key={"delete"}
-          item_function={"delete"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-      ];
-    } else if (onRightClickItem.fileType === "file") {
-      contextItems = [
-        <ContextItem
-          key={"copy"}
-          item_function={"copy"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
-          key={"hr2"}
-          item_function={"hr"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
-          key={"rename"}
-          item_function={"rename"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-        <ContextItem
-          key={"delete"}
-          item_function={"delete"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
-      ];
+    } else if (onRightClickItem.source.split("/")[0] === "vecoder_explorer") {
+      let pasteItem =
+        copyFile !== null ? (
+          <ContextItem
+            key={"paste"}
+            item_function={"paste"}
+            progressRightClickCommand={progressRightClickCommand}
+            pasteFileName={copyFile.fileName}
+          />
+        ) : (
+          <ContextItem
+            key={"unpaste"}
+            item_function={"unpaste"}
+            progressRightClickCommand={progressRightClickCommand}
+          />
+        );
+      if (onRightClickItem.content.fileType === "folder") {
+        if (onRightClickItem.content.filePath.split("/").length === 1) {
+          // If the condition is true, assign the first set of items
+          contextItems = [
+            <ContextItem
+              key={"newFile"}
+              item_function={"newFile"}
+              progressRightClickCommand={progressRightClickCommand}
+            />,
+            <ContextItem
+              key={"newFolder"}
+              item_function={"newFolder"}
+              progressRightClickCommand={progressRightClickCommand}
+            />,
+            <ContextItem
+              key={"insertFile"}
+              item_function={"insertFile"}
+              progressRightClickCommand={progressRightClickCommand}
+            />,
+            <ContextItem
+              key={"hr1"}
+              item_function={"hr"}
+              progressRightClickCommand={progressRightClickCommand}
+            />,
+            <ContextItem
+              key={"unpaste"}
+              item_function={"unpaste"}
+              progressRightClickCommand={progressRightClickCommand}
+            />,
+          ];
+        } else {
+          contextItems = [
+            <ContextItem
+              key={"newFile"}
+              item_function={"newFile"}
+              progressRightClickCommand={progressRightClickCommand}
+            />,
+            <ContextItem
+              key={"newFolder"}
+              item_function={"newFolder"}
+              progressRightClickCommand={progressRightClickCommand}
+            />,
+            <ContextItem
+              key={"insertFile"}
+              item_function={"insertFile"}
+              progressRightClickCommand={progressRightClickCommand}
+            />,
+            <ContextItem
+              key={"hr1"}
+              item_function={"hr"}
+              progressRightClickCommand={progressRightClickCommand}
+            />,
+            <ContextItem
+              key={"rename"}
+              item_function={"rename"}
+              progressRightClickCommand={progressRightClickCommand}
+            />,
+            <ContextItem
+              key={"delete"}
+              item_function={"delete"}
+              progressRightClickCommand={progressRightClickCommand}
+            />,
+            <ContextItem
+              key={"hr2"}
+              item_function={"hr"}
+              progressRightClickCommand={progressRightClickCommand}
+            />,
+            <ContextItem
+              key={"copy"}
+              item_function={"copy"}
+              progressRightClickCommand={progressRightClickCommand}
+            />,
+            pasteItem,
+          ];
+        }
+      } else {
+        contextItems = [
+          <ContextItem
+            key={"copy"}
+            item_function={"copy"}
+            progressRightClickCommand={progressRightClickCommand}
+          />,
+          pasteItem,
+          <ContextItem
+            key={"hr1"}
+            item_function={"hr"}
+            progressRightClickCommand={progressRightClickCommand}
+          />,
+          <ContextItem
+            key={"rename"}
+            item_function={"rename"}
+            progressRightClickCommand={progressRightClickCommand}
+          />,
+          <ContextItem
+            key={"delete"}
+            item_function={"delete"}
+            progressRightClickCommand={progressRightClickCommand}
+          />,
+        ];
+      }
     } else {
     }
   }
