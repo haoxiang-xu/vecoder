@@ -1,0 +1,21 @@
+.vector_editor_container1116 {
+  position: absolute;
+  left: 21rem;
+  top: 5pt;
+  right: 5pt;
+  bottom: 5pt;
+  overflow: hidden;
+}
+.explorer_container1116 {
+  position: absolute;
+  width: 20rem;
+  top: 5pt;
+  left: 5pt;
+  bottom: 5pt;
+
+  border: 6pt solid #1e1e1e;
+  border-radius: 6pt;
+
+  box-sizing: border-box;
+  background-color: #1e1e1e;
+}

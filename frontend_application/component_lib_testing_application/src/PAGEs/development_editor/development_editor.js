@@ -1,4 +1,8 @@
+import React, { useState } from "react";
 import VecoderEditor from "../../COMPONENTs/vecoder_editor/vecoder_editor";
+import RightClickContextMenu from "../../COMPONENTs/rightClickContextMenu/rightClickContextMenu";
+import Explorer from "../../COMPONENTs/explorer/explorer";
+import "./development_editor.css";
 
 const DevelopmentEditor = () => {
   const raw_files = [
@@ -373,10 +377,225 @@ class Car {
       `,
     },
   ];
+  const files_structure = {
+    fileName: "vecoder",
+    fileType: "folder",
+    filePath: "vecoder",
+    fileExpend: false,
+    files: [
+      {
+        fileName: "vecoder_sample",
+        fileType: "folder",
+        filePath: "vecoder/vecoder_sample",
+        fileExpend: false,
+        files: [
+          {
+            fileName: "public",
+            fileType: "folder",
+            filePath: "vecoder/vecoder_sample/public",
+            fileExpend: false,
+            files: [
+              {
+                fileName: "favicon.icon",
+                fileType: "file",
+                filePath: "vecoder/vecoder_sample/public/favicon.icon",
+                fileExpend: false,
+                files: [],
+              },
+              {
+                fileName: "index.html",
+                fileType: "file",
+                filePath: "vecoder/vecoder_sample/public/index.html",
+                fileExpend: false,
+                files: [],
+              },
+              {
+                fileName: "logo192.png",
+                fileType: "file",
+                filePath: "vecoder/vecoder_sample/public/logo192.png",
+                fileExpend: false,
+                files: [],
+              },
+              {
+                fileName: "logo512.png",
+                fileType: "file",
+                filePath: "vecoder/vecoder_sample/public/logo512.png",
+                fileExpend: false,
+                files: [],
+              },
+              {
+                fileName: "manifest.json",
+                fileType: "file",
+                filePath: "vecoder/vecoder_sample/public/manifest.json",
+                fileExpend: false,
+                files: [],
+              },
+              {
+                fileName: "robots.txt",
+                fileType: "file",
+                filePath: "vecoder/vecoder_sample/public/robots.txt",
+                fileExpend: false,
+                files: [],
+              },
+            ],
+          },
+          {
+            fileName: "src",
+            fileType: "folder",
+            filePath: "vecoder/vecoder_sample/src",
+            fileExpend: false,
+            files: [
+              {
+                fileName: "COMPONENTs",
+                fileType: "folder",
+                filePath: "vecoder/vecoder_sample/src/COMPONENTs",
+                fileExpend: false,
+                files: [
+                  {
+                    fileName: "explorer",
+                    fileType: "folder",
+                    filePath: "vecoder/vecoder_sample/src/COMPONENTs/explorer",
+                    fileExpend: false,
+                    files: [
+                      {
+                        fileName: "dirItem",
+                        fileType: "folder",
+                        filePath:
+                          "vecoder/vecoder_sample/src/COMPONENTs/explorer/dirItem",
+                        fileExpend: false,
+                        files: [
+                          {
+                            fileName: "dirItem.css",
+                            fileType: "file",
+                            filePath:
+                              "vecoder/vecoder_sample/src/COMPONENTs/explorer/dirItem/dirItem.css",
+                            fileExpend: false,
+                            files: [],
+                          },
+                          {
+                            fileName: "dirItem.js",
+                            fileType: "file",
+                            filePath:
+                              "vecoder/vecoder_sample/src/COMPONENTs/explorer/dirItem/dirItem.js",
+                            fileExpend: false,
+                            files: [],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                fileName: "App.css",
+                fileType: "file",
+                filePath: "vecoder/vecoder_sample/src/App.css",
+                fileExpend: false,
+                files: [],
+              },
+              {
+                fileName: "App.js",
+                fileType: "file",
+                filePath: "vecoder/vecoder_sample/src/App.js",
+                fileExpend: false,
+                files: [],
+              },
+              {
+                fileName: "App.test.js",
+                fileType: "file",
+                filePath: "vecoder/vecoder_sample/src/App.test.js",
+                fileExpend: false,
+                files: [],
+              },
+            ],
+          },
+          {
+            fileName: ".gitignore",
+            fileType: "file",
+            filePath: "vecoder/vecoder_sample/.gitignore",
+            fileExpend: false,
+            files: [],
+          },
+          {
+            fileName: "package.json",
+            fileType: "file",
+            filePath: "vecoder/vecoder_sample/package.json",
+            fileExpend: false,
+            files: [],
+          },
+          {
+            fileName: "package-lock.json",
+            fileType: "file",
+            filePath: "vecoder/vecoder_sample/package-lock.json",
+            fileExpend: false,
+            files: [],
+          },
+          {
+            fileName: "README.md",
+            fileType: "file",
+            filePath: "vecoder/vecoder_sample/README.md",
+            fileExpend: false,
+            files: [],
+          },
+        ],
+      },
+    ],
+  };
+
+  //Right Click Menu
+  const [isRightClicked, setIsRightClicked] = useState(false);
+  const [rightClickX, setRightClickX] = useState(-1);
+  const [rightClickY, setRightClickY] = useState(-1);
+  const [onRightClickItem, setOnRightClickItem] = useState(null);
+  const [rightClickCommand, setRightClickCommand] = useState(null);
+  const [copyFile, setCopyFile] = useState(null);
+
+  const handleRightClick = (event) => {
+    event.preventDefault();
+    setIsRightClicked(true);
+
+    const boundingRect = event.currentTarget.getBoundingClientRect();
+
+    const rightClickX = event.clientX - boundingRect.left;
+    const rightClickY = event.clientY - boundingRect.top;
+
+    setRightClickX(rightClickX);
+    setRightClickY(rightClickY);
+  };
 
   return (
-    <div>
-      <VecoderEditor imported_files={raw_files} />
+    <div onContextMenu={handleRightClick}>
+      <div className="explorer_container1116">
+        <Explorer
+          files={files_structure}
+          onRightClickItem={onRightClickItem}
+          setOnRightClickItem={setOnRightClickItem}
+          rightClickCommand={rightClickCommand}
+          setRightClickCommand={setRightClickCommand}
+          copyFile={copyFile}
+        />
+      </div>
+      <div className="vector_editor_container1116">
+        <VecoderEditor
+          imported_files={raw_files}
+          onRightClickItem={onRightClickItem}
+          setOnRightClickItem={setOnRightClickItem}
+          rightClickCommand={rightClickCommand}
+          setRightClickCommand={setRightClickCommand}
+        />
+      </div>
+      {isRightClicked ? (
+        <RightClickContextMenu
+          x={rightClickX}
+          y={rightClickY}
+          onRightClickItem={onRightClickItem}
+          setOnRightClickItem={setOnRightClickItem}
+          setRightClickCommand={setRightClickCommand}
+          copyFile={copyFile}
+        />
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 };

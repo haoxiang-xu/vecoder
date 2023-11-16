@@ -7,8 +7,11 @@ const Editor = ({
   editor_content,
   editor_setContent,
   editor_language,
-
+  //Editor function parameters
+  onAppendContent,
+  setOnAppendContent,
   setOnSelected,
+  onContextMenu,
   display,
 
   //Diff Editor optional parameters
@@ -70,16 +73,44 @@ const Editor = ({
     const select_range = monacoRef.current.getSelection();
     const selectedText = monacoRef.current
       .getModel()
-      .getValueInRange(selection);
+      .getValueInRange(select_range);
 
     setOnSelected({ selectedText: selectedText, select_range: select_range });
   };
+  useEffect(() => {
+    if (onAppendContent && monacoRef.current) {
+      const editor = monacoRef.current.editor || monacoRef.current;
+      const selection = editor.getSelection();
+      const range = new monaco.Range(
+        selection.startLineNumber,
+        selection.startColumn,
+        selection.endLineNumber,
+        selection.endColumn
+      );
+
+      const id = { major: 1, minor: 1 };
+      const text = onAppendContent;
+      const op = {
+        identifier: id,
+        range: range,
+        text: text,
+        forceMoveMarkers: true,
+      };
+      editor.executeEdits("my-source", [op]);
+
+      setOnAppendContent(null);
+    }
+  }, [onAppendContent, monacoRef]);
   /*MONACO EDITOR FUNCTIONs-----------------------------------------------------------------------*/
 
   return display ? (
     <div
       className="MONACO_EDITOR_CONTAINER"
       style={{ height: "100%", width: "100%" }}
+      onContextMenu={(e) => {
+        getEditorOnSelected(monacoRef);
+        onContextMenu(e);
+      }}
     >
       {editor_diffContent ? (
         <MonacoDiffEditor

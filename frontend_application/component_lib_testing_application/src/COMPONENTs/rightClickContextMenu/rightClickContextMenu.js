@@ -17,7 +17,7 @@ const RightClickContextMenu = ({
   const progressRightClickCommand = (command) => {
     setRightClickCommand({
       command: command,
-      target_file: onRightClickItem,
+      target: onRightClickItem.source,
     });
   };
 
@@ -75,7 +75,20 @@ const RightClickContextMenu = ({
   }, [x, y]);
 
   if (onRightClickItem !== null) {
-    if (onRightClickItem.fileType == "codeEditor") {
+    if (onRightClickItem.source === "vecoder_editor") {
+      let pasteItem = onRightClickItem.condition.paste ? (
+        <ContextItem
+          key={"paste"}
+          item_function={"paste"}
+          progressRightClickCommand={progressRightClickCommand}
+        />
+      ) : (
+        <ContextItem
+          key={"unpaste"}
+          item_function={"unpaste"}
+          progressRightClickCommand={progressRightClickCommand}
+        />
+      );
       contextItems = [
         <ContextItem
           key={"continue"}
@@ -93,15 +106,26 @@ const RightClickContextMenu = ({
           progressRightClickCommand={progressRightClickCommand}
         />,
         <ContextItem
+          key={"updateAST"}
+          item_function={"updateAST"}
+          progressRightClickCommand={progressRightClickCommand}
+        />,
+        <ContextItem
+          key={"viewAST"}
+          item_function={"viewAST"}
+          progressRightClickCommand={progressRightClickCommand}
+        />,
+        <ContextItem
+          key={"hr2"}
+          item_function={"hr"}
+          progressRightClickCommand={progressRightClickCommand}
+        />,
+        <ContextItem
           key={"copy"}
           item_function={"copy"}
           progressRightClickCommand={progressRightClickCommand}
         />,
-        <ContextItem
-          key={"unpaste"}
-          item_function={"unpaste"}
-          progressRightClickCommand={progressRightClickCommand}
-        />,
+        pasteItem,
       ];
     } else if (
       onRightClickItem.filePath.split("/").length === 1 &&

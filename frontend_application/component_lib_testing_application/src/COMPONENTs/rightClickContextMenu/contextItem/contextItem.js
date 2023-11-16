@@ -24,6 +24,11 @@ import continue_icon from "./ICONs/continue_icon.png";
 import continue_icon_blur from "./ICONs/continue_icon_blur.png";
 import fix_icon from "./ICONs/fix_icon.png";
 import fix_icon_blur from "./ICONs/fix_icon_blur.png";
+import update_ast_icon from "./ICONs/update.png";
+import update_ast_icon_blur from "./ICONs/update_blur.png";
+import view_ast_icon from "./ICONs/ast.png";
+import view_ast_icon_blur from "./ICONs/ast_blur.png";
+
 
 const ContextItem = ({
   item_function,
@@ -51,6 +56,8 @@ const ContextItem = ({
     duplicate: duplicate_icon,
     continue: continue_icon,
     fix: fix_icon,
+    updateAST: update_ast_icon,
+    viewAST: view_ast_icon,
   };
   const BACKGROUND_ICONs = {
     newFile: newFile_icon_blur,
@@ -64,6 +71,8 @@ const ContextItem = ({
     duplicate: duplicate_icon_blur,
     continue: continue_icon_blur,
     fix: fix_icon_blur,
+    updateAST: update_ast_icon_blur,
+    viewAST: view_ast_icon_blur,
   };
   const LABELs = {
     newFile: "New File...",
@@ -78,6 +87,8 @@ const ContextItem = ({
     duplicate: "Duplicate",
     continue: "Continue...",
     fix: "Fix...",
+    updateAST: "update AST",
+    viewAST: "view AST",
   };
   const COLORs = {
     newFile: "#CCCCCC",
@@ -92,6 +103,8 @@ const ContextItem = ({
     duplicate: "#CCCCCC",
     continue: "#CCCCCC",
     fix: "#CCCCCC",
+    updateAST: "#CCCCCC",
+    viewAST: "#CCCCCC",
   };
   useEffect(() => {
     if (item_function === "unpaste") {

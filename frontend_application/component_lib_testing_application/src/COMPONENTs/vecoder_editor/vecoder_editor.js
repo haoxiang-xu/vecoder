@@ -8,7 +8,14 @@ import close_icon_16X16 from "./ICONs/16X16/close.png";
 import close_icon_512X512 from "./ICONs/512X512/close.png";
 /* ICONs ----------------------------------------------------------------- */
 
-const VecoderEditor = ({ imported_files }) => {
+const VecoderEditor = ({
+  imported_files,
+  //Context Menu
+  onRightClickItem,
+  setOnRightClickItem,
+  rightClickCommand,
+  setRightClickCommand,
+}) => {
   /* Initialize File Data ------------------------------------------------------ */
   const [files, setFiles] = useState(imported_files);
   /* Initialize File Data ------------------------------------------------------ */
@@ -25,8 +32,47 @@ const VecoderEditor = ({ imported_files }) => {
   } catch (e) {
     console.log(e);
   }
-  const LOGO = "</>";
   /* Load ICON manager -------------------------------- */
+
+  /* Context Menu ----------------------------------------------------------------------- */
+  const [onAppendContent, setOnAppendContent] = useState(null);
+  const handleRightClick = (event) => {
+    event.preventDefault();
+    if (onSelectedCode || navigator.clipboard.readText() !== "") {
+      setOnRightClickItem({
+        source: "vecoder_editor",
+        condition: { paste: true },
+        content: null,
+      });
+    } else {
+      setOnRightClickItem({
+        source: "vecoder_editor",
+        condition: { paste: false },
+        content: null,
+      });
+    }
+  };
+  const handleLeftClick = (event) => {
+    setOnRightClickItem(null);
+  };
+  useEffect(() => {
+    if (rightClickCommand && rightClickCommand.target === "vecoder_editor") {
+      handleRightClickCommand(rightClickCommand.command);
+      setRightClickCommand(null);
+      setOnRightClickItem(null);
+    }
+  }, [rightClickCommand]);
+  const handleRightClickCommand = async (command) => {
+    switch (command) {
+      case "copy":
+        navigator.clipboard.writeText(onSelectedCode.selectedText);
+        break;
+      case "paste":
+        setOnAppendContent(await navigator.clipboard.readText());
+        break;
+    }
+  };
+  /* Context Menu ----------------------------------------------------------------------- */
 
   /* Editor parameters ------------------------------------------------- */
   //// Editor container ref
@@ -37,10 +83,8 @@ const VecoderEditor = ({ imported_files }) => {
     editedFiles[index].fileContent = value;
     setFiles(editedFiles);
   };
-  const [diffContent, setDiffContent] = useState(
-    'import React, { useState } from "react";'
-  );
-  const [onSelectedCode, setOnSelectedCode] = useState(0);
+  const [diffContent, setDiffContent] = useState(null);
+  const [onSelectedCode, setOnSelectedCode] = useState(null);
   /* Editor parameters ------------------------------------------------- */
 
   /* File Selection Bar parameters & Functions ------------------------------------------------- */
@@ -111,7 +155,13 @@ const VecoderEditor = ({ imported_files }) => {
 
   /* File Selection Bar parameters & Functions ------------------------------------------------- */
   return (
-    <div className="code_editor_container1113" ref={editorContainerRef}>
+    <div
+      className="code_editor_container1113"
+      ref={editorContainerRef}
+      onClick={(e) => {
+        handleLeftClick(e);
+      }}
+    >
       {/*Monaco Editor -------------------------------------------------------------- */}
       {files.map((file, index) => {
         return (
@@ -120,7 +170,13 @@ const VecoderEditor = ({ imported_files }) => {
             editor_content={files[index].fileContent}
             editor_setContent={setFileContent(index)}
             editor_language={files[index].fileLanguage}
+            //Functional props
+            onAppendContent={onAppendContent}
+            setOnAppendContent={setOnAppendContent}
             setOnSelected={setOnSelectedCode}
+            onContextMenu={(e) => {
+              handleRightClick(e);
+            }}
             display={
               file.fileName === fileList[onSelectedIndex]?.fileName
                 ? true

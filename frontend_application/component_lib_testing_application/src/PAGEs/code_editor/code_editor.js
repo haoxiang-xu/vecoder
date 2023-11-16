@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import CodeEditor from "../../COMPONENTs/codeEditor/codeEditor";
 import RightClickContextMenu from "../../COMPONENTs/rightClickContextMenu/rightClickContextMenu";
-import axios from "axios";
-
 const CodeEditorPage = () => {
   let raw_files = [
     {
