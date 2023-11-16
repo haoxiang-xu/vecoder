@@ -9,6 +9,7 @@ const Editor = ({
   editor_language,
 
   setOnSelected,
+  display,
 
   //Diff Editor optional parameters
   editor_diffContent,
@@ -51,7 +52,7 @@ const Editor = ({
     language: editor_language,
     theme: "vs-dark",
     options: editor_diffContent ? diffEditorOptions : baseEditorOptions,
-    onChange: editor_diffContent ? editor_setDiffContent : editor_setContent,
+    onChange: editor_setContent,
     onMount: onEditorMount,
   };
   /*MONACO EDITOR OPTIONS-----------------------------------------------------------------------*/
@@ -75,10 +76,25 @@ const Editor = ({
   };
   /*MONACO EDITOR FUNCTIONs-----------------------------------------------------------------------*/
 
-  return (
+  return display ? (
     <div
       className="MONACO_EDITOR_CONTAINER"
       style={{ height: "100%", width: "100%" }}
+    >
+      {editor_diffContent ? (
+        <MonacoDiffEditor
+          {...editorProps}
+          original={editor_content}
+          value={editor_diffContent}
+        />
+      ) : (
+        <MonacoEditor {...editorProps} value={editor_content} />
+      )}
+    </div>
+  ) : (
+    <div
+      className="MONACO_EDITOR_CONTAINER"
+      style={{ height: "100%", width: "100%", display: "none" }}
     >
       {editor_diffContent ? (
         <MonacoDiffEditor

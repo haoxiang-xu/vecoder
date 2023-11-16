@@ -59,7 +59,7 @@
   transition: all 0.1s ease;
 
   /*STYLE*/
-  background-color: #4d4d4d;
+  background-color: #444444;
 }
 
 /*Editor Bar Container*/
@@ -91,19 +91,19 @@
 
 /*Editor File Selectio Bar Item*/
 .file_selection_bar_item1114 {
-  transition: all 0.2s ease;
+  transition: all 0.32s ease;
 
   /*POSITION*/
   height: 18pt;
   position: relative;
-  width: 100pt;
+
   flex: 0 0 auto;
   white-space: nowrap;
   display: inline-block;
   overflow: hidden;
 
   /*STYLE*/
-  background-color: #1e1e1e;
+  background-color: #252525;
   color: white;
 
   border-radius: 2pt;
@@ -114,32 +114,74 @@
   background-color: #2e2e2e;
 }
 .file_selection_bar_item_selected1114 {
-  transition: all 0.2s ease;
+  transition: all 0.32s ease;
+
+  /*POSITION*/
+  height: 18pt;
+  position: relative;
+
+  flex: 0 0 auto;
+  white-space: nowrap;
+  display: inline-block;
+  overflow: hidden;
 
   /*STYLE*/
-  background-color: #4d4d4d;
+  background-color: #444444;
+  color: white;
+
+  border-radius: 2pt;
+  margin: 4pt 4pt 4pt 0pt;
+  transition: all 0.32s ease;
 }
 .file_selection_bar_file_text1114 {
   /*POSITION*/
-  transform: translate(0%, -50%);
-  position: absolute;
-  top: 50%;
-  left: 17pt;
+  position: relative;
+  top: -2pt;
+  padding: 0pt 7pt 0pt 0pt;
 
   /*SIZE*/
   font-size: 10pt;
   color: #cccccc;
+
+  pointer-events: none;
 }
 .file_selection_bar_item_filetype_icon1114 {
   /*POSITION*/
-  transform: translate(0%, -50%);
-  position: absolute;
-  top: 50%;
-  left: 3pt;
+  position: relative;
+  padding: 3pt 3pt 0pt 3pt;
 
   /*SIZE*/
   width: 12pt;
   height: 12pt;
+
+  pointer-events: none;
+}
+.file_selection_bar_item_close_icon1114 {
+  transition: all 0.2s ease;
+
+  /*POSITION*/
+  position: relative;
+  right: 6px;
+  padding: 2pt;
+
+  /*SIZE*/
+  width: 7pt;
+  height: 7pt;
+  border-radius: 1pt;
+
+  opacity: 1;
+}
+.file_selection_bar_item_close_icon1114:hover {
+  transition: all 0.2s ease;
+
+  /*STYLE*/
+  background-color: #5c5c5c;
+}
+.file_selection_bar_item_close_icon1114:active {
+  transition: all 0.2s ease;
+
+  /*STYLE*/
+  background-color: #838383;
 }
 
 /*Editor Top Section ------------------------------------------ */
