@@ -121,7 +121,11 @@ const VecoderEditor = ({ imported_files }) => {
             editor_setContent={setFileContent(index)}
             editor_language={files[index].fileLanguage}
             setOnSelected={setOnSelectedCode}
-            display={file.fileName === fileList[onSelectedIndex]?.fileName ? true : false}
+            display={
+              file.fileName === fileList[onSelectedIndex]?.fileName
+                ? true
+                : false
+            }
 
             //editor_diffContent={diffContent}
             //editor_setDiffContent={setDiffContent}
@@ -185,6 +189,7 @@ const VecoderEditor = ({ imported_files }) => {
                 }
                 className="file_selection_bar_item_filetype_icon1114"
                 alt="close"
+                style={{ opacity: index === onSelectedIndex ? "1" : "0.32" }}
               />
               <span className="file_selection_bar_file_text1114">
                 {file.fileName}

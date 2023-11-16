@@ -10,7 +10,7 @@
 
   /*STYLE*/
   border-radius: 4pt;
-  padding: 32pt 4pt 4pt 4pt;
+  padding: 34pt 4pt 4pt 4pt;
   box-shadow: 0px 4px 16px 8px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
   overflow: hidden;
@@ -47,7 +47,7 @@
 
   /*STYLE*/
   border-radius: 2pt;
-  padding: 5pt;
+  padding: 7pt;
 }
 .code_editor_close_icon1113:hover {
   transition: all 0.2s ease;
@@ -70,7 +70,7 @@
   left: 4pt;
   right: 26pt;
   top: 0%;
-  height: 28pt;
+  height: 32pt;
 
   /*STYLE*/
   background-color: #1e1e1e;
@@ -94,7 +94,7 @@
   transition: all 0.32s ease;
 
   /*POSITION*/
-  height: 18pt;
+  height: 22pt;
   position: relative;
 
   flex: 0 0 auto;
@@ -117,7 +117,7 @@
   transition: all 0.32s ease;
 
   /*POSITION*/
-  height: 18pt;
+  height: 22pt;
   position: relative;
 
   flex: 0 0 auto;
@@ -148,7 +148,7 @@
 .file_selection_bar_item_filetype_icon1114 {
   /*POSITION*/
   position: relative;
-  padding: 3pt 3pt 0pt 3pt;
+  padding: 5pt 3pt 0pt 3pt;
 
   /*SIZE*/
   width: 12pt;
@@ -161,8 +161,9 @@
 
   /*POSITION*/
   position: relative;
+
   right: 6px;
-  padding: 2pt;
+  padding: 3px;
 
   /*SIZE*/
   width: 7pt;
