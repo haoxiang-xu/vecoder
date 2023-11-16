@@ -338,6 +338,40 @@ if __name__ == "__main__":
       
       `,
     },
+    {
+      fileName: "main.java",
+      fileLanguage: "java",
+      fileContent: `public class Main {
+  public static void main(String[] args) {
+    // Create some car objects
+    Car myCar = new Car("Toyota", "Corolla", 2020);
+    Car anotherCar = new Car("Honda", "Civic", 2019);
+    
+    // Display car details
+    System.out.println(myCar.getDescription());
+    System.out.println(anotherCar.getDescription());
+  }
+}
+    
+class Car {
+  private String make;
+  private String model;
+  private int year;
+    
+  // Constructor
+  public Car(String make, String model, int year) {
+    this.make = make;
+    this.model = model;
+    this.year = year;
+  }
+    
+  // Method to get car's description
+  public String getDescription() {
+    return year + " " + make + " " + model;
+  }
+}
+      `,
+    },
   ];
 
   return (
