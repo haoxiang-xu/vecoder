@@ -191,7 +191,10 @@ const VecoderEditor = ({ imported_files }) => {
                 alt="close"
                 style={{ opacity: index === onSelectedIndex ? "1" : "0.32" }}
               />
-              <span className="file_selection_bar_file_text1114">
+              <span
+                className="file_selection_bar_file_text1114"
+                style={{ opacity: index === onSelectedIndex ? "1" : "0.32" }}
+              >
                 {file.fileName}
               </span>
               <img
