@@ -25,6 +25,7 @@ const VecoderEditor = ({ imported_files }) => {
   } catch (e) {
     console.log(e);
   }
+  const LOGO = "</>";
   /* Load ICON manager -------------------------------- */
 
   /* Editor parameters ------------------------------------------------- */
@@ -44,15 +45,29 @@ const VecoderEditor = ({ imported_files }) => {
 
   /* File Selection Bar parameters & Functions ------------------------------------------------- */
   const fileSelectionBarContainerRef = useRef(null);
+  const [fileList, setFileList] = useState(
+    imported_files.map((file) => ({
+      fileName: String(file.fileName),
+    }))
+  );
   const [onSelectedIndex, setOnSelectedIndex] = useState(null);
   const [onDragIndex, setOnDragIndex] = useState(-1);
   const [onDropIndex, setOnDropIndex] = useState(-1);
   const [onSwapIndex, setOnSwapIndex] = useState(-1);
 
-  const onFileDelete = (index) => () => {
-    const editedFiles = [...files];
+  const onFileDelete = (e) => (index) => {
+    e.stopPropagation();
+    const editedFiles = [...fileList];
     editedFiles.splice(index, 1);
-    setFiles(editedFiles);
+    setFileList(editedFiles);
+
+    if (onSelectedIndex === index) {
+      setOnSelectedIndex(null);
+    } else {
+      if (onSelectedIndex > index) {
+        setOnSelectedIndex(onSelectedIndex - 1);
+      }
+    }
   };
   const onFileDragStart = (e, index) => {
     e.target.style.opacity = 0.1;
@@ -64,10 +79,10 @@ const VecoderEditor = ({ imported_files }) => {
     e.target.style.opacity = 1;
 
     if (onDropIndex !== -1) {
-      const editedFiles = [...files];
+      const editedFiles = [...fileList];
       const dragedFile = editedFiles.splice(onDragIndex, 1)[0];
       editedFiles.splice(onDropIndex, 0, dragedFile);
-      setFiles(editedFiles);
+      setFileList(editedFiles);
       setOnSelectedIndex(onDropIndex);
     }
     setOnDragIndex(-1);
@@ -97,6 +112,7 @@ const VecoderEditor = ({ imported_files }) => {
   /* File Selection Bar parameters & Functions ------------------------------------------------- */
   return (
     <div className="code_editor_container1113" ref={editorContainerRef}>
+      {/*Monaco Editor -------------------------------------------------------------- */}
       {files.map((file, index) => {
         return (
           <Editor
@@ -105,13 +121,14 @@ const VecoderEditor = ({ imported_files }) => {
             editor_setContent={setFileContent(index)}
             editor_language={files[index].fileLanguage}
             setOnSelected={setOnSelectedCode}
-            display={index === onSelectedIndex ? true : false}
+            display={file.fileName === fileList[onSelectedIndex]?.fileName ? true : false}
 
             //editor_diffContent={diffContent}
             //editor_setDiffContent={setDiffContent}
           ></Editor>
         );
       })}
+      {/*Monaco Editor -------------------------------------------------------------- */}
 
       {/*Editor Top Bar Container -------------------------------------------------------------- */}
       {/*Editor Top Right Section*/}
@@ -134,7 +151,7 @@ const VecoderEditor = ({ imported_files }) => {
           setOnDropIndex(-1);
         }}
       >
-        {files.map((file, index) => {
+        {fileList.map((file, index) => {
           let className;
           switch (true) {
             case index === onSelectedIndex:
@@ -177,7 +194,9 @@ const VecoderEditor = ({ imported_files }) => {
                 className="file_selection_bar_item_close_icon1114"
                 alt="close"
                 draggable="false"
-                onClick={onFileDelete(index)}
+                onClick={(e) => {
+                  onFileDelete(e)(index);
+                }}
               />
             </div>
           );
