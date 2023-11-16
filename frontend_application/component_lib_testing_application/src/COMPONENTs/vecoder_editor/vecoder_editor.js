@@ -8,13 +8,9 @@ import close_icon_16X16 from "./ICONs/16X16/close.png";
 import close_icon_512X512 from "./ICONs/512X512/close.png";
 /* ICONs ----------------------------------------------------------------- */
 
-const VecoderEditor = () => {
+const VecoderEditor = ({ imported_files }) => {
   /* Initialize File Data ------------------------------------------------------ */
-  const [files, setFiles] = useState([
-    { file_name: "monacoEditor.js", fileContent: "123" },
-    { file_name: "monacoEditor.html", fileContent: "456" },
-    { file_name: "index.py", fileContent: "789" },
-  ]);
+  const [files, setFiles] = useState(imported_files);
   /* Initialize File Data ------------------------------------------------------ */
 
   /* Load ICON manager -------------------------------- */
@@ -39,7 +35,7 @@ const VecoderEditor = () => {
     const editedFiles = [...files];
     editedFiles[index].fileContent = value;
     setFiles(editedFiles);
-  };  
+  };
   const [diffContent, setDiffContent] = useState(
     'import React, { useState } from "react";'
   );
@@ -104,9 +100,10 @@ const VecoderEditor = () => {
       {files.map((file, index) => {
         return (
           <Editor
+            key={index}
             editor_content={files[index].fileContent}
             editor_setContent={setFileContent(index)}
-            editor_language={"javascript"}
+            editor_language={files[index].fileLanguage}
             setOnSelected={setOnSelectedCode}
             display={index === onSelectedIndex ? true : false}
 
@@ -166,14 +163,14 @@ const VecoderEditor = () => {
             >
               <img
                 src={
-                  FILE_TYPE_STYLING_MANAGER[file.file_name.split(".").pop()]
+                  FILE_TYPE_STYLING_MANAGER[file.fileName.split(".").pop()]
                     ?.ICON
                 }
                 className="file_selection_bar_item_filetype_icon1114"
                 alt="close"
               />
               <span className="file_selection_bar_file_text1114">
-                {file.file_name}
+                {file.fileName}
               </span>
               <img
                 src={close_icon_512X512}
