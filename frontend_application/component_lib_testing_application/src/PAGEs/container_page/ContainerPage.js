@@ -35,7 +35,7 @@ const ContainerPage = () => {
       window.innerHeight + "px";
 
     // Make the container draggable and resizable
-    ("#" + container_tabCount).draggable().resizable({
+    document.getElementById(`container_tabCount`).draggable().resizable({
         handles: "s, e", // Resizable from the bottom and right
     });
   };
