@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import VecoderEditor from "../../COMPONENTs/vecoder_editor/vecoder_editor";
 import RightClickContextMenu from "../../COMPONENTs/rightClickContextMenu/rightClickContextMenu";
 import Explorer from "../../COMPONENTs/explorer/explorer";
+
 import "./development_editor.css";
 
 const DevelopmentEditor = () => {
@@ -542,14 +543,14 @@ class Car {
     ],
   };
 
+  const [files, setFiles] = useState(files_structure);
+
   //Right Click Menu
   const [isRightClicked, setIsRightClicked] = useState(false);
   const [rightClickX, setRightClickX] = useState(-1);
   const [rightClickY, setRightClickY] = useState(-1);
   const [onRightClickItem, setOnRightClickItem] = useState(null);
   const [rightClickCommand, setRightClickCommand] = useState(null);
-  const [copyFile, setCopyFile] = useState(null);
-
   const handleRightClick = (event) => {
     event.preventDefault();
     setIsRightClicked(true);
@@ -562,25 +563,24 @@ class Car {
     setRightClickX(rightClickX);
     setRightClickY(rightClickY);
   };
-  const handleOnClick = (event) => {
+  const handleLeftClick = (event) => {
     setIsRightClicked(false);
     setOnRightClickItem(null);
   };
   return (
-    <div onContextMenu={handleRightClick} onClick={handleOnClick}>
-      <div className="explorer_container1116">
-        <Explorer
-          files={files_structure}
+    <div onContextMenu={handleRightClick} onClick={handleLeftClick}>
+      <div className="vector_editor_container1116">
+        <VecoderEditor
+          imported_files={raw_files}
           onRightClickItem={onRightClickItem}
           setOnRightClickItem={setOnRightClickItem}
           rightClickCommand={rightClickCommand}
           setRightClickCommand={setRightClickCommand}
-          copyFile={copyFile}
         />
       </div>
-      <div className="vector_editor_container1116">
-        <VecoderEditor
-          imported_files={raw_files}
+      <div className="explorer_container1116">
+        <Explorer
+          files={files}
           onRightClickItem={onRightClickItem}
           setOnRightClickItem={setOnRightClickItem}
           rightClickCommand={rightClickCommand}
@@ -594,7 +594,6 @@ class Car {
           onRightClickItem={onRightClickItem}
           setOnRightClickItem={setOnRightClickItem}
           setRightClickCommand={setRightClickCommand}
-          copyFile={copyFile}
         />
       ) : (
         <div></div>

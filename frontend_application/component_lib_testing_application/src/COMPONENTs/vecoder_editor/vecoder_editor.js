@@ -43,12 +43,14 @@ const VecoderEditor = ({
         source: "vecoder_editor",
         condition: { paste: true },
         content: null,
+        target: "vecoder_editor",
       });
     } else {
       setOnRightClickItem({
         source: "vecoder_editor",
         condition: { paste: false },
         content: null,
+        target: "vecoder_editor",
       });
     }
   };

@@ -10,18 +10,17 @@ const RightClickContextMenu = ({
   onRightClickItem,
   setOnRightClickItem,
   setRightClickCommand,
-  copyFile,
 }) => {
   let contextItems = [];
 
   const progressRightClickCommand = (command) => {
     setRightClickCommand({
       command: command,
-      target: onRightClickItem.source,
+      content: onRightClickItem.content,
+      target: onRightClickItem.target,
     });
   };
-
-  const [refresh, setRefresh] = useState(true); //this is to refresh the component when window size changes
+  const [refresh, setRefresh] = useState(true);
   const menuRef = useRef(null);
   const [menuStyle, setMenuStyle] = useState(
     "rightClickContextMenu_component_container0802"
@@ -67,7 +66,6 @@ const RightClickContextMenu = ({
         });
       }
     };
-
     setMenuPosition(0.0);
     setTimeout(() => {
       setMenuPosition(0.08);
@@ -128,23 +126,28 @@ const RightClickContextMenu = ({
         pasteItem,
       ];
     } else if (onRightClickItem.source.split("/")[0] === "vecoder_explorer") {
-      let pasteItem =
-        copyFile !== null ? (
-          <ContextItem
-            key={"paste"}
-            item_function={"paste"}
-            progressRightClickCommand={progressRightClickCommand}
-            pasteFileName={copyFile.fileName}
-          />
-        ) : (
-          <ContextItem
-            key={"unpaste"}
-            item_function={"unpaste"}
-            progressRightClickCommand={progressRightClickCommand}
-          />
-        );
-      if (onRightClickItem.content.fileType && onRightClickItem.content.fileType === "folder") {
-        if (onRightClickItem.content.filePath.split("/").length === 1) {
+      let pasteItem = onRightClickItem.condition.paste ? (
+        <ContextItem
+          key={"paste"}
+          item_function={"paste"}
+          progressRightClickCommand={progressRightClickCommand}
+          pasteFileName={onRightClickItem.condition.paste}
+        />
+      ) : (
+        <ContextItem
+          key={"unpaste"}
+          item_function={"unpaste"}
+          progressRightClickCommand={progressRightClickCommand}
+        />
+      );
+      if (
+        onRightClickItem.content.fileType &&
+        onRightClickItem.content.fileType === "folder"
+      ) {
+        if (
+          onRightClickItem.content.filePath &&
+          onRightClickItem.content.filePath.split("/").length === 1
+        ) {
           // If the condition is true, assign the first set of items
           contextItems = [
             <ContextItem
@@ -225,7 +228,6 @@ const RightClickContextMenu = ({
             item_function={"copy"}
             progressRightClickCommand={progressRightClickCommand}
           />,
-          pasteItem,
           <ContextItem
             key={"hr1"}
             item_function={"hr"}
