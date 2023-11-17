@@ -382,19 +382,19 @@ class Car {
     fileName: "vecoder",
     fileType: "folder",
     filePath: "vecoder",
-    fileExpend: false,
+    fileExpend: true,
     files: [
       {
         fileName: "vecoder_sample",
         fileType: "folder",
         filePath: "vecoder/vecoder_sample",
-        fileExpend: false,
+        fileExpend: true,
         files: [
           {
             fileName: "public",
             fileType: "folder",
             filePath: "vecoder/vecoder_sample/public",
-            fileExpend: false,
+            fileExpend: true,
             files: [
               {
                 fileName: "favicon.icon",
@@ -444,7 +444,7 @@ class Car {
             fileName: "src",
             fileType: "folder",
             filePath: "vecoder/vecoder_sample/src",
-            fileExpend: false,
+            fileExpend: true,
             files: [
               {
                 fileName: "COMPONENTs",

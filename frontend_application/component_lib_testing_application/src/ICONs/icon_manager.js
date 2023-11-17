@@ -53,6 +53,7 @@ export const ICON_MANAGER = () => {
       jpeg: { ICON: JPG512, LABEL_COLOR: "#8C8C8C", language: "image" },
       png: { ICON: PNG512, LABEL_COLOR: "#8C8C8C", language: "image" },
       svg: { ICON: SVG512, LABEL_COLOR: "#8C8C8C", language: "image" },
+      icon: { ICON: SVG512, LABEL_COLOR: "#8C8C8C", language: "image" },
       //DOCUMENT FILE TYPES
       txt: { ICON: TXT512, LABEL_COLOR: "#8C8C8C", language: "text" },
       pdf: { ICON: PDF512, LABEL_COLOR: "#8C8C8C", language: "pdf" },
@@ -65,7 +66,11 @@ export const ICON_MANAGER = () => {
       //DATABASE FILE TYPES
       sql: { ICON: SQL512, LABEL_COLOR: "#CCCCCC", language: "sql" },
       //OTHER FILE TYPES
-      gitignore: { ICON: GITIGNORE512, LABEL_COLOR: "#8C8C8C", language: "git" },
+      gitignore: {
+        ICON: GITIGNORE512,
+        LABEL_COLOR: "#8C8C8C",
+        language: "git",
+      },
       md: { ICON: MD512, LABEL_COLOR: "#8C8C8C", language: "markdown" },
       env: { ICON: ENV512, LABEL_COLOR: "#8C8C8C", language: "env" },
     };
