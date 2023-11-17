@@ -11,10 +11,10 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<DevelopmentEditor />} />
         <Route path="/upload" element={<UploadFile />} />
         <Route path="/codeeditor" element={<CodeEditorPage />} />
-        <Route path="/developmenteditor" element={<DevelopmentEditor />} />
+        <Route path="/explorer" element={<Home />} />
       </Routes>
     </Router>
   );
