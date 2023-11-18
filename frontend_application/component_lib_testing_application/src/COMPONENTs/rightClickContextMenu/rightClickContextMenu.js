@@ -203,6 +203,17 @@ const RightClickContextMenu = ({
               progressRightClickCommand={progressRightClickCommand}
             />,
             <ContextItem
+              key={"copy"}
+              item_function={"copy"}
+              progressRightClickCommand={progressRightClickCommand}
+            />,
+            pasteItem,
+            <ContextItem
+              key={"hr2"}
+              item_function={"hr"}
+              progressRightClickCommand={progressRightClickCommand}
+            />,
+            <ContextItem
               key={"rename"}
               item_function={"rename"}
               progressRightClickCommand={progressRightClickCommand}
@@ -212,17 +223,6 @@ const RightClickContextMenu = ({
               item_function={"delete"}
               progressRightClickCommand={progressRightClickCommand}
             />,
-            <ContextItem
-              key={"hr2"}
-              item_function={"hr"}
-              progressRightClickCommand={progressRightClickCommand}
-            />,
-            <ContextItem
-              key={"copy"}
-              item_function={"copy"}
-              progressRightClickCommand={progressRightClickCommand}
-            />,
-            pasteItem,
           ];
         }
       } else {
