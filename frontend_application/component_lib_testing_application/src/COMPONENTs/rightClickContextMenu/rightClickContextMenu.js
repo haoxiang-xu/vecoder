@@ -13,8 +13,6 @@ const RightClickContextMenu = ({
 }) => {
   let contextItems = [];
 
-  console.log(onRightClickItem);
-
   const progressRightClickCommand = (command) => {
     setRightClickCommand({
       command: command,

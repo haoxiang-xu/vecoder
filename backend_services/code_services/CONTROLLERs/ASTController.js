@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
+require("dotenv").config();
 const acorn = require("acorn");
+
+const OpenAI = require("openai");
 
 router.post("/", async (req, res) => {
   try {

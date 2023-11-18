@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import axios from "axios";
 import Editor from "../monacoEditor/monacoEditor";
 import "./vecoder_editor.css";
 import { ICON_MANAGER } from "../../ICONs/icon_manager";
@@ -72,6 +73,9 @@ const VecoderEditor = ({
   }, [rightClickCommand]);
   const handleRightClickCommand = async (command) => {
     switch (command) {
+      case "viewAST":
+        getAST();
+        break;
       case "copy":
         navigator.clipboard.writeText(onSelectedCode.selectedText);
         break;
@@ -81,6 +85,25 @@ const VecoderEditor = ({
     }
   };
   /* Context Menu ----------------------------------------------------------------------- */
+
+  /* API ----------------------------------------------------------------------- */
+  const getAST = async () => {
+    const requestBody = {
+      language: fileList[onSelectedIndex].fileLanguage,
+      prompt: onSelectedCode.selectedText,
+    };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8200/AST",
+        requestBody
+      );
+      console.log(response.data.data.content);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  /* API ----------------------------------------------------------------------- */
 
   /* Editor parameters ------------------------------------------------- */
   //// Editor container ref
@@ -100,6 +123,7 @@ const VecoderEditor = ({
   const [fileList, setFileList] = useState(
     imported_files.map((file) => ({
       fileName: String(file.fileName),
+      fileLanguage: String(file.fileLanguage),
     }))
   );
   const [onSelectedIndex, setOnSelectedIndex] = useState(null);

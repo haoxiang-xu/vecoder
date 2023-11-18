@@ -512,18 +512,27 @@ const DirItem = ({
       rightClickCommand &&
       rightClickCommand.target === "vecoder_explorer/" + file.filePath
     ) {
-      if (rightClickCommand.command === "rename") {
-        setOnCommand("rename");
-      } else if (rightClickCommand.command === "newFile") {
-        setOnCommand("newFile");
-      } else if (rightClickCommand.command === "newFolder") {
-        setOnCommand("newFolder");
-      } else if (rightClickCommand.command === "delete") {
-        setOnCommand("delete");
-      } else if (rightClickCommand.command === "paste") {
-        setOnCommand("paste");
-      } else if (rightClickCommand.command === "copy") {
-        setOnCommand("copy");
+      switch (rightClickCommand.command) {
+        case "rename":
+          setOnCommand("rename");
+          break;
+        case "newFile":
+          setOnCommand("newFile");
+          break;
+        case "newFolder":
+          setOnCommand("newFolder");
+          break;
+        case "delete":
+          setOnCommand("delete");
+          break;
+        case "paste":
+          setOnCommand("paste");
+          break;
+        case "copy":
+          setOnCommand("copy");
+          break;
+        default:
+          break;
       }
       setRightClickCommand(null);
     }
@@ -552,7 +561,7 @@ const DirItem = ({
                   onKeyDown={handleRenameInputOnKeyDown}
                   ref={inputRef}
                   style={{
-                    width: `calc(100% - ${10.7}pt)`,
+                    width: `calc(100% - ${10}pt)`,
                   }}
                 />
               ) : (
@@ -635,7 +644,7 @@ const DirItem = ({
               onKeyDown={handleRenameInputOnKeyDown}
               ref={inputRef}
               style={{
-                width: `calc(100% - ${10.7}pt)`,
+                width: `calc(100% - ${10}pt)`,
               }}
             />
           ) : (
