@@ -78,7 +78,7 @@ const Editor = ({
     setOnSelected({ selectedText: selectedText, select_range: select_range });
   };
   useEffect(() => {
-    if (onAppendContent && monacoRef.current) {
+    if (onAppendContent && monacoRef.current && display) {
       const editor = monacoRef.current.editor || monacoRef.current;
       const selection = editor.getSelection();
       const range = new monaco.Range(
