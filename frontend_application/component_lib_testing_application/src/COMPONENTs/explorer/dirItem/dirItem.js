@@ -45,7 +45,7 @@ const DirItem = ({
   } catch (e) {
     console.log(e);
   }
-    /* Load ICON manager -------------------------------- */
+  /* Load ICON manager -------------------------------- */
 
   const [refresh, setRefresh] = useState(false);
   const forceRefresh = () => {
@@ -564,9 +564,10 @@ const DirItem = ({
                   style={
                     onRightClickItem !== null &&
                     isRightClicked &&
-                    onRightClickItem.content.fileName === file.fileName
+                    onRightClickItem.content?.fileName === file.fileName
                       ? {
                           backgroundColor: "#2a2d2e",
+                          borderRadius: "3pt",
                         }
                       : {}
                   }
@@ -603,9 +604,10 @@ const DirItem = ({
                   style={
                     onRightClickItem !== null &&
                     isRightClicked &&
-                    onRightClickItem.content.fileName === file.fileName
+                    onRightClickItem.content?.fileName === file.fileName
                       ? {
                           backgroundColor: "#2a2d2e",
+                          borderRadius: "3pt",
                         }
                       : {}
                   }
@@ -651,18 +653,20 @@ const DirItem = ({
                         "s",
                       ...(onRightClickItem !== null &&
                       isRightClicked &&
-                      onRightClickItem.content.fileName === file.fileName
+                      onRightClickItem.content?.fileName === file.fileName
                         ? {
                             backgroundColor: "#2a2d2e",
+                            borderRadius: "3pt",
                           }
                         : {}),
                     }
                   : {
                       ...(onRightClickItem !== null &&
                       isRightClicked &&
-                      onRightClickItem.content.fileName === file.fileName
+                      onRightClickItem.content?.fileName === file.fileName
                         ? {
                             backgroundColor: "#2a2d2e",
+                            borderRadius: "3pt",
                           }
                         : {}),
                     }

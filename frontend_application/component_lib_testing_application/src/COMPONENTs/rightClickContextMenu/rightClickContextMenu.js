@@ -13,6 +13,8 @@ const RightClickContextMenu = ({
 }) => {
   let contextItems = [];
 
+  console.log(onRightClickItem);
+
   const progressRightClickCommand = (command) => {
     setRightClickCommand({
       command: command,
@@ -153,7 +155,6 @@ const RightClickContextMenu = ({
           onRightClickItem.content.filePath &&
           onRightClickItem.content.filePath.split("/").length === 1
         ) {
-          // If the condition is true, assign the first set of items
           contextItems = [
             <ContextItem
               key={"newFile"}
