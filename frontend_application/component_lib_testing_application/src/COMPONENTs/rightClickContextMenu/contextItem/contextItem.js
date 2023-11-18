@@ -28,6 +28,8 @@ import update_ast_icon from "./ICONs/update.png";
 import update_ast_icon_blur from "./ICONs/update_blur.png";
 import view_ast_icon from "./ICONs/ast.png";
 import view_ast_icon_blur from "./ICONs/ast_blur.png";
+import customize_icon from "./ICONs/customize.png";
+import customize_icon_blur from "./ICONs/customize_blur.png";
 
 
 const ContextItem = ({
@@ -58,6 +60,7 @@ const ContextItem = ({
     fix: fix_icon,
     updateAST: update_ast_icon,
     viewAST: view_ast_icon,
+    customizeAPI: customize_icon,
   };
   const BACKGROUND_ICONs = {
     newFile: newFile_icon_blur,
@@ -73,6 +76,7 @@ const ContextItem = ({
     fix: fix_icon_blur,
     updateAST: update_ast_icon_blur,
     viewAST: view_ast_icon_blur,
+    customizeAPI: customize_icon_blur,
   };
   const LABELs = {
     newFile: "New File...",
@@ -89,6 +93,7 @@ const ContextItem = ({
     fix: "Fix...",
     updateAST: "update AST",
     viewAST: "view AST",
+    customizeAPI: "Customize API",
   };
   const COLORs = {
     newFile: "#CCCCCC",
@@ -105,6 +110,7 @@ const ContextItem = ({
     fix: "#CCCCCC",
     updateAST: "#CCCCCC",
     viewAST: "#CCCCCC",
+    customizeAPI: "#CCCCCC",
   };
   useEffect(() => {
     if (item_function === "unpaste") {

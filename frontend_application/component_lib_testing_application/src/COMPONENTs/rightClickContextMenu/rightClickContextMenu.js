@@ -99,6 +99,11 @@ const RightClickContextMenu = ({
           progressRightClickCommand={progressRightClickCommand}
         />,
         <ContextItem
+          key={"customizeAPI"}
+          item_function={"customizeAPI"}
+          progressRightClickCommand={progressRightClickCommand}
+        />,
+        <ContextItem
           key={"hr1"}
           item_function={"hr"}
           progressRightClickCommand={progressRightClickCommand}
