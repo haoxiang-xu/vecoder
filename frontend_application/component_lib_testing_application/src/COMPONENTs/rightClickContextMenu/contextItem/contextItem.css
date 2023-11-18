@@ -18,6 +18,9 @@
   /*STYLE*/
   border-radius: 4pt;
 
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 
   animation-timing-function: linear;
@@ -43,6 +46,9 @@
   /*STYLE*/
   border-radius: 2pt;
 
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 
   animation-timing-function: linear;
@@ -86,6 +92,9 @@
   border-radius: 4pt;
   box-shadow: 0px 4px 16px 8px rgba(0, 0, 0, 0.2);
 
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
 #contextItem_component_label0802 {
