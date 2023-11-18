@@ -139,6 +139,7 @@ const ContextItem = ({
       ) : (
         <div id={contextItemContainerId} onClick={handleItemOnClick}>
           {CONTEXT_MENU_STYLING_MANAGER[item_function].ICON !== undefined ? (
+            /* Icon Loader ----------------------------------------------------------------- */
             <div
               id="contextItem_blur_loader0827"
               style={
@@ -156,9 +157,11 @@ const ContextItem = ({
                 onLoad={handleImageLoad}
               />
             </div>
+            /* Icon Loader ----------------------------------------------------------------- */
           ) : (
             <div></div>
           )}
+          {/* Label ----------------------------------------------------------------- */}
           <span
             id="contextItem_component_label0802"
             style={{
@@ -167,6 +170,7 @@ const ContextItem = ({
           >
             {CONTEXT_MENU_STYLING_MANAGER[item_function].LABEL}
           </span>
+          {/* Label ----------------------------------------------------------------- */}
           {item_function === "paste" ? (
             <span id="contextItem_component_copyfile_label0827">
               {pasteFileName}
