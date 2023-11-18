@@ -3,11 +3,6 @@ import Editor from "../monacoEditor/monacoEditor";
 import "./vecoder_editor.css";
 import { ICON_MANAGER } from "../../ICONs/icon_manager";
 
-/* ICONs ----------------------------------------------------------------- */
-import close_icon_16X16 from "./ICONs/16X16/close.png";
-import close_icon_512X512 from "./ICONs/512X512/close.png";
-/* ICONs ----------------------------------------------------------------- */
-
 const VecoderEditor = ({
   imported_files,
   //Context Menu
@@ -21,14 +16,25 @@ const VecoderEditor = ({
   /* Initialize File Data ------------------------------------------------------ */
 
   /* Load ICON manager -------------------------------- */
-  let FILE_TYPE_STYLING_MANAGER = {
+  let FILE_TYPE_ICON_MANAGER = {
     default: {
       ICON: null,
       LABEL_COLOR: "#C8C8C8",
     },
   };
   try {
-    FILE_TYPE_STYLING_MANAGER = ICON_MANAGER().FILE_TYPE_STYLING_MANAGER;
+    FILE_TYPE_ICON_MANAGER = ICON_MANAGER().FILE_TYPE_ICON_MANAGER;
+  } catch (e) {
+    console.log(e);
+  }
+  let SYSTEM_ICON_MANAGER = {
+    default: {
+      ICON: null,
+      LABEL_COLOR: "#C8C8C8",
+    },
+  };
+  try {
+    SYSTEM_ICON_MANAGER = ICON_MANAGER().SYSTEM_ICON_MANAGER;
   } catch (e) {
     console.log(e);
   }
@@ -196,7 +202,7 @@ const VecoderEditor = ({
       {/*Editor Top Right Section*/}
       <div className="code_editor_top_right_section1113">
         <img
-          src={close_icon_512X512}
+          src={SYSTEM_ICON_MANAGER.close.ICON512}
           className="code_editor_close_icon1113"
           draggable="false"
           alt="close"
@@ -242,8 +248,8 @@ const VecoderEditor = ({
             >
               <img
                 src={
-                  FILE_TYPE_STYLING_MANAGER[file.fileName.split(".").pop()]
-                    ?.ICON
+                  FILE_TYPE_ICON_MANAGER[file.fileName.split(".").pop()]
+                    ?.ICON512
                 }
                 className="file_selection_bar_item_filetype_icon1114"
                 alt="close"
@@ -256,7 +262,7 @@ const VecoderEditor = ({
                 {file.fileName}
               </span>
               <img
-                src={close_icon_512X512}
+                src={SYSTEM_ICON_MANAGER.close.ICON512}
                 className="file_selection_bar_item_close_icon1114"
                 alt="close"
                 draggable="false"

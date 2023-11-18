@@ -1,42 +1,26 @@
 import React, { useState, useEffect, useRef } from "react";
+import { ICON_MANAGER } from "../../../ICONs/icon_manager";
 
 import "./contextItem.css";
-import trash_icon from "./ICONs/trash.png";
-import trash_icon_blur from "./ICONs/trash_blur.png";
-import newFile_icon from "./ICONs/new_file.png";
-import newFile_icon_blur from "./ICONs/new_file_blur.png";
-import newFolder_icon from "./ICONs/new_folder.png";
-import newFolder_icon_blur from "./ICONs/new_folder_blur.png";
-import insertFile_icon from "./ICONs/insert_file.png";
-import insertFile_icon_blur from "./ICONs/insert_file_blur.png";
-import rename_icon from "./ICONs/rename.png";
-import rename_icon_blur from "./ICONs/rename_blur.png";
-import copy_icon from "./ICONs/copy.png";
-import copy_icon_blur from "./ICONs/copy_blur.png";
-import paste_icon from "./ICONs/paste.png";
-import paste_icon_blur from "./ICONs/paste_blur.png";
-import unpaste_icon from "./ICONs/unpaste.png";
-import unpaste_icon_blur from "./ICONs/unpaste_blur.png";
-import cut_icon from "./ICONs/cut.png";
-import duplicate_icon from "./ICONs/duplicate.png";
-import duplicate_icon_blur from "./ICONs/duplicate_blur.png";
-import continue_icon from "./ICONs/continue_icon.png";
-import continue_icon_blur from "./ICONs/continue_icon_blur.png";
-import fix_icon from "./ICONs/fix_icon.png";
-import fix_icon_blur from "./ICONs/fix_icon_blur.png";
-import update_ast_icon from "./ICONs/update.png";
-import update_ast_icon_blur from "./ICONs/update_blur.png";
-import view_ast_icon from "./ICONs/ast.png";
-import view_ast_icon_blur from "./ICONs/ast_blur.png";
-import customize_icon from "./ICONs/customize.png";
-import customize_icon_blur from "./ICONs/customize_blur.png";
-
 
 const ContextItem = ({
   item_function,
   progressRightClickCommand,
   pasteFileName,
 }) => {
+  /* Load ICON manager -------------------------------- */
+  let SYSTEM_ICON_MANAGER = {
+    default: {
+      ICON: null,
+      LABEL_COLOR: "#C8C8C8",
+    },
+  };
+  try {
+    SYSTEM_ICON_MANAGER = ICON_MANAGER().SYSTEM_ICON_MANAGER;
+  } catch (e) {
+    console.log(e);
+  }
+  /* Load ICON manager -------------------------------- */
   const [contextItemContainerId, setContextItemContainerId] = useState(
     "contextItem_component_container0802"
   );
@@ -45,73 +29,93 @@ const ContextItem = ({
     setImageLoaded(true);
   };
 
-  const ICONs = {
-    newFile: newFile_icon,
-    newFolder: newFolder_icon,
-    insertFile: insertFile_icon,
-    rename: rename_icon,
-    copy: copy_icon,
-    paste: paste_icon,
-    unpaste: unpaste_icon,
-    cut: cut_icon,
-    delete: trash_icon,
-    duplicate: duplicate_icon,
-    continue: continue_icon,
-    fix: fix_icon,
-    updateAST: update_ast_icon,
-    viewAST: view_ast_icon,
-    customizeAPI: customize_icon,
+  const CONTEXT_MENU_STYLING_MANAGER = {
+    newFile: {
+      ICON: SYSTEM_ICON_MANAGER.newFile.ICON512,
+      LABEL: "New File...",
+      LABEL_COLOR: SYSTEM_ICON_MANAGER.newFile.LABEL_COLOR,
+      BACKGROUND_ICON: SYSTEM_ICON_MANAGER.newFile.ICON16,
+    },
+    newFolder: {
+      ICON: SYSTEM_ICON_MANAGER.newFolder.ICON512,
+      LABEL: "New Folder...",
+      LABEL_COLOR: SYSTEM_ICON_MANAGER.newFolder.LABEL_COLOR,
+      BACKGROUND_ICON: SYSTEM_ICON_MANAGER.newFolder.ICON16,
+    },
+    insertFile: {
+      ICON: SYSTEM_ICON_MANAGER.insertFile.ICON512,
+      LABEL: "Insert Files...",
+      LABEL_COLOR: SYSTEM_ICON_MANAGER.insertFile.LABEL_COLOR,
+      BACKGROUND_ICON: SYSTEM_ICON_MANAGER.insertFile.ICON16,
+    },
+    rename: {
+      ICON: SYSTEM_ICON_MANAGER.rename.ICON512,
+      LABEL: "Rename...",
+      LABEL_COLOR: SYSTEM_ICON_MANAGER.rename.LABEL_COLOR,
+      BACKGROUND_ICON: SYSTEM_ICON_MANAGER.rename.ICON16,
+    },
+    copy: {
+      ICON: SYSTEM_ICON_MANAGER.copy.ICON512,
+      LABEL: "Copy",
+      LABEL_COLOR: SYSTEM_ICON_MANAGER.copy.LABEL_COLOR,
+      BACKGROUND_ICON: SYSTEM_ICON_MANAGER.copy.ICON16,
+    },
+    paste: {
+      ICON: SYSTEM_ICON_MANAGER.paste.ICON512,
+      LABEL: "Paste",
+      LABEL_COLOR: SYSTEM_ICON_MANAGER.paste.LABEL_COLOR,
+      BACKGROUND_ICON: SYSTEM_ICON_MANAGER.paste.ICON16,
+    },
+    unpaste: {
+      ICON: SYSTEM_ICON_MANAGER.unpaste.ICON512,
+      LABEL: "Paste",
+      LABEL_COLOR: SYSTEM_ICON_MANAGER.unpaste.LABEL_COLOR,
+      BACKGROUND_ICON: SYSTEM_ICON_MANAGER.unpaste.ICON16,
+    },
+    delete: {
+      ICON: SYSTEM_ICON_MANAGER.trash.ICON512,
+      LABEL: "Delete",
+      LABEL_COLOR: SYSTEM_ICON_MANAGER.trash.LABEL_COLOR,
+      BACKGROUND_ICON: SYSTEM_ICON_MANAGER.trash.ICON16,
+    },
+    duplicate: {
+      ICON: SYSTEM_ICON_MANAGER.duplicate.ICON512,
+      LABEL: "Duplicate",
+      LABEL_COLOR: SYSTEM_ICON_MANAGER.duplicate.LABEL_COLOR,
+      BACKGROUND_ICON: SYSTEM_ICON_MANAGER.duplicate.ICON16,
+    },
+    continue: {
+      ICON: SYSTEM_ICON_MANAGER.continue.ICON512,
+      LABEL: "Continue...",
+      LABEL_COLOR: SYSTEM_ICON_MANAGER.continue.LABEL_COLOR,
+      BACKGROUND_ICON: SYSTEM_ICON_MANAGER.continue.ICON16,
+    },
+    fix: {
+      ICON: SYSTEM_ICON_MANAGER.fix.ICON512,
+      LABEL: "Fix...",
+      LABEL_COLOR: SYSTEM_ICON_MANAGER.fix.LABEL_COLOR,
+      BACKGROUND_ICON: SYSTEM_ICON_MANAGER.fix.ICON16,
+    },
+    updateAST: {
+      ICON: SYSTEM_ICON_MANAGER.update.ICON512,
+      LABEL: "update AST",
+      LABEL_COLOR: SYSTEM_ICON_MANAGER.update.LABEL_COLOR,
+      BACKGROUND_ICON: SYSTEM_ICON_MANAGER.update.ICON16,
+    },
+    viewAST: {
+      ICON: SYSTEM_ICON_MANAGER.code.ICON512,
+      LABEL: "view AST",
+      LABEL_COLOR: SYSTEM_ICON_MANAGER.code.LABEL_COLOR,
+      BACKGROUND_ICON: SYSTEM_ICON_MANAGER.code.ICON16,
+    },
+    customizeAPI: {
+      ICON: SYSTEM_ICON_MANAGER.customize.ICON512,
+      LABEL: "Customize API",
+      LABEL_COLOR: SYSTEM_ICON_MANAGER.customize.LABEL_COLOR,
+      BACKGROUND_ICON: SYSTEM_ICON_MANAGER.customize.ICON16,
+    },
   };
-  const BACKGROUND_ICONs = {
-    newFile: newFile_icon_blur,
-    newFolder: newFolder_icon_blur,
-    insertFile: insertFile_icon_blur,
-    rename: rename_icon_blur,
-    copy: copy_icon_blur,
-    paste: paste_icon_blur,
-    unpaste: unpaste_icon_blur,
-    delete: trash_icon_blur,
-    duplicate: duplicate_icon_blur,
-    continue: continue_icon_blur,
-    fix: fix_icon_blur,
-    updateAST: update_ast_icon_blur,
-    viewAST: view_ast_icon_blur,
-    customizeAPI: customize_icon_blur,
-  };
-  const LABELs = {
-    newFile: "New File...",
-    newFolder: "New Folder...",
-    insertFile: "Insert Files...",
-    rename: "Rename...",
-    copy: "Copy",
-    paste: "Paste",
-    unpaste: "Paste",
-    cut: "Cut",
-    delete: "Delete",
-    duplicate: "Duplicate",
-    continue: "Continue...",
-    fix: "Fix...",
-    updateAST: "update AST",
-    viewAST: "view AST",
-    customizeAPI: "Customize API",
-  };
-  const COLORs = {
-    newFile: "#CCCCCC",
-    newFolder: "#CCCCCC",
-    insertFile: "#CCCCCC",
-    rename: "#CCCCCC",
-    copy: "#CCCCCC",
-    paste: "#CCCCCC",
-    unpaste: "#8C8C8C",
-    cut: "#CCCCCC",
-    delete: "#F1592A",
-    duplicate: "#CCCCCC",
-    continue: "#CCCCCC",
-    fix: "#CCCCCC",
-    updateAST: "#CCCCCC",
-    viewAST: "#CCCCCC",
-    customizeAPI: "#CCCCCC",
-  };
+
   useEffect(() => {
     if (item_function === "unpaste") {
       setContextItemContainerId(
@@ -119,11 +123,9 @@ const ContextItem = ({
       );
     }
   }, [item_function]);
-
   const handleItemOnClick = () => {
     progressRightClickCommand(item_function);
   };
-
   return (
     <div>
       <link
@@ -136,19 +138,19 @@ const ContextItem = ({
         </div>
       ) : (
         <div id={contextItemContainerId} onClick={handleItemOnClick}>
-          {ICONs[item_function] !== undefined ? (
+          {CONTEXT_MENU_STYLING_MANAGER[item_function].ICON !== undefined ? (
             <div
               id="contextItem_blur_loader0827"
               style={
                 isImageLoaded
                   ? {}
                   : {
-                      backgroundImage: `url(${BACKGROUND_ICONs[item_function]})`,
+                      backgroundImage: `url(${CONTEXT_MENU_STYLING_MANAGER[item_function].BACKGROUND_ICON})`,
                     }
               }
             >
               <img
-                src={ICONs[item_function]}
+                src={CONTEXT_MENU_STYLING_MANAGER[item_function].ICON}
                 id="contextItem_component_icon0802"
                 loading="lazy"
                 onLoad={handleImageLoad}
@@ -159,9 +161,11 @@ const ContextItem = ({
           )}
           <span
             id="contextItem_component_label0802"
-            style={{ color: COLORs[item_function] }}
+            style={{
+              color: CONTEXT_MENU_STYLING_MANAGER[item_function].LABEL_COLOR,
+            }}
           >
-            {LABELs[item_function]}
+            {CONTEXT_MENU_STYLING_MANAGER[item_function].LABEL}
           </span>
           {item_function === "paste" ? (
             <span id="contextItem_component_copyfile_label0827">

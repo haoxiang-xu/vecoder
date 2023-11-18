@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
 import "./dirItem.css";
-import arrow_icon from "./ICONs/arrow.png";
 import { ICON_MANAGER } from "../../../ICONs/icon_manager";
 
 const DirItem = ({
@@ -23,18 +22,30 @@ const DirItem = ({
   onCopyFile,
   setOnCopyFile,
 }) => {
-  //Files Icon and Text Color declaration
-  let FILE_TYPE_STYLING_MANAGER = {
+  /* Load ICON manager -------------------------------- */
+  let FILE_TYPE_ICON_MANAGER = {
     default: {
       ICON: null,
       LABEL_COLOR: "#C8C8C8",
     },
   };
   try {
-    FILE_TYPE_STYLING_MANAGER = ICON_MANAGER().FILE_TYPE_STYLING_MANAGER;
+    FILE_TYPE_ICON_MANAGER = ICON_MANAGER().FILE_TYPE_ICON_MANAGER;
   } catch (e) {
     console.log(e);
   }
+  let SYSTEM_ICON_MANAGER = {
+    default: {
+      ICON: null,
+      LABEL_COLOR: "#C8C8C8",
+    },
+  };
+  try {
+    SYSTEM_ICON_MANAGER = ICON_MANAGER().SYSTEM_ICON_MANAGER;
+  } catch (e) {
+    console.log(e);
+  }
+    /* Load ICON manager -------------------------------- */
 
   const [refresh, setRefresh] = useState(false);
   const forceRefresh = () => {
@@ -67,10 +78,10 @@ const DirItem = ({
     setFilename(file.fileName);
     setRenameInput(file.fileName);
     setFileIcon(
-      FILE_TYPE_STYLING_MANAGER[file.fileName.split(".").pop()]?.ICON
+      FILE_TYPE_ICON_MANAGER[file.fileName.split(".").pop()]?.ICON512
     );
     setFileTextColor(
-      FILE_TYPE_STYLING_MANAGER[file.fileName.split(".").pop()]?.LABEL_COLOR
+      FILE_TYPE_ICON_MANAGER[file.fileName.split(".").pop()]?.LABEL_COLOR
     );
     setDir(file.files);
     setExpanded(file.fileExpend);
@@ -561,7 +572,7 @@ const DirItem = ({
                   }
                 >
                   <img
-                    src={arrow_icon}
+                    src={SYSTEM_ICON_MANAGER.arrow.ICON512}
                     className={expandIconClassName}
                     onClick={handleExpandIconOnClick}
                     loading="lazy"
@@ -600,7 +611,7 @@ const DirItem = ({
                   }
                 >
                   <img
-                    src={arrow_icon}
+                    src={SYSTEM_ICON_MANAGER.arrow.ICON512}
                     className="dir_item_component_unexpendable_arrow_icon_right0826"
                     loading="lazy"
                   />
