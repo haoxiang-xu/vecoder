@@ -126,18 +126,18 @@ const ContextItem = ({
       LABEL: "Customize API",
       LABEL_COLOR: SYSTEM_ICON_MANAGER.customize.LABEL_COLOR,
       BACKGROUND_ICON: SYSTEM_ICON_MANAGER.customize.ICON16,
-      MORE_OPTIONS: ["sendRequest", "customizeRequest"],
+      MORE_OPTIONS: ["sendRequest", "hr", "customizeRequest"],
     },
     sendRequest: {
       ICON: SYSTEM_ICON_MANAGER.send.ICON512,
-      LABEL: "Send Request...",
+      LABEL: "Send Customized Request...",
       LABEL_COLOR: SYSTEM_ICON_MANAGER.send.LABEL_COLOR,
       BACKGROUND_ICON: SYSTEM_ICON_MANAGER.send.ICON16,
       MORE_OPTIONS: null,
     },
     customizeRequest: {
       ICON: SYSTEM_ICON_MANAGER.customize.ICON512,
-      LABEL: "Customize Request...",
+      LABEL: "Customize Request",
       LABEL_COLOR: SYSTEM_ICON_MANAGER.customize.LABEL_COLOR,
       BACKGROUND_ICON: SYSTEM_ICON_MANAGER.customize.ICON16,
       MORE_OPTIONS: null,
@@ -158,7 +158,9 @@ const ContextItem = ({
     }
   };
   //// On Customize Request
-  const [requestURL, setRequestURL] = useState(onRightClickItem?.content?.customizedRequest || "");
+  const [requestURL, setRequestURL] = useState(
+    onRightClickItem?.content?.customizedRequest || ""
+  );
   const onCustomizeRequest = (e) => {
     e.stopPropagation();
     setRequestURL(requestURL);
@@ -185,6 +187,18 @@ const ContextItem = ({
       case "customizeRequest":
         return (
           <div className="contextItem_component_container1119">
+            <img
+              src={SYSTEM_ICON_MANAGER.customize.ICON512}
+              id="contextItem_component_icon0802"
+            />
+            <span
+              id="contextItem_component_label0802"
+              style={{
+                color: CONTEXT_MENU_FUNCTION_MANAGER[item_function].LABEL_COLOR,
+              }}
+            >
+              {CONTEXT_MENU_FUNCTION_MANAGER[item_function].LABEL}
+            </span>
             <input
               type="text"
               value={requestURL}
@@ -313,7 +327,7 @@ const ContextItem = ({
               CONTEXT_MENU_FUNCTION_MANAGER[item_function].MORE_OPTIONS
             }
             x={menuRef.current.getBoundingClientRect().left + 192}
-            y={menuRef.current.getBoundingClientRect().top}
+            y={menuRef.current.getBoundingClientRect().top - 9}
             onRightClickItem={onRightClickItem}
             progressRightClickCommand={progressRightClickCommand}
           />

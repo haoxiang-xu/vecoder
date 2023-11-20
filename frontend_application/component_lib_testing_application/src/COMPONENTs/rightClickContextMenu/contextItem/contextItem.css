@@ -27,11 +27,10 @@
   animation: contextItem_component_container_expand_animation 0.16s;
 }
 .contextItem_component_container1119 {
-
   /*POSITION*/
   display: flex;
   position: relative;
-  height: 19pt;
+  height: 64pt;
 
   /*FONT*/
   font-size: 9pt;
@@ -215,6 +214,7 @@
 .contextItem_component_url_request_input1119 {
   /*POSITION*/
   position: absolute;
+  top: 24pt;
   left: 0pt;
   width: 110pt;
   height: 24pt;

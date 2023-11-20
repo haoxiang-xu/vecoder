@@ -14,7 +14,7 @@ const SubContextMenu = ({
   const [menuStyle, setMenuStyle] = useState(
     "subContextMenu_component_container1119"
   );
-  const [position, setPosition] = useState({ top: y, left: x });
+  const [position, setPosition] = useState({ top: y, left: x, width: "256pt" });
 
   return (
     <div className={menuStyle} style={position} ref={menuRef}>
