@@ -43,20 +43,21 @@ const VecoderEditor = ({
 
   /* Context Menu ----------------------------------------------------------------------- */
   const [onAppendContent, setOnAppendContent] = useState(null);
+  const [customizedRequest, setCustomizedRequest] = useState(null);
   const handleRightClick = (event) => {
     event.preventDefault();
     if (onSelectedCode || navigator.clipboard.readText() !== "") {
       setOnRightClickItem({
         source: "vecoder_editor",
         condition: { paste: true },
-        content: null,
+        content: { customizedRequest: customizedRequest },
         target: "vecoder_editor",
       });
     } else {
       setOnRightClickItem({
         source: "vecoder_editor",
         condition: { paste: false },
-        content: null,
+        content: { customizedRequest: customizedRequest },
         target: "vecoder_editor",
       });
     }
@@ -68,7 +69,16 @@ const VecoderEditor = ({
     if (rightClickCommand && rightClickCommand.target === "vecoder_editor") {
       handleRightClickCommand(rightClickCommand.command);
       setRightClickCommand(null);
-      setOnRightClickItem(null);
+      if (rightClickCommand.command === "customizeRequest") {
+        setOnRightClickItem({
+          source: "vecoder_editor",
+          condition: { paste: true },
+          content: { customizedRequest: customizedRequest },
+          target: "vecoder_editor",
+        });
+      } else {
+        setOnRightClickItem(null);
+      }
     }
   }, [rightClickCommand]);
   const handleRightClickCommand = async (command) => {
@@ -81,6 +91,9 @@ const VecoderEditor = ({
         break;
       case "paste":
         setOnAppendContent(await navigator.clipboard.readText());
+        break;
+      case "customizeRequest":
+        setCustomizedRequest(rightClickCommand.content);
         break;
     }
   };

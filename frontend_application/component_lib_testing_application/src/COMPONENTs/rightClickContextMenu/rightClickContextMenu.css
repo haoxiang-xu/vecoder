@@ -11,8 +11,6 @@
   width: 164pt;
 
   /*STYLE*/
-  overflow-y: hidden;
-  overflow-x: hidden;
   background-color: #1e1e1e;
   border-radius: 0pt 8pt 8pt 8pt;
   box-shadow: 0px 4px 16px 8px rgba(0, 0, 0, 0.24);
@@ -31,8 +29,6 @@
   width: 164pt;
 
   /*STYLE*/
-  overflow-y: hidden;
-  overflow-x: hidden;
   background-color: #1e1e1e;
   border-radius: 8pt 0pt 8pt 8pt;
   box-shadow: 0px 4px 16px 8px rgba(0, 0, 0, 0.2);
@@ -51,8 +47,6 @@
   width: 164pt;
 
   /*STYLE*/
-  overflow-y: hidden;
-  overflow-x: hidden;
   background-color: #1e1e1e;
   border-radius: 8pt 8pt 8pt 0pt;
   box-shadow: 0px 4px 16px 8px rgba(0, 0, 0, 0.2);
@@ -71,8 +65,6 @@
   width: 164pt;
 
   /*STYLE*/
-  overflow-y: hidden;
-  overflow-x: hidden;
   background-color: #1e1e1e;
   border-radius: 8pt 8pt 0pt 8pt;
   box-shadow: 0px 4px 16px 8px rgba(0, 0, 0, 0.2);

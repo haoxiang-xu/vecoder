@@ -13,63 +13,60 @@ const RightClickContextMenu = ({
 }) => {
   let contextItems = [];
 
-  const progressRightClickCommand = (command) => {
+  const progressRightClickCommand = (command, content) => {
+    content = content ? content : onRightClickItem.content;
+
     setRightClickCommand({
       command: command,
-      content: onRightClickItem.content,
+      content: content,
       target: onRightClickItem.target,
     });
   };
-  const [refresh, setRefresh] = useState(true);
   const menuRef = useRef(null);
   const [menuStyle, setMenuStyle] = useState(
     "rightClickContextMenu_component_container0802"
   );
   const [position, setPosition] = useState({ top: y, left: x });
 
-  useEffect(() => {
-    const setMenuPosition = (transitionTime) => {
-      if (menuRef.current) {
-        const menuWidth = menuRef.current.offsetWidth;
-        const menuHeight = menuRef.current.offsetHeight;
+  const setMenuPosition = (transitionTime) => {
+    if (menuRef.current) {
+      const menuWidth = menuRef.current.offsetWidth;
+      const menuHeight = menuRef.current.offsetHeight;
 
-        let newTop = y;
-        let newLeft = x;
+      let newTop = y;
+      let newLeft = x;
 
-        setMenuStyle("rightClickContextMenu_component_container0802");
+      let newStyle = "rightClickContextMenu_component_container0802";
 
-        if (y + menuHeight > window.innerHeight) {
-          newTop = newTop - menuHeight;
-          setMenuStyle(
-            "rightClickContextMenu_component_container_leftbottom0930"
-          );
-        }
-
-        if (x + menuWidth > window.innerWidth) {
-          newLeft = newLeft - menuWidth;
-          setMenuStyle("rightClickContextMenu_component_container_rigttop0930");
-        }
-
-        if (
-          y + menuHeight > window.innerHeight &&
-          x + menuWidth > window.innerWidth
-        ) {
-          setMenuStyle(
-            "rightClickContextMenu_component_container_rightbottom0930"
-          );
-        }
-
-        setPosition({
-          top: newTop,
-          left: newLeft,
-          transition: "all " + transitionTime + "s ease",
-        });
+      if (y + menuHeight > window.innerHeight) {
+        newTop -= menuHeight;
+        newStyle = "rightClickContextMenu_component_container_leftbottom0930";
       }
-    };
+
+      if (x + menuWidth > window.innerWidth) {
+        newLeft -= menuWidth;
+        newStyle = "rightClickContextMenu_component_container_rigttop0930";
+      }
+
+      if (
+        y + menuHeight > window.innerHeight &&
+        x + menuWidth > window.innerWidth
+      ) {
+        newStyle = "rightClickContextMenu_component_container_rightbottom0930";
+      }
+
+      setPosition({
+        top: newTop,
+        left: newLeft,
+        transition: `all ${transitionTime}s ease`,
+      });
+      setMenuStyle(newStyle);
+    }
+  };
+  useEffect(() => {
     setMenuPosition(0.0);
-    setTimeout(() => {
-      setMenuPosition(0.08);
-    }, 80);
+    const timeoutId = setTimeout(() => setMenuPosition(0.08), 80);
+    return () => clearTimeout(timeoutId);
   }, [x, y]);
 
   if (onRightClickItem !== null) {
@@ -78,12 +75,14 @@ const RightClickContextMenu = ({
         <ContextItem
           key={"paste"}
           item_function={"paste"}
+          onRightClickItem={onRightClickItem}
           progressRightClickCommand={progressRightClickCommand}
         />
       ) : (
         <ContextItem
           key={"unpaste"}
           item_function={"unpaste"}
+          onRightClickItem={onRightClickItem}
           progressRightClickCommand={progressRightClickCommand}
         />
       );
@@ -91,41 +90,49 @@ const RightClickContextMenu = ({
         <ContextItem
           key={"continue"}
           item_function={"continue"}
+          onRightClickItem={onRightClickItem}
           progressRightClickCommand={progressRightClickCommand}
         />,
         <ContextItem
           key={"fix"}
           item_function={"fix"}
+          onRightClickItem={onRightClickItem}
           progressRightClickCommand={progressRightClickCommand}
         />,
         <ContextItem
           key={"customizeAPI"}
           item_function={"customizeAPI"}
+          onRightClickItem={onRightClickItem}
           progressRightClickCommand={progressRightClickCommand}
         />,
         <ContextItem
           key={"hr1"}
           item_function={"hr"}
+          onRightClickItem={onRightClickItem}
           progressRightClickCommand={progressRightClickCommand}
         />,
         <ContextItem
           key={"updateAST"}
           item_function={"updateAST"}
+          onRightClickItem={onRightClickItem}
           progressRightClickCommand={progressRightClickCommand}
         />,
         <ContextItem
           key={"viewAST"}
           item_function={"viewAST"}
+          onRightClickItem={onRightClickItem}
           progressRightClickCommand={progressRightClickCommand}
         />,
         <ContextItem
           key={"hr2"}
           item_function={"hr"}
+          onRightClickItem={onRightClickItem}
           progressRightClickCommand={progressRightClickCommand}
         />,
         <ContextItem
           key={"copy"}
           item_function={"copy"}
+          onRightClickItem={onRightClickItem}
           progressRightClickCommand={progressRightClickCommand}
         />,
         pasteItem,
@@ -135,13 +142,14 @@ const RightClickContextMenu = ({
         <ContextItem
           key={"paste"}
           item_function={"paste"}
+          onRightClickItem={onRightClickItem}
           progressRightClickCommand={progressRightClickCommand}
-          pasteFileName={onRightClickItem.condition.paste}
         />
       ) : (
         <ContextItem
           key={"unpaste"}
           item_function={"unpaste"}
+          onRightClickItem={onRightClickItem}
           progressRightClickCommand={progressRightClickCommand}
         />
       );
@@ -157,26 +165,31 @@ const RightClickContextMenu = ({
             <ContextItem
               key={"newFile"}
               item_function={"newFile"}
+              onRightClickItem={onRightClickItem}
               progressRightClickCommand={progressRightClickCommand}
             />,
             <ContextItem
               key={"newFolder"}
               item_function={"newFolder"}
+              onRightClickItem={onRightClickItem}
               progressRightClickCommand={progressRightClickCommand}
             />,
             <ContextItem
               key={"insertFile"}
               item_function={"insertFile"}
+              onRightClickItem={onRightClickItem}
               progressRightClickCommand={progressRightClickCommand}
             />,
             <ContextItem
               key={"hr1"}
               item_function={"hr"}
+              onRightClickItem={onRightClickItem}
               progressRightClickCommand={progressRightClickCommand}
             />,
             <ContextItem
               key={"unpaste"}
               item_function={"unpaste"}
+              onRightClickItem={onRightClickItem}
               progressRightClickCommand={progressRightClickCommand}
             />,
           ];
@@ -185,42 +198,50 @@ const RightClickContextMenu = ({
             <ContextItem
               key={"newFile"}
               item_function={"newFile"}
+              onRightClickItem={onRightClickItem}
               progressRightClickCommand={progressRightClickCommand}
             />,
             <ContextItem
               key={"newFolder"}
               item_function={"newFolder"}
+              onRightClickItem={onRightClickItem}
               progressRightClickCommand={progressRightClickCommand}
             />,
             <ContextItem
               key={"insertFile"}
               item_function={"insertFile"}
+              onRightClickItem={onRightClickItem}
               progressRightClickCommand={progressRightClickCommand}
             />,
             <ContextItem
               key={"hr1"}
               item_function={"hr"}
+              onRightClickItem={onRightClickItem}
               progressRightClickCommand={progressRightClickCommand}
             />,
             <ContextItem
               key={"copy"}
               item_function={"copy"}
+              onRightClickItem={onRightClickItem}
               progressRightClickCommand={progressRightClickCommand}
             />,
             pasteItem,
             <ContextItem
               key={"hr2"}
               item_function={"hr"}
+              onRightClickItem={onRightClickItem}
               progressRightClickCommand={progressRightClickCommand}
             />,
             <ContextItem
               key={"rename"}
               item_function={"rename"}
+              onRightClickItem={onRightClickItem}
               progressRightClickCommand={progressRightClickCommand}
             />,
             <ContextItem
               key={"delete"}
               item_function={"delete"}
+              onRightClickItem={onRightClickItem}
               progressRightClickCommand={progressRightClickCommand}
             />,
           ];
@@ -230,21 +251,25 @@ const RightClickContextMenu = ({
           <ContextItem
             key={"copy"}
             item_function={"copy"}
+            onRightClickItem={onRightClickItem}
             progressRightClickCommand={progressRightClickCommand}
           />,
           <ContextItem
             key={"hr1"}
             item_function={"hr"}
+            onRightClickItem={onRightClickItem}
             progressRightClickCommand={progressRightClickCommand}
           />,
           <ContextItem
             key={"rename"}
             item_function={"rename"}
+            onRightClickItem={onRightClickItem}
             progressRightClickCommand={progressRightClickCommand}
           />,
           <ContextItem
             key={"delete"}
             item_function={"delete"}
+            onRightClickItem={onRightClickItem}
             progressRightClickCommand={progressRightClickCommand}
           />,
         ];
