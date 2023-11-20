@@ -15,9 +15,13 @@ const SubContextMenu = ({
     "subContextMenu_component_container1119"
   );
   const [position, setPosition] = useState({ top: y, left: x, width: "256pt" });
+  const handleOnRightClick = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+  }
 
   return (
-    <div className={menuStyle} style={position} ref={menuRef}>
+    <div className={menuStyle} style={position} ref={menuRef} onContextMenu={handleOnRightClick}>
       {contextItemFunctions.map((contextItemFunction, index) => (
         <ContextItem
           key={index}

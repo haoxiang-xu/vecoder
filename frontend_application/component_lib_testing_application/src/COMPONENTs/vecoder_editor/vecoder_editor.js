@@ -41,64 +41,6 @@ const VecoderEditor = ({
   }
   /* Load ICON manager -------------------------------- */
 
-  /* Context Menu ----------------------------------------------------------------------- */
-  const [onAppendContent, setOnAppendContent] = useState(null);
-  const [customizedRequest, setCustomizedRequest] = useState(null);
-  const handleRightClick = (event) => {
-    event.preventDefault();
-    if (onSelectedCode || navigator.clipboard.readText() !== "") {
-      setOnRightClickItem({
-        source: "vecoder_editor",
-        condition: { paste: true },
-        content: { customizedRequest: customizedRequest },
-        target: "vecoder_editor",
-      });
-    } else {
-      setOnRightClickItem({
-        source: "vecoder_editor",
-        condition: { paste: false },
-        content: { customizedRequest: customizedRequest },
-        target: "vecoder_editor",
-      });
-    }
-  };
-  const handleLeftClick = (event) => {
-    setOnRightClickItem(null);
-  };
-  useEffect(() => {
-    if (rightClickCommand && rightClickCommand.target === "vecoder_editor") {
-      handleRightClickCommand(rightClickCommand.command);
-      setRightClickCommand(null);
-      if (rightClickCommand.command === "customizeRequest") {
-        setOnRightClickItem({
-          source: "vecoder_editor",
-          condition: { paste: true },
-          content: { customizedRequest: customizedRequest },
-          target: "vecoder_editor",
-        });
-      } else {
-        setOnRightClickItem(null);
-      }
-    }
-  }, [rightClickCommand]);
-  const handleRightClickCommand = async (command) => {
-    switch (command) {
-      case "viewAST":
-        getAST();
-        break;
-      case "copy":
-        navigator.clipboard.writeText(onSelectedCode.selectedText);
-        break;
-      case "paste":
-        setOnAppendContent(await navigator.clipboard.readText());
-        break;
-      case "customizeRequest":
-        setCustomizedRequest(rightClickCommand.content);
-        break;
-    }
-  };
-  /* Context Menu ----------------------------------------------------------------------- */
-
   /* API ----------------------------------------------------------------------- */
   const getAST = async () => {
     const requestBody = {
@@ -116,7 +58,106 @@ const VecoderEditor = ({
       console.log(e);
     }
   };
+  const handleCustomizeRequest = async () => {
+    setCustomizeRequest(rightClickCommand.content);
+    let prompt = "";
+    const requestURL = rightClickCommand?.content?.requestURL;
+
+    if (!requestURL) {
+      console.log("requestURL is not defined");
+      return;
+    }
+    switch (rightClickCommand?.content?.inputFormat) {
+      case "onSelect":
+        prompt = onSelectedCode?.selectedText || "";
+        break;
+      case "entireFile":
+        if (fileList?.length > onSelectedIndex && files?.length) {
+          const selectedFile = fileList[onSelectedIndex]?.fileName;
+          const file = files.find((f) => f.fileName === selectedFile);
+          prompt = file?.fileContent || "";
+        }
+        break;
+      default:
+        console.log("Invalid input format");
+        return;
+    }
+    const requestBody = {
+      language: fileList?.[onSelectedIndex]?.fileLanguage || "defaultLanguage",
+      prompt: prompt,
+    };
+    switch (rightClickCommand?.content?.requestMethod) {
+      case "GET":
+        try {
+          const response = await axios.get(requestURL, requestBody);
+          console.log(response.data);
+        } catch (e) {
+          console.log("Error in axios request:", e);
+        }
+        break;
+      case "POST":
+        try {
+          const response = await axios.post(requestURL, requestBody);
+          console.log(response.data);
+        } catch (e) {
+          console.log("Error in axios request:", e);
+        }
+        break;
+      default:
+        console.log("Invalid request method");
+        return;
+    }
+  };
   /* API ----------------------------------------------------------------------- */
+
+  /* Context Menu ----------------------------------------------------------------------- */
+  const [onAppendContent, setOnAppendContent] = useState(null);
+  const [customizeRequest, setCustomizeRequest] = useState(null);
+  const handleRightClick = (event) => {
+    event.preventDefault();
+    if (onSelectedCode || navigator.clipboard.readText() !== "") {
+      setOnRightClickItem({
+        source: "vecoder_editor",
+        condition: { paste: true },
+        content: { customizeRequest: customizeRequest },
+        target: "vecoder_editor",
+      });
+    } else {
+      setOnRightClickItem({
+        source: "vecoder_editor",
+        condition: { paste: false },
+        content: { customizeRequest: customizeRequest },
+        target: "vecoder_editor",
+      });
+    }
+  };
+  const handleLeftClick = (event) => {
+    setOnRightClickItem(null);
+  };
+  useEffect(() => {
+    if (rightClickCommand && rightClickCommand.target === "vecoder_editor") {
+      handleRightClickCommand(rightClickCommand.command);
+      setRightClickCommand(null);
+      setOnRightClickItem(null);
+    }
+  }, [rightClickCommand]);
+  const handleRightClickCommand = async (command) => {
+    switch (command) {
+      case "viewAST":
+        getAST();
+        break;
+      case "copy":
+        navigator.clipboard.writeText(onSelectedCode.selectedText);
+        break;
+      case "paste":
+        setOnAppendContent(await navigator.clipboard.readText());
+        break;
+      case "customizeRequest":
+        await handleCustomizeRequest();
+        break;
+    }
+  };
+  /* Context Menu ----------------------------------------------------------------------- */
 
   /* Editor parameters ------------------------------------------------- */
   //// Editor container ref

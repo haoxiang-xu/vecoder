@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ICON_MANAGER } from "../../../ICONs/icon_manager";
 import SubContextMenu from "../subContextMenu/subContextMenu";
+import Form from "../customizeRequestForm/customizeRequestForm";
 
 import "./contextItem.css";
-import { on } from "events";
 
 const ContextItem = ({
   item_function,
@@ -26,9 +26,6 @@ const ContextItem = ({
 
   /* Context Menu ----------------------------------------------------------------------- */
   const menuRef = useRef(null);
-  const [contextItemContainerId, setContextItemContainerId] = useState(
-    "contextItem_component_container0802"
-  );
   const CONTEXT_MENU_FUNCTION_MANAGER = {
     newFile: {
       ICON: SYSTEM_ICON_MANAGER.newFile.ICON512,
@@ -36,6 +33,7 @@ const ContextItem = ({
       LABEL_COLOR: SYSTEM_ICON_MANAGER.newFile.LABEL_COLOR,
       BACKGROUND_ICON: SYSTEM_ICON_MANAGER.newFile.ICON16,
       MORE_OPTIONS: null,
+      CLICKABLE: true,
     },
     newFolder: {
       ICON: SYSTEM_ICON_MANAGER.newFolder.ICON512,
@@ -43,6 +41,7 @@ const ContextItem = ({
       LABEL_COLOR: SYSTEM_ICON_MANAGER.newFolder.LABEL_COLOR,
       BACKGROUND_ICON: SYSTEM_ICON_MANAGER.newFolder.ICON16,
       MORE_OPTIONS: null,
+      CLICKABLE: true,
     },
     insertFile: {
       ICON: SYSTEM_ICON_MANAGER.insertFile.ICON512,
@@ -50,6 +49,7 @@ const ContextItem = ({
       LABEL_COLOR: SYSTEM_ICON_MANAGER.insertFile.LABEL_COLOR,
       BACKGROUND_ICON: SYSTEM_ICON_MANAGER.insertFile.ICON16,
       MORE_OPTIONS: null,
+      CLICKABLE: true,
     },
     rename: {
       ICON: SYSTEM_ICON_MANAGER.rename.ICON512,
@@ -57,6 +57,7 @@ const ContextItem = ({
       LABEL_COLOR: SYSTEM_ICON_MANAGER.rename.LABEL_COLOR,
       BACKGROUND_ICON: SYSTEM_ICON_MANAGER.rename.ICON16,
       MORE_OPTIONS: null,
+      CLICKABLE: true,
     },
     copy: {
       ICON: SYSTEM_ICON_MANAGER.copy.ICON512,
@@ -64,6 +65,7 @@ const ContextItem = ({
       LABEL_COLOR: SYSTEM_ICON_MANAGER.copy.LABEL_COLOR,
       BACKGROUND_ICON: SYSTEM_ICON_MANAGER.copy.ICON16,
       MORE_OPTIONS: null,
+      CLICKABLE: true,
     },
     paste: {
       ICON: SYSTEM_ICON_MANAGER.paste.ICON512,
@@ -71,6 +73,7 @@ const ContextItem = ({
       LABEL_COLOR: SYSTEM_ICON_MANAGER.paste.LABEL_COLOR,
       BACKGROUND_ICON: SYSTEM_ICON_MANAGER.paste.ICON16,
       MORE_OPTIONS: null,
+      CLICKABLE: true,
     },
     unpaste: {
       ICON: SYSTEM_ICON_MANAGER.unpaste.ICON512,
@@ -78,6 +81,7 @@ const ContextItem = ({
       LABEL_COLOR: SYSTEM_ICON_MANAGER.unpaste.LABEL_COLOR,
       BACKGROUND_ICON: SYSTEM_ICON_MANAGER.unpaste.ICON16,
       MORE_OPTIONS: null,
+      CLICKABLE: false,
     },
     delete: {
       ICON: SYSTEM_ICON_MANAGER.trash.ICON512,
@@ -85,6 +89,7 @@ const ContextItem = ({
       LABEL_COLOR: SYSTEM_ICON_MANAGER.trash.LABEL_COLOR,
       BACKGROUND_ICON: SYSTEM_ICON_MANAGER.trash.ICON16,
       MORE_OPTIONS: null,
+      CLICKABLE: true,
     },
     duplicate: {
       ICON: SYSTEM_ICON_MANAGER.duplicate.ICON512,
@@ -92,6 +97,7 @@ const ContextItem = ({
       LABEL_COLOR: SYSTEM_ICON_MANAGER.duplicate.LABEL_COLOR,
       BACKGROUND_ICON: SYSTEM_ICON_MANAGER.duplicate.ICON16,
       MORE_OPTIONS: null,
+      CLICKABLE: true,
     },
     continue: {
       ICON: SYSTEM_ICON_MANAGER.continue.ICON512,
@@ -99,6 +105,7 @@ const ContextItem = ({
       LABEL_COLOR: SYSTEM_ICON_MANAGER.continue.LABEL_COLOR,
       BACKGROUND_ICON: SYSTEM_ICON_MANAGER.continue.ICON16,
       MORE_OPTIONS: null,
+      CLICKABLE: true,
     },
     fix: {
       ICON: SYSTEM_ICON_MANAGER.fix.ICON512,
@@ -106,6 +113,7 @@ const ContextItem = ({
       LABEL_COLOR: SYSTEM_ICON_MANAGER.fix.LABEL_COLOR,
       BACKGROUND_ICON: SYSTEM_ICON_MANAGER.fix.ICON16,
       MORE_OPTIONS: null,
+      CLICKABLE: true,
     },
     updateAST: {
       ICON: SYSTEM_ICON_MANAGER.update.ICON512,
@@ -113,6 +121,7 @@ const ContextItem = ({
       LABEL_COLOR: SYSTEM_ICON_MANAGER.update.LABEL_COLOR,
       BACKGROUND_ICON: SYSTEM_ICON_MANAGER.update.ICON16,
       MORE_OPTIONS: null,
+      CLICKABLE: true,
     },
     viewAST: {
       ICON: SYSTEM_ICON_MANAGER.code.ICON512,
@@ -120,13 +129,15 @@ const ContextItem = ({
       LABEL_COLOR: SYSTEM_ICON_MANAGER.code.LABEL_COLOR,
       BACKGROUND_ICON: SYSTEM_ICON_MANAGER.code.ICON16,
       MORE_OPTIONS: null,
+      CLICKABLE: true,
     },
     customizeAPI: {
       ICON: SYSTEM_ICON_MANAGER.customize.ICON512,
       LABEL: "Customize API",
       LABEL_COLOR: SYSTEM_ICON_MANAGER.customize.LABEL_COLOR,
       BACKGROUND_ICON: SYSTEM_ICON_MANAGER.customize.ICON16,
-      MORE_OPTIONS: ["sendRequest", "hr", "customizeRequest"],
+      MORE_OPTIONS: ["customizeRequest"],
+      CLICKABLE: true,
     },
     sendRequest: {
       ICON: SYSTEM_ICON_MANAGER.send.ICON512,
@@ -134,6 +145,7 @@ const ContextItem = ({
       LABEL_COLOR: SYSTEM_ICON_MANAGER.send.LABEL_COLOR,
       BACKGROUND_ICON: SYSTEM_ICON_MANAGER.send.ICON16,
       MORE_OPTIONS: null,
+      CLICKABLE: true,
     },
     customizeRequest: {
       ICON: SYSTEM_ICON_MANAGER.customize.ICON512,
@@ -141,15 +153,14 @@ const ContextItem = ({
       LABEL_COLOR: SYSTEM_ICON_MANAGER.customize.LABEL_COLOR,
       BACKGROUND_ICON: SYSTEM_ICON_MANAGER.customize.ICON16,
       MORE_OPTIONS: null,
+      CLICKABLE: true,
     },
   };
-  useEffect(() => {
-    if (item_function === "unpaste") {
-      setContextItemContainerId(
-        "contextItem_component_container_unclickable0826"
-      );
-    }
-  }, [item_function]);
+  const [contextItemContainerId, setContextItemContainerId] = useState(
+    CONTEXT_MENU_FUNCTION_MANAGER[item_function]?.CLICKABLE
+      ? "contextItem_component_container0802"
+      : "contextItem_component_container_unclickable0826"
+  );
   const handleItemOnClick = (e) => {
     if (CONTEXT_MENU_FUNCTION_MANAGER[item_function].MORE_OPTIONS === null) {
       progressRightClickCommand(item_function);
@@ -157,15 +168,7 @@ const ContextItem = ({
       e.stopPropagation();
     }
   };
-  //// On Customize Request
-  const [requestURL, setRequestURL] = useState(
-    onRightClickItem?.content?.customizedRequest || ""
-  );
-  const onCustomizeRequest = (e) => {
-    e.stopPropagation();
-    setRequestURL(requestURL);
-    progressRightClickCommand("customizeRequest", requestURL);
-  };
+  //// Customized Request Context Item
   //// Render Context Item
   const renderContextItem = (
     CONTEXT_MENU_FUNCTION_MANAGER,
@@ -187,32 +190,10 @@ const ContextItem = ({
       case "customizeRequest":
         return (
           <div className="contextItem_component_container1119">
-            <img
-              src={SYSTEM_ICON_MANAGER.customize.ICON512}
-              id="contextItem_component_icon0802"
-            />
-            <span
-              id="contextItem_component_label0802"
-              style={{
-                color: CONTEXT_MENU_FUNCTION_MANAGER[item_function].LABEL_COLOR,
-              }}
-            >
-              {CONTEXT_MENU_FUNCTION_MANAGER[item_function].LABEL}
-            </span>
-            <input
-              type="text"
-              value={requestURL}
-              className="contextItem_component_url_request_input1119"
-              placeholder="request URL"
-              onChange={(e) => setRequestURL(e.target.value)}
-            />
-            <img
-              src={SYSTEM_ICON_MANAGER.save.ICON512}
-              className="contextItem_component_save_request_icon1119"
-              onClick={(e) => {
-                onCustomizeRequest(e);
-              }}
-            />
+            <Form
+              progressCustomizeRequest={progressRightClickCommand}
+              onRightClickItem={onRightClickItem}
+            ></Form>
           </div>
         );
         break;

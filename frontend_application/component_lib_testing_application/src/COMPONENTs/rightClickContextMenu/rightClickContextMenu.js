@@ -22,12 +22,13 @@ const RightClickContextMenu = ({
       target: onRightClickItem.target,
     });
   };
+
+  /* Menu Styling and Position -------------------------------------------------------------------------- */
   const menuRef = useRef(null);
   const [menuStyle, setMenuStyle] = useState(
     "rightClickContextMenu_component_container0802"
   );
   const [position, setPosition] = useState({ top: y, left: x });
-
   const setMenuPosition = (transitionTime) => {
     if (menuRef.current) {
       const menuWidth = menuRef.current.offsetWidth;
@@ -68,7 +69,9 @@ const RightClickContextMenu = ({
     const timeoutId = setTimeout(() => setMenuPosition(0.08), 80);
     return () => clearTimeout(timeoutId);
   }, [x, y]);
+  /* Menu Styling and Position -------------------------------------------------------------------------- */
 
+  /* Define Menu Items -------------------------------------------------------------------------------------- */
   if (onRightClickItem !== null) {
     if (onRightClickItem.source === "vecoder_editor") {
       let pasteItem = onRightClickItem.condition.paste ? (
@@ -277,6 +280,7 @@ const RightClickContextMenu = ({
     } else {
     }
   }
+  /* Define Menu Items -------------------------------------------------------------------------------------- */
 
   return (
     <div>

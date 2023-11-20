@@ -37,14 +37,15 @@ router.post("/", async (req, res) => {
       "}";
 
     const chatCompletion = await openai.chat.completions.create({
-      model: "gpt-4-1106-preview",
+      model: "gpt-3.5-turbo",
       temperature: 0,
       messages: [
         { role: "system", content: instruction },
         { role: "user", content: req.body.prompt },
       ],
-      response_format: { type: "json_object" },
     });
+
+    console.log(chatCompletion.choices[0].message.content);
 
     res.json({
       data: chatCompletion.choices[0].message.content,
