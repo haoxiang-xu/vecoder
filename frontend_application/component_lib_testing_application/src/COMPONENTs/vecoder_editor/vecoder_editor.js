@@ -95,10 +95,10 @@ const VecoderEditor = ({
 
     try {
       const response = await axios.post(
-        "http://localhost:8200/AST",
+        "http://localhost:8200/AST/python",
         requestBody
       );
-      console.log(response.data.data.content);
+      console.log(response.data);
     } catch (e) {
       console.log(e);
     }
