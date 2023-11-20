@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
 import "./dirItem.css";
-import arrow_icon from "./ICONs/arrow.png";
 import { ICON_MANAGER } from "../../../ICONs/icon_manager";
 
 const DirItem = ({
@@ -23,18 +22,30 @@ const DirItem = ({
   onCopyFile,
   setOnCopyFile,
 }) => {
-  //Files Icon and Text Color declaration
-  let FILE_TYPE_STYLING_MANAGER = {
+  /* Load ICON manager -------------------------------- */
+  let FILE_TYPE_ICON_MANAGER = {
     default: {
       ICON: null,
       LABEL_COLOR: "#C8C8C8",
     },
   };
   try {
-    FILE_TYPE_STYLING_MANAGER = ICON_MANAGER().FILE_TYPE_STYLING_MANAGER;
+    FILE_TYPE_ICON_MANAGER = ICON_MANAGER().FILE_TYPE_ICON_MANAGER;
   } catch (e) {
     console.log(e);
   }
+  let SYSTEM_ICON_MANAGER = {
+    default: {
+      ICON: null,
+      LABEL_COLOR: "#C8C8C8",
+    },
+  };
+  try {
+    SYSTEM_ICON_MANAGER = ICON_MANAGER().SYSTEM_ICON_MANAGER;
+  } catch (e) {
+    console.log(e);
+  }
+  /* Load ICON manager -------------------------------- */
 
   const [refresh, setRefresh] = useState(false);
   const forceRefresh = () => {
@@ -67,10 +78,10 @@ const DirItem = ({
     setFilename(file.fileName);
     setRenameInput(file.fileName);
     setFileIcon(
-      FILE_TYPE_STYLING_MANAGER[file.fileName.split(".").pop()]?.ICON
+      FILE_TYPE_ICON_MANAGER[file.fileName.split(".").pop()]?.ICON512
     );
     setFileTextColor(
-      FILE_TYPE_STYLING_MANAGER[file.fileName.split(".").pop()]?.LABEL_COLOR
+      FILE_TYPE_ICON_MANAGER[file.fileName.split(".").pop()]?.LABEL_COLOR
     );
     setDir(file.files);
     setExpanded(file.fileExpend);
@@ -501,18 +512,27 @@ const DirItem = ({
       rightClickCommand &&
       rightClickCommand.target === "vecoder_explorer/" + file.filePath
     ) {
-      if (rightClickCommand.command === "rename") {
-        setOnCommand("rename");
-      } else if (rightClickCommand.command === "newFile") {
-        setOnCommand("newFile");
-      } else if (rightClickCommand.command === "newFolder") {
-        setOnCommand("newFolder");
-      } else if (rightClickCommand.command === "delete") {
-        setOnCommand("delete");
-      } else if (rightClickCommand.command === "paste") {
-        setOnCommand("paste");
-      } else if (rightClickCommand.command === "copy") {
-        setOnCommand("copy");
+      switch (rightClickCommand.command) {
+        case "rename":
+          setOnCommand("rename");
+          break;
+        case "newFile":
+          setOnCommand("newFile");
+          break;
+        case "newFolder":
+          setOnCommand("newFolder");
+          break;
+        case "delete":
+          setOnCommand("delete");
+          break;
+        case "paste":
+          setOnCommand("paste");
+          break;
+        case "copy":
+          setOnCommand("copy");
+          break;
+        default:
+          break;
       }
       setRightClickCommand(null);
     }
@@ -541,7 +561,7 @@ const DirItem = ({
                   onKeyDown={handleRenameInputOnKeyDown}
                   ref={inputRef}
                   style={{
-                    width: `calc(100% - ${10.7}pt)`,
+                    width: `calc(100% - ${10}pt)`,
                   }}
                 />
               ) : (
@@ -553,15 +573,16 @@ const DirItem = ({
                   style={
                     onRightClickItem !== null &&
                     isRightClicked &&
-                    onRightClickItem.content.fileName === file.fileName
+                    onRightClickItem.content?.fileName === file.fileName
                       ? {
                           backgroundColor: "#2a2d2e",
+                          borderRadius: "3pt",
                         }
                       : {}
                   }
                 >
                   <img
-                    src={arrow_icon}
+                    src={SYSTEM_ICON_MANAGER.arrow.ICON512}
                     className={expandIconClassName}
                     onClick={handleExpandIconOnClick}
                     loading="lazy"
@@ -592,15 +613,16 @@ const DirItem = ({
                   style={
                     onRightClickItem !== null &&
                     isRightClicked &&
-                    onRightClickItem.content.fileName === file.fileName
+                    onRightClickItem.content?.fileName === file.fileName
                       ? {
                           backgroundColor: "#2a2d2e",
+                          borderRadius: "3pt",
                         }
                       : {}
                   }
                 >
                   <img
-                    src={arrow_icon}
+                    src={SYSTEM_ICON_MANAGER.arrow.ICON512}
                     className="dir_item_component_unexpendable_arrow_icon_right0826"
                     loading="lazy"
                   />
@@ -622,7 +644,7 @@ const DirItem = ({
               onKeyDown={handleRenameInputOnKeyDown}
               ref={inputRef}
               style={{
-                width: `calc(100% - ${10.7}pt)`,
+                width: `calc(100% - ${10}pt)`,
               }}
             />
           ) : (
@@ -640,18 +662,20 @@ const DirItem = ({
                         "s",
                       ...(onRightClickItem !== null &&
                       isRightClicked &&
-                      onRightClickItem.content.fileName === file.fileName
+                      onRightClickItem.content?.fileName === file.fileName
                         ? {
                             backgroundColor: "#2a2d2e",
+                            borderRadius: "3pt",
                           }
                         : {}),
                     }
                   : {
                       ...(onRightClickItem !== null &&
                       isRightClicked &&
-                      onRightClickItem.content.fileName === file.fileName
+                      onRightClickItem.content?.fileName === file.fileName
                         ? {
                             backgroundColor: "#2a2d2e",
+                            borderRadius: "3pt",
                           }
                         : {}),
                     }

@@ -592,7 +592,6 @@ class Car {
           x={rightClickX}
           y={rightClickY}
           onRightClickItem={onRightClickItem}
-          setOnRightClickItem={setOnRightClickItem}
           setRightClickCommand={setRightClickCommand}
         />
       ) : (

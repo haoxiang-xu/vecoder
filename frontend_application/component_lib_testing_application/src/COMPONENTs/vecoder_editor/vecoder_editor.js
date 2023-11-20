@@ -1,12 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
+import axios from "axios";
 import Editor from "../monacoEditor/monacoEditor";
 import "./vecoder_editor.css";
 import { ICON_MANAGER } from "../../ICONs/icon_manager";
-
-/* ICONs ----------------------------------------------------------------- */
-import close_icon_16X16 from "./ICONs/16X16/close.png";
-import close_icon_512X512 from "./ICONs/512X512/close.png";
-/* ICONs ----------------------------------------------------------------- */
 
 const VecoderEditor = ({
   imported_files,
@@ -21,35 +17,116 @@ const VecoderEditor = ({
   /* Initialize File Data ------------------------------------------------------ */
 
   /* Load ICON manager -------------------------------- */
-  let FILE_TYPE_STYLING_MANAGER = {
+  let FILE_TYPE_ICON_MANAGER = {
     default: {
       ICON: null,
       LABEL_COLOR: "#C8C8C8",
     },
   };
   try {
-    FILE_TYPE_STYLING_MANAGER = ICON_MANAGER().FILE_TYPE_STYLING_MANAGER;
+    FILE_TYPE_ICON_MANAGER = ICON_MANAGER().FILE_TYPE_ICON_MANAGER;
+  } catch (e) {
+    console.log(e);
+  }
+  let SYSTEM_ICON_MANAGER = {
+    default: {
+      ICON: null,
+      LABEL_COLOR: "#C8C8C8",
+    },
+  };
+  try {
+    SYSTEM_ICON_MANAGER = ICON_MANAGER().SYSTEM_ICON_MANAGER;
   } catch (e) {
     console.log(e);
   }
   /* Load ICON manager -------------------------------- */
 
+  /* API ----------------------------------------------------------------------- */
+  const getAST = async () => {
+    const requestBody = {
+      language: fileList[onSelectedIndex].fileLanguage,
+      prompt: onSelectedCode.selectedText,
+    };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8200/AST/python",
+        requestBody
+      );
+      console.log(response.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const handleCustomizeRequest = async () => {
+    setCustomizeRequest(rightClickCommand.content);
+    let prompt = "";
+    const requestURL = rightClickCommand?.content?.requestURL;
+
+    if (!requestURL) {
+      console.log("requestURL is not defined");
+      return;
+    }
+    switch (rightClickCommand?.content?.inputFormat) {
+      case "onSelect":
+        prompt = onSelectedCode?.selectedText || "";
+        break;
+      case "entireFile":
+        if (fileList?.length > onSelectedIndex && files?.length) {
+          const selectedFile = fileList[onSelectedIndex]?.fileName;
+          const file = files.find((f) => f.fileName === selectedFile);
+          prompt = file?.fileContent || "";
+        }
+        break;
+      default:
+        console.log("Invalid input format");
+        return;
+    }
+    const requestBody = {
+      language: fileList?.[onSelectedIndex]?.fileLanguage || "defaultLanguage",
+      prompt: prompt,
+    };
+    switch (rightClickCommand?.content?.requestMethod) {
+      case "GET":
+        try {
+          const response = await axios.get(requestURL, requestBody);
+          console.log(response.data);
+        } catch (e) {
+          console.log("Error in axios request:", e);
+        }
+        break;
+      case "POST":
+        try {
+          const response = await axios.post(requestURL, requestBody);
+          console.log(response.data);
+        } catch (e) {
+          console.log("Error in axios request:", e);
+        }
+        break;
+      default:
+        console.log("Invalid request method");
+        return;
+    }
+  };
+  /* API ----------------------------------------------------------------------- */
+
   /* Context Menu ----------------------------------------------------------------------- */
   const [onAppendContent, setOnAppendContent] = useState(null);
+  const [customizeRequest, setCustomizeRequest] = useState(null);
   const handleRightClick = (event) => {
     event.preventDefault();
     if (onSelectedCode || navigator.clipboard.readText() !== "") {
       setOnRightClickItem({
         source: "vecoder_editor",
         condition: { paste: true },
-        content: null,
+        content: { customizeRequest: customizeRequest },
         target: "vecoder_editor",
       });
     } else {
       setOnRightClickItem({
         source: "vecoder_editor",
         condition: { paste: false },
-        content: null,
+        content: { customizeRequest: customizeRequest },
         target: "vecoder_editor",
       });
     }
@@ -66,11 +143,17 @@ const VecoderEditor = ({
   }, [rightClickCommand]);
   const handleRightClickCommand = async (command) => {
     switch (command) {
+      case "viewAST":
+        getAST();
+        break;
       case "copy":
         navigator.clipboard.writeText(onSelectedCode.selectedText);
         break;
       case "paste":
         setOnAppendContent(await navigator.clipboard.readText());
+        break;
+      case "customizeRequest":
+        await handleCustomizeRequest();
         break;
     }
   };
@@ -94,6 +177,7 @@ const VecoderEditor = ({
   const [fileList, setFileList] = useState(
     imported_files.map((file) => ({
       fileName: String(file.fileName),
+      fileLanguage: String(file.fileLanguage),
     }))
   );
   const [onSelectedIndex, setOnSelectedIndex] = useState(null);
@@ -196,7 +280,7 @@ const VecoderEditor = ({
       {/*Editor Top Right Section*/}
       <div className="code_editor_top_right_section1113">
         <img
-          src={close_icon_512X512}
+          src={SYSTEM_ICON_MANAGER.close.ICON512}
           className="code_editor_close_icon1113"
           draggable="false"
           alt="close"
@@ -242,8 +326,8 @@ const VecoderEditor = ({
             >
               <img
                 src={
-                  FILE_TYPE_STYLING_MANAGER[file.fileName.split(".").pop()]
-                    ?.ICON
+                  FILE_TYPE_ICON_MANAGER[file.fileName.split(".").pop()]
+                    ?.ICON512
                 }
                 className="file_selection_bar_item_filetype_icon1114"
                 alt="close"
@@ -256,7 +340,7 @@ const VecoderEditor = ({
                 {file.fileName}
               </span>
               <img
-                src={close_icon_512X512}
+                src={SYSTEM_ICON_MANAGER.close.ICON512}
                 className="file_selection_bar_item_close_icon1114"
                 alt="close"
                 draggable="false"
