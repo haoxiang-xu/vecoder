@@ -7,7 +7,7 @@ import "../../../Global_CSS.css";
 import saveImage from "../save.png";
 import cancelImage from "../cancel.png";
 
-export default function VariableNode({ initialData }) {
+export default function VariableNode({ data: initialData }) {
     if (!initialData.description) initialData.description = "";
     if (!initialData.type) initialData.type = "";
     if (!initialData.label) initialData.label = "";
