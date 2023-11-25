@@ -1,7 +1,8 @@
 // React Component Imports
 import React, { useCallback, useEffect } from "react";
 import ReactFlow, { useReactFlow, Controls, ControlButton, Background, addEdge } from "reactflow";
-import DescriptionNode from "../description_node/description_node";
+import DescriptionNode from "../nodes/description_node/description_node";
+import VariableNode from "../nodes/variable_node/variable_node";
 
 // Styling Imports
 import "reactflow/dist/style.css";
@@ -11,7 +12,10 @@ import "./graph.css";
 import { ReactComponent as AutoArrangeIcon } from "./auto_arrange.svg";
 
 // Node Types for ReactFlow
-const nodeTypes = { descNode: DescriptionNode };
+const nodeTypes = {
+    descNode: DescriptionNode,
+    varNode: VariableNode,
+};
 
 /**
  * Automatically organizes the nodes in the graph
@@ -117,7 +121,7 @@ function addNodes(node, finalNodeStructure, yPosition, max_x_positions) {
     if (node.children.length > 0) {
         // ... todo
     }
-    
+
     // Recursively add children
     node.children.forEach((child) => {
         if (!child.visited) {
@@ -152,20 +156,17 @@ export default function Graph(props) {
                 });
             }
 
-            /* Debugging purposes
+            // Debugging purposes
 
             if (event.key === "Escape") {
-                console.log("nodes", nodes);
-                console.log("edges", edges);
+                props.handleError("Test Error Message");
             }
 
-            if (event.key === "Enter") {
-                let newNodes = organizeNodes(nodes, edges);
-                console.log("newnodes", newNodes);
-                setNodes(newNodes);
-            }
-            
-            */
+            // if (event.key === "Enter") {
+            //     let newNodes = organizeNodes(nodes, edges);
+            //     console.log("newnodes", newNodes);
+            //     setNodes(newNodes);
+            // }
         }
 
         window.addEventListener("keydown", handleKeyDown);

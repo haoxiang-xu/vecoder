@@ -3,13 +3,18 @@ import { Handle, Position } from "reactflow";
 import { useState } from "react";
 
 import "./description_node.css";
-import "../../Global_CSS.css";
+import "../../../Global_CSS.css";
 
 import tempImage from "./js.png";
-import saveImage from "./save.png";
-import cancelImage from "./cancel.png";
+import saveImage from "../save.png";
+import cancelImage from "../cancel.png";
 
-function DescriptionNode({ data }) {
+function DescriptionNode({ data: initialData }) {
+    if (!initialData.description) initialData.description = "";
+    const [data, setData] = useState(initialData);
+    const [isUnsaved, setIsUnsaved] = useState(false);
+    const [textAreaValue, setTextAreaValue] = useState(data.description);
+
     const descChange = useCallback((evt) => {
         setTextAreaValue(evt.target.value);
         setIsUnsaved(true);
@@ -18,16 +23,16 @@ function DescriptionNode({ data }) {
     const handleSave = useCallback(() => {
         setIsUnsaved(false);
         // TODO: Save to database and send to backend AI
-        data.description = textAreaValue; // Do not execute this line if the save fails
-    }, []);
+        setData({
+            ...data,
+            description: textAreaValue,
+        });
+    }, [textAreaValue]);
 
     const handleCancel = useCallback(() => {
         setIsUnsaved(false);
         setTextAreaValue(data.description);
     }, []);
-
-    const [isUnsaved, setIsUnsaved] = useState(false);
-    const [textAreaValue, setTextAreaValue] = useState(data.description);
 
     return (
         <div className="descriptionNode background_UI_Frame_1">

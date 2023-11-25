@@ -1,0 +1,76 @@
+.variableNode {
+    width: 15em;
+    height: 10em;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.react-flow__node-variableNode {
+    border: 2px solid transparent;
+}
+
+.react-flow__node-variableNode.selected {
+    border: 2px solid white;
+    border-radius: 10px;
+}
+
+.variableNode input {
+    padding: unset;
+    border: unset;
+    color: #cccccc;
+}
+
+.variableNode textarea {
+    resize: none;
+    border: none;
+
+    color: #cccccc;
+}
+
+.variableNode_content {
+    flex-grow: 1;
+    padding: 1em;
+    height: calc(100% - 2em);
+
+    display: flex;
+    flex-direction: column;
+}
+
+.variableNode_title {
+    display: flex;
+}
+
+.variableNode_title input {
+    background-color: transparent;
+    width: 12em;
+    height: 90%;
+}
+
+.variableNode_type {
+    display: flex;
+    height: 2em;
+}
+
+.variableNode_description {
+    flex-grow: 1;
+    margin-top: 0.5em;
+}
+
+#action_buttons {
+    margin-left: auto;
+}
+
+.variableNode_action {
+    margin-left: 0.2em;
+    height: 1em;
+    width: 1em;
+    padding: 0.1em;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.variableNode_action:hover {
+    background-color: #cccccc;
+}

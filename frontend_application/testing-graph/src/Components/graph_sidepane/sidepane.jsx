@@ -47,7 +47,9 @@ export default function GraphSidepane() {
 
     // React Flow
     const GraphFunctions = useReactFlow();
-    const addNewNode = useCallback(() => {
+
+    const [selectedOption, setSelectedOption] = useState('descNode');
+    const addNewNode = useCallback((selectedOption) => {
         let { x, y } = GraphFunctions.project({
             x: 0,
             y: 0 + convertEmToPixels(1),
@@ -56,7 +58,7 @@ export default function GraphSidepane() {
         const id = `${++nodeId}`;
         const newNode = {
             id,
-            type: "descNode",
+            type: selectedOption,
             position: {
                 x: x,
                 y: y,
@@ -77,9 +79,17 @@ export default function GraphSidepane() {
 
     return (
         <div id="graph_sidepane" onContextMenu={handleRightClick} onClick={handleOnClick}>
-            <button id="graph_sidepane_add_edge_button" className="background_UI_Frame_1" onClick={addNewNode}>
+            <button
+                id="graph_sidepane_add_edge_button"
+                className="background_UI_Frame_1"
+                onClick={() => addNewNode(selectedOption)}
+            >
                 <PlusIcon />
-                <div>New Node</div>
+                <select onChange={(e) => setSelectedOption(e.target.value)} onClick={(e) => e.stopPropagation()}>
+                    <option value="descNode">New Function Node</option>
+                    <option value="varNode">New Variable Node</option>
+                    <option value="option3">New Option 3</option>
+                </select>
             </button>
             <div className="explorer_container background_UI_Frame_1">
                 <Explorer

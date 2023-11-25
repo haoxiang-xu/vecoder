@@ -4,8 +4,11 @@ import {
     ReactFlowProvider,
 } from "reactflow";
 
+import { useState } from "react";
+
 import Graph from "./Components/graph/graph";
 import GraphSidepane from "./Components/graph_sidepane/sidepane";
+import ErrorPopup from "./Components/error_popup/error_popup";
 
 import "./App.css";
 import React from "react";
@@ -47,12 +50,18 @@ const initialEdges = [
 export default function App() {
     const nodeBundle = useNodesState(initialNodes);
     const edgeBundle = useEdgesState(initialEdges);
+    const [errorMessage, setErrorMessage] = useState(null);
+
+    const handleError = (message) => {
+        setErrorMessage([message, new Date().toLocaleString()]);
+    };
 
     return (
         <div id="graph_window">            
             <ReactFlowProvider>
-                <GraphSidepane />
-                <Graph nodeBundle={nodeBundle} edgeBundle={edgeBundle} />
+                <GraphSidepane handleError={handleError} />
+                <Graph nodeBundle={nodeBundle} edgeBundle={edgeBundle} handleError={handleError} />
+                <ErrorPopup errorMessage={errorMessage} />
             </ReactFlowProvider>
         </div>
     );

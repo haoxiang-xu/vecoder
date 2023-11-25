@@ -1,4 +1,4 @@
-.background_UI_Frame_1 {
+.background_UI_Frame_1, .error_box {
     background-color: #1e1e1e;
     border-radius: 10px;
     /* drop shadow x0 y0 blur15px spread0 black62%*/
@@ -7,5 +7,18 @@
 
 .background_UI_Frame_2 {
     background-color: #303030;
+    border-radius: 10px;
+}
+
+.react-flow__edge-smoothstep.selected path {
+    stroke: red !important;
+}
+
+.react-flow__node {
+    border: 2px solid transparent;
+}
+
+.react-flow__node.selected {
+    border: 2px solid white;
     border-radius: 10px;
 }

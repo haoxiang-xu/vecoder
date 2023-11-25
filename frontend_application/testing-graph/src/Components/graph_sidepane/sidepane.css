@@ -23,13 +23,24 @@
     margin-bottom: 1em;
 }
 
+#graph_sidepane_add_edge_button:hover {
+    background-color: #545454;
+}
+
 #graph_sidepane_add_edge_button svg {
     margin-bottom: 1em;
     margin-top: 0.5em;
 }
 
-#graph_sidepane_add_edge_button:hover {
-    background-color: #545454;
+#graph_sidepane_add_edge_button select {
+    background-color: #303030;
+    color: #cccccc;
+    border-radius: 5px;
+    border: none;
+    padding: 0.5em;
+    margin: 0.5em;
+    width: calc(100% - 1em);
+    text-align: center;
 }
 
 .explorer_container {

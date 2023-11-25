@@ -7,6 +7,15 @@
     align-items: center;
 }
 
+.react-flow__node-descNode {
+    border: 2px solid transparent;
+}
+
+.react-flow__node-descNode.selected {
+    border: 2px solid white;
+    border-radius: 10px;
+}
+
 .descriptionNode_content {
     flex-grow: 1;
     padding: 1em;
