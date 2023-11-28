@@ -149,7 +149,7 @@ router.post("/analyze", async (req, res) => {
     res.json({ openAIControllerError: String(error) });
   }
 });
-
+//this function is written by smith chen
 router.post("/analyzeFileType", async (req, res) => {
   try {
     const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -159,7 +159,12 @@ router.post("/analyzeFileType", async (req, res) => {
       " For example: " +
       " File name: xxx \n" +
       " File type: xxx \n" +
-      " File short description: xxxxxx ";
+      " File short description: xxxxxx " +
+      " If no text or code is selected, then return nothing." +
+      " For example: " +
+      " File name: none \n"+
+      " File name: none \n" +
+      " File type: none \n";
 
     const chatCompletion = await openai.chat.completions.create({
       model: "gpt-4-1106-preview",
@@ -179,6 +184,7 @@ router.post("/analyzeFileType", async (req, res) => {
     res.json({ openAIControllerError: String(error) });
   }
 });
+//this function is written by smith chen
 //之后要改instruction
 router.post("/analyzeFrameworkStructure", async (req, res) => {
   try {
@@ -207,7 +213,7 @@ router.post("/analyzeFrameworkStructure", async (req, res) => {
     res.json({ openAIControllerError: String(error) });
   }
 });
-//之后要改细节
+//this function is written by smith chen
 router.post("/analyzeFilePathes", async (req, res) => {
   try {
     const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -217,7 +223,7 @@ router.post("/analyzeFilePathes", async (req, res) => {
       req.body.language +
       " code, and your task is to return a list for json variables, including belowing keys: " +
       " 1. Imported lib or object named " +
-      " 2.imported path" +
+      " 2. imported path" +
       " 3. object type for Imported lib or object " +
       " 4. Description.";
 
