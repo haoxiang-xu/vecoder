@@ -11,27 +11,7 @@ import close_icon from "./ICONs/close.png";
 import minus_icon from "./ICONs/minus.png";
 import more_icon from "./ICONs/more.png";
 
-import javascript_icon from "./ICONs/FILETYPE_ICONs/js.png";
-import html_icon from "./ICONs/FILETYPE_ICONs/html.png";
-import css_icon from "./ICONs/FILETYPE_ICONs/css.png";
-import png_icon from "./ICONs/FILETYPE_ICONs/png.png";
-import pdf_icon from "./ICONs/FILETYPE_ICONs/pdf.png";
-import gitignore_icon from "./ICONs/FILETYPE_ICONs/gitignore.png";
-import python_icon from "./ICONs/FILETYPE_ICONs/python.png";
-import json_icon from "./ICONs/FILETYPE_ICONs/json.png";
-import txt_icon from "./ICONs/FILETYPE_ICONs/txt.png";
-import markdown_icon from "./ICONs/FILETYPE_ICONs/markdown.png";
-import java_icon from "./ICONs/FILETYPE_ICONs/java.png";
-import php_icon from "./ICONs/FILETYPE_ICONs/php.png";
-import image_icon from "./ICONs/FILETYPE_ICONs/photo.png";
-import xml_icon from "./ICONs/FILETYPE_ICONs/xml.png";
-import app_icon from "./ICONs/FILETYPE_ICONs/application.png";
-import database_icon from "./ICONs/FILETYPE_ICONs/database.png";
-import cpp_icon from "./ICONs/FILETYPE_ICONs/cpp.png";
-import csharp_icon from "./ICONs/FILETYPE_ICONs/csharp.png";
-import settings_icon from "./ICONs/FILETYPE_ICONs/settings.png";
-import ipynb_icon from "./ICONs/FILETYPE_ICONs/ipynb.png";
-import table_icon from "./ICONs/FILETYPE_ICONs/table.png";
+import { ICON_MANAGER } from "../../ICONs/icon_manager";
 
 const CodeEditor = ({
   files,
@@ -41,49 +21,18 @@ const CodeEditor = ({
   rightClickCommand,
   setRightClickCommand,
 }) => {
-  const ICONs = {
-    js: javascript_icon,
-    html: html_icon,
-    css: css_icon,
-    png: image_icon,
-    pdf: pdf_icon,
-    gitignore: gitignore_icon,
-    py: python_icon,
-    json: json_icon,
-    txt: txt_icon,
-    md: markdown_icon,
-    java: java_icon,
-    php: php_icon,
-    jpg: image_icon,
-    jpeg: image_icon,
-    icon: image_icon,
-    xml: xml_icon,
-    exe: app_icon,
-    sql: database_icon,
-    cpp: cpp_icon,
-    cs: csharp_icon,
-    config: settings_icon,
-    ipynb: ipynb_icon,
-    csv: table_icon,
-    svg: image_icon,
+  //Files Icon and Text Color declaration
+  let FILE_TYPE_STYLING_MANAGER = {
+    default: {
+      ICON: null,
+      LABEL_COLOR: "#C8C8C8",
+    },
   };
-  const LANGUAGEs = {
-    js: "javascript",
-    html: "html",
-    css: "css",
-    py: "python",
-    json: "json",
-    txt: "txt",
-    md: "markdown",
-    java: "java",
-    php: "php",
-    xml: "xml",
-    sql: "database",
-    cpp: "cpp",
-    cs: "csharp",
-    ipynb: "ipynb",
-    csv: "table",
-  };
+  try {
+    FILE_TYPE_STYLING_MANAGER = ICON_MANAGER().FILE_TYPE_STYLING_MANAGER;
+  } catch (e) {
+    console.log(e);
+  }
 
   const [refresh, setRefresh] = useState(false);
   const [logo_text, setLogoText] = useState("</>");
@@ -102,6 +51,9 @@ const CodeEditor = ({
   const [onDropIndex, setOnDropIndex] = useState(-1);
   const [onHoverIndex, setOnHoverIndex] = useState(-1);
   const [onSwapIndex, setOnSwapIndex] = useState(-1);
+
+  const [content, setContent] = useState(files[onSelectedIndex].fileContent);
+  const [language, setLanguage] = useState(files[onSelectedIndex].fileLanguage);
 
   const handleRoadMapIconClick = () => {
     setRoadMapVisible(!roadMapVisible);
@@ -173,6 +125,12 @@ const CodeEditor = ({
       setOnDropIndex(dropIndex);
     }
   };
+  const contentOnSave = (content) => {
+    setContent(content);
+    const newFileList = [...files];
+    newFileList[onSelectedIndex].fileContent = content;
+    setFiles(newFileList);
+  };
   useEffect(() => {
     setOnSwapIndex(onDropIndex);
   }, [onDropIndex]);
@@ -203,14 +161,16 @@ const CodeEditor = ({
     );
     for (let i = 0; i < files.length; i++) {
       files[i].fileType = files[i].fileName?.split(".").pop();
-      files[i].fileLanguage = LANGUAGEs[files[i].fileType];
+      files[i].fileLanguage =
+        FILE_TYPE_STYLING_MANAGER[files[i].fileType]?.language;
     }
 
     setRefresh(!refresh);
   }, [files]);
   useEffect(() => {
-    files[onSelectedIndex].fileLanguage =
-      LANGUAGEs[files[onSelectedIndex].fileType];
+    //Detect file language
+    setContent(files[onSelectedIndex].fileContent);
+    setLanguage(files[onSelectedIndex].fileLanguage);
     setRefresh(!refresh);
   }, [onSelectedIndex]);
 
@@ -262,22 +222,49 @@ const CodeEditor = ({
     });
     monaco.editor.setTheme("customTheme");
   };
-  const appendTextToSelection = (appendText) => {
+  const appendTextToSelection = (appendText, range) => {
     if (!monacoRef.current) return;
-    const selection = monacoRef.current.getSelection();
 
     monacoRef.current.executeEdits(null, [
       {
-        range: selection,
+        range: range,
         text: appendText,
       },
     ]);
   };
+  const overwriteTextInSelection = (newText, range) => {
+    if (!monacoRef.current) return;
+
+    monacoRef.current.executeEdits("", [
+      {
+        range: range,
+        text: newText,
+        forceMoveMarkers: true,
+      },
+    ]);
+
+    // Optionally, you might want to push an undo stop for a better undo/redo experience
+    monacoRef.current.pushUndoStop();
+  };
+
   const handleAppendTextClick = async (command) => {
     const selection = monacoRef.current.getSelection();
     const selectedText = monacoRef.current
       .getModel()
       .getValueInRange(selection);
+    const editor = monacoRef.current;
+    const model = editor.getModel();
+
+    // Convert the start and end positions of the selection to absolute offsets
+    const startOffset = model.getOffsetAt(selection.getStartPosition());
+    const endOffset = model.getOffsetAt(selection.getEndPosition());
+
+    const range = model.getValueInRange({
+      startLineNumber: selection.startLineNumber,
+      startColumn: startOffset,
+      endLineNumber: selection.endLineNumber,
+      endColumn: endOffset,
+    });
 
     let appendText = " // Appended text";
 
@@ -299,7 +286,7 @@ const CodeEditor = ({
       } catch (err) {
         console.error("[ERROR]: " + err);
       }
-      appendTextToSelection(appendText);
+      appendTextToSelection(appendText, selection);
     } else if (command.command === "fix") {
       const requestBody = {
         language: files[onSelectedIndex].fileLanguage,
@@ -318,7 +305,7 @@ const CodeEditor = ({
       } catch (err) {
         console.error("[ERROR]: " + err);
       }
-      appendTextToSelection(appendText);
+      overwriteTextInSelection(appendText, selection);
     } else {
       appendText = "";
     }
@@ -364,7 +351,7 @@ const CodeEditor = ({
     if (files[onSelectedIndex].fileAnalysis === undefined) {
       files[onSelectedIndex].fileAnalysis = analyzeCode();
     }
-  }, onSelectedIndex);
+  }, [onSelectedIndex]);
 
   return (
     <div
@@ -381,6 +368,7 @@ const CodeEditor = ({
         href="https://fonts.googleapis.com/css?family=Koulen"
         rel="stylesheet"
       ></link>
+
       <div
         id="code_editor_files_container0829"
         ref={filesContainerRef}
@@ -439,7 +427,7 @@ const CodeEditor = ({
                   />
                 )}
                 <img
-                  src={ICONs[file.fileType]}
+                  src={FILE_TYPE_STYLING_MANAGER[file.fileType]?.ICON}
                   id={
                     onSelectedIndex === index
                       ? "code_editor_file_type_icon0830"
@@ -465,7 +453,7 @@ const CodeEditor = ({
                       />
                     ) : (
                       <img
-                        src={ICONs[file.fileType]}
+                        src={FILE_TYPE_STYLING_MANAGER[file.fileType]?.ICON}
                         id="code_editor_file_type_centered0830"
                         alt="file type"
                       />
@@ -473,7 +461,7 @@ const CodeEditor = ({
                   </div>
                 ) : (
                   <img
-                    src={ICONs[file.fileType]}
+                    src={FILE_TYPE_STYLING_MANAGER[file.fileType]?.ICON}
                     id="code_editor_file_type_centered_unselected0830"
                     alt="file type"
                   />
@@ -500,16 +488,18 @@ const CodeEditor = ({
 
       {files[onSelectedIndex] ? (
         <MonacoEditor
+          id="code_editor_monaco_editor1112"
           onMount={handleEditorDidMount}
+          onChange={(content) => contentOnSave(content)}
           top="0pt"
           left="0pt"
           position="absolute"
           width="100%"
           height="100%"
           defaultLanguage="javascript"
-          language={files[onSelectedIndex].fileLanguage}
+          language={language}
           theme="vs-dark"
-          value={files[onSelectedIndex].fileContent}
+          value={content}
           options={{
             contextmenu: false,
             minimap: {

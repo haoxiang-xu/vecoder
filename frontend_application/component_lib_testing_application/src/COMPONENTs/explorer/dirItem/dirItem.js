@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
 import "./dirItem.css";
-import arrow_icon from "./ICONs/arrow.png";
 import { ICON_MANAGER } from "../../../ICONs/icon_manager";
 
 const DirItem = ({
@@ -17,23 +16,36 @@ const DirItem = ({
   parentSortFiles,
   parentDeleteFile,
   parentCheckNameExist,
-  copyFile,
   onSingleClickFile,
   setOnSingleClickFile,
   parentForceRefresh,
+  onCopyFile,
+  setOnCopyFile,
 }) => {
-  //Files Icon and Text Color declaration
-  let FILE_TYPE_STYLING_MANAGER = {
+  /* Load ICON manager -------------------------------- */
+  let FILE_TYPE_ICON_MANAGER = {
     default: {
       ICON: null,
       LABEL_COLOR: "#C8C8C8",
     },
   };
   try {
-    FILE_TYPE_STYLING_MANAGER = ICON_MANAGER().FILE_TYPE_STYLING_MANAGER;
+    FILE_TYPE_ICON_MANAGER = ICON_MANAGER().FILE_TYPE_ICON_MANAGER;
   } catch (e) {
     console.log(e);
   }
+  let SYSTEM_ICON_MANAGER = {
+    default: {
+      ICON: null,
+      LABEL_COLOR: "#C8C8C8",
+    },
+  };
+  try {
+    SYSTEM_ICON_MANAGER = ICON_MANAGER().SYSTEM_ICON_MANAGER;
+  } catch (e) {
+    console.log(e);
+  }
+  /* Load ICON manager -------------------------------- */
 
   const [refresh, setRefresh] = useState(false);
   const forceRefresh = () => {
@@ -66,10 +78,10 @@ const DirItem = ({
     setFilename(file.fileName);
     setRenameInput(file.fileName);
     setFileIcon(
-      FILE_TYPE_STYLING_MANAGER[file.fileName.split(".").pop()]?.ICON
+      FILE_TYPE_ICON_MANAGER[file.fileName.split(".").pop()]?.ICON512
     );
     setFileTextColor(
-      FILE_TYPE_STYLING_MANAGER[file.fileName.split(".").pop()]?.LABEL_COLOR
+      FILE_TYPE_ICON_MANAGER[file.fileName.split(".").pop()]?.LABEL_COLOR
     );
     setDir(file.files);
     setExpanded(file.fileExpend);
@@ -178,11 +190,39 @@ const DirItem = ({
     forceRefresh();
   };
   const handleFolderOnRightClick = () => {
-    setOnRightClickItem(JSON.parse(JSON.stringify(file)));
+    if (onCopyFile !== null) {
+      setOnRightClickItem({
+        source: "vecoder_explorer/" + file.filePath,
+        condition: { paste: onCopyFile.fileName },
+        content: JSON.parse(JSON.stringify(file)),
+        target: "vecoder_explorer/" + file.filePath,
+      });
+    } else {
+      setOnRightClickItem({
+        source: "vecoder_explorer/" + file.filePath,
+        condition: { paste: false },
+        content: JSON.parse(JSON.stringify(file)),
+        target: "vecoder_explorer/" + file.filePath,
+      });
+    }
     setIsRightClicked(true);
   };
   const handleFileOnRightClick = () => {
-    setOnRightClickItem(JSON.parse(JSON.stringify(file)));
+    if (onCopyFile !== null) {
+      setOnRightClickItem({
+        source: "vecoder_explorer/" + file.filePath,
+        condition: { paste: onCopyFile.fileName },
+        content: JSON.parse(JSON.stringify(file)),
+        target: "vecoder_explorer/" + file.filePath,
+      });
+    } else {
+      setOnRightClickItem({
+        source: "vecoder_explorer/" + file.filePath,
+        condition: { paste: false },
+        content: JSON.parse(JSON.stringify(file)),
+        target: "vecoder_explorer/" + file.filePath,
+      });
+    }
     setIsRightClicked(true);
   };
   //SINGLE CLICK
@@ -252,9 +292,9 @@ const DirItem = ({
         }, 160);
       }
     }
-    if (event.key === "Escape") {
-      setOnCommand("delete");
-    }
+    // if (event.key === "Escape") {
+    //   setOnCommand("delete");
+    // }
   };
   const checkNameExist = (name) => {
     for (let i = 0; i < file.files.length; i++) {
@@ -307,7 +347,8 @@ const DirItem = ({
       setOnCommand("false");
       setRightClickCommand({
         command: "rename",
-        target_file: newFile,
+        content: null,
+        target: "vecoder_explorer/" + newFile.filePath,
       });
 
       //EXPAND FOLDER
@@ -317,13 +358,6 @@ const DirItem = ({
         setExplorerExpand(true);
       }
       setExpandIconClassName("dir_item_component_arrow_icon_down0725");
-
-      setTimeout(() => {
-        setChildrenOnClicked(true);
-      }, 20);
-      setTimeout(() => {
-        setChildrenOnClicked(false);
-      }, 40);
       sortFiles();
     }
   }, [onCommand]);
@@ -361,7 +395,8 @@ const DirItem = ({
       setOnCommand("false");
       setRightClickCommand({
         command: "rename",
-        target_file: newFolder,
+        content: null,
+        target: "vecoder_explorer/" + newFolder.filePath,
       });
       setExpanded(true);
       file.expanded = true;
@@ -369,13 +404,6 @@ const DirItem = ({
         setExplorerExpand(true);
       }
       setExpandIconClassName("dir_item_component_arrow_icon_down0725");
-
-      setTimeout(() => {
-        setChildrenOnClicked(true);
-      }, 20);
-      setTimeout(() => {
-        setChildrenOnClicked(false);
-      }, 40);
       sortFiles();
     }
   }, [onCommand]);
@@ -429,43 +457,34 @@ const DirItem = ({
   //PASTE
   useEffect(() => {
     if (onCommand === "paste") {
-      if (copyFile !== null) {
-        const pasteFile = JSON.parse(JSON.stringify(copyFile));
+      const pasteFile = JSON.parse(JSON.stringify(onCopyFile));
+
+      if (!checkNameExist(pasteFile.fileName)) {
         pasteFile.expanded = false;
         setOnSingleClickFile(pasteFile);
 
-        if (!checkNameExist(pasteFile.fileName)) {
-          const pasteFileIndex = pasteFile.filePath.split("/").length - 1;
-          addPathNameAllChildren(pasteFile, file.filePath, pasteFileIndex);
+        const pasteFileIndex = pasteFile.filePath.split("/").length - 1;
+        addPathNameAllChildren(pasteFile, file.filePath, pasteFileIndex);
 
-          const path = pasteFile.filePath.split("/");
-          const add_path = file.filePath.split("/");
-          let combinedPath = add_path.concat(path.slice(pasteFileIndex));
-          pasteFile.filePath = combinedPath.join("/");
+        const path = pasteFile.filePath.split("/");
+        const add_path = file.filePath.split("/");
+        let combinedPath = add_path.concat(path.slice(pasteFileIndex));
+        pasteFile.filePath = combinedPath.join("/");
 
-          file.files.push(pasteFile);
+        file.files.push(pasteFile);
 
-          //EXPAND FOLDER
-          setExpanded(true);
-          file.expanded = true;
-          if (setExplorerExpand) {
-            setExplorerExpand(true);
-          }
-          setExpandIconClassName("dir_item_component_arrow_icon_down0725");
-          sortFiles();
-        } else {
-          alert("File name already exist");
+        //EXPAND FOLDER
+        setExpanded(true);
+        file.expanded = true;
+        if (setExplorerExpand) {
+          setExplorerExpand(true);
         }
-
-        setTimeout(() => {
-          setChildrenOnClicked(true);
-        }, 20);
-        setTimeout(() => {
-          setChildrenOnClicked(false);
-        }, 40);
-
-        setOnCommand("false");
+        setExpandIconClassName("dir_item_component_arrow_icon_down0725");
+        sortFiles();
+      } else {
+        alert("File name already exist");
       }
+      setOnCommand("false");
     }
   }, [onCommand]);
   const addPathNameAllChildren = (file, addPath, copyFileIndex) => {
@@ -479,26 +498,43 @@ const DirItem = ({
       addPathNameAllChildren(file.files[i], addPath, copyFileIndex);
     }
   };
+  //COPY
+  useEffect(() => {
+    if (onCommand === "copy") {
+      setOnCopyFile(JSON.parse(JSON.stringify(file)));
+      setOnCommand("false");
+    }
+  }, [onCommand]);
+
   //RIGHT CLICK COMMAND MAIN
   useEffect(() => {
-    if (rightClickCommand !== undefined && rightClickCommand !== null) {
-      if (rightClickCommand.target_file.filePath === file.filePath) {
-        //console.log(rightClickCommand.command + " " + file.fileName);
-        if (rightClickCommand.command === "rename") {
+    if (
+      rightClickCommand &&
+      rightClickCommand.target === "vecoder_explorer/" + file.filePath
+    ) {
+      switch (rightClickCommand.command) {
+        case "rename":
           setOnCommand("rename");
-        } else if (rightClickCommand.command === "newFile") {
+          break;
+        case "newFile":
           setOnCommand("newFile");
-        } else if (rightClickCommand.command === "newFolder") {
+          break;
+        case "newFolder":
           setOnCommand("newFolder");
-        } else if (rightClickCommand.command === "delete") {
+          break;
+        case "delete":
           setOnCommand("delete");
-        } else if (rightClickCommand.command === "paste") {
+          break;
+        case "paste":
           setOnCommand("paste");
-        }
-        setRightClickCommand(null);
-      } else {
-        setOnCommand("false");
+          break;
+        case "copy":
+          setOnCommand("copy");
+          break;
+        default:
+          break;
       }
+      setRightClickCommand(null);
     }
   }, [rightClickCommand]);
 
@@ -508,32 +544,26 @@ const DirItem = ({
         href="https://fonts.googleapis.com/css?family=Roboto"
         rel="stylesheet"
       ></link>
+      {/* Dir Item ----------------------------------------------------------------------------------------- */}
       {file.fileType === "folder" ? (
         /*If file type is folder -> style as folder*/
         <div>
           {file.files.length !== 0 ? (
             /*If file has children -> style as expendable folder*/
             <div>
-              {onCommand !== "false" ? (
-                /*If file on command*/
-                <div>
-                  {onCommand === "rename" ? (
-                    /*If file on command is rename -> display rename input box*/
-                    <input
-                      type="text"
-                      value={renameInput}
-                      className={inputBoxClassName}
-                      onChange={handleRenameInputOnChange}
-                      onKeyDown={handleRenameInputOnKeyDown}
-                      ref={inputRef}
-                      style={{
-                        width: `calc(100% - ${10.7}pt)`,
-                      }}
-                    />
-                  ) : (
-                    <div></div>
-                  )}
-                </div>
+              {onCommand === "rename" ? (
+                /*If file on command is rename -> display rename input box*/
+                <input
+                  type="text"
+                  value={renameInput}
+                  className={inputBoxClassName}
+                  onChange={handleRenameInputOnChange}
+                  onKeyDown={handleRenameInputOnKeyDown}
+                  ref={inputRef}
+                  style={{
+                    width: `calc(100% - ${10}pt)`,
+                  }}
+                />
               ) : (
                 /* SPAN If file not on command -> diplay folder name and expand arrow button>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
                 <span
@@ -543,15 +573,16 @@ const DirItem = ({
                   style={
                     onRightClickItem !== null &&
                     isRightClicked &&
-                    onRightClickItem.fileName === file.fileName
+                    onRightClickItem.content?.fileName === file.fileName
                       ? {
                           backgroundColor: "#2a2d2e",
+                          borderRadius: "3pt",
                         }
                       : {}
                   }
                 >
                   <img
-                    src={arrow_icon}
+                    src={SYSTEM_ICON_MANAGER.arrow.ICON512}
                     className={expandIconClassName}
                     onClick={handleExpandIconOnClick}
                     loading="lazy"
@@ -563,23 +594,16 @@ const DirItem = ({
           ) : (
             /*If file doesn't has children -> style as unexpendable folder*/
             <div>
-              {onCommand !== "false" ? (
-                /*If file on command*/
-                <div>
-                  {onCommand === "rename" ? (
-                    /*If file on command is rename -> display rename input box*/
-                    <input
-                      type="text"
-                      value={renameInput}
-                      className={inputBoxClassName}
-                      onChange={handleRenameInputOnChange}
-                      onKeyDown={handleRenameInputOnKeyDown}
-                      ref={inputRef}
-                    />
-                  ) : (
-                    <div></div>
-                  )}
-                </div>
+              {onCommand === "rename" ? (
+                /*If file on command is rename -> display rename input box*/
+                <input
+                  type="text"
+                  value={renameInput}
+                  className={inputBoxClassName}
+                  onChange={handleRenameInputOnChange}
+                  onKeyDown={handleRenameInputOnKeyDown}
+                  ref={inputRef}
+                />
               ) : (
                 /* SPAN If file not on command -> diplay folder name and expand arrow button>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
                 <span
@@ -589,15 +613,16 @@ const DirItem = ({
                   style={
                     onRightClickItem !== null &&
                     isRightClicked &&
-                    onRightClickItem.fileName === file.fileName
+                    onRightClickItem.content?.fileName === file.fileName
                       ? {
                           backgroundColor: "#2a2d2e",
+                          borderRadius: "3pt",
                         }
                       : {}
                   }
                 >
                   <img
-                    src={arrow_icon}
+                    src={SYSTEM_ICON_MANAGER.arrow.ICON512}
                     className="dir_item_component_unexpendable_arrow_icon_right0826"
                     loading="lazy"
                   />
@@ -610,24 +635,18 @@ const DirItem = ({
       ) : (
         /*If file type is not folder -> style as file*/
         <div>
-          {onCommand !== "false" ? (
-            <div>
-              {onCommand === "rename" ? (
-                <input
-                  type="text"
-                  value={renameInput}
-                  className={inputBoxClassName}
-                  onChange={handleRenameInputOnChange}
-                  onKeyDown={handleRenameInputOnKeyDown}
-                  ref={inputRef}
-                  style={{
-                    width: `calc(100% - ${10.7}pt)`,
-                  }}
-                />
-              ) : (
-                <div></div>
-              )}
-            </div>
+          {onCommand === "rename" ? (
+            <input
+              type="text"
+              value={renameInput}
+              className={inputBoxClassName}
+              onChange={handleRenameInputOnChange}
+              onKeyDown={handleRenameInputOnKeyDown}
+              ref={inputRef}
+              style={{
+                width: `calc(100% - ${10}pt)`,
+              }}
+            />
           ) : (
             /* SPAN file>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
             <span
@@ -643,18 +662,20 @@ const DirItem = ({
                         "s",
                       ...(onRightClickItem !== null &&
                       isRightClicked &&
-                      onRightClickItem.fileName === file.fileName
+                      onRightClickItem.content?.fileName === file.fileName
                         ? {
                             backgroundColor: "#2a2d2e",
+                            borderRadius: "3pt",
                           }
                         : {}),
                     }
                   : {
                       ...(onRightClickItem !== null &&
                       isRightClicked &&
-                      onRightClickItem.fileName === file.fileName
+                      onRightClickItem.content?.fileName === file.fileName
                         ? {
                             backgroundColor: "#2a2d2e",
+                            borderRadius: "3pt",
                           }
                         : {}),
                     }
@@ -676,6 +697,9 @@ const DirItem = ({
           )}
         </div>
       )}
+      {/* Dir Item ----------------------------------------------------------------------------------------- */}
+
+      {/* SubFile List -------------------------------------------------------------------------------------------- */}
       {file.files.length !== 0 && expanded ? (
         /*If file has children -> Including the children file list*/
         <div ref={DirListRef} style={{ height: "fit-content" }}>
@@ -693,10 +717,11 @@ const DirItem = ({
                   parentSortFiles={sortFiles}
                   parentDeleteFile={deleteFile}
                   parentCheckNameExist={checkNameExist}
-                  copyFile={copyFile}
                   onSingleClickFile={onSingleClickFile}
                   setOnSingleClickFile={setOnSingleClickFile}
                   parentForceRefresh={forceRefresh}
+                  onCopyFile={onCopyFile}
+                  setOnCopyFile={setOnCopyFile}
                 />
               </li>
             ))}
@@ -706,6 +731,8 @@ const DirItem = ({
         /*If file doesn't have children -> Leave empty*/
         <div style={unexpendAnimation}></div>
       )}
+      {/* SubFile List -------------------------------------------------------------------------------------------- */}
+
       <style>
         {`
           @keyframes dir_item_component_dir_list_unexpend_animation {
