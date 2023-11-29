@@ -13,8 +13,9 @@ backend_service/code_service/node_modules/**/*
 */node_modules/*
 **/node_modules/*
 
-backend_services/file_services/.env
 backend_services/code_services/.env
 
 backend_services/code_services/models
+
+.venv
 

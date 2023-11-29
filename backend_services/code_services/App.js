@@ -6,6 +6,7 @@ const { doc } = require("prettier");
 require("dotenv").config();
 
 const openAIController = require("./CONTROLLERs/openAIController");
+const ASTController = require("./CONTROLLERs/ASTController");
 
 const app = express();
 const PORT = process.env.BACKEND_CODE_SERVICES_PORT;
@@ -24,6 +25,7 @@ app.use(express.json());
 app.use(cors(cors_options));
 
 app.use("/openAI", openAIController);
+app.use("/AST", ASTController);
 
 http.createServer(app).listen(PORT, () => {
   console.log("[SERVER RUNNING ON " + PORT + "]");

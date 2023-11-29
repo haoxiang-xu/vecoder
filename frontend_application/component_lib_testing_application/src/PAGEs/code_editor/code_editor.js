@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import CodeEditor from "../../COMPONENTs/codeEditor/codeEditor";
 import RightClickContextMenu from "../../COMPONENTs/rightClickContextMenu/rightClickContextMenu";
-import axios from "axios";
-
 const CodeEditorPage = () => {
   let raw_files = [
     {
       fileName: "code_editor.js",
+      fileLanguage: "javascript",
       fileContent: `
 import React, { useState, useEffect, useRef } from "react";
 import MonacoEditor from "@monaco-editor/react";
@@ -184,6 +183,7 @@ export default CodeEditor;
     },
     {
       fileName: "code_editor.css",
+      fileLanguage: "css",
       fileContent: `#code_editor_container0829 {
         /*POSITION*/
         width: 500pt;
@@ -610,6 +610,77 @@ export default CodeEditor;
     },
     {
       fileName: "main.py",
+      fileLanguage: "python",
+      fileContent: `import random
+
+      def get_compliment(color):
+          """Return a compliment based on the color."""
+          compliments = {
+              "red": ["You have fiery taste!", "A passionate choice!"],
+              "blue": ["You're cooler than a blue moon!", "Such a calming choice!"],
+              "green": ["You must love nature!", "A very earthy choice!"],
+              "yellow": ["Sunshine suits you!", "A bright and cheerful choice!"],
+              "purple": ["A royal choice indeed!", "Mysterious and deep!"],
+          }
+          
+          # Get a random compliment for the given color, or a default one.
+          return random.choice(compliments.get(color, ["That's a unique choice!"]))
+      
+      def main():
+          print("Hello! Let's talk about colors!")
+          
+          # Infinite loop until the user wants to exit.
+          while True:
+              color = input("What's your favorite color? (type 'exit' to quit) ").lower()
+              
+              if color == "exit":
+                  print("Goodbye!")
+                  break
+              
+              print(get_compliment(color))
+      
+      if __name__ == "__main__":
+          main()
+      `,
+    },
+    {
+      fileName: "main.py",
+      fileLanguage: "python",
+      fileContent: `import random
+
+      def get_compliment(color):
+          """Return a compliment based on the color."""
+          compliments = {
+              "red": ["You have fiery taste!", "A passionate choice!"],
+              "blue": ["You're cooler than a blue moon!", "Such a calming choice!"],
+              "green": ["You must love nature!", "A very earthy choice!"],
+              "yellow": ["Sunshine suits you!", "A bright and cheerful choice!"],
+              "purple": ["A royal choice indeed!", "Mysterious and deep!"],
+          }
+          
+          # Get a random compliment for the given color, or a default one.
+          return random.choice(compliments.get(color, ["That's a unique choice!"]))
+      
+      def main():
+          print("Hello! Let's talk about colors!")
+          
+          # Infinite loop until the user wants to exit.
+          while True:
+              color = input("What's your favorite color? (type 'exit' to quit) ").lower()
+              
+              if color == "exit":
+                  print("Goodbye!")
+                  break
+              
+              print(get_compliment(color))
+      
+      if __name__ == "__main__":
+          main()
+      `,
+    },
+    {
+      fileName: "main.py",
+      fileLanguage: "python",
       fileContent: `import random
 
       def get_compliment(color):

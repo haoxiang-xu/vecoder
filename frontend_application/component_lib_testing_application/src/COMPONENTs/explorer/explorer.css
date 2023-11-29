@@ -1,41 +1,14 @@
 #dir_list_component_container0725 {
-  transition: all 0.32s ease;
+  transition: all 0.04s ease;
 
   /*POSITION*/
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 0%;
+  left: 0%;
   right: 0pt;
-  transform: translate(0%, -50%);
-  margin: 0pt 64pt 0pt 38pt;
-  padding: 8pt 2.5pt 8pt 8pt;
-
-  /*SIZE*/
-  height: wrap-content;
-  max-height: 100%;
-  box-sizing: border-box;
-
-  /*STYLE*/
-  overflow-y: scroll;
-  overflow-x: hidden;
-  background-color: #1e1e1e;
-  border-radius: 8pt;
-  box-shadow: 0px 4px 16px 8px rgba(0, 0, 0, 0.2);
-
-  animation-timing-function: linear;
-  animation: dir_list_component_container_appear_animation 1.6s;
-}
-#dir_list_component_container_expanded0725 {
-  transition: all 0.32s ease;
-
-  /*POSITION*/
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  right: 0pt;
-  transform: translate(0%, -50%);
-  margin: 0pt 64pt 0pt 38pt;
-  padding: 8pt 2.5pt 8pt 8pt;
+  transform: translate(0%, 0%);
+  margin: 0pt 0pt 0pt 0pt;
+  padding: 0pt 0pt 0pt 0pt;
 
   /*SIZE*/
   height: wrap-content;
@@ -46,24 +19,8 @@
   overflow-y: scroll;
   overflow-x: hidden;
 
-  border-radius: 8pt;
-
   animation-timing-function: linear;
   animation: dir_list_component_container_appear_animation 1.6s;
-}
-@keyframes dir_list_component_container_appear_animation {
-  0% {
-    margin: 0pt 64pt 0pt 32pt;
-    opacity: 0;
-  }
-  80% {
-    margin: 0pt 64pt 0pt 32pt;
-    opacity: 0;
-  }
-  100% {
-    margin: 0pt 64pt 0pt 38pt;
-    opacity: 1;
-  }
 }
 #dir_list_component_container_hided0725 {
   /*POSITION*/
@@ -114,15 +71,15 @@
   border-radius: 4pt;
 }
 #dir_list_component_container_expanded0725::-webkit-scrollbar {
-  width: 6pt;
+  width: 4pt;
 }
 #dir_list_component_container_expanded0725::-webkit-scrollbar-track {
   background: transparent;
-  border-radius: 4pt;
+  border-radius: 2pt;
 }
 #dir_list_component_container_expanded0725::-webkit-scrollbar-thumb {
   background: #2f3133;
-  border-radius: 4pt;
+  border-radius: 2pt;
 }
 #dir_list_component_container_expanded0725::-webkit-scrollbar-thumb:hover {
   background: #494d53;

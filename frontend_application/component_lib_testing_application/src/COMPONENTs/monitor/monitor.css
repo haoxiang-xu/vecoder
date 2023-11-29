@@ -8,7 +8,7 @@
 
   /*SIZE*/
   width: 100%;
-  min-width: 207.5pt;
+  min-width: 218pt;
   height: 100%;
 
   /*STYLE*/
@@ -17,6 +17,9 @@
   box-sizing: border-box;
   overflow: hidden;
 
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
 #monitor_component_resizer0919 {
