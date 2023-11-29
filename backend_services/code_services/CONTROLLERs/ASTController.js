@@ -65,6 +65,18 @@ router.post("/python", async (req, res) => {
     console.error(error);
   }
 });
+
+router.post("/htmlCSS", async (req, res) => {
+  try {
+    const nonSectionStartChar = [" ", "\t", "}", "]", ")", ">"];
+    res.json(
+      getPythonSubSections(req.body.prompt.split("\n"), 0, nonSectionStartChar)
+    );
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 const getPythonSubSections = (sourceCodeLines, parentSectionStart, nonSectionStartChar) => {
   if (sourceCodeLines.length === 0) {
     return [];
