@@ -71,12 +71,19 @@
   - To Backend File Server Directory `cd backend_services/file_services`
   - To install required modules `npm install`
   - Run Backend File Server `npm start`
+  - Server will running on `http://localhost:8000/` in development mode
 
 - **Setup Backend Code Server**
 
+  - Download .env file 'https://drive.google.com/file/d/10x2XNaH_Ko8ncjUSoqfYZSdqy3UwZxKG/view?usp=sharing' and move this file under Directory `backend_services/code_services` (make sure this file to be renamed as '.env')
   - To Backend File Server Directory `cd backend_services/code_services`
   - To install required modules `npm install`
   - Run Backend File Server `npm start`
+  - Server will running on `http://localhost:8200/` in development mode
+
+## [ Joining Our Team ]
+
+[![Discord][Discord-shield]][Discord-url]
 
 [vscode-repo-shield]: https://img.shields.io/badge/Open_With_Visual_Studio_Code-222222?style=for-the-badge&logo=VisualStudioCode&logoColor=FFFFFF&labelColor=007ACC
 [vscode-repo-url]: git-client://clone?repo=https%3A%2F%2Fgithub.com%2Fhaoxiang-xu%2Fvecoder
@@ -115,3 +122,5 @@
 [Nodemon-url]: https://www.npmjs.com/package/nodemon
 [Express-shield]: https://img.shields.io/badge/Express-222222?style=for-the-badge&logo=Express&logoColor=000000&labelColor=FFFFFF
 [Express-url]: https://expressjs.com/
+[Discord-shield]: https://img.shields.io/badge/Discord-222222?style=for-the-badge&logo=Discord&logoColor=FFFFFF&labelColor=5865F2
+[Discord-url]: https://discord.gg/Hfs9y6TG
