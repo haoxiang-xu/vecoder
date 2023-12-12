@@ -186,7 +186,7 @@
   /*POSITION*/
   display: flex;
   position: relative;
-  left: 7pt;
+  left: 0pt;
 
   /*FONT*/
   font-size: 11pt;
@@ -196,8 +196,8 @@
   color: #cccccc;
 
   /*SIZE*/
-  padding: 2pt 5pt 2pt 5pt;
-  margin: 2pt 0pt 2pt 0pt;
+  /*padding: 2pt 5pt 2pt 5pt;*/
+  /*margin: 2pt 0pt 2pt 0pt;*/
 
   /*STYLE*/
   background-color: #2a2d2e;
@@ -227,8 +227,6 @@
   color: #cccccc;
 
   /*SIZE*/
-  padding: 2pt 5pt 2pt 5pt;
-  margin: 2pt 0pt 2pt 0pt;
 
   /*STYLE*/
   background-color: #2a2d2e;
