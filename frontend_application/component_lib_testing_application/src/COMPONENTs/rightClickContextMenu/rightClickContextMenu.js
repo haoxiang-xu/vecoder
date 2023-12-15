@@ -28,6 +28,7 @@ const RightClickContextMenu = ({
   const [menuStyle, setMenuStyle] = useState(
     "rightClickContextMenu_component_container0802"
   );
+  const [onHoverContextItemIndex, setOnHoverContextItemIndex] = useState(null);
   const [position, setPosition] = useState({ top: y, left: x });
   const setMenuPosition = (transitionTime) => {
     if (menuRef.current) {
@@ -65,6 +66,7 @@ const RightClickContextMenu = ({
     }
   };
   useEffect(() => {
+    setOnHoverContextItemIndex(null)
     setMenuPosition(0.0);
     const timeoutId = setTimeout(() => setMenuPosition(0.08), 80);
     return () => clearTimeout(timeoutId);
@@ -80,6 +82,8 @@ const RightClickContextMenu = ({
           item_function={"paste"}
           onRightClickItem={onRightClickItem}
           progressRightClickCommand={progressRightClickCommand}
+          onHoverContextItemIndex={onHoverContextItemIndex}
+          setOnHoverContextItemIndex={setOnHoverContextItemIndex}
         />
       ) : (
         <ContextItem
@@ -87,6 +91,8 @@ const RightClickContextMenu = ({
           item_function={"unpaste"}
           onRightClickItem={onRightClickItem}
           progressRightClickCommand={progressRightClickCommand}
+          onHoverContextItemIndex={onHoverContextItemIndex}
+          setOnHoverContextItemIndex={setOnHoverContextItemIndex}
         />
       );
       contextItems = [
@@ -95,48 +101,64 @@ const RightClickContextMenu = ({
           item_function={"continue"}
           onRightClickItem={onRightClickItem}
           progressRightClickCommand={progressRightClickCommand}
+          onHoverContextItemIndex={onHoverContextItemIndex}
+          setOnHoverContextItemIndex={setOnHoverContextItemIndex}
         />,
         <ContextItem
           key={"fix"}
           item_function={"fix"}
           onRightClickItem={onRightClickItem}
           progressRightClickCommand={progressRightClickCommand}
+          onHoverContextItemIndex={onHoverContextItemIndex}
+          setOnHoverContextItemIndex={setOnHoverContextItemIndex}
         />,
         <ContextItem
           key={"customizeAPI"}
           item_function={"customizeAPI"}
           onRightClickItem={onRightClickItem}
           progressRightClickCommand={progressRightClickCommand}
+          onHoverContextItemIndex={onHoverContextItemIndex}
+          setOnHoverContextItemIndex={setOnHoverContextItemIndex}
         />,
         <ContextItem
           key={"hr1"}
           item_function={"hr"}
           onRightClickItem={onRightClickItem}
           progressRightClickCommand={progressRightClickCommand}
+          onHoverContextItemIndex={onHoverContextItemIndex}
+          setOnHoverContextItemIndex={setOnHoverContextItemIndex}
         />,
         <ContextItem
           key={"updateAST"}
           item_function={"updateAST"}
           onRightClickItem={onRightClickItem}
           progressRightClickCommand={progressRightClickCommand}
+          onHoverContextItemIndex={onHoverContextItemIndex}
+          setOnHoverContextItemIndex={setOnHoverContextItemIndex}
         />,
         <ContextItem
           key={"viewAST"}
           item_function={"viewAST"}
           onRightClickItem={onRightClickItem}
           progressRightClickCommand={progressRightClickCommand}
+          onHoverContextItemIndex={onHoverContextItemIndex}
+          setOnHoverContextItemIndex={setOnHoverContextItemIndex}
         />,
         <ContextItem
           key={"hr2"}
           item_function={"hr"}
           onRightClickItem={onRightClickItem}
           progressRightClickCommand={progressRightClickCommand}
+          onHoverContextItemIndex={onHoverContextItemIndex}
+          setOnHoverContextItemIndex={setOnHoverContextItemIndex}
         />,
         <ContextItem
           key={"copy"}
           item_function={"copy"}
           onRightClickItem={onRightClickItem}
           progressRightClickCommand={progressRightClickCommand}
+          onHoverContextItemIndex={onHoverContextItemIndex}
+          setOnHoverContextItemIndex={setOnHoverContextItemIndex}
         />,
         pasteItem,
       ];
@@ -147,6 +169,8 @@ const RightClickContextMenu = ({
           item_function={"paste"}
           onRightClickItem={onRightClickItem}
           progressRightClickCommand={progressRightClickCommand}
+          onHoverContextItemIndex={onHoverContextItemIndex}
+          setOnHoverContextItemIndex={setOnHoverContextItemIndex}
         />
       ) : (
         <ContextItem
@@ -154,6 +178,8 @@ const RightClickContextMenu = ({
           item_function={"unpaste"}
           onRightClickItem={onRightClickItem}
           progressRightClickCommand={progressRightClickCommand}
+          onHoverContextItemIndex={onHoverContextItemIndex}
+          setOnHoverContextItemIndex={setOnHoverContextItemIndex}
         />
       );
       if (
@@ -170,30 +196,40 @@ const RightClickContextMenu = ({
               item_function={"newFile"}
               onRightClickItem={onRightClickItem}
               progressRightClickCommand={progressRightClickCommand}
+              onHoverContextItemIndex={onHoverContextItemIndex}
+              setOnHoverContextItemIndex={setOnHoverContextItemIndex}
             />,
             <ContextItem
               key={"newFolder"}
               item_function={"newFolder"}
               onRightClickItem={onRightClickItem}
               progressRightClickCommand={progressRightClickCommand}
+              onHoverContextItemIndex={onHoverContextItemIndex}
+              setOnHoverContextItemIndex={setOnHoverContextItemIndex}
             />,
             <ContextItem
               key={"insertFile"}
               item_function={"insertFile"}
               onRightClickItem={onRightClickItem}
               progressRightClickCommand={progressRightClickCommand}
+              onHoverContextItemIndex={onHoverContextItemIndex}
+              setOnHoverContextItemIndex={setOnHoverContextItemIndex}
             />,
             <ContextItem
               key={"hr1"}
               item_function={"hr"}
               onRightClickItem={onRightClickItem}
               progressRightClickCommand={progressRightClickCommand}
+              onHoverContextItemIndex={onHoverContextItemIndex}
+              setOnHoverContextItemIndex={setOnHoverContextItemIndex}
             />,
             <ContextItem
               key={"unpaste"}
               item_function={"unpaste"}
               onRightClickItem={onRightClickItem}
               progressRightClickCommand={progressRightClickCommand}
+              onHoverContextItemIndex={onHoverContextItemIndex}
+              setOnHoverContextItemIndex={setOnHoverContextItemIndex}
             />,
           ];
         } else {
@@ -203,30 +239,40 @@ const RightClickContextMenu = ({
               item_function={"newFile"}
               onRightClickItem={onRightClickItem}
               progressRightClickCommand={progressRightClickCommand}
+              onHoverContextItemIndex={onHoverContextItemIndex}
+              setOnHoverContextItemIndex={setOnHoverContextItemIndex}
             />,
             <ContextItem
               key={"newFolder"}
               item_function={"newFolder"}
               onRightClickItem={onRightClickItem}
               progressRightClickCommand={progressRightClickCommand}
+              onHoverContextItemIndex={onHoverContextItemIndex}
+              setOnHoverContextItemIndex={setOnHoverContextItemIndex}
             />,
             <ContextItem
               key={"insertFile"}
               item_function={"insertFile"}
               onRightClickItem={onRightClickItem}
               progressRightClickCommand={progressRightClickCommand}
+              onHoverContextItemIndex={onHoverContextItemIndex}
+              setOnHoverContextItemIndex={setOnHoverContextItemIndex}
             />,
             <ContextItem
               key={"hr1"}
               item_function={"hr"}
               onRightClickItem={onRightClickItem}
               progressRightClickCommand={progressRightClickCommand}
+              onHoverContextItemIndex={onHoverContextItemIndex}
+              setOnHoverContextItemIndex={setOnHoverContextItemIndex}
             />,
             <ContextItem
               key={"copy"}
               item_function={"copy"}
               onRightClickItem={onRightClickItem}
               progressRightClickCommand={progressRightClickCommand}
+              onHoverContextItemIndex={onHoverContextItemIndex}
+              setOnHoverContextItemIndex={setOnHoverContextItemIndex}
             />,
             pasteItem,
             <ContextItem
@@ -234,18 +280,24 @@ const RightClickContextMenu = ({
               item_function={"hr"}
               onRightClickItem={onRightClickItem}
               progressRightClickCommand={progressRightClickCommand}
+              onHoverContextItemIndex={onHoverContextItemIndex}
+              setOnHoverContextItemIndex={setOnHoverContextItemIndex}
             />,
             <ContextItem
               key={"rename"}
               item_function={"rename"}
               onRightClickItem={onRightClickItem}
               progressRightClickCommand={progressRightClickCommand}
+              onHoverContextItemIndex={onHoverContextItemIndex}
+              setOnHoverContextItemIndex={setOnHoverContextItemIndex}
             />,
             <ContextItem
               key={"delete"}
               item_function={"delete"}
               onRightClickItem={onRightClickItem}
               progressRightClickCommand={progressRightClickCommand}
+              onHoverContextItemIndex={onHoverContextItemIndex}
+              setOnHoverContextItemIndex={setOnHoverContextItemIndex}
             />,
           ];
         }
@@ -256,24 +308,32 @@ const RightClickContextMenu = ({
             item_function={"copy"}
             onRightClickItem={onRightClickItem}
             progressRightClickCommand={progressRightClickCommand}
+            onHoverContextItemIndex={onHoverContextItemIndex}
+            setOnHoverContextItemIndex={setOnHoverContextItemIndex}
           />,
           <ContextItem
             key={"hr1"}
             item_function={"hr"}
             onRightClickItem={onRightClickItem}
             progressRightClickCommand={progressRightClickCommand}
+            onHoverContextItemIndex={onHoverContextItemIndex}
+            setOnHoverContextItemIndex={setOnHoverContextItemIndex}
           />,
           <ContextItem
             key={"rename"}
             item_function={"rename"}
             onRightClickItem={onRightClickItem}
             progressRightClickCommand={progressRightClickCommand}
+            onHoverContextItemIndex={onHoverContextItemIndex}
+            setOnHoverContextItemIndex={setOnHoverContextItemIndex}
           />,
           <ContextItem
             key={"delete"}
             item_function={"delete"}
             onRightClickItem={onRightClickItem}
             progressRightClickCommand={progressRightClickCommand}
+            onHoverContextItemIndex={onHoverContextItemIndex}
+            setOnHoverContextItemIndex={setOnHoverContextItemIndex}
           />,
         ];
       }
