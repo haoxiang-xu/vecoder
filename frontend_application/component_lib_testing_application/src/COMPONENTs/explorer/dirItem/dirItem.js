@@ -85,7 +85,7 @@ const DirItem = ({
     );
     setDir(file.files);
     setExpanded(file.fileExpend);
-  }, [file]);
+  }, [file, file.fileName]);
 
   const DirListRef = useRef();
 
