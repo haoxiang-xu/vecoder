@@ -18,6 +18,9 @@
   /*STYLE*/
   border-radius: 4pt;
 
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 
   animation-timing-function: linear;
@@ -43,6 +46,9 @@
   /*STYLE*/
   border-radius: 2pt;
 
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 
   animation-timing-function: linear;
@@ -86,6 +92,9 @@
   border-radius: 4pt;
   box-shadow: 0px 4px 16px 8px rgba(0, 0, 0, 0.2);
 
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
 #contextItem_component_label0802 {
@@ -106,9 +115,7 @@
   position: relative;
   top: 2pt;
   left: 2pt;
-
-  /*SIZE*/
-  width: 52pt;
+  right: 4pt;
 
   /*FONT*/
   font-size: 10pt;
@@ -131,6 +138,8 @@
   top: 0pt;
   height: 15pt;
   width: 15pt;
+
+  pointer-events: none;
 }
 #contextItem_component_br0802 {
   border: 1pt solid #454545;
@@ -149,4 +158,79 @@
   /*STYLE*/
   background-position: center;
   background-size: cover;
+}
+#contextItem_component_more_options_icon1119 {
+  transition: all 0.08s ease;
+
+  /*POSITION*/
+  position: absolute;
+
+  /*SIZE*/
+  height: 9pt;
+  width: 10pt;
+}
+#contextItem_more_options_blur_loader1119 {
+  transition: all 0.08s ease;
+
+  /*POSITION*/
+  position: absolute;
+
+  /*SIZE*/
+  right: 5pt;
+  top: 9pt;
+  height: 9pt;
+  width: 10pt;
+
+  opacity: 0.64;
+}
+.contextItem_component_url_request_input1119 {
+  /*POSITION*/
+  position: absolute;
+  top: 24pt;
+  left: 0pt;
+  width: 110pt;
+  height: 24pt;
+
+  /*FONT*/
+  font-size: 10pt;
+  font-family: "Roboto";
+  letter-spacing: 0pt;
+  white-space: nowrap;
+  color: #cccccc;
+
+  /*SIZE*/
+  margin: 0pt 0pt 0pt 0pt;
+  padding: 0pt 5pt 0pt 5pt;
+
+  /*STYLE*/
+  background-color: #2a2d2e;
+  border-radius: 3pt;
+  border: none;
+  outline: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.contextItem_component_save_request_icon1119 {
+  transition: all 0.08s ease;
+
+  /*POSITION*/
+  position: absolute;
+  top: 6pt;
+  right: -1pt;
+
+  padding: 6pt;
+  border-radius: 3pt;
+
+  /*SIZE*/
+  height: 13pt;
+  width: 13pt;
+}
+.contextItem_component_save_request_icon1119:hover {
+  transition: all 0.08s ease;
+  /*STYLE*/
+  background-color: #2a2d2e;
+  box-shadow: 0px 4px 16px 8px rgba(0, 0, 0, 0.2);
 }

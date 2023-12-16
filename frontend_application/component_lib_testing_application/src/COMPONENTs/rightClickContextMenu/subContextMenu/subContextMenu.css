@@ -1,0 +1,17 @@
+.subContextMenu_component_container1119 {
+  /*POSITION*/
+  position: fixed;
+  padding: 6pt;
+  z-index: 1;
+
+  /*SIZE*/
+  height: wrap-content;
+  max-height: 100%;
+  box-sizing: border-box;
+
+  /*STYLE*/
+  background-color: #1e1e1e;
+  border-radius: 8pt;
+  box-shadow: 0px 4px 16px 8px rgba(0, 0, 0, 0.24);
+  border: 2px solid #2a2d2e;
+}
