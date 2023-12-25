@@ -13,3 +13,15 @@ window.electron.receive("directory-data", (data) => {
     );
   }
 });
+
+document.getElementById("select-file").addEventListener("click", () => {
+  window.electron.send("open-file-dialog");
+});
+
+window.electron.receive("file-data", (data) => {
+  if (data.error) {
+    document.getElementById("file-contents").innerText = `Error: ${data.error}`;
+  } else {
+    document.getElementById("file-contents").innerText = data.content;
+  }
+});

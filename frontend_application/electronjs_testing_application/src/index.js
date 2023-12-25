@@ -19,7 +19,10 @@ const createWindow = () => {
   });
 
   // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname, "index.html"));
+  // mainWindow.loadFile(path.join(__dirname, "index.html"));
+
+  // load React App
+  mainWindow.loadURL('http://localhost:5000');
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
@@ -80,6 +83,7 @@ const readDir = async (dirPath) => {
     });
   });
 };
+
 ipcMain.on("open-directory-dialog", async (event) => {
   try {
     const result = await dialog.showOpenDialog({
@@ -93,5 +97,43 @@ ipcMain.on("open-directory-dialog", async (event) => {
     }
   } catch (err) {
     event.reply("directory-data", { error: err.message });
+  }
+});
+
+const readFile = async (filePath) => {
+  try {
+    const content = fs.readFileSync(filePath, "utf-8");
+    return content;
+  } catch (err) {
+    return err.message;
+  }
+};
+
+ipcMain.on("open-file-dialog", async (event) => {
+  try {
+    const result = await dialog.showOpenDialog({
+      properties: ["openFile"],
+      filters: [
+        {
+          name: "Text Files",
+          extensions: [
+            "js", "jsx", "ts", "tsx", "json",
+            "html", "css", "c", "cpp", "h",
+            "cs", "java", "py", "rb", "php",
+            "swift", "go", "rs", "lua", "sh",
+            "ps1", "md", "xml", "yml", "yaml",
+          ],
+        },
+        { name: "All Files", extensions: ["*"] },
+      ],
+    });
+
+    if (!result.canceled) {
+      const filePath = result.filePaths[0];
+      const content = await readFile(filePath);
+      event.reply("file-data", { content });
+    }
+  } catch (err) {
+    event.reply("file-data", { error: err.message });
   }
 });
