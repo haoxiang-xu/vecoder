@@ -1,0 +1,18 @@
+{
+  "name": "frontend_application",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "react-start": "cd component_lib_testing_application && npm start",
+    "electron-start": "cd electronjs_testing_application && npm start",
+    "start": "concurrently \"npm run react-start\" \"wait-on http://localhost:5000 && npm run electron-start\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "wait-on": "^7.2.0"
+  }
+}
