@@ -130,4 +130,21 @@ const getPythonSubSections = (sourceCodeLines, parentSectionStart, nonSectionSta
 
   return sections;
 };
+
+router.post("/javascript", async (req, res) => {
+  try {
+    // Parse the JavaScript code using esprima with ecmaVersion set to 2015 (ES6)
+    const ast = esprima.parseScript(req.body.prompt, { ecmaVersion: 2015 });
+
+    // Log the AST to the console
+    console.log(JSON.stringify(ast, null, 2));
+
+    // Continue with the rest of your logic (if needed)
+    res.json({
+      ast: ast,  // You can send the AST back in the response or process it further
+    });
+  } catch (error) {
+    console.error(error);
+  }
+});
 module.exports = router;
