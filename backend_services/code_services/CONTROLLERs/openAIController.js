@@ -25,6 +25,7 @@ router.post("/", async (req, res) => {
     res.json({ openAIControllerError: String(error) });
   }
 });
+
 router.post("/jsonTesting", async (req, res) => {
   try {
     const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -148,6 +149,71 @@ router.post("/analyze", async (req, res) => {
     res.json({ openAIControllerError: String(error) });
   }
 });
+//this function is written by smith chen
+router.post("/analyzeFileType", async (req, res) => {
+  try {
+    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+    const instruction =
+      " You will be provided with a piece of " +
+      " code, and your task is to get the type of files and short brief of file descriptions (50 - 100 words), in json format (format should be constant)." +
+      " For example: " +
+      " File name: xxx \n" +
+      " File type: xxx \n" +
+      " File short description: xxxxxx " +
+      " If no text or code is selected, then return nothing." +
+      " For example: " +
+      " File name: none \n"+
+      " File name: none \n" +
+      " File type: none \n";
+
+    const chatCompletion = await openai.chat.completions.create({
+      model: "gpt-4-1106-preview",
+      temperature: 0.2,
+      messages: [
+        { role: "system", content: instruction },
+        { role: "user", content: req.body.prompt },
+      ],
+      response_format: { type: "json_object" }
+    });
+
+    res.json({
+      data: chatCompletion.choices[0].message,
+    });
+  } catch (error) {
+    console.error(error);
+    res.json({ openAIControllerError: String(error) });
+  }
+});
+//this function is written by smith chen
+//之后要改instruction
+router.post("/analyzeFrameworkStructure", async (req, res) => {
+  try {
+    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+    const instruction =
+      " give me a React demo project framework structure " +
+      " where you list all the files in a json format" +
+      " and indentation is required between primary and secondary files."+
+      " Format and answers should be constant (No explanations, just list the structure)."+
+      " No prefixes like \"names:\" or \"types:\".  header should be \"' ' ' \n.\""
+
+    const chatCompletion = await openai.chat.completions.create({
+      model: "gpt-4-1106-preview",
+      temperature: 0,
+      messages: [
+        { role: "system", content: instruction },
+        { role: "user", content: req.body.prompt },
+      ],
+    });
+
+    res.json({
+      data: chatCompletion.choices[0].message,
+    });
+  } catch (error) {
+    console.error(error);
+    res.json({ openAIControllerError: String(error) });
+  }
+});
+//this function is written by smith chen
 router.post("/analyzeFilePathes", async (req, res) => {
   try {
     const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -157,7 +223,7 @@ router.post("/analyzeFilePathes", async (req, res) => {
       req.body.language +
       " code, and your task is to return a list for json variables, including belowing keys: " +
       " 1. Imported lib or object named " +
-      " 2.imported path" +
+      " 2. imported path" +
       " 3. object type for Imported lib or object " +
       " 4. Description.";
 
