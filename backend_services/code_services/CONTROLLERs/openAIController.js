@@ -237,9 +237,9 @@ router.post("/analyzeFileType", async (req, res) => {
       " File short description: xxxxxx " +
       " If no text or code is selected, then return nothing." +
       " For example: " +
-      " File name: none \n"+
-      " File name: none \n" +
-      " File type: none \n";
+      " File name: None \n"+
+      " File name: None \n" +
+      " File type: None \n";
 
     const chatCompletion = await openai.chat.completions.create({
       model: "gpt-4-1106-preview",
@@ -265,11 +265,11 @@ router.post("/analyzeFrameworkStructure", async (req, res) => {
   try {
     const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
     const instruction =
-      " give me a React demo project framework structure " +
+      " give me a demo project framework structure (default is React) " +
       " where you list all the files in a json format" +
       " and indentation is required between primary and secondary files."+
       " Format and answers should be constant (No explanations, just list the structure)."+
-      " No prefixes like \"names:\" or \"types:\".  header should be \"' ' ' \n.\""
+      " No prefixes like \"names:\" or \"types:\".";
 
     const chatCompletion = await openai.chat.completions.create({
       model: "gpt-4-1106-preview",

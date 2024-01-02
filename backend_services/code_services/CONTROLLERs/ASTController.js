@@ -1,5 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const htmlparser = require('htmlparser2');
+const postcss = require('postcss');
+const phpparser = require('php-parser');
+
 require("dotenv").config();
 
 
@@ -85,6 +89,115 @@ router.post("/python", async (req, res) => {
     console.error(error);
   }
 });
+function parseHTMLPromise(htmlString) {
+  return new Promise((resolve, reject) => {
+    const handler = new htmlparser.DomHandler((error, dom) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(dom);
+      }
+    });
+
+    const parser = new htmlparser.Parser(handler);
+    try {
+      console.log('htmlString:', htmlString);
+      parser.write(htmlString);
+      parser.end();
+    } catch (parserError) {
+      reject(parserError);
+    }
+  });
+}
+
+router.post("/html", async (req, res) => {
+  try {
+    // Assuming req.body.htmlContent is a string containing HTML code
+    const htmlAST = await parseHTMLPromise(req.body.htmlContent);
+
+    // Custom replacer function to handle potential circular references
+    const replacer = (key, value) => {
+      // Check for specific circular references and exclude them
+      if (key === 'next' || key === 'prev' || key === 'parent') {
+        return undefined;
+      }
+      return value;
+    };
+
+    // Convert AST to JSON string with custom replacer
+    const jsonString = JSON.stringify(htmlAST, replacer);
+
+    // Parse the JSON string back to an object for validation (optional)
+    const parsedObject = JSON.parse(jsonString);
+
+    res.json({
+      htmlAST: parsedObject,
+      // You can add more properties if needed
+    });
+  } catch (error) {
+    console.error('HTML 代码解析错误:', error);
+    res.status(500).json({ error: { message: 'Internal Server Error', details: error.message, stack: error.stack, }, }); 
+  }
+});
+
+router.post('/php', (req, res) => {
+  const { phpCode } = req.body;
+
+  if (!phpCode) {
+    return res.status(400).send('Missing PHP code in the request body');
+  }
+
+  const phpParser = new phpparser({
+    parser: {
+      debug: false,
+      locations: false,
+      extractDoc: false,
+      suppressErrors: false,
+    },
+    ast: {
+      withPositions: true,
+    },
+  });
+
+  try {
+    // 解析 PHP 代码并返回 AST
+    const ast = phpParser.parseCode(phpCode);
+
+    // 打印 AST
+    console.log(JSON.stringify(ast, null, 2));
+
+    // 返回 AST 作为 JSON 响应
+    res.json(ast);
+  } catch (error) {
+    console.error('PHP 代码解析错误:', error); // 输出更详细的错误信息 
+    res.status(500).json({ error: { message: 'Internal Server Error', details: error.message, stack: error.stack, }, });
+  }
+});
+
+function parseCSSPromise(cssString) {
+  return new Promise((resolve, reject) => {
+    postcss().process(cssString).then((result) => {
+      resolve(result.root);
+    }).catch((error) => {
+      reject(error);
+    });
+  });
+}
+router.post("/css", async (req, res) => {
+  try {
+    // Assuming req.body.cssContent is a string containing CSS code
+    const cssAST = await parseCSSPromise(req.body.cssContent);
+
+    res.json({
+      cssAST: cssAST,
+      // You can add more properties if needed
+    });
+  } catch (error) {
+    console.error('CSS 代码解析错误:', error); // 输出更详细的错误信息 
+    res.status(500).json({ error: { message: 'Internal Server Error', details: error.message, stack: error.stack, }, });
+  }
+});
+
 const getPythonSubSections = (sourceCodeLines, parentSectionStart, nonSectionStartChar) => {
   if (sourceCodeLines.length === 0) {
     return [];
