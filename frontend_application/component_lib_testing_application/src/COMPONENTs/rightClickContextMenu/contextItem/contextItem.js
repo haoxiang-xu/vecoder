@@ -9,6 +9,8 @@ const ContextItem = ({
   item_function,
   onRightClickItem,
   progressRightClickCommand,
+  onHoverContextItemIndex,
+  setOnHoverContextItemIndex,
 }) => {
   /* Load ICON manager -------------------------------- */
   let SYSTEM_ICON_MANAGER = {
@@ -137,6 +139,7 @@ const ContextItem = ({
       LABEL_COLOR: SYSTEM_ICON_MANAGER.customize.LABEL_COLOR,
       BACKGROUND_ICON: SYSTEM_ICON_MANAGER.customize.ICON16,
       MORE_OPTIONS: ["customizeRequest"],
+      SUB_MENU_WIDTH: 320,
       CLICKABLE: true,
     },
     sendRequest: {
@@ -176,8 +179,7 @@ const ContextItem = ({
     menuRef,
     contextItemContainerId,
     handleItemOnClick,
-    handleItemOnHover,
-    handleItemNotOnHover
+    handleItemOnHover
   ) => {
     switch (item_function) {
       case "hr":
@@ -206,7 +208,6 @@ const ContextItem = ({
               handleItemOnClick(e);
             }}
             onMouseEnter={handleItemOnHover}
-            onMouseLeave={handleItemNotOnHover}
           >
             {CONTEXT_MENU_FUNCTION_MANAGER[item_function].ICON !== undefined ? (
               /* Icon Loader ----------------------------------------------------------------- */
@@ -298,31 +299,31 @@ const ContextItem = ({
 
   /* Sub Context Menu ----------------------------------------------------------------- */
   const [subContextMenu, setSubContextMenu] = useState(null);
-  const [isMoreOptionOnHover, setIsMoreOptionOnHover] = useState(false);
   useEffect(() => {
-    if (isMoreOptionOnHover) {
+    if (onHoverContextItemIndex === item_function) {
       if (CONTEXT_MENU_FUNCTION_MANAGER[item_function].MORE_OPTIONS !== null) {
         setSubContextMenu(
           <SubContextMenu
             contextItemFunctions={
               CONTEXT_MENU_FUNCTION_MANAGER[item_function].MORE_OPTIONS
             }
+            subContextMenuWidth={
+              CONTEXT_MENU_FUNCTION_MANAGER[item_function].SUB_MENU_WIDTH
+            }
             x={menuRef.current.getBoundingClientRect().left + 192}
             y={menuRef.current.getBoundingClientRect().top - 9}
             onRightClickItem={onRightClickItem}
             progressRightClickCommand={progressRightClickCommand}
+            parentContextMenuWidth={menuRef.current.offsetWidth}
           />
         );
       }
     } else {
       setSubContextMenu(null);
     }
-  }, [isMoreOptionOnHover]);
+  }, [onHoverContextItemIndex]);
   const handleItemOnHover = () => {
-    setIsMoreOptionOnHover(true);
-  };
-  const handleItemNotOnHover = () => {
-    setIsMoreOptionOnHover(false);
+    setOnHoverContextItemIndex(item_function);
   };
   /* Sub Context Menu ----------------------------------------------------------------- */
   return (
@@ -337,8 +338,7 @@ const ContextItem = ({
         menuRef,
         contextItemContainerId,
         handleItemOnClick,
-        handleItemOnHover,
-        handleItemNotOnHover
+        handleItemOnHover
       )}
     </div>
   );
