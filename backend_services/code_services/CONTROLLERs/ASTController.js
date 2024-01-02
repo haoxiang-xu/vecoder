@@ -1,14 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const htmlparser = require('htmlparser2');
-const postcss = require('postcss');
-const phpparser = require('php-parser');
+const htmlparser = require("htmlparser2");
+const postcss = require("postcss");
+const phpparser = require("php-parser");
 
 require("dotenv").config();
 
-
 const OpenAI = require("openai");
-const esprima = require('esprima');
+const esprima = require("esprima");
 
 router.post("/", async (req, res) => {
   try {
@@ -61,7 +60,6 @@ router.post("/", async (req, res) => {
     res.json({ openAIControllerError: String(error) });
   }
 });
-
 router.post("/javascript", async (req, res) => {
   try {
     // Parse the JavaScript code using esprima with ecmaVersion set to 2015 (ES6)
@@ -72,13 +70,12 @@ router.post("/javascript", async (req, res) => {
 
     // Continue with the rest of your logic (if needed)
     res.json({
-      ast: ast,  // You can send the AST back in the response or process it further
+      ast: ast, // You can send the AST back in the response or process it further
     });
   } catch (error) {
     console.error(error);
   }
 });
-
 router.post("/python", async (req, res) => {
   try {
     const nonSectionStartChar = [" ", "\t", "}", "]", ")"];
@@ -101,7 +98,7 @@ function parseHTMLPromise(htmlString) {
 
     const parser = new htmlparser.Parser(handler);
     try {
-      console.log('htmlString:', htmlString);
+      console.log("htmlString:", htmlString);
       parser.write(htmlString);
       parser.end();
     } catch (parserError) {
@@ -109,16 +106,15 @@ function parseHTMLPromise(htmlString) {
     }
   });
 }
-
 router.post("/html", async (req, res) => {
   try {
     // Assuming req.body.htmlContent is a string containing HTML code
-    const htmlAST = await parseHTMLPromise(req.body.htmlContent);
+    const htmlAST = await parseHTMLPromise(req.body.prompt);
 
     // Custom replacer function to handle potential circular references
     const replacer = (key, value) => {
       // Check for specific circular references and exclude them
-      if (key === 'next' || key === 'prev' || key === 'parent') {
+      if (key === "next" || key === "prev" || key === "parent") {
         return undefined;
       }
       return value;
@@ -135,16 +131,21 @@ router.post("/html", async (req, res) => {
       // You can add more properties if needed
     });
   } catch (error) {
-    console.error('HTML 代码解析错误:', error);
-    res.status(500).json({ error: { message: 'Internal Server Error', details: error.message, stack: error.stack, }, }); 
+    console.error("HTML 代码解析错误:", error);
+    res.status(500).json({
+      error: {
+        message: "Internal Server Error",
+        details: error.message,
+        stack: error.stack,
+      },
+    });
   }
 });
-
-router.post('/php', (req, res) => {
+router.post("/php", (req, res) => {
   const { phpCode } = req.body;
 
   if (!phpCode) {
-    return res.status(400).send('Missing PHP code in the request body');
+    return res.status(400).send("Missing PHP code in the request body");
   }
 
   const phpParser = new phpparser({
@@ -169,36 +170,53 @@ router.post('/php', (req, res) => {
     // 返回 AST 作为 JSON 响应
     res.json(ast);
   } catch (error) {
-    console.error('PHP 代码解析错误:', error); // 输出更详细的错误信息 
-    res.status(500).json({ error: { message: 'Internal Server Error', details: error.message, stack: error.stack, }, });
+    console.error("PHP 代码解析错误:", error); // 输出更详细的错误信息
+    res.status(500).json({
+      error: {
+        message: "Internal Server Error",
+        details: error.message,
+        stack: error.stack,
+      },
+    });
   }
 });
-
 function parseCSSPromise(cssString) {
   return new Promise((resolve, reject) => {
-    postcss().process(cssString).then((result) => {
-      resolve(result.root);
-    }).catch((error) => {
-      reject(error);
-    });
+    postcss()
+      .process(cssString)
+      .then((result) => {
+        resolve(result.root);
+      })
+      .catch((error) => {
+        reject(error);
+      });
   });
 }
 router.post("/css", async (req, res) => {
   try {
     // Assuming req.body.cssContent is a string containing CSS code
-    const cssAST = await parseCSSPromise(req.body.cssContent);
+    const cssAST = await parseCSSPromise(req.body.prompt);
 
     res.json({
       cssAST: cssAST,
       // You can add more properties if needed
     });
   } catch (error) {
-    console.error('CSS 代码解析错误:', error); // 输出更详细的错误信息 
-    res.status(500).json({ error: { message: 'Internal Server Error', details: error.message, stack: error.stack, }, });
+    console.error("CSS 代码解析错误:", error); // 输出更详细的错误信息
+    res.status(500).json({
+      error: {
+        message: "Internal Server Error",
+        details: error.message,
+        stack: error.stack,
+      },
+    });
   }
 });
-
-const getPythonSubSections = (sourceCodeLines, parentSectionStart, nonSectionStartChar) => {
+const getPythonSubSections = (
+  sourceCodeLines,
+  parentSectionStart,
+  nonSectionStartChar
+) => {
   if (sourceCodeLines.length === 0) {
     return [];
   }
@@ -228,11 +246,7 @@ const getPythonSubSections = (sourceCodeLines, parentSectionStart, nonSectionSta
       }
     }
 
-    if (
-      newSectionStart &&
-      sourceCodeLines[i] !== "" &&
-      section.length !== 0
-    ) {
+    if (newSectionStart && sourceCodeLines[i] !== "" && section.length !== 0) {
       sections.push({
         sourceHeader: section[0],
         sourceCodeLines: section.slice(1),
