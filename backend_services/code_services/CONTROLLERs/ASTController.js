@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 require("dotenv").config();
 
+
 const OpenAI = require("openai");
+const esprima = require('esprima');
 
 router.post("/", async (req, res) => {
   try {
@@ -55,6 +57,24 @@ router.post("/", async (req, res) => {
     res.json({ openAIControllerError: String(error) });
   }
 });
+
+router.post("/javascript", async (req, res) => {
+  try {
+    // Parse the JavaScript code using esprima with ecmaVersion set to 2015 (ES6)
+    const ast = esprima.parseScript(req.body.prompt, { ecmaVersion: 2015 });
+
+    // Log the AST to the console
+    console.log(JSON.stringify(ast, null, 2));
+
+    // Continue with the rest of your logic (if needed)
+    res.json({
+      ast: ast,  // You can send the AST back in the response or process it further
+    });
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 router.post("/python", async (req, res) => {
   try {
     const nonSectionStartChar = [" ", "\t", "}", "]", ")"];
@@ -130,4 +150,5 @@ const getPythonSubSections = (sourceCodeLines, parentSectionStart, nonSectionSta
 
   return sections;
 };
+
 module.exports = router;
