@@ -1,37 +1,27 @@
 {
-  "name": "component_lib_testing_application",
+  "name": "search-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.5.1",
-    "@monaco-editor/react": "^4.6.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "axios": "^1.4.0",
-    "esprima": "^4.0.1",
-    "font-awesome": "^4.7.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-fontawesome": "^1.7.1",
-    "react-icons": "^4.12.0",
-    "react-monaco-editor": "^0.54.0",
-    "react-router-dom": "^6.15.0",
     "react-scripts": "5.0.1",
-    "react-spinners": "^0.13.8",
     "web-vitals": "^2.1.4"
   },
-  "main": "main.js",
   "scripts": {
-    "start": "set PORT=5000 && react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "electron": "electron ."
+    "eject": "react-scripts eject"
   },
-  "devDependencies": {
-    "electron": "^26.2.4",
-    "electron-builder": "^24.6.4"
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [

@@ -1,0 +1,68 @@
+/* searchBar.css */
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-left: 40px;
+  }
+  
+  .search-input-container {
+    position: relative;
+  }
+  
+  .search-input-container input {
+    width: 150px;
+    padding: 10px;
+    border-radius: 5px; /* 保留一些圆角 */
+    outline: none;
+    transition: width 0.3s ease-in-out;
+    background-color: rgb(78, 78, 78); 
+    border: none; /* 移除搜索框的边框 */
+  }
+  
+  .search-bar button {
+    cursor: pointer;
+    background-position: center;
+    background-color: transparent; /* 设置图标初始背景色为透明 */
+    width: 30px; /* 调整图标宽度 */
+    height: 30px; /* 调整图标高度 */
+    left: 140px;
+    top: 7px;
+    border: none; /* 移除图标的边框 */
+    color: #ccc;
+    font-size: 25px; /* 调整图标大小 */
+  }
+  
+  /* 点击图标时修改图标背景色 */
+  .search-bar button.active {
+    background-color: rgb(78, 78, 78);
+    border-radius: 5px; /* 将图标背景设置为正方形圆角 */
+    background-position: center;
+  }
+  
+  /* 鼠标悬停时修改图标背景色 */
+  .search-bar .search-icon-inside:hover {
+    background-color: rgb(107, 106, 106,0.8); /* 浅灰色 */
+    background-position: center;
+
+  }
+  
+  
+  .search-icon-outside {
+    position: relative;
+    right: 8px; /* 调整图标距离搜索框的右边距 */
+  }
+  
+  .search-icon-inside {
+    position: absolute;
+    right: 0; /* 调整图标距离搜索框的右边距 */
+    margin-left: -8px; /* 调整图标在搜索框中的位置 */
+    margin-top: 11px; /* 调整图标在搜索框中的位置 */
+    top: 50%;
+    border-radius: 5px;
+    transform: translateY(-50%);
+    background-position:center;
+
+  }
+
