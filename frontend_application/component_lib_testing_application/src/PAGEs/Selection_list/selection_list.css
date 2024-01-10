@@ -1,0 +1,37 @@
+.selection-list {
+    position: relative;
+    background: #1a1a1a;
+    border-radius: 8px;
+    width: 300px;
+}
+
+.file-selector {
+    background: #333;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 30px 10px 10px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+}
+
+.file-selector:focus {
+    outline: none;
+}
+
+.selection-list::after {
+    content: '▼';
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    color: #fff;
+    pointer-events: none;
+}
+
+.file-selector option {
+    background: #333;
+    color: #fff;
+}

@@ -4,6 +4,7 @@ import Home from "./PAGEs/home/home";
 import UploadFile from "./PAGEs/upload_file/uploadfile";
 import CodeEditorPage from "./PAGEs/code_editor/code_editor";
 import Window from "./PAGEs/window/window";
+import SelectionList from "./PAGEs/Selection_list/selection_list";
 
 import "./App.css";
 
@@ -15,6 +16,7 @@ function App() {
         <Route path="/upload" element={<UploadFile />} />
         <Route path="/codeeditor" element={<CodeEditorPage />} />
         <Route path="/window" element={<Window />} />
+        <Route path="/list" element={<SelectionList />} />
       </Routes>
     </Router>
   );
