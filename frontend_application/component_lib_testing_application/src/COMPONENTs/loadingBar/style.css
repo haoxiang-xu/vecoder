@@ -1,0 +1,40 @@
+body{
+    margin: 0px;
+    background: #1e1e1e;
+    box-sizing: border-box;
+  }
+  
+  .progress-bar-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150vh;
+  }
+  
+  .progress-bar{
+    position: relative;
+    width: 250px;
+    height: 10px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #303030;
+  }
+  
+  .progress-bar::before{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform: scaleX(0);
+    transform-origin: left center;
+    background-color: #a6a6a6;
+    animation: 4s progress ease-out forwards;
+  }
+  
+  @keyframes progress {
+    to{
+      transform: scaleX(1);
+    }
+  
+  }
+  
