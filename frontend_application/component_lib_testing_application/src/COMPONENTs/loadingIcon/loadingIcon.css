@@ -1,13 +1,12 @@
-/* loadingIcon.css */
-.loading-icon {
+.loading-icon-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; 
+  height: 100vh;
+  background-color: transparent; 
 }
 
-.loading-icon svg {
-  width: 42px; 
-  height: 64px; 
-  fill: #ffffff; /* white */
+.loading-icon {
+  width: 200px; 
+  height: 150px; 
 }
