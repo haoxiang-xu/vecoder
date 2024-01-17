@@ -76,7 +76,7 @@
   /*STYLE*/
   background-color: #2a2d2e;
   border-radius: 4pt;
-  box-shadow: 0px 4px 16px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 12px 4px rgba(0, 0, 0, 0.16);
 
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -129,7 +129,7 @@
 }
 #contextItem_component_br0802 {
   border: 1pt solid #454545;
-  margin: 8px 0px 8px 0px;
+  margin: 17px 0px 17px 0px;
 }
 #contextItem_blur_loader0827 {
   /*POSITION*/

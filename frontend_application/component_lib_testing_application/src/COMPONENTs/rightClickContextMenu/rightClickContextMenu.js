@@ -294,8 +294,8 @@ const RightClickContextMenu = ({
   /* Define Menu Items -------------------------------------------------------------------------------------- */
 
   /* CONSTANST -------------------------------------------------------------------------------------- */
-  const CONTEXTMENU_WIDTH = 218;
-  const CONTEXTITEM_HEIGHT = 34 * contextItems.length;
+  const CONTEXTMENU_WIDTH = 256;
+  const CONTEXTITEM_HEIGHT = 36 * contextItems.length + 18;
   /* CONSTANST -------------------------------------------------------------------------------------- */
 
   /* Menu Styling and Position -------------------------------------------------------------------------- */
