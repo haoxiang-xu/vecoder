@@ -1,0 +1,59 @@
+.stack_structure_container0116 {
+  /*POSITION*/
+  display: flex;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+
+  /*STYLE*/
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+.stack_structure_item0116 {
+  transition: all 0.24s ease;
+
+  /*POSITION*/
+  width: 256px;
+  height: 100%;
+
+  position: relative;
+
+  border: 1px solid #292929;
+
+  box-sizing: border-box;
+  display: inline-block;
+  overflow: hidden;
+}
+.stack_structure_item_ondrop0116 {
+  transition: all 0.24s ease;
+
+  /*POSITION*/
+  width: 400px;
+  height: 100%;
+
+  position: relative;
+
+  border: 1px solid #292929;
+
+  box-sizing: border-box;
+  display: inline-block;
+  overflow: hidden;
+}
+.stack_structure_label0116 {
+  /*POSITION*/
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+
+  padding: 13px;
+
+  /*STYLE*/
+  background-color: #292929;
+  color: #181818;
+  font-weight: bold;
+  font-size: 72pt;
+  font-family: "Roboto Mono", monospace;
+  line-height: 64px;
+}
