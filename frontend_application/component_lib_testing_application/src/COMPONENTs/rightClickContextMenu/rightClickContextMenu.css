@@ -8,12 +8,12 @@
   height: wrap-content;
   max-height: 100%;
   box-sizing: border-box;
-  width: 164pt;
+  width: 218px;
 
   /*STYLE*/
   background-color: #1e1e1e;
   border-radius: 0pt 8pt 8pt 8pt;
-  box-shadow: 0px 4px 16px 8px rgba(0, 0, 0, 0.24);
+  box-shadow: 0px 4px 12px 4px rgba(0, 0, 0, 0.16);
   border: 2px solid #2a2d2e;
 }
 #rightClickContextMenu_component_container_rigttop0930 {
@@ -26,12 +26,12 @@
   height: wrap-content;
   max-height: 100%;
   box-sizing: border-box;
-  width: 164pt;
+  width: 218px;
 
   /*STYLE*/
   background-color: #1e1e1e;
   border-radius: 8pt 0pt 8pt 8pt;
-  box-shadow: 0px 4px 16px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 12px 4px rgba(0, 0, 0, 0.16);
   border: 2px solid #2a2d2e;
 }
 #rightClickContextMenu_component_container_leftbottom0930 {
@@ -44,12 +44,12 @@
   height: wrap-content;
   max-height: 100%;
   box-sizing: border-box;
-  width: 164pt;
+  width: 218px;
 
   /*STYLE*/
   background-color: #1e1e1e;
   border-radius: 8pt 8pt 8pt 0pt;
-  box-shadow: 0px 4px 16px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 12px 4px rgba(0, 0, 0, 0.16);
   border: 2px solid #2a2d2e;
 }
 #rightClickContextMenu_component_container_rightbottom0930 {
@@ -62,11 +62,11 @@
   height: wrap-content;
   max-height: 100%;
   box-sizing: border-box;
-  width: 164pt;
+  width: 218px;
 
   /*STYLE*/
   background-color: #1e1e1e;
   border-radius: 8pt 8pt 0pt 8pt;
-  box-shadow: 0px 4px 16px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 12px 4px rgba(0, 0, 0, 0.16);
   border: 2px solid #2a2d2e;
 }
