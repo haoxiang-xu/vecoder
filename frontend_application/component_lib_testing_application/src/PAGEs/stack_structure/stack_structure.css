@@ -25,21 +25,6 @@
   display: inline-block;
   overflow: hidden;
 }
-.stack_structure_item_ondrop0116 {
-  transition: all 0.24s ease;
-
-  /*POSITION*/
-  width: 400px;
-  height: 100%;
-
-  position: relative;
-
-  border: 1px solid #292929;
-
-  box-sizing: border-box;
-  display: inline-block;
-  overflow: hidden;
-}
 .stack_structure_label0116 {
   /*POSITION*/
   position: absolute;
