@@ -11,6 +11,13 @@ const VecoderEditor = ({
   setOnRightClickItem,
   rightClickCommand,
   setRightClickCommand,
+  //Drag and Drop
+  draggedItem,
+  setDraggedItem,
+  draggedOverItem,
+  setDraggedOverItem,
+  dragCommand,
+  setDragCommand,
 }) => {
   /* Initialize File Data ------------------------------------------------------ */
   const [files, setFiles] = useState(imported_files);
@@ -44,7 +51,7 @@ const VecoderEditor = ({
   /* API ----------------------------------------------------------------------- */
   const getAST = async () => {
     const requestBody = {
-      language: fileList[onSelectedIndex].fileLanguage,
+      language: files[onSelectedIndex].fileLanguage,
       prompt: onSelectedCode.selectedText,
     };
 
@@ -72,8 +79,8 @@ const VecoderEditor = ({
         prompt = onSelectedCode?.selectedText || "";
         break;
       case "entireFile":
-        if (fileList?.length > onSelectedIndex && files?.length) {
-          const selectedFile = fileList[onSelectedIndex]?.fileName;
+        if (files?.length > onSelectedIndex && files?.length) {
+          const selectedFile = files[onSelectedIndex]?.fileName;
           const file = files.find((f) => f.fileName === selectedFile);
           prompt = file?.fileContent || "";
         }
@@ -83,7 +90,7 @@ const VecoderEditor = ({
         return;
     }
     const requestBody = {
-      language: fileList?.[onSelectedIndex]?.fileLanguage || "defaultLanguage",
+      language: files?.[onSelectedIndex]?.fileLanguage || "defaultLanguage",
       prompt: prompt,
     };
     switch (rightClickCommand?.content?.requestMethod) {
@@ -174,12 +181,6 @@ const VecoderEditor = ({
 
   /* File Selection Bar parameters & Functions ------------------------------------------------- */
   const fileSelectionBarContainerRef = useRef(null);
-  const [fileList, setFileList] = useState(
-    imported_files.map((file) => ({
-      fileName: String(file.fileName),
-      fileLanguage: String(file.fileLanguage),
-    }))
-  );
   const [onSelectedIndex, setOnSelectedIndex] = useState(null);
   const [onDragIndex, setOnDragIndex] = useState(-1);
   const [onDropIndex, setOnDropIndex] = useState(-1);
@@ -187,9 +188,9 @@ const VecoderEditor = ({
 
   const onFileDelete = (e) => (index) => {
     e.stopPropagation();
-    const editedFiles = [...fileList];
+    const editedFiles = [...files];
     editedFiles.splice(index, 1);
-    setFileList(editedFiles);
+    setFiles(editedFiles);
 
     if (onSelectedIndex === index) {
       setOnSelectedIndex(null);
@@ -204,24 +205,29 @@ const VecoderEditor = ({
 
     setOnSelectedIndex(index);
     setOnDragIndex(index);
+    setDraggedItem(files[index]);
   };
   const onFileDragEnd = (e, index) => {
     e.target.style.opacity = 1;
 
     if (onDropIndex !== -1) {
-      const editedFiles = [...fileList];
+      const editedFiles = [...files];
       const dragedFile = editedFiles.splice(onDragIndex, 1)[0];
       editedFiles.splice(onDropIndex, 0, dragedFile);
-      setFileList(editedFiles);
+      setFiles(editedFiles);
       setOnSelectedIndex(onDropIndex);
     }
-    setOnDragIndex(-1);
-    setOnDropIndex(-1);
-    setOnSwapIndex(-1);
+    if (onDropIndex === -1 && draggedOverItem !== null) {
+      setDragCommand('APPEND TO TARGET');
+    }else{
+      setOnDragIndex(-1);
+      setOnDropIndex(-1);
+      setOnSwapIndex(-1);
+      setDraggedItem(null);
+    }
   };
   const containerOnDragOver = (e) => {
     e.preventDefault();
-
     const targetElement = e.target.closest(
       ".file_selection_bar_item1114, .file_selection_bar_item_selected1114"
     );
@@ -232,12 +238,42 @@ const VecoderEditor = ({
       const dropIndex = childrenArray.indexOf(targetElement);
       if (dropIndex !== onDropIndex && dropIndex !== -1) {
         setOnDropIndex(dropIndex);
+        if (onDragIndex === -1) {
+          setDraggedOverItem(files[dropIndex]);
+        }
       }
     }
   };
   useEffect(() => {
     setOnSwapIndex(onDropIndex);
   }, [onDropIndex]);
+  useEffect(() => {
+    if (onDropIndex !== -1 && dragCommand === 'APPEND TO TARGET') {
+      const editedFiles = [...files];
+      const dragedFile = draggedItem;
+      editedFiles.splice(onDropIndex, 0, dragedFile);
+      setFiles(editedFiles);
+      setOnSelectedIndex(onDropIndex);
+
+      setOnDragIndex(-1);
+      setOnDropIndex(-1);
+      setOnSwapIndex(-1);
+      setDraggedItem(null);
+      setDraggedOverItem(null);
+      setDragCommand('DELETE FROM SOURCE');
+    }
+    if (onDragIndex !== -1 && dragCommand === 'DELETE FROM SOURCE') {
+      const editedFiles = [...files];
+      editedFiles.splice(onDragIndex, 1);
+      setFiles(editedFiles);
+      setOnSelectedIndex(Math.max(onDragIndex-1,0));
+
+      setOnDragIndex(-1);
+      setOnDropIndex(-1);
+      setOnSwapIndex(-1);
+      setDragCommand(null);
+    }
+  }, [dragCommand]);
 
   /* File Selection Bar parameters & Functions ------------------------------------------------- */
   return (
@@ -264,9 +300,7 @@ const VecoderEditor = ({
               handleRightClick(e);
             }}
             display={
-              file.fileName === fileList[onSelectedIndex]?.fileName
-                ? true
-                : false
+              file.filePath === files[onSelectedIndex]?.filePath ? true : false
             }
 
             //editor_diffContent={diffContent}
@@ -295,9 +329,11 @@ const VecoderEditor = ({
         }}
         onDragLeave={(e) => {
           setOnDropIndex(-1);
+          setOnSwapIndex(-1);
+          setDraggedOverItem(null);
         }}
       >
-        {fileList.map((file, index) => {
+        {files.map((file, index) => {
           let className;
           switch (true) {
             case index === onSelectedIndex:

@@ -10,6 +10,7 @@ const DevelopmentEditor = () => {
     {
       fileName: "code_editor.js",
       fileLanguage: "javascript",
+      filePath: "./code_editor.js",
       fileContent: `import React, { useState, useEffect, useRef } from "react";
 import MonacoEditor from "@monaco-editor/react";
       
@@ -187,6 +188,7 @@ export default CodeEditor;
     {
       fileName: "code_editor.css",
       fileLanguage: "css",
+      filePath: "./code_editor.css",
       fileContent: `#code_editor_container0829 {
   /*POSITION*/
   width: 500pt;
@@ -247,6 +249,7 @@ export default CodeEditor;
     {
       fileName: "main.py",
       fileLanguage: "python",
+      filePath: "./main.py",
       fileContent: `import random
 
 def get_compliment(color):
@@ -282,6 +285,7 @@ if __name__ == "__main__":
     {
       fileName: "index.html",
       fileLanguage: "html",
+      filePath: "./index.html",
       fileContent: `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -346,6 +350,7 @@ if __name__ == "__main__":
     {
       fileName: "main.java",
       fileLanguage: "java",
+      filePath: "./main.java",
       fileContent: `public class Main {
   public static void main(String[] args) {
     // Create some car objects
@@ -545,7 +550,7 @@ class Car {
 
   const [files, setFiles] = useState(files_structure);
 
-  //Right Click Menu
+  /* Right Click Menu ----------------------------------------------------------------- */
   const [isRightClicked, setIsRightClicked] = useState(false);
   const [rightClickX, setRightClickX] = useState(-1);
   const [rightClickY, setRightClickY] = useState(-1);
@@ -567,15 +572,50 @@ class Car {
     setIsRightClicked(false);
     setOnRightClickItem(null);
   };
+  /* Right Click Menu ----------------------------------------------------------------- */
+
+  /* Drag and Drop ----------------------------------------------------------------- */
+  const [draggedItem, setDraggedItem] = useState(null);
+  const [draggedOverItem, setDraggedOverItem] = useState(null);
+  const [dragCommand, setDragCommand] = useState(null);
+  useEffect(() => {
+    console.log('draggedItem',draggedItem?.fileName);
+  }, [draggedItem]);
+  useEffect(() => {
+    console.log('draggedOverItem', draggedOverItem?.fileName);
+  }, [draggedOverItem]);
+  /* Drag and Drop ----------------------------------------------------------------- */
+
   return (
     <div onContextMenu={handleRightClick} onClick={handleLeftClick}>
-      <div className="vector_editor_container1116">
+      <div className="vector_editor_container1116_01">
         <VecoderEditor
           imported_files={raw_files}
           onRightClickItem={onRightClickItem}
           setOnRightClickItem={setOnRightClickItem}
           rightClickCommand={rightClickCommand}
           setRightClickCommand={setRightClickCommand}
+          draggedItem={draggedItem}
+          setDraggedItem={setDraggedItem}
+          draggedOverItem={draggedOverItem}
+          setDraggedOverItem={setDraggedOverItem}
+          dragCommand={dragCommand}
+          setDragCommand={setDragCommand}
+        />
+      </div>
+      <div className="vector_editor_container1116_02">
+        <VecoderEditor
+          imported_files={raw_files}
+          onRightClickItem={onRightClickItem}
+          setOnRightClickItem={setOnRightClickItem}
+          rightClickCommand={rightClickCommand}
+          setRightClickCommand={setRightClickCommand}
+          draggedItem={draggedItem}
+          setDraggedItem={setDraggedItem}
+          draggedOverItem={draggedOverItem}
+          setDraggedOverItem={setDraggedOverItem}
+          dragCommand={dragCommand}
+          setDragCommand={setDragCommand}
         />
       </div>
       <div className="explorer_container1116">
