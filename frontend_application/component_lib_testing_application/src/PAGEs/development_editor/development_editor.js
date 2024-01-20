@@ -578,12 +578,6 @@ class Car {
   const [draggedItem, setDraggedItem] = useState(null);
   const [draggedOverItem, setDraggedOverItem] = useState(null);
   const [dragCommand, setDragCommand] = useState(null);
-  useEffect(() => {
-    console.log('draggedItem',draggedItem?.fileName);
-  }, [draggedItem]);
-  useEffect(() => {
-    console.log('draggedOverItem', draggedOverItem?.fileName);
-  }, [draggedOverItem]);
   /* Drag and Drop ----------------------------------------------------------------- */
 
   return (
