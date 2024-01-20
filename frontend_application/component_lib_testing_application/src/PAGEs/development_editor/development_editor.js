@@ -584,7 +584,7 @@ class Car {
     <div onContextMenu={handleRightClick} onClick={handleLeftClick}>
       <div className="vector_editor_container1116_01">
         <VecoderEditor
-          imported_files={raw_files}
+          imported_files={raw_files.slice(0, 3)}
           onRightClickItem={onRightClickItem}
           setOnRightClickItem={setOnRightClickItem}
           rightClickCommand={rightClickCommand}
@@ -599,7 +599,7 @@ class Car {
       </div>
       <div className="vector_editor_container1116_02">
         <VecoderEditor
-          imported_files={raw_files}
+          imported_files={raw_files.slice(3, 5)}
           onRightClickItem={onRightClickItem}
           setOnRightClickItem={setOnRightClickItem}
           rightClickCommand={rightClickCommand}

@@ -215,19 +215,20 @@ const VecoderEditor = ({
       const dragedFile = editedFiles.splice(onDragIndex, 1)[0];
       editedFiles.splice(onDropIndex, 0, dragedFile);
       setFiles(editedFiles);
-      setOnSelectedIndex(onDropIndex);
+      setOnSelectedIndex(Math.min(onDropIndex, files.length - 1));
     }
     if (onDropIndex === -1 && draggedOverItem !== null) {
-      setDragCommand('APPEND TO TARGET');
-    }else{
+      setDragCommand("APPEND TO TARGET");
+    } else {
       setOnDragIndex(-1);
       setOnDropIndex(-1);
       setOnSwapIndex(-1);
       setDraggedItem(null);
     }
   };
-  const containerOnDragOver = (e) => {
+  const fileSelectionBarOnDragOver = (e) => {
     e.preventDefault();
+    e.stopPropagation();
     const targetElement = e.target.closest(
       ".file_selection_bar_item1114, .file_selection_bar_item_selected1114"
     );
@@ -242,13 +243,41 @@ const VecoderEditor = ({
           setDraggedOverItem(files[dropIndex]);
         }
       }
+    } else {
+      const childrenArray = Array.from(
+        fileSelectionBarContainerRef.current.children
+      );
+      const lastItem = childrenArray[childrenArray.length - 1];
+      const lastItemRect = lastItem.getBoundingClientRect();
+      const isAfterLastItem =
+        e.clientY > lastItemRect.top && e.clientX > lastItemRect.right;
+
+      if (isAfterLastItem) {
+        if (onDragIndex !== childrenArray.length - 1) {
+          let dropIndex = -1;
+          if (onDragIndex === -1) {
+            dropIndex = childrenArray.length;
+          } else {
+            dropIndex = childrenArray.length - 1;
+          }
+          setOnDropIndex(dropIndex);
+          if (onDragIndex === -1) {
+            setDraggedOverItem("fileSelectionBarContainerLastItem");
+          }
+        }
+      }
     }
+  };
+  const fileSelectionBarOnDragLeave = (e) => {
+    setOnDropIndex(-1);
+    setOnSwapIndex(-1);
+    setDraggedOverItem(null);
   };
   useEffect(() => {
     setOnSwapIndex(onDropIndex);
   }, [onDropIndex]);
   useEffect(() => {
-    if (onDropIndex !== -1 && dragCommand === 'APPEND TO TARGET') {
+    if (onDropIndex !== -1 && dragCommand === "APPEND TO TARGET") {
       const editedFiles = [...files];
       const dragedFile = draggedItem;
       editedFiles.splice(onDropIndex, 0, dragedFile);
@@ -260,13 +289,13 @@ const VecoderEditor = ({
       setOnSwapIndex(-1);
       setDraggedItem(null);
       setDraggedOverItem(null);
-      setDragCommand('DELETE FROM SOURCE');
+      setDragCommand("DELETE FROM SOURCE");
     }
-    if (onDragIndex !== -1 && dragCommand === 'DELETE FROM SOURCE') {
+    if (onDragIndex !== -1 && dragCommand === "DELETE FROM SOURCE") {
       const editedFiles = [...files];
       editedFiles.splice(onDragIndex, 1);
       setFiles(editedFiles);
-      setOnSelectedIndex(Math.max(onDragIndex-1,0));
+      setOnSelectedIndex(null);
 
       setOnDragIndex(-1);
       setOnDropIndex(-1);
@@ -274,8 +303,8 @@ const VecoderEditor = ({
       setDragCommand(null);
     }
   }, [dragCommand]);
-
   /* File Selection Bar parameters & Functions ------------------------------------------------- */
+
   return (
     <div
       className="code_editor_container1113"
@@ -325,12 +354,10 @@ const VecoderEditor = ({
         className="file_selection_bar_container1114"
         ref={fileSelectionBarContainerRef}
         onDragOver={(e) => {
-          containerOnDragOver(e);
+          fileSelectionBarOnDragOver(e);
         }}
         onDragLeave={(e) => {
-          setOnDropIndex(-1);
-          setOnSwapIndex(-1);
-          setDraggedOverItem(null);
+          fileSelectionBarOnDragLeave(e);
         }}
       >
         {files.map((file, index) => {
@@ -380,6 +407,10 @@ const VecoderEditor = ({
                 className="file_selection_bar_item_close_icon1114"
                 alt="close"
                 draggable="false"
+                onDragOver={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                }}
                 onClick={(e) => {
                   onFileDelete(e)(index);
                 }}
