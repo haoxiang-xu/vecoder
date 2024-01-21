@@ -238,10 +238,10 @@ const VecoderEditor = ({
       );
       const dropIndex = childrenArray.indexOf(targetElement);
       if (dropIndex !== onDropIndex && dropIndex !== -1) {
-        setOnDropIndex(dropIndex);
         if (onDragIndex === -1) {
           setDraggedOverItem(files[dropIndex]);
         }
+        setOnDropIndex(dropIndex);
       }
     } else {
       const childrenArray = Array.from(

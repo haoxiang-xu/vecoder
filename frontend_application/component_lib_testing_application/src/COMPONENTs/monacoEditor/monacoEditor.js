@@ -27,7 +27,7 @@ const Editor = ({
       minimap: { enabled: false },
       roundedSelection: true,
       fontSize: 14,
-      lineNumbers: "on",
+      lineNumbers: "off",
       scrollbar: {
         vertical: "visible",
         horizontal: "visible",
