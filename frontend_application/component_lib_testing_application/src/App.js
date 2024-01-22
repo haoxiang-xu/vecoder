@@ -12,11 +12,11 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<DevelopmentEditor />} />
+        <Route path="/developmenteditor" element={<DevelopmentEditor />} />
         <Route path="/upload" element={<UploadFile />} />
         <Route path="/codeeditor" element={<CodeEditorPage />} />
         <Route path="/explorer" element={<Home />} />
-        <Route path="/stack" element={<StackStructure />} />
+        <Route path="/" element={<StackStructure />} />
       </Routes>
     </Router>
   );

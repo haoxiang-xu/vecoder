@@ -667,7 +667,9 @@ class Car {
   const containerOnDragOver = (e) => {
     e.preventDefault();
     const targetElement = e.target.closest(
-      ".stack_structure_item0116, .stack_structure_explorer_container0122, .stack_structure_code_editor0122"
+      ".stack_structure_item0116, " +
+      ".stack_structure_explorer0122, " +
+      ".stack_structure_code_editor0122"
     );
     if (targetElement && stackStructureContainerRef.current) {
       const childrenArray = Array.from(
