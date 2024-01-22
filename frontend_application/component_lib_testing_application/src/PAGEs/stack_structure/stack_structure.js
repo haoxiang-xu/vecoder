@@ -569,7 +569,7 @@ class Car {
   const stacking_data = [
     {
       type: "EXPLORER",
-      min_width: 64,
+      min_width: 16,
       width: 280,
       max_width: 512,
       content: explorer_files,
@@ -577,18 +577,42 @@ class Car {
     RESIZER,
     {
       type: "CODE_EDITOR",
-      min_width: 256,
+      min_width: 40,
       width: 600,
-      max_width: 1024,
+      max_width: 2048,
       content: code_editor_files[0],
     },
     RESIZER,
     {
       type: "CODE_EDITOR",
-      min_width: 256,
+      min_width: 40,
       width: 600,
-      max_width: 1024,
+      max_width: 2048,
       content: code_editor_files[1],
+    },
+    RESIZER,
+    {
+      type: "EMPTY_CONTAINER",
+      min_width: 256,
+      width: 512,
+      max_width: 1024,
+      content: "EMPTY",
+    },
+    RESIZER,
+    {
+      type: "EMPTY_CONTAINER",
+      min_width: 256,
+      width: 512,
+      max_width: 1024,
+      content: "EMPTY",
+    },
+    RESIZER,
+    {
+      type: "EMPTY_CONTAINER",
+      min_width: 256,
+      width: 512,
+      max_width: 1024,
+      content: "EMPTY",
     },
     RESIZER,
     {
@@ -665,10 +689,13 @@ class Car {
   };
   const containerOnDragOver = (e) => {
     e.preventDefault();
+    if (onDragIndex === -1) {
+      return;
+    }
     const targetElement = e.target.closest(
       ".stack_structure_item0116, " +
-      ".stack_structure_explorer0122, " +
-      ".stack_structure_code_editor0122"
+        ".stack_structure_explorer0122, " +
+        ".stack_structure_code_editor0122"
     );
     if (targetElement && stackStructureContainerRef.current) {
       const childrenArray = Array.from(
@@ -679,41 +706,65 @@ class Car {
         setOnDropIndex(dropIndex);
       }
     }
-    console.log(stacks);
   };
   const resizerOnDragOver = (e, index) => {
+    if (onDragIndex === -1) {
+      return;
+    }
     setOnDropIndex(index);
   };
   /* Stack Container Drag and Drop ------------------------------------------------------------ */
 
   /* Resizer ----------------------------------------------------------------- */
+  const [resizerOnMouseDown, setResizerOnMouseDown] = useState(false);
   const handleResizerMouseDown = (e, index) => {
+    setResizerOnMouseDown(true);
     const startX = e.clientX;
-    const startWidth = stacks[index - 1].width;
-    const startWidth2 = stacks[index + 1].width;
+    const left_start_width = stacks[index - 1].width;
+    const right_start_width = stacks[index + 1].width;
     const handleMouseMove = (e) => {
+      e.preventDefault()
+
       const moveX = e.clientX - startX;
-      const newWidth = startWidth + moveX;
-      const newWidth2 = startWidth2 - moveX;
+      const left_width = left_start_width + moveX;
+      const right_width = right_start_width - moveX;
       if (index + 1 === stacks.length - 1) {
+        // SECOND LAST ITEM WON'T CHANGE END WIDTH
         if (
-          newWidth > stacks[index - 1].min_width &&
-          newWidth < stacks[index - 1].max_width
+          left_width > stacks[index - 1].min_width &&
+          left_width < stacks[index - 1].max_width
         ) {
           const editedStacks = [...stacks];
-          editedStacks[index - 1].width = newWidth;
+          editedStacks[index - 1].width = left_width;
+          setStacks(editedStacks);
+        }
+      } else if ((e.clientX + right_width) >= (window.innerWidth - 6)) {
+        // IF RIGHT ITEM OUTSIDE OF WINDOW
+        if (
+          left_width > stacks[index - 1].min_width &&
+          left_width < stacks[index - 1].max_width
+        ) {
+          const editedStacks = [...stacks];
+          editedStacks[index - 1].width = left_width;
           setStacks(editedStacks);
         }
       } else {
         if (
-          newWidth > stacks[index - 1].min_width &&
-          newWidth2 > stacks[index + 1].min_width &&
-          newWidth < stacks[index - 1].max_width &&
-          newWidth2 < stacks[index + 1].max_width
+          left_width > stacks[index - 1].min_width &&
+          right_width > stacks[index + 1].min_width &&
+          left_width < stacks[index - 1].max_width &&
+          right_width < stacks[index + 1].max_width
         ) {
           const editedStacks = [...stacks];
-          editedStacks[index - 1].width = newWidth;
-          editedStacks[index + 1].width = newWidth2;
+          editedStacks[index - 1].width = left_width;
+          editedStacks[index + 1].width = right_width;
+          setStacks(editedStacks);
+        } else if (
+          left_width > stacks[index - 1].min_width &&
+          left_width < stacks[index - 1].max_width
+        ) {
+          const editedStacks = [...stacks];
+          editedStacks[index - 1].width = left_width;
           setStacks(editedStacks);
         }
       }
@@ -721,6 +772,7 @@ class Car {
     const handleMouseUp = (e) => {
       document.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseup", handleMouseUp);
+      setResizerOnMouseDown(false);
     };
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
@@ -747,7 +799,7 @@ class Car {
               <div
                 className={"stack_structure_item0116"}
                 key={index}
-                draggable={true}
+                draggable={resizerOnMouseDown ? false : true}
                 onDragStart={(e) => {
                   onStackItemDragStart(e, index);
                 }}
@@ -773,7 +825,7 @@ class Car {
               <div
                 className="stack_structure_explorer0122"
                 key={index}
-                draggable={true}
+                draggable={resizerOnMouseDown ? false : true}
                 onDragStart={(e) => {
                   onStackItemDragStart(e, index);
                 }}
@@ -803,7 +855,7 @@ class Car {
               <div
                 className="stack_structure_code_editor0122"
                 key={index}
-                draggable={true}
+                draggable={resizerOnMouseDown ? false : true}
                 onDragStart={(e) => {
                   onStackItemDragStart(e, index);
                 }}
@@ -850,10 +902,14 @@ class Car {
                   cursor: "ew-resize",
                 }}
                 onMouseEnter={(e) => {
-                  setResizerClassname("stack_structure_resizer_hover0122");
+                  if (!resizerOnMouseDown) {
+                    setResizerClassname("stack_structure_resizer_hover0122");
+                  }
                 }}
                 onMouseLeave={(e) => {
-                  setResizerClassname("stack_structure_resizer0122");
+                  if (!resizerOnMouseDown) {
+                    setResizerClassname("stack_structure_resizer0122");
+                  }
                 }}
                 onMouseDown={(e) => {
                   handleResizerMouseDown(e, index);
@@ -867,6 +923,7 @@ class Car {
                 onDragLeave={(e) => {
                   setResizerClassname("stack_structure_resizer0122");
                 }}
+                draggable={false}
               >
                 <div className={resizerClassname}></div>
               </div>

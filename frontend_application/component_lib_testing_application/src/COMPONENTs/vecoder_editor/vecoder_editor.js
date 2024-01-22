@@ -201,6 +201,7 @@ const VecoderEditor = ({
     }
   };
   const onFileDragStart = (e, index) => {
+    e.stopPropagation();
     e.target.style.opacity = 0.1;
 
     setOnSelectedIndex(index);
@@ -208,6 +209,7 @@ const VecoderEditor = ({
     setDraggedItem(files[index]);
   };
   const onFileDragEnd = (e, index) => {
+    e.stopPropagation();
     e.target.style.opacity = 1;
 
     if (onDropIndex !== -1) {
@@ -269,6 +271,7 @@ const VecoderEditor = ({
     }
   };
   const fileSelectionBarOnDragLeave = (e) => {
+    e.stopPropagation();
     setOnDropIndex(-1);
     setOnSwapIndex(-1);
     setDraggedOverItem(null);
