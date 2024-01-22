@@ -591,7 +591,6 @@ class Car {
       content: code_editor_files[1],
     },
     RESIZER,
-    ,
     {
       type: "EMPTY_CONTAINER",
       min_width: 256,
