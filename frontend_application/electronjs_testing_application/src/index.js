@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog } = require("electron");
+const { app, BrowserWindow, ipcMain, dialog, Menu } = require("electron");
 const path = require("path");
 const fs = require("fs");
 
@@ -46,42 +46,59 @@ app.on("activate", () => {
 });
 
 const readDir = async (dirPath) => {
-  return new Promise((resolve, reject) => {
-    fs.readdir(dirPath, { withFileTypes: true }, async (err, dirents) => {
-      if (err) {
-        reject(err);
-      } else {
-        try {
-          const files = await Promise.all(
-            dirents.map(async (dirent) => {
-              const res = path.resolve(dirPath, dirent.name);
-              if (dirent.isDirectory()) {
-                return {
-                  fileName: dirent.name,
-                  filePath: res,
-                  fileSize: fs.statSync(res).size + " bytes",
-                  fileType: "folder",
-                  fileExtname: path.extname(dirent.name),
-                  subFiles: await readDir(res),
-                };
-              } else {
-                return {
-                  fileName: dirent.name,
-                  filePath: res,
-                  fileSize: fs.statSync(res).size + " bytes",
-                  fileType: "file",
-                  fileExtname: path.extname(dirent.name),
-                };
-              }
-            })
-          );
-          resolve(files.flat());
-        } catch (e) {
-          reject(e);
+  const readDirectory = async (currentPath) => {
+    return new Promise((resolve, reject) => {
+      fs.readdir(currentPath, { withFileTypes: true }, async (err, dirents) => {
+        if (err) {
+          reject(err);
+        } else {
+          try {
+            const files = await Promise.all(
+              dirents.map(async (dirent) => {
+                const res = path.resolve(currentPath, dirent.name);
+                if (dirent.isDirectory()) {
+                  return {
+                    fileName: dirent.name,
+                    fileType: "folder",
+                    filePath: res,
+                    fileSize: fs.statSync(res).size + " bytes",
+                    fileExtname: path.extname(dirent.name),
+                    fileExpend: false,
+                    files: await readDirectory(res),
+                  };
+                } else {
+                  return {
+                    fileName: dirent.name,
+                    fileType: "file",
+                    filePath: res,
+                    fileSize: fs.statSync(res).size + " bytes",
+                    fileExtname: path.extname(dirent.name),
+                    fileExpend: false,
+                    files: [],
+                  };
+                }
+              })
+            );
+            resolve(files);
+          } catch (e) {
+            reject(e);
+          }
         }
-      }
+      });
     });
-  });
+  };
+
+  // Read the top-level directory and return it as the root of the tree
+  const topLevelFiles = await readDirectory(dirPath);
+  return {
+    fileName: path.basename(dirPath),
+    fileType: "folder",
+    filePath: dirPath,
+    fileSize: fs.statSync(dirPath).size + " bytes",
+    fileExtname: path.extname(dirPath),
+    fileExpend: true,
+    files: topLevelFiles
+  };
 };
 
 ipcMain.on("open-directory-dialog", async (event) => {
@@ -117,11 +134,15 @@ ipcMain.on("open-file-dialog", async (event) => {
         {
           name: "Text Files",
           extensions: [
-            "js", "jsx", "ts", "tsx", "json",
-            "html", "css", "c", "cpp", "h",
-            "cs", "java", "py", "rb", "php",
-            "swift", "go", "rs", "lua", "sh",
-            "ps1", "md", "xml", "yml", "yaml",
+            "js", "jsx", "ts",
+            "tsx", "json", "html",
+            "css", "c", "cpp",
+            "h", "cs", "java",
+            "py", "rb", "php",
+            "swift", "go", "rs",
+            "lua", "sh","ps1",
+            "md", "xml", "yml",
+            "yaml",
           ],
         },
         { name: "All Files", extensions: ["*"] },
@@ -137,3 +158,44 @@ ipcMain.on("open-file-dialog", async (event) => {
     event.reply("file-data", { error: err.message });
   }
 });
+
+const menuTemplate = [
+  {
+    label: "File",
+    submenu: [
+      {
+        label: "Open File",
+        click: async (menuItem, browserWindow) => {
+          const result = await dialog.showOpenDialog({
+            properties: ["openFile"],
+            filters: [{ name: "All Files", extensions: ["*"] }],
+          });
+
+          if (!result.canceled) {
+            browserWindow.webContents.send("open-file", result.filePaths[0]);
+          }
+        },
+      },
+      {
+        label: "Open Folder",
+        click: async (menuItem, browserWindow) => {
+          try {
+            const result = await dialog.showOpenDialog({properties: ['openDirectory']});
+
+            if (!result.canceled) {
+              const dirPath = result.filePaths[0];
+              const dirs = await readDir(dirPath);
+              browserWindow.webContents.send('directory-data', { dirs });
+              console.log(dirs);
+            }
+          } catch (err) {
+            browserWindow.webContents.send('directory-data', { error: err.message });
+          }
+        }
+      },
+    ],
+  },
+];
+
+const menu = Menu.buildFromTemplate(menuTemplate);
+Menu.setApplicationMenu(menu);

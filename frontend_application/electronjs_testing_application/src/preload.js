@@ -16,3 +16,18 @@ contextBridge.exposeInMainWorld("electron", {
     }
   },
 });
+
+contextBridge.exposeInMainWorld("electronAPI", {
+  send: (channel, data) => {
+    let validChannels = ["open-directory-dialog"];
+    if (validChannels.includes(channel)) {
+      ipcRenderer.send(channel, data)
+    }
+  }, 
+  receive: (channel, func) => {
+    let validChannels = ['directory-data'];
+    if (validChannels.includes(channel)) {
+      ipcRenderer.on(channel, (event, ...args) => func(...args));
+    }
+  }
+});
