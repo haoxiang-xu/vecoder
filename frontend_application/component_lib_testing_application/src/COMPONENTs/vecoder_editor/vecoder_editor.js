@@ -242,7 +242,10 @@ const VecoderEditor = ({
     e.preventDefault();
     e.stopPropagation();
     const targetElement = e.target.closest(
-      ".file_selection_bar_item1114, .file_selection_bar_item_selected1114"
+      ".file_selection_bar_item1114, " + 
+      ".file_selection_bar_item_selected1114, " +
+      ".file_selection_bar_item_vertical0123, " +
+      ".file_selection_bar_item_selected_vertical0123"
     );
     if (targetElement && fileSelectionBarContainerRef.current) {
       const childrenArray = Array.from(
@@ -318,6 +321,9 @@ const VecoderEditor = ({
   }, [dragCommand]);
   // Styling-------
   const spanRefs = useRef([]);
+  useEffect(() => {
+    refresh();
+  }, [spanRefs.current[onSelectedIndex]?.offsetWidth]);
 
   /* File Selection Bar parameters & Functions ------------------------------------------------- */
 

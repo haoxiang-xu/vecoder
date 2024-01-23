@@ -6,6 +6,10 @@ import Explorer from "../../COMPONENTs/explorer/explorer";
 import "./stack_structure.css";
 
 const StackStructure = () => {
+  const [forceRefresh, setForceRefresh] = useState(false);
+  const refresh = () => {
+    setForceRefresh(!forceRefresh);
+  };
   /* Right Click Menu ---------------------------------------------------------------------------------------------------------------------------------- */
   const [isRightClicked, setIsRightClicked] = useState(false);
   const [rightClickX, setRightClickX] = useState(-1);
@@ -628,6 +632,7 @@ class Car {
     END,
   ];
   const [stacks, setStacks] = useState(stacking_data);
+  const stackRefs = useRef([]);
   /* DATA ----------------------------------------------------------------------------------------------------------------------------------------------- */
 
   /* Stack Container Drag and Drop ------------------------------------------------------------ */
@@ -701,7 +706,10 @@ class Car {
       const moveX = e.clientX - startX;
       const left_width = left_start_width + moveX;
       const right_width = right_start_width - moveX;
-      if (index + 1 === stacks.length - 1 || e.clientX + right_width >= window.innerWidth - 6) {
+      if (
+        index + 1 === stacks.length - 1 ||
+        e.clientX + right_width >= window.innerWidth - 6
+      ) {
         // IF RIGHT ITEM OUTSIDE OF WINDOW OR SECOND LAST ITEM WON'T CHANGE END WIDTH
         if (
           left_width > stacks[index - 1].min_width &&
@@ -710,9 +718,7 @@ class Car {
           const editedStacks = [...stacks];
           editedStacks[index - 1].width = left_width;
           setStacks(editedStacks);
-        } else if (
-          left_width < stacks[index - 1].min_width
-        ) {
+        } else if (left_width < stacks[index - 1].min_width) {
           const new_left_width = stacks[index - 1].min_width;
 
           const editedStacks = [...stacks];
@@ -780,7 +786,9 @@ class Car {
       const editedStacks = [...stacks];
       editedStacks[index + 1].width = Math.min(
         editedStacks[index + 1].max_width,
-        window.innerWidth - e.clientX - (RESIZER.width + 6)
+        window.innerWidth -
+          stackRefs.current[index + 1]?.getBoundingClientRect().x -
+          RESIZER.width / 2
       );
       setStacks(editedStacks);
     } else {
@@ -788,6 +796,7 @@ class Car {
       editedStacks[index + 1].width = editedStacks[index + 1].min_width;
       setStacks(editedStacks);
     }
+    refresh();
   };
   /* Resizer ------------------------------------------------------------------------------------------------------------------------------------------- */
 
@@ -810,6 +819,7 @@ class Car {
             return (
               <div
                 className={"stack_structure_item0116"}
+                ref={(el) => (stackRefs.current[index] = el)}
                 key={index}
                 draggable={resizerOnMouseDown ? false : true}
                 onDragStart={(e) => {
@@ -836,6 +846,7 @@ class Car {
             return (
               <div
                 className="stack_structure_explorer0122"
+                ref={(el) => (stackRefs.current[index] = el)}
                 key={index}
                 draggable={resizerOnMouseDown ? false : true}
                 onDragStart={(e) => {
@@ -866,6 +877,7 @@ class Car {
             return (
               <div
                 className="stack_structure_code_editor0122"
+                ref={(el) => (stackRefs.current[index] = el)}
                 key={index}
                 draggable={resizerOnMouseDown ? false : true}
                 onDragStart={(e) => {
@@ -908,6 +920,7 @@ class Car {
             return (
               <div
                 className={"stack_structure_resizer_container0122"}
+                ref={(el) => (stackRefs.current[index] = el)}
                 key={index}
                 style={{
                   width: resizerContainerWidth + "px",
@@ -947,6 +960,7 @@ class Car {
             return (
               <div
                 className={"stack_structure_item0116"}
+                ref={(el) => (stackRefs.current[index] = el)}
                 key={index}
                 style={{
                   width: item.width,
