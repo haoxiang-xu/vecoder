@@ -10,9 +10,9 @@ const StackStructure = () => {
   const RESIZER = { type: "RESIZER", width: 16, content: "" };
   const END = {
     type: "END",
-    min_width: 256,
+    min_width: 512,
     width: 512,
-    max_width: 1024,
+    max_width: 512,
     content: "",
   };
   //Explorer Data
@@ -569,7 +569,7 @@ class Car {
   const stacking_data = [
     {
       type: "EXPLORER",
-      min_width: 16,
+      min_width: 6,
       width: 280,
       max_width: 512,
       content: explorer_files,
@@ -593,7 +593,7 @@ class Car {
     RESIZER,
     {
       type: "EMPTY_CONTAINER",
-      min_width: 256,
+      min_width: 40,
       width: 512,
       max_width: 1024,
       content: "EMPTY",
@@ -601,7 +601,7 @@ class Car {
     RESIZER,
     {
       type: "EMPTY_CONTAINER",
-      min_width: 256,
+      min_width: 40,
       width: 512,
       max_width: 1024,
       content: "EMPTY",
@@ -609,7 +609,7 @@ class Car {
     RESIZER,
     {
       type: "EMPTY_CONTAINER",
-      min_width: 256,
+      min_width: 40,
       width: 512,
       max_width: 1024,
       content: "EMPTY",
@@ -617,7 +617,7 @@ class Car {
     RESIZER,
     {
       type: "EMPTY_CONTAINER",
-      min_width: 256,
+      min_width: 40,
       width: 512,
       max_width: 1024,
       content: "EMPTY",
@@ -723,7 +723,7 @@ class Car {
     const left_start_width = stacks[index - 1].width;
     const right_start_width = stacks[index + 1].width;
     const handleMouseMove = (e) => {
-      e.preventDefault()
+      e.preventDefault();
 
       const moveX = e.clientX - startX;
       const left_width = left_start_width + moveX;
@@ -738,7 +738,7 @@ class Car {
           editedStacks[index - 1].width = left_width;
           setStacks(editedStacks);
         }
-      } else if ((e.clientX + right_width) >= (window.innerWidth - 6)) {
+      } else if (e.clientX + right_width >= window.innerWidth - 6) {
         // IF RIGHT ITEM OUTSIDE OF WINDOW
         if (
           left_width > stacks[index - 1].min_width &&
@@ -761,10 +761,37 @@ class Car {
           setStacks(editedStacks);
         } else if (
           left_width > stacks[index - 1].min_width &&
-          left_width < stacks[index - 1].max_width
+          left_width < stacks[index - 1].max_width &&
+          stacks[index + 1].width === stacks[index + 1].min_width
         ) {
           const editedStacks = [...stacks];
           editedStacks[index - 1].width = left_width;
+          setStacks(editedStacks);
+        } else if (
+          left_width < stacks[index - 1].min_width &&
+          right_width < stacks[index + 1].max_width
+        ) {
+          const new_left_width = stacks[index - 1].min_width;
+          const new_right_width =
+            right_start_width +
+            (left_start_width - stacks[index - 1].min_width);
+
+          const editedStacks = [...stacks];
+          editedStacks[index - 1].width = new_left_width;
+          editedStacks[index + 1].width = new_right_width;
+          setStacks(editedStacks);
+        } else if (
+          right_width < stacks[index + 1].min_width &&
+          left_width < stacks[index - 1].max_width
+        ) {
+          const new_right_width = stacks[index + 1].min_width;
+          const new_left_width =
+            left_start_width +
+            (right_start_width - stacks[index + 1].min_width);
+
+          const editedStacks = [...stacks];
+          editedStacks[index - 1].width = new_left_width;
+          editedStacks[index + 1].width = new_right_width;
           setStacks(editedStacks);
         }
       }
@@ -776,6 +803,20 @@ class Car {
     };
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
+  };
+  const handleResizerDoubleClick = (e, index) => {
+    if (stacks[index + 1].width === stacks[index + 1].min_width) {
+      const editedStacks = [...stacks];
+      editedStacks[index + 1].width = Math.min(
+        editedStacks[index + 1].max_width,
+        window.innerWidth - e.clientX - (RESIZER.width + 6)
+      );
+      setStacks(editedStacks);
+    } else {
+      const editedStacks = [...stacks];
+      editedStacks[index + 1].width = editedStacks[index + 1].min_width;
+      setStacks(editedStacks);
+    }
   };
   /* Resizer ----------------------------------------------------------------- */
 
@@ -922,6 +963,9 @@ class Car {
                 }}
                 onDragLeave={(e) => {
                   setResizerClassname("stack_structure_resizer0122");
+                }}
+                onDoubleClick={(e) => {
+                  handleResizerDoubleClick(e, index);
                 }}
                 draggable={false}
               >
