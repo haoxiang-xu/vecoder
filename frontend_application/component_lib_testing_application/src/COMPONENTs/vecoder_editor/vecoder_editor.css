@@ -221,17 +221,12 @@
 
   /*POSITION*/
   width: 30px;
-  min-height: 128px;
   position: relative;
-
-  white-space: nowrap;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
 
   /*STYLE*/
   background-color: #252525;
   color: white;
+  overflow: hidden;
 
   border-radius: 4px;
   margin: 4px;
@@ -245,32 +240,40 @@
 
   /*POSITION*/
   width: 30px;
-  min-height: 128px;
   position: relative;
-
-  white-space: nowrap;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
 
   /*STYLE*/
   background-color: #444444;
   color: white;
+  overflow: hidden;
 
   border-radius: 4px;
   margin: 4px;
 }
+.file_selection_bar_item_filetype_icon_vertical0123 {
+  /*POSITION*/
+  position: absolute;
+  padding: 5pt 3pt 0pt 5pt;
+
+  /*SIZE*/
+  width: 12pt;
+  height: 12pt;
+
+  pointer-events: none;
+}
 .file_selection_bar_file_text_vertical0123 {
   /*POSITION*/
   transform: rotate(90deg);
-  position: relative;
-  top: 16px;
-  left: 1px;
+  transform-origin: top left;
+  position: absolute;
+  top: 29px;
+  left: 26px;
 
   /*SIZE*/
-  display: block;
-  font-size: 10pt;
+  max-width: 128px;
+  font-size: 14px;
   color: #cccccc;
+  overflow: hidden;
 
   pointer-events: none;
 }

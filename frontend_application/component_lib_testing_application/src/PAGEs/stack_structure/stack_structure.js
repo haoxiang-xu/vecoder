@@ -213,7 +213,7 @@ const StackStructure = () => {
   const [explorer_files, setExplorer_files] = useState(EXPLORER_FILES);
   const EXPLORER = {
     type: "EXPLORER",
-    min_width: 6,
+    min_width: 40,
     width: 256,
     max_width: 2048,
     content: explorer_files,
@@ -694,14 +694,15 @@ class Car {
     const startX = e.clientX;
     const left_start_width = stacks[index - 1].width;
     const right_start_width = stacks[index + 1].width;
+
     const handleMouseMove = (e) => {
       e.preventDefault();
 
       const moveX = e.clientX - startX;
       const left_width = left_start_width + moveX;
       const right_width = right_start_width - moveX;
-      if (index + 1 === stacks.length - 1) {
-        // SECOND LAST ITEM WON'T CHANGE END WIDTH
+      if (index + 1 === stacks.length - 1 || e.clientX + right_width >= window.innerWidth - 6) {
+        // IF RIGHT ITEM OUTSIDE OF WINDOW OR SECOND LAST ITEM WON'T CHANGE END WIDTH
         if (
           left_width > stacks[index - 1].min_width &&
           left_width < stacks[index - 1].max_width
@@ -709,15 +710,13 @@ class Car {
           const editedStacks = [...stacks];
           editedStacks[index - 1].width = left_width;
           setStacks(editedStacks);
-        }
-      } else if (e.clientX + right_width >= window.innerWidth - 6) {
-        // IF RIGHT ITEM OUTSIDE OF WINDOW
-        if (
-          left_width > stacks[index - 1].min_width &&
-          left_width < stacks[index - 1].max_width
+        } else if (
+          left_width < stacks[index - 1].min_width
         ) {
+          const new_left_width = stacks[index - 1].min_width;
+
           const editedStacks = [...stacks];
-          editedStacks[index - 1].width = left_width;
+          editedStacks[index - 1].width = new_left_width;
           setStacks(editedStacks);
         }
       } else {

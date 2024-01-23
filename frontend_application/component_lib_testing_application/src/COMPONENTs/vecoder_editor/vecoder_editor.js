@@ -316,6 +316,9 @@ const VecoderEditor = ({
       setDragCommand(null);
     }
   }, [dragCommand]);
+  // Styling-------
+  const spanRefs = useRef([]);
+
   /* File Selection Bar parameters & Functions ------------------------------------------------- */
 
   return (
@@ -326,7 +329,7 @@ const VecoderEditor = ({
         handleLeftClick(e);
       }}
     >
-      {editorContainerRef.current?.offsetWidth <= 40 ? (
+      {editorContainerRef.current?.offsetWidth <= 50 ? (
         <div style={{ height: "100%" }}>
           {/*Editor Top Right Section*/}
           <div className="code_editor_top_right_section1113">
@@ -374,19 +377,23 @@ const VecoderEditor = ({
                   onClick={() => {
                     setOnSelectedIndex(index);
                   }}
+                  style ={{
+                    height: spanRefs.current[index]?.offsetWidth + 60 + "px"
+                  }}
                 >
                   <img
                     src={
                       FILE_TYPE_ICON_MANAGER[file.fileName.split(".").pop()]
                         ?.ICON512
                     }
-                    className="file_selection_bar_item_filetype_icon1114"
+                    className="file_selection_bar_item_filetype_icon_vertical0123"
                     alt="close"
                     style={{
                       opacity: index === onSelectedIndex ? "1" : "0.32",
                     }}
                   />
                   <span
+                    ref={(el) => (spanRefs.current[index] = el)}
                     className="file_selection_bar_file_text_vertical0123"
                     style={{
                       opacity: index === onSelectedIndex ? "1" : "0.32",
