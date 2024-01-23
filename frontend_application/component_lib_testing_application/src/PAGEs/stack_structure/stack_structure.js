@@ -6,7 +6,37 @@ import Explorer from "../../COMPONENTs/explorer/explorer";
 import "./stack_structure.css";
 
 const StackStructure = () => {
-  /* DATA ----------------------------------------------------------------- */
+  /* Right Click Menu ---------------------------------------------------------------------------------------------------------------------------------- */
+  const [isRightClicked, setIsRightClicked] = useState(false);
+  const [rightClickX, setRightClickX] = useState(-1);
+  const [rightClickY, setRightClickY] = useState(-1);
+  const [onRightClickItem, setOnRightClickItem] = useState(null);
+  const [rightClickCommand, setRightClickCommand] = useState(null);
+  const handleRightClick = (event) => {
+    event.preventDefault();
+    setIsRightClicked(true);
+
+    const boundingRect = event.currentTarget.getBoundingClientRect();
+
+    const rightClickX = event.clientX - boundingRect.left;
+    const rightClickY = event.clientY - boundingRect.top;
+
+    setRightClickX(rightClickX);
+    setRightClickY(rightClickY);
+  };
+  const handleLeftClick = (event) => {
+    setIsRightClicked(false);
+    setOnRightClickItem(null);
+  };
+  /* Right Click Menu ---------------------------------------------------------------------------------------------------------------------------------- */
+
+  /* Stack Item Drag and Drop ----------------------------------------------------------------- */
+  const [draggedItem, setDraggedItem] = useState(null);
+  const [draggedOverItem, setDraggedOverItem] = useState(null);
+  const [dragCommand, setDragCommand] = useState(null);
+  /* Stack Item Drag and Drop ----------------------------------------------------------------- */
+
+  /* DATA ----------------------------------------------------------------------------------------------------------------------------------------------- */
   const RESIZER = { type: "RESIZER", width: 16, content: "" };
   const END = {
     type: "END",
@@ -15,7 +45,7 @@ const StackStructure = () => {
     max_width: 512,
     content: "",
   };
-  //Explorer Data
+  //Explorer Data ----------------------------------------------------------------------
   const EXPLORER_FILES = {
     fileName: "vecoder",
     fileType: "folder",
@@ -181,7 +211,14 @@ const StackStructure = () => {
     ],
   };
   const [explorer_files, setExplorer_files] = useState(EXPLORER_FILES);
-  //Code Editor Data
+  const EXPLORER = {
+    type: "EXPLORER",
+    min_width: 6,
+    width: 256,
+    max_width: 2048,
+    content: explorer_files,
+  };
+  //Code Editor Data -------------------------------------------------------------------
   const CODE_EDITOR_FILES = [
     [
       {
@@ -564,99 +601,34 @@ class Car {
     ],
   ];
   const [code_editor_files, setCode_editor_files] = useState(CODE_EDITOR_FILES);
-
-  //Stacking Data
+  const CODE_EDITORs = [
+    {
+      type: "CODE_EDITOR",
+      min_width: 40,
+      width: 600,
+      max_width: 2048,
+      code_editor_index: 0,
+    },
+    {
+      type: "CODE_EDITOR",
+      min_width: 40,
+      width: 600,
+      max_width: 2048,
+      code_editor_index: 1,
+    },
+  ];
+  //Stacking Data ----------------------------------------------------------------------
   const stacking_data = [
-    {
-      type: "EXPLORER",
-      min_width: 6,
-      width: 280,
-      max_width: 512,
-      content: explorer_files,
-    },
+    EXPLORER,
     RESIZER,
-    {
-      type: "CODE_EDITOR",
-      min_width: 40,
-      width: 600,
-      max_width: 2048,
-      content: code_editor_files[0],
-    },
+    CODE_EDITORs[0],
     RESIZER,
-    {
-      type: "CODE_EDITOR",
-      min_width: 40,
-      width: 600,
-      max_width: 2048,
-      content: code_editor_files[1],
-    },
-    RESIZER,
-    {
-      type: "EMPTY_CONTAINER",
-      min_width: 40,
-      width: 512,
-      max_width: 1024,
-      content: "EMPTY",
-    },
-    RESIZER,
-    {
-      type: "EMPTY_CONTAINER",
-      min_width: 40,
-      width: 512,
-      max_width: 1024,
-      content: "EMPTY",
-    },
-    RESIZER,
-    {
-      type: "EMPTY_CONTAINER",
-      min_width: 40,
-      width: 512,
-      max_width: 1024,
-      content: "EMPTY",
-    },
-    RESIZER,
-    {
-      type: "EMPTY_CONTAINER",
-      min_width: 40,
-      width: 512,
-      max_width: 1024,
-      content: "EMPTY",
-    },
+    CODE_EDITORs[1],
     RESIZER,
     END,
   ];
   const [stacks, setStacks] = useState(stacking_data);
-  /* DATA ----------------------------------------------------------------- */
-
-  /* Right Click Menu ----------------------------------------------------------------- */
-  const [isRightClicked, setIsRightClicked] = useState(false);
-  const [rightClickX, setRightClickX] = useState(-1);
-  const [rightClickY, setRightClickY] = useState(-1);
-  const [onRightClickItem, setOnRightClickItem] = useState(null);
-  const [rightClickCommand, setRightClickCommand] = useState(null);
-  const handleRightClick = (event) => {
-    event.preventDefault();
-    setIsRightClicked(true);
-
-    const boundingRect = event.currentTarget.getBoundingClientRect();
-
-    const rightClickX = event.clientX - boundingRect.left;
-    const rightClickY = event.clientY - boundingRect.top;
-
-    setRightClickX(rightClickX);
-    setRightClickY(rightClickY);
-  };
-  const handleLeftClick = (event) => {
-    setIsRightClicked(false);
-    setOnRightClickItem(null);
-  };
-  /* Right Click Menu ----------------------------------------------------------------- */
-
-  /* Stack Item Drag and Drop ----------------------------------------------------------------- */
-  const [draggedItem, setDraggedItem] = useState(null);
-  const [draggedOverItem, setDraggedOverItem] = useState(null);
-  const [dragCommand, setDragCommand] = useState(null);
-  /* Stack Item Drag and Drop ----------------------------------------------------------------- */
+  /* DATA ----------------------------------------------------------------------------------------------------------------------------------------------- */
 
   /* Stack Container Drag and Drop ------------------------------------------------------------ */
   const stackStructureContainerRef = useRef(null);
@@ -715,7 +687,7 @@ class Car {
   };
   /* Stack Container Drag and Drop ------------------------------------------------------------ */
 
-  /* Resizer ----------------------------------------------------------------- */
+  /* Resizer ------------------------------------------------------------------------------------------------------------------------------------------- */
   const [resizerOnMouseDown, setResizerOnMouseDown] = useState(false);
   const handleResizerMouseDown = (e, index) => {
     setResizerOnMouseDown(true);
@@ -818,7 +790,7 @@ class Car {
       setStacks(editedStacks);
     }
   };
-  /* Resizer ----------------------------------------------------------------- */
+  /* Resizer ------------------------------------------------------------------------------------------------------------------------------------------- */
 
   return (
     <div
@@ -908,7 +880,7 @@ class Car {
                 }}
               >
                 <VecoderEditor
-                  imported_files={item.content}
+                  imported_files={code_editor_files[item.code_editor_index]}
                   onRightClickItem={onRightClickItem}
                   setOnRightClickItem={setOnRightClickItem}
                   rightClickCommand={rightClickCommand}

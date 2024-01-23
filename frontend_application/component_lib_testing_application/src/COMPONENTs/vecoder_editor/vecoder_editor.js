@@ -19,8 +19,15 @@ const VecoderEditor = ({
   dragCommand,
   setDragCommand,
 }) => {
+  const [forceRefresh, setForceRefresh] = useState(false);
+  const refresh = () => {
+    setForceRefresh(!forceRefresh);
+  };
   /* Initialize File Data ------------------------------------------------------ */
   const [files, setFiles] = useState(imported_files);
+  useEffect(() => {
+    setFiles(imported_files);
+  }, [imported_files]);
   /* Initialize File Data ------------------------------------------------------ */
 
   /* Load ICON manager -------------------------------- */
@@ -169,6 +176,9 @@ const VecoderEditor = ({
   /* Editor parameters ------------------------------------------------- */
   //// Editor container ref
   const editorContainerRef = useRef(null);
+  useEffect(() => {
+    refresh();
+  }, [editorContainerRef.current?.offsetWidth]);
   //// Editor content
   const setFileContent = (index) => (value) => {
     const editedFiles = [...files];
@@ -316,113 +326,209 @@ const VecoderEditor = ({
         handleLeftClick(e);
       }}
     >
-      {/*Monaco Editor -------------------------------------------------------------- */}
-      {files.map((file, index) => {
-        return (
-          <Editor
-            key={index}
-            editor_content={files[index].fileContent}
-            editor_setContent={setFileContent(index)}
-            editor_language={files[index].fileLanguage}
-            //Functional props
-            onAppendContent={onAppendContent}
-            setOnAppendContent={setOnAppendContent}
-            setOnSelected={setOnSelectedCode}
-            onContextMenu={(e) => {
-              handleRightClick(e);
+      {editorContainerRef.current?.offsetWidth <= 40 ? (
+        <div style={{ height: "100%" }}>
+          {/*Editor Top Right Section*/}
+          <div className="code_editor_top_right_section1113">
+            <img
+              src={SYSTEM_ICON_MANAGER.close.ICON512}
+              className="code_editor_close_icon1113"
+              draggable="false"
+              alt="close"
+            />
+          </div>
+          {/*Editor File Selection Bar*/}
+          <div
+            className="file_selection_bar_container_vertical0122"
+            ref={fileSelectionBarContainerRef}
+            onDragOver={(e) => {
+              fileSelectionBarOnDragOver(e);
             }}
-            display={
-              file.filePath === files[onSelectedIndex]?.filePath ? true : false
-            }
-
-            //editor_diffContent={diffContent}
-            //editor_setDiffContent={setDiffContent}
-          ></Editor>
-        );
-      })}
-      {/*Monaco Editor -------------------------------------------------------------- */}
-
-      {/*Editor Top Bar Container -------------------------------------------------------------- */}
-      {/*Editor Top Right Section*/}
-      <div className="code_editor_top_right_section1113">
-        <img
-          src={SYSTEM_ICON_MANAGER.close.ICON512}
-          className="code_editor_close_icon1113"
-          draggable="false"
-          alt="close"
-        />
-      </div>
-      {/*Editor File Selection Bar*/}
-      <div
-        className="file_selection_bar_container1114"
-        ref={fileSelectionBarContainerRef}
-        onDragOver={(e) => {
-          fileSelectionBarOnDragOver(e);
-        }}
-        onDragLeave={(e) => {
-          fileSelectionBarOnDragLeave(e);
-        }}
-      >
-        {files.map((file, index) => {
-          let className;
-          switch (true) {
-            case index === onSelectedIndex:
-              className = "file_selection_bar_item_selected1114";
-              break;
-            case index === onSwapIndex:
-              className = "file_selection_bar_item_selected1114";
-              break;
-            default:
-              className = "file_selection_bar_item1114";
-          }
-          return (
-            <div
-              key={index}
-              className={className}
-              draggable={true}
-              onDragStart={(e) => {
-                onFileDragStart(e, index);
-              }}
-              onDragEnd={(e) => {
-                onFileDragEnd(e);
-              }}
-              onClick={() => {
-                setOnSelectedIndex(index);
-              }}
-            >
-              <img
-                src={
-                  FILE_TYPE_ICON_MANAGER[file.fileName.split(".").pop()]
-                    ?.ICON512
+            onDragLeave={(e) => {
+              fileSelectionBarOnDragLeave(e);
+            }}
+          >
+            {files.map((file, index) => {
+              let className;
+              switch (true) {
+                case index === onSelectedIndex:
+                  className = "file_selection_bar_item_selected_vertical0123";
+                  break;
+                case index === onSwapIndex:
+                  className = "file_selection_bar_item_selected_vertical0123";
+                  break;
+                default:
+                  className = "file_selection_bar_item_vertical0123";
+              }
+              return (
+                <div
+                  key={index}
+                  className={className}
+                  draggable={true}
+                  onDragStart={(e) => {
+                    onFileDragStart(e, index);
+                  }}
+                  onDragEnd={(e) => {
+                    onFileDragEnd(e);
+                  }}
+                  onClick={() => {
+                    setOnSelectedIndex(index);
+                  }}
+                >
+                  <img
+                    src={
+                      FILE_TYPE_ICON_MANAGER[file.fileName.split(".").pop()]
+                        ?.ICON512
+                    }
+                    className="file_selection_bar_item_filetype_icon1114"
+                    alt="close"
+                    style={{
+                      opacity: index === onSelectedIndex ? "1" : "0.32",
+                    }}
+                  />
+                  <span
+                    className="file_selection_bar_file_text_vertical0123"
+                    style={{
+                      opacity: index === onSelectedIndex ? "1" : "0.32",
+                    }}
+                  >
+                    {file.fileName}
+                  </span>
+                  <img
+                    src={SYSTEM_ICON_MANAGER.close.ICON512}
+                    className="file_selection_bar_item_close_icon_vertical0123"
+                    alt="close"
+                    draggable="false"
+                    onDragOver={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                    }}
+                    onClick={(e) => {
+                      onFileDelete(e)(index);
+                    }}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ) : (
+        <div style={{ height: "100%" }}>
+          {/*Monaco Editor -------------------------------------------------------------- */}
+          {files.map((file, index) => {
+            return (
+              <Editor
+                key={index}
+                editor_content={files[index].fileContent}
+                editor_setContent={setFileContent(index)}
+                editor_language={files[index].fileLanguage}
+                //Functional props
+                onAppendContent={onAppendContent}
+                setOnAppendContent={setOnAppendContent}
+                setOnSelected={setOnSelectedCode}
+                onContextMenu={(e) => {
+                  handleRightClick(e);
+                }}
+                display={
+                  file.filePath === files[onSelectedIndex]?.filePath
+                    ? true
+                    : false
                 }
-                className="file_selection_bar_item_filetype_icon1114"
-                alt="close"
-                style={{ opacity: index === onSelectedIndex ? "1" : "0.32" }}
-              />
-              <span
-                className="file_selection_bar_file_text1114"
-                style={{ opacity: index === onSelectedIndex ? "1" : "0.32" }}
-              >
-                {file.fileName}
-              </span>
-              <img
-                src={SYSTEM_ICON_MANAGER.close.ICON512}
-                className="file_selection_bar_item_close_icon1114"
-                alt="close"
-                draggable="false"
-                onDragOver={(e) => {
-                  e.stopPropagation();
-                  e.preventDefault();
-                }}
-                onClick={(e) => {
-                  onFileDelete(e)(index);
-                }}
-              />
-            </div>
-          );
-        })}
-      </div>
-      {/*Editor Top Bar Container -------------------------------------------------------------- */}
+
+                //editor_diffContent={diffContent}
+                //editor_setDiffContent={setDiffContent}
+              ></Editor>
+            );
+          })}
+          {/*Monaco Editor -------------------------------------------------------------- */}
+
+          {/*Editor Top Bar Container -------------------------------------------------------------- */}
+          {/*Editor Top Right Section*/}
+          <div className="code_editor_top_right_section1113">
+            <img
+              src={SYSTEM_ICON_MANAGER.close.ICON512}
+              className="code_editor_close_icon1113"
+              draggable="false"
+              alt="close"
+            />
+          </div>
+          {/*Editor File Selection Bar*/}
+          <div
+            className="file_selection_bar_container1114"
+            ref={fileSelectionBarContainerRef}
+            onDragOver={(e) => {
+              fileSelectionBarOnDragOver(e);
+            }}
+            onDragLeave={(e) => {
+              fileSelectionBarOnDragLeave(e);
+            }}
+          >
+            {files.map((file, index) => {
+              let className;
+              switch (true) {
+                case index === onSelectedIndex:
+                  className = "file_selection_bar_item_selected1114";
+                  break;
+                case index === onSwapIndex:
+                  className = "file_selection_bar_item_selected1114";
+                  break;
+                default:
+                  className = "file_selection_bar_item1114";
+              }
+              return (
+                <div
+                  key={index}
+                  className={className}
+                  draggable={true}
+                  onDragStart={(e) => {
+                    onFileDragStart(e, index);
+                  }}
+                  onDragEnd={(e) => {
+                    onFileDragEnd(e);
+                  }}
+                  onClick={() => {
+                    setOnSelectedIndex(index);
+                  }}
+                >
+                  <img
+                    src={
+                      FILE_TYPE_ICON_MANAGER[file.fileName.split(".").pop()]
+                        ?.ICON512
+                    }
+                    className="file_selection_bar_item_filetype_icon1114"
+                    alt="close"
+                    style={{
+                      opacity: index === onSelectedIndex ? "1" : "0.32",
+                    }}
+                  />
+                  <span
+                    className="file_selection_bar_file_text1114"
+                    style={{
+                      opacity: index === onSelectedIndex ? "1" : "0.32",
+                    }}
+                  >
+                    {file.fileName}
+                  </span>
+                  <img
+                    src={SYSTEM_ICON_MANAGER.close.ICON512}
+                    className="file_selection_bar_item_close_icon1114"
+                    alt="close"
+                    draggable="false"
+                    onDragOver={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                    }}
+                    onClick={(e) => {
+                      onFileDelete(e)(index);
+                    }}
+                  />
+                </div>
+              );
+            })}
+          </div>
+          {/*Editor Top Bar Container -------------------------------------------------------------- */}
+        </div>
+      )}
     </div>
   );
 };
