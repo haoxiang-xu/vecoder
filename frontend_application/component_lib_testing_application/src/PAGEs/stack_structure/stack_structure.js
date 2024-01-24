@@ -41,7 +41,8 @@ const StackStructure = () => {
   /* Stack Item Drag and Drop ----------------------------------------------------------------- */
 
   /* DATA ----------------------------------------------------------------------------------------------------------------------------------------------- */
-  const RESIZER = { type: "RESIZER", width: 16, content: "" };
+  const RESIZER = { type: "RESIZER", min_width: 16, width: 16, max_width: 16, content: "" };
+  const STACK_WINDOW_SIZE_MAX_WIDTH = window.innerWidth - RESIZER.width;
   const END = {
     type: "END",
     min_width: 512,
@@ -219,7 +220,7 @@ const StackStructure = () => {
     type: "EXPLORER",
     min_width: 40,
     width: 256,
-    max_width: 2048,
+    max_width: STACK_WINDOW_SIZE_MAX_WIDTH,
     content: explorer_files,
   };
   //Code Editor Data -------------------------------------------------------------------
@@ -610,14 +611,14 @@ class Car {
       type: "CODE_EDITOR",
       min_width: 40,
       width: 600,
-      max_width: 2048,
+      max_width: STACK_WINDOW_SIZE_MAX_WIDTH,
       code_editor_index: 0,
     },
     {
       type: "CODE_EDITOR",
       min_width: 40,
       width: 600,
-      max_width: 2048,
+      max_width: STACK_WINDOW_SIZE_MAX_WIDTH,
       code_editor_index: 1,
     },
   ];

@@ -384,7 +384,7 @@ const VecoderEditor = ({
                     setOnSelectedIndex(index);
                   }}
                   style ={{
-                    height: spanRefs.current[index]?.offsetWidth + 60 + "px"
+                    minHeight: spanRefs.current[index]?.offsetWidth + 60 + "px"
                   }}
                 >
                   <img

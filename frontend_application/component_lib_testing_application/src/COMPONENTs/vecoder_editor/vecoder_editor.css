@@ -9,9 +9,9 @@
   transform: translate(-50%, -50%);
 
   /*STYLE*/
-  border-radius: 4pt;
-  padding: 34pt 4pt 4pt 4pt;
-  box-shadow: 0px 4px 16px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 7px;
+  padding: 44px 6px 6px 6px;
+
   box-sizing: border-box;
   overflow: hidden;
   background-color: #1e1e1e;
@@ -27,7 +27,7 @@
 .code_editor_top_right_section1113 {
   /*POSITION*/
   width: 100%;
-  height: 26pt;
+  height: 42px;
   position: absolute;
   top: 0%;
   right: 0%;
@@ -39,15 +39,15 @@
   transition: all 0.2s ease;
 
   /*POSITION*/
-  width: 8pt;
-  height: 8pt;
+  width: 12px;
+  height: 12px;
   position: absolute;
-  top: 4pt;
-  right: 4pt;
+  top: 5px;
+  right: 5px;
 
   /*STYLE*/
-  border-radius: 2pt;
-  padding: 7pt;
+  border-radius: 4px;
+  padding: 9px;
 }
 .code_editor_close_icon1113:hover {
   transition: all 0.2s ease;
@@ -68,16 +68,16 @@
   /*POSITION*/
   display: flex;
   position: absolute;
-  left: 4pt;
-  right: 32pt;
+  left: 6px;
+  right: 42px;
   top: 0%;
-  height: 32pt;
+  height: 42px;
 
   /*STYLE*/
   overflow-y: hidden;
 }
 .file_selection_bar_container1114::-webkit-scrollbar {
-  height: 3pt;
+  height: 4px;
 }
 .file_selection_bar_container1114::-webkit-scrollbar-track {
   background: transparent;
@@ -96,7 +96,7 @@
   left: 1px;
   top: 36px;
   right: 0px;
-  bottom: 4px;
+  bottom: 5px;
 
   display: flex;
   flex-direction: column;
@@ -124,7 +124,7 @@
   transition: all 0.16s ease;
 
   /*POSITION*/
-  height: 22pt;
+  height: 30px;
   position: relative;
 
   flex: 0 0 auto;
@@ -136,8 +136,8 @@
   background-color: #252525;
   color: white;
 
-  border-radius: 2pt;
-  margin: 4pt 4pt 4pt 0pt;
+  border-radius: 4px;
+  margin: 5px 6px 4px 0px;
 }
 .file_selection_bar_item1114:hover {
   transition: all 0.2s ease;
@@ -147,7 +147,7 @@
   transition: all 0.16s ease;
 
   /*POSITION*/
-  height: 22pt;
+  height: 30px;
   position: relative;
 
   flex: 0 0 auto;
@@ -159,18 +159,17 @@
   background-color: #444444;
   color: white;
 
-  border-radius: 2pt;
-  margin: 4pt 4pt 4pt 0pt;
-  transition: all 0.32s ease;
+  border-radius: 4px;
+  margin: 5px 6px 4px 0px;
 }
 .file_selection_bar_file_text1114 {
   /*POSITION*/
   position: relative;
-  top: -2pt;
-  padding: 0pt 7pt 0pt 0pt;
+  top: -3px;
+  padding: 0px 12px 0px 0px;
 
   /*SIZE*/
-  font-size: 10pt;
+  font-size: 14px;
   color: #cccccc;
 
   pointer-events: none;
@@ -178,11 +177,11 @@
 .file_selection_bar_item_filetype_icon1114 {
   /*POSITION*/
   position: relative;
-  padding: 5pt 3pt 0pt 5pt;
+  padding: 7px 7px 0px 7px;
 
   /*SIZE*/
-  width: 12pt;
-  height: 12pt;
+  width: 16px;
+  height: 16px;
 
   pointer-events: none;
 }
@@ -192,13 +191,14 @@
   /*POSITION*/
   position: relative;
 
-  right: 6px;
-  padding: 3px;
+  top: 2px;
+  right: 5px;
+  padding: 5px;
 
   /*SIZE*/
-  width: 7pt;
-  height: 7pt;
-  border-radius: 1pt;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
 
   opacity: 1;
 }
@@ -253,11 +253,11 @@
 .file_selection_bar_item_filetype_icon_vertical0123 {
   /*POSITION*/
   position: absolute;
-  padding: 5pt 3pt 0pt 5pt;
+  padding: 7px 0px 0px 7px;
 
   /*SIZE*/
-  width: 12pt;
-  height: 12pt;
+  width: 16px;
+  height: 16px;
 
   pointer-events: none;
 }
@@ -284,7 +284,7 @@
   position: absolute;
 
   left: 5px;
-  bottom: 6px;
+  bottom: 5px;
   padding: 5px;
 
   /*SIZE*/
