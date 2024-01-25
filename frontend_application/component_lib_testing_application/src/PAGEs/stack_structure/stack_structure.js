@@ -90,6 +90,13 @@ const StackStructure = () => {
                 files: [],
               },
               {
+                fileName: "index.php",
+                fileType: "file",
+                filePath: "vecoder/vecoder_sample/public/index.php",
+                fileExpend: false,
+                files: [],
+              },
+              {
                 fileName: "logo192.png",
                 fileType: "file",
                 filePath: "vecoder/vecoder_sample/public/logo192.png",
@@ -114,6 +121,41 @@ const StackStructure = () => {
                 fileName: "robots.txt",
                 fileType: "file",
                 filePath: "vecoder/vecoder_sample/public/robots.txt",
+                fileExpend: false,
+                files: [],
+              },
+              {
+                fileName: "test.py",
+                fileType: "file",
+                filePath: "vecoder/vecoder_sample/public/test.py",
+                fileExpend: false,
+                files: [],
+              },
+              {
+                fileName: "test.java",
+                fileType: "file",
+                filePath: "vecoder/vecoder_sample/public/test.java",
+                fileExpend: false,
+                files: [],
+              },
+              {
+                fileName: "test.xls",
+                fileType: "file",
+                filePath: "vecoder/vecoder_sample/public/test.xls",
+                fileExpend: false,
+                files: [],
+              },
+              {
+                fileName: "test.doc",
+                fileType: "file",
+                filePath: "vecoder/vecoder_sample/public/test.doc",
+                fileExpend: false,
+                files: [],
+              },
+              {
+                fileName: "test.ppt",
+                fileType: "file",
+                filePath: "vecoder/vecoder_sample/public/test.ppt",
                 fileExpend: false,
                 files: [],
               },
@@ -214,6 +256,13 @@ const StackStructure = () => {
             fileName: "README.md",
             fileType: "file",
             filePath: "vecoder/vecoder_sample/README.md",
+            fileExpend: false,
+            files: [],
+          },
+          {
+            fileName: ".env",
+            fileType: "file",
+            filePath: "vecoder/vecoder_sample/.env",
             fileExpend: false,
             files: [],
           },
@@ -724,7 +773,7 @@ class Car {
       const moveX = e.clientX - startX;
       const left_width = left_start_width + moveX;
       const right_width = right_start_width - moveX;
-      if (e.clientX > window.innerWidth) {
+      if (e.clientX > window.innerWidth - RESIZER.width / 2) {
         // IF RIGHT ITEM OUTSIDE OF WINDOW
         const editedStacks = [...stacks];
         editedStacks[index - 1].width = Math.min(
