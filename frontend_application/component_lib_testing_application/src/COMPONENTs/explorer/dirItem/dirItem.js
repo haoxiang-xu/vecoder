@@ -47,6 +47,13 @@ const DirItem = ({
   }
   /* Load ICON manager -------------------------------- */
 
+  /* ICON Loader ----------------------------------------------------------------- */
+  const [isFileTypeIconLoad, setIsFileTypeIconLoad] = useState(false);
+  const handleFileTypeIconLoad = () => {
+    setIsFileTypeIconLoad(true);
+  };
+  /* ICON Loader ----------------------------------------------------------------- */
+
   const [refresh, setRefresh] = useState(false);
   const forceRefresh = () => {
     setRefresh(!refresh);
@@ -63,6 +70,7 @@ const DirItem = ({
   const [filename, setFilename] = useState(file.fileName);
   const [renameInput, setRenameInput] = useState(filename);
   const [fileIcon, setFileIcon] = useState();
+  const [fileIconBackground, setFileIconBackground] = useState();
   const [fileTextColor, setFileTextColor] = useState("#C8C8C8");
 
   const [dir, setDir] = useState(file.files);
@@ -79,6 +87,9 @@ const DirItem = ({
     setRenameInput(file.fileName);
     setFileIcon(
       FILE_TYPE_ICON_MANAGER[file.fileName.split(".").pop()]?.ICON512
+    );
+    setFileIconBackground(
+      FILE_TYPE_ICON_MANAGER[file.fileName.split(".").pop()]?.ICON16
     );
     setFileTextColor(
       FILE_TYPE_ICON_MANAGER[file.fileName.split(".").pop()]?.LABEL_COLOR
@@ -683,12 +694,24 @@ const DirItem = ({
               onContextMenu={handleFileOnRightClick}
             >
               {fileIcon !== undefined ? (
-                <img
-                  src={fileIcon !== undefined ? fileIcon : ""}
-                  className="dir_item_component_script_icon0725"
-                  loading="lazy"
-                  draggable={"false"}
-                ></img>
+                <div
+                  className = "dir_item_component_script_icon0725"
+                  style={
+                    isFileTypeIconLoad
+                      ? {}
+                      : {
+                          backgroundImage: `url(${fileIconBackground})`,
+                        }
+                  }
+                >
+                  <img
+                    src={fileIcon}
+                    className="dir_item_component_script_icon0725"
+                    loading="lazy"
+                    onLoad={handleFileTypeIconLoad}
+                    draggable={"false"}
+                  ></img>
+                </div>
               ) : (
                 <div></div>
               )}

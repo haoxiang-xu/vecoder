@@ -1,6 +1,14 @@
-.vector_editor_container1116 {
+.vector_editor_container1116_01 {
   position: absolute;
   left: 216pt;
+  top: 8pt;
+  width: 512pt;
+  bottom: 8pt;
+  overflow: hidden;
+}
+.vector_editor_container1116_02 {
+  position: absolute;
+  left: 736pt;
   top: 8pt;
   right: 8pt;
   bottom: 8pt;

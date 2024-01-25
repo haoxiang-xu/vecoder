@@ -6,14 +6,32 @@ import { ICON_MANAGER } from "../../ICONs/icon_manager";
 
 const VecoderEditor = ({
   imported_files,
+  setImportedFiles,
   //Context Menu
   onRightClickItem,
   setOnRightClickItem,
   rightClickCommand,
   setRightClickCommand,
+  //Drag and Drop
+  draggedItem,
+  setDraggedItem,
+  draggedOverItem,
+  setDraggedOverItem,
+  dragCommand,
+  setDragCommand,
 }) => {
+  const [forceRefresh, setForceRefresh] = useState(false);
+  const refresh = () => {
+    setForceRefresh(!forceRefresh);
+  };
   /* Initialize File Data ------------------------------------------------------ */
   const [files, setFiles] = useState(imported_files);
+  useEffect(() => {
+    setImportedFiles(files);
+  }, [files]);
+  useEffect(() => {
+    setFiles(imported_files);
+  }, [imported_files]);
   /* Initialize File Data ------------------------------------------------------ */
 
   /* Load ICON manager -------------------------------- */
@@ -44,7 +62,7 @@ const VecoderEditor = ({
   /* API ----------------------------------------------------------------------- */
   const getAST = async () => {
     const requestBody = {
-      language: fileList[onSelectedIndex].fileLanguage,
+      language: files[onSelectedIndex].fileLanguage,
       prompt: onSelectedCode.selectedText,
     };
 
@@ -72,8 +90,8 @@ const VecoderEditor = ({
         prompt = onSelectedCode?.selectedText || "";
         break;
       case "entireFile":
-        if (fileList?.length > onSelectedIndex && files?.length) {
-          const selectedFile = fileList[onSelectedIndex]?.fileName;
+        if (files?.length > onSelectedIndex && files?.length) {
+          const selectedFile = files[onSelectedIndex]?.fileName;
           const file = files.find((f) => f.fileName === selectedFile);
           prompt = file?.fileContent || "";
         }
@@ -83,7 +101,7 @@ const VecoderEditor = ({
         return;
     }
     const requestBody = {
-      language: fileList?.[onSelectedIndex]?.fileLanguage || "defaultLanguage",
+      language: files?.[onSelectedIndex]?.fileLanguage || "defaultLanguage",
       prompt: prompt,
     };
     switch (rightClickCommand?.content?.requestMethod) {
@@ -162,6 +180,9 @@ const VecoderEditor = ({
   /* Editor parameters ------------------------------------------------- */
   //// Editor container ref
   const editorContainerRef = useRef(null);
+  useEffect(() => {
+    refresh();
+  }, [editorContainerRef.current?.offsetWidth]);
   //// Editor content
   const setFileContent = (index) => (value) => {
     const editedFiles = [...files];
@@ -174,12 +195,6 @@ const VecoderEditor = ({
 
   /* File Selection Bar parameters & Functions ------------------------------------------------- */
   const fileSelectionBarContainerRef = useRef(null);
-  const [fileList, setFileList] = useState(
-    imported_files.map((file) => ({
-      fileName: String(file.fileName),
-      fileLanguage: String(file.fileLanguage),
-    }))
-  );
   const [onSelectedIndex, setOnSelectedIndex] = useState(null);
   const [onDragIndex, setOnDragIndex] = useState(-1);
   const [onDropIndex, setOnDropIndex] = useState(-1);
@@ -187,9 +202,9 @@ const VecoderEditor = ({
 
   const onFileDelete = (e) => (index) => {
     e.stopPropagation();
-    const editedFiles = [...fileList];
+    const editedFiles = [...files];
     editedFiles.splice(index, 1);
-    setFileList(editedFiles);
+    setFiles(editedFiles);
 
     if (onSelectedIndex === index) {
       setOnSelectedIndex(null);
@@ -200,30 +215,39 @@ const VecoderEditor = ({
     }
   };
   const onFileDragStart = (e, index) => {
-    e.target.style.opacity = 0.1;
+    e.stopPropagation();
 
     setOnSelectedIndex(index);
     setOnDragIndex(index);
+    setDraggedItem(files[index]);
   };
   const onFileDragEnd = (e, index) => {
-    e.target.style.opacity = 1;
+    e.stopPropagation();
 
     if (onDropIndex !== -1) {
-      const editedFiles = [...fileList];
+      const editedFiles = [...files];
       const dragedFile = editedFiles.splice(onDragIndex, 1)[0];
       editedFiles.splice(onDropIndex, 0, dragedFile);
-      setFileList(editedFiles);
-      setOnSelectedIndex(onDropIndex);
+      setFiles(editedFiles);
+      setOnSelectedIndex(Math.min(onDropIndex, files.length - 1));
     }
-    setOnDragIndex(-1);
-    setOnDropIndex(-1);
-    setOnSwapIndex(-1);
+    if (onDropIndex === -1 && draggedOverItem !== null) {
+      setDragCommand("APPEND TO TARGET");
+    } else {
+      setOnDragIndex(-1);
+      setOnDropIndex(-1);
+      setOnSwapIndex(-1);
+      setDraggedItem(null);
+    }
   };
-  const containerOnDragOver = (e) => {
+  const fileSelectionBarOnDragOver = (e) => {
     e.preventDefault();
-
+    e.stopPropagation();
     const targetElement = e.target.closest(
-      ".file_selection_bar_item1114, .file_selection_bar_item_selected1114"
+      ".file_selection_bar_item1114, " +
+        ".file_selection_bar_item_selected1114, " +
+        ".file_selection_bar_item_vertical0123, " +
+        ".file_selection_bar_item_selected_vertical0123"
     );
     if (targetElement && fileSelectionBarContainerRef.current) {
       const childrenArray = Array.from(
@@ -231,15 +255,80 @@ const VecoderEditor = ({
       );
       const dropIndex = childrenArray.indexOf(targetElement);
       if (dropIndex !== onDropIndex && dropIndex !== -1) {
+        if (onDragIndex === -1) {
+          setDraggedOverItem(files[dropIndex]);
+        }
         setOnDropIndex(dropIndex);
       }
+    } else {
+      const childrenArray = Array.from(
+        fileSelectionBarContainerRef.current.children
+      );
+      const lastItem = childrenArray[childrenArray.length - 1];
+      const lastItemRect = lastItem.getBoundingClientRect();
+      const isAfterLastItem =
+        e.clientY > lastItemRect.top && e.clientX > lastItemRect.right;
+
+      if (isAfterLastItem) {
+        if (onDragIndex !== childrenArray.length - 1) {
+          let dropIndex = -1;
+          if (onDragIndex === -1) {
+            dropIndex = childrenArray.length;
+          } else {
+            dropIndex = childrenArray.length - 1;
+          }
+          setOnDropIndex(dropIndex);
+          if (onDragIndex === -1) {
+            setDraggedOverItem("fileSelectionBarContainerLastItem");
+          }
+        }
+      }
     }
+  };
+  const fileSelectionBarOnDragLeave = (e) => {
+    e.stopPropagation();
+    setOnDropIndex(-1);
+    setOnSwapIndex(-1);
+    setDraggedOverItem(null);
   };
   useEffect(() => {
     setOnSwapIndex(onDropIndex);
   }, [onDropIndex]);
+  useEffect(() => {
+    if (onDropIndex !== -1 && dragCommand === "APPEND TO TARGET") {
+      const editedFiles = [...files];
+      const dragedFile = draggedItem;
+      editedFiles.splice(onDropIndex, 0, dragedFile);
+      setFiles(editedFiles);
+      setOnSelectedIndex(onDropIndex);
+
+      setOnDragIndex(-1);
+      setOnDropIndex(-1);
+      setOnSwapIndex(-1);
+      setDraggedItem(null);
+      setDraggedOverItem(null);
+      setDragCommand("DELETE FROM SOURCE");
+    }
+    if (onDragIndex !== -1 && dragCommand === "DELETE FROM SOURCE") {
+      const editedFiles = [...files];
+      editedFiles.splice(onDragIndex, 1);
+      setFiles(editedFiles);
+      setOnSelectedIndex(null);
+
+      setOnDragIndex(-1);
+      setOnDropIndex(-1);
+      setOnSwapIndex(-1);
+      setDragCommand(null);
+    }
+  }, [dragCommand]);
+  // Styling-------
+  const spanRefs = useRef([]);
+  useEffect(() => {
+    refresh();
+  }, [spanRefs.current[onSelectedIndex]?.offsetWidth]);
 
   /* File Selection Bar parameters & Functions ------------------------------------------------- */
+
   return (
     <div
       className="code_editor_container1113"
@@ -248,111 +337,213 @@ const VecoderEditor = ({
         handleLeftClick(e);
       }}
     >
-      {/*Monaco Editor -------------------------------------------------------------- */}
-      {files.map((file, index) => {
-        return (
-          <Editor
-            key={index}
-            editor_content={files[index].fileContent}
-            editor_setContent={setFileContent(index)}
-            editor_language={files[index].fileLanguage}
-            //Functional props
-            onAppendContent={onAppendContent}
-            setOnAppendContent={setOnAppendContent}
-            setOnSelected={setOnSelectedCode}
-            onContextMenu={(e) => {
-              handleRightClick(e);
+      {editorContainerRef.current?.offsetWidth <= 50 ? (
+        <div style={{ height: "100%" }}>
+          {/*Editor Top Right Section*/}
+          <div className="code_editor_top_right_section1113">
+            <img
+              src={SYSTEM_ICON_MANAGER.close.ICON512}
+              className="code_editor_close_icon1113"
+              draggable="false"
+              alt="close"
+            />
+          </div>
+          {/*Editor File Selection Bar*/}
+          <div
+            className="file_selection_bar_container_vertical0122"
+            ref={fileSelectionBarContainerRef}
+            onDragOver={(e) => {
+              fileSelectionBarOnDragOver(e);
             }}
-            display={
-              file.fileName === fileList[onSelectedIndex]?.fileName
-                ? true
-                : false
-            }
-
-            //editor_diffContent={diffContent}
-            //editor_setDiffContent={setDiffContent}
-          ></Editor>
-        );
-      })}
-      {/*Monaco Editor -------------------------------------------------------------- */}
-
-      {/*Editor Top Bar Container -------------------------------------------------------------- */}
-      {/*Editor Top Right Section*/}
-      <div className="code_editor_top_right_section1113">
-        <img
-          src={SYSTEM_ICON_MANAGER.close.ICON512}
-          className="code_editor_close_icon1113"
-          draggable="false"
-          alt="close"
-        />
-      </div>
-      {/*Editor File Selection Bar*/}
-      <div
-        className="file_selection_bar_container1114"
-        ref={fileSelectionBarContainerRef}
-        onDragOver={(e) => {
-          containerOnDragOver(e);
-        }}
-        onDragLeave={(e) => {
-          setOnDropIndex(-1);
-        }}
-      >
-        {fileList.map((file, index) => {
-          let className;
-          switch (true) {
-            case index === onSelectedIndex:
-              className = "file_selection_bar_item_selected1114";
-              break;
-            case index === onSwapIndex:
-              className = "file_selection_bar_item_selected1114";
-              break;
-            default:
-              className = "file_selection_bar_item1114";
-          }
-          return (
-            <div
-              key={index}
-              className={className}
-              draggable={true}
-              onDragStart={(e) => {
-                onFileDragStart(e, index);
-              }}
-              onDragEnd={(e) => {
-                onFileDragEnd(e);
-              }}
-              onClick={() => {
-                setOnSelectedIndex(index);
-              }}
-            >
-              <img
-                src={
-                  FILE_TYPE_ICON_MANAGER[file.fileName.split(".").pop()]
-                    ?.ICON512
-                }
-                className="file_selection_bar_item_filetype_icon1114"
-                alt="close"
-                style={{ opacity: index === onSelectedIndex ? "1" : "0.32" }}
-              />
-              <span
-                className="file_selection_bar_file_text1114"
-                style={{ opacity: index === onSelectedIndex ? "1" : "0.32" }}
-              >
-                {file.fileName}
-              </span>
-              <img
-                src={SYSTEM_ICON_MANAGER.close.ICON512}
-                className="file_selection_bar_item_close_icon1114"
-                alt="close"
-                draggable="false"
-                onClick={(e) => {
-                  onFileDelete(e)(index);
+            onDragLeave={(e) => {
+              fileSelectionBarOnDragLeave(e);
+            }}
+          >
+            {files.map((file, index) => {
+              let className;
+              switch (true) {
+                case index === onSelectedIndex:
+                  className = "file_selection_bar_item_selected_vertical0123";
+                  break;
+                case index === onSwapIndex:
+                  className = "file_selection_bar_item_selected_vertical0123";
+                  break;
+                default:
+                  className = "file_selection_bar_item_vertical0123";
+              }
+              return (
+                <div
+                  key={index}
+                  className={className}
+                  draggable={true}
+                  onDragStart={(e) => {
+                    onFileDragStart(e, index);
+                  }}
+                  onDragEnd={(e) => {
+                    onFileDragEnd(e);
+                  }}
+                  onClick={() => {
+                    setOnSelectedIndex(index);
+                  }}
+                  style={{
+                    minHeight: spanRefs.current[index]?.offsetWidth + 60 + "px",
+                  }}
+                >
+                  <img
+                    src={
+                      FILE_TYPE_ICON_MANAGER[file.fileName.split(".").pop()]
+                        ?.ICON512
+                    }
+                    className="file_selection_bar_item_filetype_icon_vertical0123"
+                    alt="close"
+                    style={{
+                      opacity: index === onSelectedIndex ? "1" : "0.32",
+                    }}
+                  />
+                  <span
+                    ref={(el) => (spanRefs.current[index] = el)}
+                    className="file_selection_bar_file_text_vertical0123"
+                    style={{
+                      opacity: index === onSelectedIndex ? "1" : "0.32",
+                    }}
+                  >
+                    {file.fileName}
+                  </span>
+                  <img
+                    src={SYSTEM_ICON_MANAGER.close.ICON512}
+                    className="file_selection_bar_item_close_icon_vertical0123"
+                    alt="close"
+                    draggable="false"
+                    onDragOver={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                    }}
+                    onClick={(e) => {
+                      onFileDelete(e)(index);
+                    }}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ) : (
+        <div style={{ height: "100%" }}>
+          {/*Monaco Editor -------------------------------------------------------------- */}
+          {files.map((file, index) => {
+            return (
+              <Editor
+                key={index}
+                editor_content={files[index].fileContent}
+                editor_setContent={setFileContent(index)}
+                editor_language={files[index].fileLanguage}
+                //Functional props
+                onAppendContent={onAppendContent}
+                setOnAppendContent={setOnAppendContent}
+                setOnSelected={setOnSelectedCode}
+                onContextMenu={(e) => {
+                  handleRightClick(e);
                 }}
-              />
-            </div>
-          );
-        })}
-      </div>
-      {/*Editor Top Bar Container -------------------------------------------------------------- */}
+                display={
+                  file.filePath === files[onSelectedIndex]?.filePath
+                    ? true
+                    : false
+                }
+
+                //editor_diffContent={diffContent}
+                //editor_setDiffContent={setDiffContent}
+              ></Editor>
+            );
+          })}
+          {/*Monaco Editor -------------------------------------------------------------- */}
+
+          {/*Editor Top Bar Container -------------------------------------------------------------- */}
+          {/*Editor Top Right Section*/}
+          <div className="code_editor_top_right_section1113">
+            <img
+              src={SYSTEM_ICON_MANAGER.close.ICON512}
+              className="code_editor_close_icon1113"
+              draggable="false"
+              alt="close"
+            />
+          </div>
+          {/*Editor File Selection Bar*/}
+          <div
+            className="file_selection_bar_container1114"
+            ref={fileSelectionBarContainerRef}
+            onDragOver={(e) => {
+              fileSelectionBarOnDragOver(e);
+            }}
+            onDragLeave={(e) => {
+              fileSelectionBarOnDragLeave(e);
+            }}
+          >
+            {files.map((file, index) => {
+              let className;
+              switch (true) {
+                case index === onSelectedIndex:
+                  className = "file_selection_bar_item_selected1114";
+                  break;
+                case index === onSwapIndex:
+                  className = "file_selection_bar_item_selected1114";
+                  break;
+                default:
+                  className = "file_selection_bar_item1114";
+              }
+              return (
+                <div
+                  key={index}
+                  className={className}
+                  draggable={true}
+                  onDragStart={(e) => {
+                    onFileDragStart(e, index);
+                  }}
+                  onDragEnd={(e) => {
+                    onFileDragEnd(e);
+                  }}
+                  onClick={() => {
+                    setOnSelectedIndex(index);
+                  }}
+                >
+                  <img
+                    src={
+                      FILE_TYPE_ICON_MANAGER[file.fileName.split(".").pop()]
+                        ?.ICON512
+                    }
+                    className="file_selection_bar_item_filetype_icon1114"
+                    alt="close"
+                    style={{
+                      opacity: index === onSelectedIndex ? "1" : "0.32",
+                    }}
+                  />
+                  <span
+                    className="file_selection_bar_file_text1114"
+                    style={{
+                      opacity: index === onSelectedIndex ? "1" : "0.32",
+                    }}
+                  >
+                    {file.fileName}
+                  </span>
+                  <img
+                    src={SYSTEM_ICON_MANAGER.close.ICON512}
+                    className="file_selection_bar_item_close_icon1114"
+                    alt="close"
+                    draggable="false"
+                    onDragOver={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                    }}
+                    onClick={(e) => {
+                      onFileDelete(e)(index);
+                    }}
+                  />
+                </div>
+              );
+            })}
+          </div>
+          {/*Editor Top Bar Container -------------------------------------------------------------- */}
+        </div>
+      )}
     </div>
   );
 };

@@ -7,6 +7,40 @@ export const ICON_MANAGER = () => {
     },
   };
   try {
+    /* 16X16 ICONs ---------------------------------------------------------------------- */
+    const JS16 = require("./FILETYPE_ICONs/16X16/js.png");
+    const HTML16 = require("./FILETYPE_ICONs/16X16/html.png");
+    const CSS16 = require("./FILETYPE_ICONs/16X16/css.png");
+    const JSON16 = require("./FILETYPE_ICONs/16X16/json.png");
+    const CPP16 = require("./FILETYPE_ICONs/16X16/cpp.png");
+    const CS16 = require("./FILETYPE_ICONs/16X16/cs.png");
+    const PY16 = require("./FILETYPE_ICONs/16X16/py.png");
+    const JAVA16 = require("./FILETYPE_ICONs/16X16/java.png");
+    const PHP16 = require("./FILETYPE_ICONs/16X16/php.png");
+    const IPYNB16 = require("./FILETYPE_ICONs/16X16/ipynb.png");
+    const XML16 = require("./FILETYPE_ICONs/16X16/xml.png");
+    //IMAGE FILE TYPES
+    const JPG16 = require("./FILETYPE_ICONs/16X16/jpg.png");
+    const PNG16 = require("./FILETYPE_ICONs/16X16/png.png");
+    const SVG16 = require("./FILETYPE_ICONs/16X16/svg.png");
+    //DOCUMENT FILE TYPES
+    const TXT16 = require("./FILETYPE_ICONs/16X16/txt.png");
+    const PDF16 = require("./FILETYPE_ICONs/16X16/pdf.png");
+    const PPTX16 = require("./FILETYPE_ICONs/16X16/pptx.png");
+    const PPT16 = require("./FILETYPE_ICONs/16X16/ppt.png");
+    const XLSX16 = require("./FILETYPE_ICONs/16X16/xlsx.png");
+    const XLS16 = require("./FILETYPE_ICONs/16X16/xls.png");
+    const DOCX16 = require("./FILETYPE_ICONs/16X16/docx.png");
+    const DOC16 = require("./FILETYPE_ICONs/16X16/doc.png");
+    //DATABASE FILE TYPES
+    const SQL16 = require("./FILETYPE_ICONs/16X16/sql.png");
+    //OTHER FILE TYPES
+    const GITIGNORE16 = require("./FILETYPE_ICONs/16X16/gitignore.png");
+    const MD16 = require("./FILETYPE_ICONs/16X16/md.png");
+    const ENV16 = require("./FILETYPE_ICONs/16X16/env.png");
+    /* 16X16 ICONs ---------------------------------------------------------------------- */
+
+    /* 512X512 ICONs ---------------------------------------------------------------------- */
     //CODE FILE TYPES
     const JS512 = require("./FILETYPE_ICONs/512X512/js.png");
     const HTML512 = require("./FILETYPE_ICONs/512X512/html.png");
@@ -27,7 +61,10 @@ export const ICON_MANAGER = () => {
     const TXT512 = require("./FILETYPE_ICONs/512X512/txt.png");
     const PDF512 = require("./FILETYPE_ICONs/512X512/pdf.png");
     const PPTX512 = require("./FILETYPE_ICONs/512X512/pptx.png");
+    const PPT512 = require("./FILETYPE_ICONs/512X512/ppt.png");
     const XLSX512 = require("./FILETYPE_ICONs/512X512/xlsx.png");
+    const XLS512 = require("./FILETYPE_ICONs/512X512/xls.png");
+    const DOCX512 = require("./FILETYPE_ICONs/512X512/docx.png");
     const DOC512 = require("./FILETYPE_ICONs/512X512/doc.png");
     //DATABASE FILE TYPES
     const SQL512 = require("./FILETYPE_ICONs/512X512/sql.png");
@@ -35,49 +72,170 @@ export const ICON_MANAGER = () => {
     const GITIGNORE512 = require("./FILETYPE_ICONs/512X512/gitignore.png");
     const MD512 = require("./FILETYPE_ICONs/512X512/md.png");
     const ENV512 = require("./FILETYPE_ICONs/512X512/env.png");
+    /* 512X512 ICONs ---------------------------------------------------------------------- */
 
     FILE_TYPE_ICON_MANAGER = {
       //CODE FILE TYPES
-      js: { ICON512: JS512, LABEL_COLOR: "#CCCCCC", language: "javascript" },
-      html: { ICON512: HTML512, LABEL_COLOR: "#CCCCCC", language: "html" },
-      css: { ICON512: CSS512, LABEL_COLOR: "#CCCCCC", language: "css" },
-      json: { ICON512: JSON512, LABEL_COLOR: "#CCCCCC", language: "json" },
-      cpp: { ICON512: CPP512, LABEL_COLOR: "#CCCCCC", language: "c++" },
-      cs: { ICON512: CS512, LABEL_COLOR: "#CCCCCC", language: "c-sharp" },
-      py: { ICON512: PY512, LABEL_COLOR: "#CCCCCC", language: "python" },
-      java: { ICON512: JAVA512, LABEL_COLOR: "#CCCCCC", language: "java" },
-      php: { ICON512: PHP512, LABEL_COLOR: "#CCCCCC", language: "php" },
-      ipynb: { ICON512: IPYNB512, LABEL_COLOR: "#CCCCCC", language: "python" },
-      xml: { ICON512: XML512, LABEL_COLOR: "#CCCCCC", language: "xml" },
+      js: {
+        ICON16: JS16,
+        ICON512: JS512,
+        LABEL_COLOR: "#CCCCCC",
+        language: "javascript",
+      },
+      html: {
+        ICON16: HTML16,
+        ICON512: HTML512,
+        LABEL_COLOR: "#CCCCCC",
+        language: "html",
+      },
+      css: {
+        ICON16: CSS16,
+        ICON512: CSS512,
+        LABEL_COLOR: "#CCCCCC",
+        language: "css",
+      },
+      json: {
+        ICON16: JSON16,
+        ICON512: JSON512,
+        LABEL_COLOR: "#CCCCCC",
+        language: "json",
+      },
+      cpp: {
+        ICON16: CPP16,
+        ICON512: CPP512,
+        LABEL_COLOR: "#CCCCCC",
+        language: "cpp",
+      },
+      cs: {
+        ICON16: CS16,
+        ICON512: CS512,
+        LABEL_COLOR: "#CCCCCC",
+        language: "cs",
+      },
+      py: {
+        ICON16: PY16,
+        ICON512: PY512,
+        LABEL_COLOR: "#CCCCCC",
+        language: "python",
+      },
+      java: {
+        ICON16: JAVA16,
+        ICON512: JAVA512,
+        LABEL_COLOR: "#CCCCCC",
+        language: "java",
+      },
+      php: {
+        ICON16: PHP16,
+        ICON512: PHP512,
+        LABEL_COLOR: "#CCCCCC",
+        language: "php",
+      },
+      ipynb: {
+        ICON16: IPYNB16,
+        ICON512: IPYNB512,
+        LABEL_COLOR: "#CCCCCC",
+        language: "python",
+      },
+      xml: {
+        ICON16: XML16,
+        ICON512: XML512,
+        LABEL_COLOR: "#CCCCCC",
+        language: "xml",
+      },
       //IMAGE FILE TYPES
-      jpg: { ICON512: JPG512, LABEL_COLOR: "#8C8C8C", language: "image" },
-      jpeg: { ICON512: JPG512, LABEL_COLOR: "#8C8C8C", language: "image" },
-      png: { ICON512: PNG512, LABEL_COLOR: "#8C8C8C", language: "image" },
-      svg: { ICON512: SVG512, LABEL_COLOR: "#8C8C8C", language: "image" },
-      icon: { ICON512: SVG512, LABEL_COLOR: "#8C8C8C", language: "image" },
+      jpg: {
+        ICON16: JPG16,
+        ICON512: JPG512,
+        LABEL_COLOR: "#CCCCCC",
+        language: "image",
+      },
+      png: {
+        ICON16: PNG16,
+        ICON512: PNG512,
+        LABEL_COLOR: "#CCCCCC",
+        language: "image",
+      },
+      svg: {
+        ICON16: SVG16,
+        ICON512: SVG512,
+        LABEL_COLOR: "#CCCCCC",
+        language: "image",
+      },
       //DOCUMENT FILE TYPES
-      txt: { ICON512: TXT512, LABEL_COLOR: "#8C8C8C", language: "text" },
-      pdf: { ICON512: PDF512, LABEL_COLOR: "#8C8C8C", language: "pdf" },
+      txt: {
+        ICON16: TXT16,
+        ICON512: TXT512,
+        LABEL_COLOR: "#CCCCCC",
+        language: "text",
+      },
+      pdf: {
+        ICON16: PDF16,
+        ICON512: PDF512,
+        LABEL_COLOR: "#CCCCCC",
+        language: "pdf",
+      },
       pptx: {
+        ICON16: PPTX16,
         ICON512: PPTX512,
         LABEL_COLOR: "#CCCCCC",
         language: "powerpoint",
       },
-      ppt: { ICON512: PPTX512, LABEL_COLOR: "#CCCCCC", language: "powerpoint" },
-      xlsx: { ICON512: XLSX512, LABEL_COLOR: "#CCCCCC", language: "excel" },
-      xls: { ICON512: XLSX512, LABEL_COLOR: "#CCCCCC", language: "excel" },
-      docx: { ICON512: DOC512, LABEL_COLOR: "#CCCCCC", language: "word" },
-      doc: { ICON512: DOC512, LABEL_COLOR: "#CCCCCC", language: "word" },
+      ppt: {
+        ICON16: PPT16,
+        ICON512: PPT512,
+        LABEL_COLOR: "#CCCCCC",
+        language: "powerpoint",
+      },
+      xlsx: {
+        ICON16: XLSX16,
+        ICON512: XLSX512,
+        LABEL_COLOR: "#CCCCCC",
+        language: "excel",
+      },
+      xls: {
+        ICON16: XLS16,
+        ICON512: XLS512,
+        LABEL_COLOR: "#CCCCCC",
+        language: "excel",
+      },
+      docx: {
+        ICON16: DOCX16,
+        ICON512: DOCX512,
+        LABEL_COLOR: "#CCCCCC",
+        language: "word",
+      },
+      doc: {
+        ICON16: DOC16,
+        ICON512: DOC512,
+        LABEL_COLOR: "#CCCCCC",
+        language: "word",
+      },
       //DATABASE FILE TYPES
-      sql: { ICON512: SQL512, LABEL_COLOR: "#CCCCCC", language: "sql" },
+      sql: {
+        ICON16: SQL16,
+        ICON512: SQL512,
+        LABEL_COLOR: "#CCCCCC",
+        language: "sql",
+      },
       //OTHER FILE TYPES
       gitignore: {
+        ICON16: GITIGNORE16,
         ICON512: GITIGNORE512,
-        LABEL_COLOR: "#8C8C8C",
-        language: "git",
+        LABEL_COLOR: "#CCCCCC",
+        language: "gitignore",
       },
-      md: { ICON512: MD512, LABEL_COLOR: "#8C8C8C", language: "markdown" },
-      env: { ICON512: ENV512, LABEL_COLOR: "#8C8C8C", language: "env" },
+      md: {
+        ICON16: MD16,
+        ICON512: MD512,
+        LABEL_COLOR: "#CCCCCC",
+        language: "markdown",
+      },
+      env: {
+        ICON16: ENV16,
+        ICON512: ENV512,
+        LABEL_COLOR: "#CCCCCC",
+        language: "env",
+      },
     };
   } catch (e) {
     console.log(e);
@@ -92,7 +250,7 @@ export const ICON_MANAGER = () => {
     },
   };
   try {
-    // 16X16 ICONs
+    /* 16X16 ICONs ---------------------------------------------------------------------- */
     const CLOSE_ICON16 = require("./SYSTEM_ICONs/16X16/close.png");
     const ARROW_ICON16 = require("./SYSTEM_ICONs/16X16/arrow.png");
     const CODE_ICON16 = require("./SYSTEM_ICONs/16X16/code.png");
@@ -111,8 +269,9 @@ export const ICON_MANAGER = () => {
     const TRASH16 = require("./SYSTEM_ICONs/16X16/trash.png");
     const SEND16 = require("./SYSTEM_ICONs/16X16/send.png");
     const SAVE16 = require("./SYSTEM_ICONs/16X16/save.png");
+    /* 16X16 ICONs ---------------------------------------------------------------------- */
 
-    // 512X512 ICONs
+    /* 512X512 ICONs ---------------------------------------------------------------------- */
     const CLOSE_ICON512 = require("./SYSTEM_ICONs/512X512/close.png");
     const ARROW_ICON512 = require("./SYSTEM_ICONs/512X512/arrow.png");
     const CODE_ICON512 = require("./SYSTEM_ICONs/512X512/code.png");
@@ -131,6 +290,7 @@ export const ICON_MANAGER = () => {
     const TRASH512 = require("./SYSTEM_ICONs/512X512/trash.png");
     const SEND512 = require("./SYSTEM_ICONs/512X512/send.png");
     const SAVE512 = require("./SYSTEM_ICONs/512X512/save.png");
+    /* 512X512 ICONs ---------------------------------------------------------------------- */
 
     SYSTEM_ICON_MANAGER = {
       close: {

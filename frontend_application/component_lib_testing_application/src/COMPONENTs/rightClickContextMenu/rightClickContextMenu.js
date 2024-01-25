@@ -23,57 +23,8 @@ const RightClickContextMenu = ({
     });
   };
 
-  /* Menu Styling and Position -------------------------------------------------------------------------- */
-  const menuRef = useRef(null);
-  const [menuStyle, setMenuStyle] = useState(
-    "rightClickContextMenu_component_container0802"
-  );
-  const [onHoverContextItemIndex, setOnHoverContextItemIndex] = useState(null);
-  const [position, setPosition] = useState({ top: y, left: x });
-  const setMenuPosition = (transitionTime) => {
-    if (menuRef.current) {
-      const menuWidth = menuRef.current.offsetWidth;
-      const menuHeight = menuRef.current.offsetHeight;
-
-      let newTop = y;
-      let newLeft = x;
-
-      let newStyle = "rightClickContextMenu_component_container0802";
-
-      if (y + menuHeight > window.innerHeight) {
-        newTop -= menuHeight;
-        newStyle = "rightClickContextMenu_component_container_leftbottom0930";
-      }
-
-      if (x + menuWidth > window.innerWidth) {
-        newLeft -= menuWidth;
-        newStyle = "rightClickContextMenu_component_container_rigttop0930";
-      }
-
-      if (
-        y + menuHeight > window.innerHeight &&
-        x + menuWidth > window.innerWidth
-      ) {
-        newStyle = "rightClickContextMenu_component_container_rightbottom0930";
-      }
-
-      setPosition({
-        top: newTop,
-        left: newLeft,
-        transition: `all ${transitionTime}s ease`,
-      });
-      setMenuStyle(newStyle);
-    }
-  };
-  useEffect(() => {
-    setOnHoverContextItemIndex(null)
-    setMenuPosition(0.0);
-    const timeoutId = setTimeout(() => setMenuPosition(0.08), 80);
-    return () => clearTimeout(timeoutId);
-  }, [x, y]);
-  /* Menu Styling and Position -------------------------------------------------------------------------- */
-
   /* Define Menu Items -------------------------------------------------------------------------------------- */
+  const [onHoverContextItemIndex, setOnHoverContextItemIndex] = useState(null);
   if (onRightClickItem !== null) {
     if (onRightClickItem.source === "vecoder_editor") {
       let pasteItem = onRightClickItem.condition.paste ? (
@@ -341,6 +292,56 @@ const RightClickContextMenu = ({
     }
   }
   /* Define Menu Items -------------------------------------------------------------------------------------- */
+
+  /* CONSTANST -------------------------------------------------------------------------------------- */
+  const CONTEXTMENU_WIDTH = 256;
+  const CONTEXTITEM_HEIGHT = 36 * contextItems.length + 18;
+  /* CONSTANST -------------------------------------------------------------------------------------- */
+
+  /* Menu Styling and Position -------------------------------------------------------------------------- */
+  const menuRef = useRef(null);
+  const [menuStyle, setMenuStyle] = useState(
+    "rightClickContextMenu_component_container0802"
+  );
+
+  const [position, setPosition] = useState({
+    top:
+      window.innerHeight < y + CONTEXTITEM_HEIGHT ? y - CONTEXTITEM_HEIGHT : y,
+    left: window.innerWidth < x + CONTEXTMENU_WIDTH ? x - CONTEXTMENU_WIDTH : x,
+  });
+  const setMenuPosition = () => {
+    if (menuRef.current) {
+      let newStyle = "rightClickContextMenu_component_container0802";
+
+      if (window.innerHeight < y + CONTEXTITEM_HEIGHT) {
+        newStyle = "rightClickContextMenu_component_container_leftbottom0930";
+      }
+      if (window.innerWidth < x + CONTEXTMENU_WIDTH) {
+        newStyle = "rightClickContextMenu_component_container_rigttop0930";
+      }
+      if (
+        window.innerHeight < y + CONTEXTITEM_HEIGHT &&
+        window.innerWidth < x + CONTEXTMENU_WIDTH
+      ) {
+        newStyle = "rightClickContextMenu_component_container_rightbottom0930";
+      }
+
+      setPosition({
+        top:
+          window.innerHeight < y + CONTEXTITEM_HEIGHT
+            ? y - CONTEXTITEM_HEIGHT
+            : y,
+        left:
+          window.innerWidth < x + CONTEXTMENU_WIDTH ? x - CONTEXTMENU_WIDTH : x,
+      });
+      setMenuStyle(newStyle);
+    }
+  };
+  useEffect(() => {
+    setOnHoverContextItemIndex(null);
+    setMenuPosition();
+  }, [x, y]);
+  /* Menu Styling and Position -------------------------------------------------------------------------- */
 
   return (
     <div>
