@@ -41,8 +41,14 @@ const StackStructure = () => {
   /* Stack Item Drag and Drop ----------------------------------------------------------------- */
 
   /* DATA ----------------------------------------------------------------------------------------------------------------------------------------------- */
-  const RESIZER = { type: "RESIZER", min_width: 16, width: 16, max_width: 16, content: "" };
-  const STACK_WINDOW_SIZE_MAX_WIDTH = window.innerWidth - RESIZER.width;
+  const RESIZER = {
+    type: "RESIZER",
+    min_width: 16,
+    width: 16,
+    max_width: 16,
+    content: "",
+  };
+  let STACK_WINDOW_SIZE_MAX_WIDTH = window.innerWidth - RESIZER.width;
   const END = {
     type: "END",
     min_width: 512,
@@ -611,14 +617,14 @@ class Car {
       type: "CODE_EDITOR",
       min_width: 40,
       width: 600,
-      max_width: STACK_WINDOW_SIZE_MAX_WIDTH,
+      max_width: 2048,
       code_editor_index: 0,
     },
     {
       type: "CODE_EDITOR",
       min_width: 40,
       width: 600,
-      max_width: STACK_WINDOW_SIZE_MAX_WIDTH,
+      max_width: 2048,
       code_editor_index: 1,
     },
   ];
@@ -695,19 +701,35 @@ class Car {
 
   /* Resizer ------------------------------------------------------------------------------------------------------------------------------------------- */
   const [resizerOnMouseDown, setResizerOnMouseDown] = useState(false);
+  const scrollToPosition = (position) => {
+    window.scrollTo({
+      left: position,
+      behavior: "auto",
+    });
+  };
   const handleResizerMouseDown = (e, index) => {
     setResizerOnMouseDown(true);
     const startX = e.clientX;
     const left_start_width = stacks[index - 1].width;
     const right_start_width = stacks[index + 1].width;
+    const scroll_x_start_position = window.scrollX;
 
     const handleMouseMove = (e) => {
       e.preventDefault();
-
       const moveX = e.clientX - startX;
       const left_width = left_start_width + moveX;
       const right_width = right_start_width - moveX;
-      if (
+      if (e.clientX > window.innerWidth) {
+        // IF RIGHT ITEM OUTSIDE OF WINDOW
+        const editedStacks = [...stacks];
+        editedStacks[index - 1].width = Math.min(
+          editedStacks[index - 1].max_width,
+          window.innerWidth -
+            stackRefs.current[index - 1]?.getBoundingClientRect().x -
+            RESIZER.width / 2
+        );
+        setStacks(editedStacks);
+      } else if (
         index + 1 === stacks.length - 1 ||
         e.clientX + right_width >= window.innerWidth - 6
       ) {
@@ -746,8 +768,8 @@ class Car {
           editedStacks[index - 1].width = left_width;
           setStacks(editedStacks);
         } else if (
-          left_width < stacks[index - 1].min_width &&
-          right_width < stacks[index + 1].max_width
+          (left_width < stacks[index - 1].min_width &&
+            right_width < stacks[index + 1].max_width)
         ) {
           const new_left_width = stacks[index - 1].min_width;
           const new_right_width =
@@ -915,16 +937,13 @@ class Car {
             const [resizerClassname, setResizerClassname] = useState(
               "stack_structure_resizer0122"
             );
-            const [resizerContainerWidth, setResizerContainerWidth] = useState(
-              item.width
-            );
             return (
               <div
                 className={"stack_structure_resizer_container0122"}
                 ref={(el) => (stackRefs.current[index] = el)}
                 key={index}
                 style={{
-                  width: resizerContainerWidth + "px",
+                  width: item.width,
                   cursor: "ew-resize",
                 }}
                 onMouseEnter={(e) => {
