@@ -226,7 +226,7 @@ const StackStructure = () => {
     type: "EXPLORER",
     min_width: 40,
     width: 256,
-    max_width: STACK_WINDOW_SIZE_MAX_WIDTH,
+    max_width: 2048,
     content: explorer_files,
   };
   //Code Editor Data -------------------------------------------------------------------
@@ -612,6 +612,11 @@ class Car {
     ],
   ];
   const [code_editor_files, setCode_editor_files] = useState(CODE_EDITOR_FILES);
+  const setFiles = (index) => (value) => {
+    const newCode_editor_files = [...code_editor_files];
+    newCode_editor_files[index] = value;
+    setCode_editor_files(newCode_editor_files);
+  };
   const CODE_EDITORs = [
     {
       type: "CODE_EDITOR",
@@ -768,8 +773,8 @@ class Car {
           editedStacks[index - 1].width = left_width;
           setStacks(editedStacks);
         } else if (
-          (left_width < stacks[index - 1].min_width &&
-            right_width < stacks[index + 1].max_width)
+          left_width < stacks[index - 1].min_width &&
+          right_width < stacks[index + 1].max_width
         ) {
           const new_left_width = stacks[index - 1].min_width;
           const new_right_width =
@@ -915,6 +920,7 @@ class Car {
               >
                 <VecoderEditor
                   imported_files={code_editor_files[item.code_editor_index]}
+                  setImportedFiles={setFiles(item.code_editor_index)}
                   onRightClickItem={onRightClickItem}
                   setOnRightClickItem={setOnRightClickItem}
                   rightClickCommand={rightClickCommand}

@@ -6,6 +6,7 @@ import { ICON_MANAGER } from "../../ICONs/icon_manager";
 
 const VecoderEditor = ({
   imported_files,
+  setImportedFiles,
   //Context Menu
   onRightClickItem,
   setOnRightClickItem,
@@ -25,6 +26,9 @@ const VecoderEditor = ({
   };
   /* Initialize File Data ------------------------------------------------------ */
   const [files, setFiles] = useState(imported_files);
+  useEffect(() => {
+    setImportedFiles(files);
+  }, [files]);
   useEffect(() => {
     setFiles(imported_files);
   }, [imported_files]);
@@ -212,7 +216,6 @@ const VecoderEditor = ({
   };
   const onFileDragStart = (e, index) => {
     e.stopPropagation();
-    e.target.style.opacity = 0.1;
 
     setOnSelectedIndex(index);
     setOnDragIndex(index);
@@ -220,7 +223,6 @@ const VecoderEditor = ({
   };
   const onFileDragEnd = (e, index) => {
     e.stopPropagation();
-    e.target.style.opacity = 1;
 
     if (onDropIndex !== -1) {
       const editedFiles = [...files];
@@ -242,10 +244,10 @@ const VecoderEditor = ({
     e.preventDefault();
     e.stopPropagation();
     const targetElement = e.target.closest(
-      ".file_selection_bar_item1114, " + 
-      ".file_selection_bar_item_selected1114, " +
-      ".file_selection_bar_item_vertical0123, " +
-      ".file_selection_bar_item_selected_vertical0123"
+      ".file_selection_bar_item1114, " +
+        ".file_selection_bar_item_selected1114, " +
+        ".file_selection_bar_item_vertical0123, " +
+        ".file_selection_bar_item_selected_vertical0123"
     );
     if (targetElement && fileSelectionBarContainerRef.current) {
       const childrenArray = Array.from(
@@ -383,8 +385,8 @@ const VecoderEditor = ({
                   onClick={() => {
                     setOnSelectedIndex(index);
                   }}
-                  style ={{
-                    minHeight: spanRefs.current[index]?.offsetWidth + 60 + "px"
+                  style={{
+                    minHeight: spanRefs.current[index]?.offsetWidth + 60 + "px",
                   }}
                 >
                   <img
