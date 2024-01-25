@@ -269,6 +269,7 @@ export const ICON_MANAGER = () => {
     const TRASH16 = require("./SYSTEM_ICONs/16X16/trash.png");
     const SEND16 = require("./SYSTEM_ICONs/16X16/send.png");
     const SAVE16 = require("./SYSTEM_ICONs/16X16/save.png");
+    const SEARCH16 = require("./SYSTEM_ICONs/16X16/search.png");
     /* 16X16 ICONs ---------------------------------------------------------------------- */
 
     /* 512X512 ICONs ---------------------------------------------------------------------- */
@@ -290,6 +291,7 @@ export const ICON_MANAGER = () => {
     const TRASH512 = require("./SYSTEM_ICONs/512X512/trash.png");
     const SEND512 = require("./SYSTEM_ICONs/512X512/send.png");
     const SAVE512 = require("./SYSTEM_ICONs/512X512/save.png");
+    const SEARCH512 = require("./SYSTEM_ICONs/512X512/search.png");
     /* 512X512 ICONs ---------------------------------------------------------------------- */
 
     SYSTEM_ICON_MANAGER = {
@@ -381,6 +383,11 @@ export const ICON_MANAGER = () => {
       save: {
         ICON16: SAVE16,
         ICON512: SAVE512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      search: {
+        ICON16: SEARCH16,
+        ICON512: SEARCH512,
         LABEL_COLOR: "#CCCCCC",
       },
     };
