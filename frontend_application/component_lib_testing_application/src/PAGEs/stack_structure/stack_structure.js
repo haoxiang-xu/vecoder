@@ -104,9 +104,9 @@ const StackStructure = () => {
                 files: [],
               },
               {
-                fileName: "logo512.png",
+                fileName: "resume.pdf",
                 fileType: "file",
-                filePath: "vecoder/vecoder_sample/public/logo512.png",
+                filePath: "vecoder/vecoder_sample/public/resume.pdf",
                 fileExpend: false,
                 files: [],
               },

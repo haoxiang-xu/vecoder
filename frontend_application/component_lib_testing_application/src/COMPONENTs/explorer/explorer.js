@@ -33,14 +33,7 @@ const SearchBar = ({}) => {
     </div>
   );
 };
-
-const Explorer = ({
-  files,
-  onRightClickItem,
-  setOnRightClickItem,
-  rightClickCommand,
-  setRightClickCommand,
-}) => {
+const CloseIcon = ({}) => {
   /* Load ICON manager -------------------------------- */
   let SYSTEM_ICON_MANAGER = {
     default: {
@@ -54,18 +47,29 @@ const Explorer = ({
     console.log(e);
   }
   /* Load ICON manager -------------------------------- */
-
-  /* ICON Loader -------------------------------- */
-  const [isCloseIconLoaded, setIsCloseIconLoaded] = useState(false);
-  /* ICON Loader -------------------------------- */
-
+  return (
+    <img
+      src={SYSTEM_ICON_MANAGER.close.ICON512}
+      className="dir_list_component_close_icon0125"
+      loading="lazy"
+      draggable="false"
+      alt="close"
+    />
+  );
+};
+const DirList = ({
+  files,
+  onRightClickItem,
+  setOnRightClickItem,
+  rightClickCommand,
+  setRightClickCommand,
+}) => {
   const [explorerExpand, setExplorerExpand] = useState(false);
   const [childrenOnClicked, setChildrenOnClicked] = useState(null);
   const [onSingleClickFile, setOnSingleClickFile] = useState(null);
   const [onCopyFile, setOnCopyFile] = useState(null);
 
   const explorerContainerRef = useRef(null);
-
   //SCROLLABLE
   const [scrollable, setScrollable] = useState(false);
   useEffect(() => {
@@ -86,17 +90,6 @@ const Explorer = ({
       }}
       ref={explorerContainerRef}
     >
-      <img
-        src={SYSTEM_ICON_MANAGER.close.ICON512}
-        className="dir_list_component_close_icon0125"
-        loading="lazy"
-        onLoad={(e) => {
-          setIsCloseIconLoaded(false);
-        }}
-        draggable="false"
-        alt="close"
-      />
-      <SearchBar />
       <DirItem
         file={files}
         root={true}
@@ -112,6 +105,27 @@ const Explorer = ({
         onCopyFile={onCopyFile}
         setOnCopyFile={setOnCopyFile}
       />
+    </div>
+  );
+};
+const Explorer = ({
+  files,
+  onRightClickItem,
+  setOnRightClickItem,
+  rightClickCommand,
+  setRightClickCommand,
+}) => {
+  return (
+    <div className="explorer_component_container0126">
+      <DirList
+        files={files}
+        onRightClickItem={onRightClickItem}
+        setOnRightClickItem={setOnRightClickItem}
+        rightClickCommand={rightClickCommand}
+        setRightClickCommand={setRightClickCommand}
+      />
+      <SearchBar />
+      <CloseIcon />
     </div>
   );
 };
