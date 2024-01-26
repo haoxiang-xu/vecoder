@@ -938,6 +938,7 @@ class Car {
               >
                 <Explorer
                   files={item.content}
+                  setFiles={setExplorer_files}
                   onRightClickItem={onRightClickItem}
                   setOnRightClickItem={setOnRightClickItem}
                   rightClickCommand={rightClickCommand}

@@ -69,8 +69,8 @@
   width: 12px;
   height: 12px;
   position: absolute;
-  top: 6px;
-  right: 6px;
+  top: 5px;
+  right: 5px;
 
   /*STYLE*/
   border-radius: 4px;
@@ -93,9 +93,9 @@
 .dir_list_component_search_bar_container0125 {
   /*POSITION*/
   position: absolute;
-  top: 6px;
-  left: 6px;
-  right: 42px;
+  top: 5px;
+  left: 5px;
+  right: 41px;
 
   /*SIZE*/
   overflow-y: hidden;

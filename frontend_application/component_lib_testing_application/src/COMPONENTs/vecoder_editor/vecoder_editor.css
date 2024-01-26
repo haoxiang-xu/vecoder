@@ -292,8 +292,6 @@
   width: 10px;
   height: 10px;
   border-radius: 2px;
-
-  opacity: 1;
 }
 .file_selection_bar_item_close_icon_vertical0123:hover {
   transition: all 0.2s ease;

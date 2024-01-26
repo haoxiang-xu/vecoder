@@ -1,8 +1,41 @@
 import React, { useState, useEffect, useRef } from "react";
-
-import "./dirItem.css";
 import { ICON_MANAGER } from "../../../ICONs/icon_manager";
+import "./dirItem.css";
 
+const FileTypeIconLoader = ({ fileIcon, fileIconBackground }) => {
+  /* ICON Loader ----------------------------------------------------------------- */
+  const [isFileTypeIconLoad, setIsFileTypeIconLoad] = useState(false);
+  const handleFileTypeIconLoad = () => {
+    setIsFileTypeIconLoad(true);
+  };
+  /* ICON Loader ----------------------------------------------------------------- */
+  return (
+    <div>
+      {fileIcon !== undefined ? (
+        <div
+          className="dir_item_component_script_icon0725"
+          style={
+            isFileTypeIconLoad
+              ? {}
+              : {
+                  backgroundImage: `url(${fileIconBackground})`,
+                }
+          }
+        >
+          <img
+            src={fileIcon}
+            className="dir_item_component_script_icon0725"
+            loading="lazy"
+            onLoad={handleFileTypeIconLoad}
+            draggable={"false"}
+          ></img>
+        </div>
+      ) : (
+        <div></div>
+      )}
+    </div>
+  );
+};
 const DirItem = ({
   file,
   root,
@@ -670,28 +703,10 @@ const DirItem = ({
               }
               onContextMenu={handleFileOnRightClick}
             >
-              {fileIcon !== undefined ? (
-                <div
-                  className="dir_item_component_script_icon0725"
-                  style={
-                    isFileTypeIconLoad
-                      ? {}
-                      : {
-                          backgroundImage: `url(${fileIconBackground})`,
-                        }
-                  }
-                >
-                  <img
-                    src={fileIcon}
-                    className="dir_item_component_script_icon0725"
-                    loading="lazy"
-                    onLoad={handleFileTypeIconLoad}
-                    draggable={"false"}
-                  ></img>
-                </div>
-              ) : (
-                <div></div>
-              )}
+              <FileTypeIconLoader
+                fileIcon={fileIcon}
+                fileIconBackground={fileIconBackground}
+              />
               {filename}
             </span>
           )}

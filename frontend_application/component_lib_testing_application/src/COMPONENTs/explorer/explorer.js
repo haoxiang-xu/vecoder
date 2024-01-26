@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
-
+import React, { useState, useEffect, useRef } from "react";
+import { ICON_MANAGER } from "../../ICONs/icon_manager";
 import DirItem from "./dirItem/dirItem.js";
 import "./explorer.css";
-import { ICON_MANAGER } from "../../ICONs/icon_manager";
 
 const SearchBar = ({}) => {
   /* Load ICON manager -------------------------------- */
@@ -50,7 +49,7 @@ const CloseIcon = ({}) => {
   return (
     <img
       src={SYSTEM_ICON_MANAGER.close.ICON512}
-      className="dir_list_component_close_icon0125"
+      className={"dir_list_component_close_icon0125"}
       loading="lazy"
       draggable="false"
       alt="close"
@@ -110,24 +109,47 @@ const DirList = ({
 };
 const Explorer = ({
   files,
+  setFiles,
   onRightClickItem,
   setOnRightClickItem,
   rightClickCommand,
   setRightClickCommand,
 }) => {
+  const explorerRef = useRef(null);
   return (
-    <div className="explorer_component_container0126">
-      <DirList
-        files={files}
-        onRightClickItem={onRightClickItem}
-        setOnRightClickItem={setOnRightClickItem}
-        rightClickCommand={rightClickCommand}
-        setRightClickCommand={setRightClickCommand}
-      />
-      <SearchBar />
-      <CloseIcon />
+    <div className="explorer_component_container0126" ref={explorerRef}>
+      {explorerRef.current?.offsetWidth <= 50 ? (
+        <div>
+          <CloseIcon />
+        </div>
+      ) : (
+        <div>
+          <DirList
+            files={files}
+            onRightClickItem={onRightClickItem}
+            setOnRightClickItem={setOnRightClickItem}
+            rightClickCommand={rightClickCommand}
+            setRightClickCommand={setRightClickCommand}
+          />
+          <SearchBar />
+          <CloseIcon />
+        </div>
+      )}
     </div>
   );
 };
+const searchFiles = (files_structure, search_keyword) => {
+  return;
+};
+const editFiles = (files_structure, edited_file_path, new_file) => {
+  return;
+};
+const editFilePaths = (files_structure, append_file_path) => {
+  return;
+}
+const deleteFiles = (files_structure, deleted_file_path) => {
+  return;
+};
+
 
 export default Explorer;
