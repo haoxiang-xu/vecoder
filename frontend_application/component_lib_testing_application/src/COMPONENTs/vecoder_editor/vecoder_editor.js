@@ -4,198 +4,66 @@ import Editor from "../monacoEditor/monacoEditor";
 import "./vecoder_editor.css";
 import { ICON_MANAGER } from "../../ICONs/icon_manager";
 
-const VecoderEditor = ({
-  imported_files,
-  setImportedFiles,
-  //Context Menu
-  onRightClickItem,
-  setOnRightClickItem,
-  rightClickCommand,
-  setRightClickCommand,
-  //Drag and Drop
+/* Load ICON manager --------------------------------------------------------------------------------- */
+let FILE_TYPE_ICON_MANAGER = {
+  default: {
+    ICON: null,
+    LABEL_COLOR: "#C8C8C8",
+  },
+};
+try {
+  FILE_TYPE_ICON_MANAGER = ICON_MANAGER().FILE_TYPE_ICON_MANAGER;
+} catch (e) {
+  console.log(e);
+}
+let SYSTEM_ICON_MANAGER = {
+  default: {
+    ICON: null,
+    LABEL_COLOR: "#C8C8C8",
+  },
+};
+try {
+  SYSTEM_ICON_MANAGER = ICON_MANAGER().SYSTEM_ICON_MANAGER;
+} catch (e) {
+  console.log(e);
+}
+/* Load ICON manager --------------------------------------------------------------------------------- */
+
+const TopRightSection = () => {
+  return (
+    <div className="code_editor_top_right_section1113">
+      <img
+        src={SYSTEM_ICON_MANAGER.close.ICON512}
+        className="code_editor_close_icon1113"
+        draggable="false"
+        alt="close"
+      />
+    </div>
+  );
+};
+const FileSelectionBar = ({
+  //DATA
+  files,
+  setFiles,
+  onSelectedIndex,
+  setOnSelectedIndex,
+  //DRAG AND DROP
   draggedItem,
   setDraggedItem,
   draggedOverItem,
   setDraggedOverItem,
   dragCommand,
   setDragCommand,
+  //HORIZONTAL OR VERTICAL MODE
+  mode,
 }) => {
   const [forceRefresh, setForceRefresh] = useState(false);
   const refresh = () => {
     setForceRefresh(!forceRefresh);
   };
-  /* Initialize File Data ------------------------------------------------------ */
-  const [files, setFiles] = useState(imported_files);
-  useEffect(() => {
-    setImportedFiles(files);
-  }, [files]);
-  useEffect(() => {
-    setFiles(imported_files);
-  }, [imported_files]);
-  /* Initialize File Data ------------------------------------------------------ */
 
-  /* Load ICON manager -------------------------------- */
-  let FILE_TYPE_ICON_MANAGER = {
-    default: {
-      ICON: null,
-      LABEL_COLOR: "#C8C8C8",
-    },
-  };
-  try {
-    FILE_TYPE_ICON_MANAGER = ICON_MANAGER().FILE_TYPE_ICON_MANAGER;
-  } catch (e) {
-    console.log(e);
-  }
-  let SYSTEM_ICON_MANAGER = {
-    default: {
-      ICON: null,
-      LABEL_COLOR: "#C8C8C8",
-    },
-  };
-  try {
-    SYSTEM_ICON_MANAGER = ICON_MANAGER().SYSTEM_ICON_MANAGER;
-  } catch (e) {
-    console.log(e);
-  }
-  /* Load ICON manager -------------------------------- */
-
-  /* API ----------------------------------------------------------------------- */
-  const getAST = async () => {
-    const requestBody = {
-      language: files[onSelectedIndex].fileLanguage,
-      prompt: onSelectedCode.selectedText,
-    };
-
-    try {
-      const response = await axios.post(
-        "http://localhost:8200/AST/python",
-        requestBody
-      );
-      console.log(response.data);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-  const handleCustomizeRequest = async () => {
-    setCustomizeRequest(rightClickCommand.content);
-    let prompt = "";
-    const requestURL = rightClickCommand?.content?.requestURL;
-
-    if (!requestURL) {
-      console.log("requestURL is not defined");
-      return;
-    }
-    switch (rightClickCommand?.content?.inputFormat) {
-      case "onSelect":
-        prompt = onSelectedCode?.selectedText || "";
-        break;
-      case "entireFile":
-        if (files?.length > onSelectedIndex && files?.length) {
-          const selectedFile = files[onSelectedIndex]?.fileName;
-          const file = files.find((f) => f.fileName === selectedFile);
-          prompt = file?.fileContent || "";
-        }
-        break;
-      default:
-        console.log("Invalid input format");
-        return;
-    }
-    const requestBody = {
-      language: files?.[onSelectedIndex]?.fileLanguage || "defaultLanguage",
-      prompt: prompt,
-    };
-    switch (rightClickCommand?.content?.requestMethod) {
-      case "GET":
-        try {
-          const response = await axios.get(requestURL, requestBody);
-          console.log(response.data);
-        } catch (e) {
-          console.log("Error in axios request:", e);
-        }
-        break;
-      case "POST":
-        try {
-          const response = await axios.post(requestURL, requestBody);
-          console.log(response.data);
-        } catch (e) {
-          console.log("Error in axios request:", e);
-        }
-        break;
-      default:
-        console.log("Invalid request method");
-        return;
-    }
-  };
-  /* API ----------------------------------------------------------------------- */
-
-  /* Context Menu ----------------------------------------------------------------------- */
-  const [onAppendContent, setOnAppendContent] = useState(null);
-  const [customizeRequest, setCustomizeRequest] = useState(null);
-  const handleRightClick = (event) => {
-    event.preventDefault();
-    if (onSelectedCode || navigator.clipboard.readText() !== "") {
-      setOnRightClickItem({
-        source: "vecoder_editor",
-        condition: { paste: true },
-        content: { customizeRequest: customizeRequest },
-        target: "vecoder_editor",
-      });
-    } else {
-      setOnRightClickItem({
-        source: "vecoder_editor",
-        condition: { paste: false },
-        content: { customizeRequest: customizeRequest },
-        target: "vecoder_editor",
-      });
-    }
-  };
-  const handleLeftClick = (event) => {
-    setOnRightClickItem(null);
-  };
-  useEffect(() => {
-    if (rightClickCommand && rightClickCommand.target === "vecoder_editor") {
-      handleRightClickCommand(rightClickCommand.command);
-      setRightClickCommand(null);
-      setOnRightClickItem(null);
-    }
-  }, [rightClickCommand]);
-  const handleRightClickCommand = async (command) => {
-    switch (command) {
-      case "viewAST":
-        getAST();
-        break;
-      case "copy":
-        navigator.clipboard.writeText(onSelectedCode.selectedText);
-        break;
-      case "paste":
-        setOnAppendContent(await navigator.clipboard.readText());
-        break;
-      case "customizeRequest":
-        await handleCustomizeRequest();
-        break;
-    }
-  };
-  /* Context Menu ----------------------------------------------------------------------- */
-
-  /* Editor parameters ------------------------------------------------- */
-  //// Editor container ref
-  const editorContainerRef = useRef(null);
-  useEffect(() => {
-    refresh();
-  }, [editorContainerRef.current?.offsetWidth]);
-  //// Editor content
-  const setFileContent = (index) => (value) => {
-    const editedFiles = [...files];
-    editedFiles[index].fileContent = value;
-    setFiles(editedFiles);
-  };
-  const [diffContent, setDiffContent] = useState(null);
-  const [onSelectedCode, setOnSelectedCode] = useState(null);
-  /* Editor parameters ------------------------------------------------- */
-
-  /* File Selection Bar parameters & Functions ------------------------------------------------- */
+  /* File Selection Bar parameters & Functions ==================================================== */
   const fileSelectionBarContainerRef = useRef(null);
-  const [onSelectedIndex, setOnSelectedIndex] = useState(null);
   const [onDragIndex, setOnDragIndex] = useState(-1);
   const [onDropIndex, setOnDropIndex] = useState(-1);
   const [onSwapIndex, setOnSwapIndex] = useState(-1);
@@ -321,13 +189,310 @@ const VecoderEditor = ({
       setDragCommand(null);
     }
   }, [dragCommand]);
-  // Styling-------
+  /* File Selection Bar parameters & Functions ==================================================== */
+
+  /* Styling----------------------------------------------------------------------------------- */
   const spanRefs = useRef([]);
   useEffect(() => {
     refresh();
   }, [spanRefs.current[onSelectedIndex]?.offsetWidth]);
+  /* Styling----------------------------------------------------------------------------------- */
 
-  /* File Selection Bar parameters & Functions ------------------------------------------------- */
+  return (
+    <div
+      className={
+        mode === "HORIZONTAL"
+          ? "file_selection_bar_container1114"
+          : "file_selection_bar_container_vertical0122"
+      }
+      ref={fileSelectionBarContainerRef}
+      onDragOver={(e) => {
+        fileSelectionBarOnDragOver(e);
+      }}
+      onDragLeave={(e) => {
+        fileSelectionBarOnDragLeave(e);
+      }}
+    >
+      {files.map((file, index) => {
+        let className;
+        switch (true) {
+          case index === onSelectedIndex:
+            mode === "HORIZONTAL"
+              ? (className = "file_selection_bar_item_selected1114")
+              : (className = "file_selection_bar_item_selected_vertical0123");
+            break;
+          case index === onSwapIndex:
+            mode === "HORIZONTAL"
+              ? (className = "file_selection_bar_item_selected1114")
+              : (className = "file_selection_bar_item_selected_vertical0123");
+            break;
+          default:
+            mode === "HORIZONTAL"
+              ? (className = "file_selection_bar_item1114")
+              : (className = "file_selection_bar_item_vertical0123");
+        }
+        return (
+          <div
+            key={index}
+            className={className}
+            draggable={true}
+            onDragStart={(e) => {
+              onFileDragStart(e, index);
+            }}
+            onDragEnd={(e) => {
+              onFileDragEnd(e);
+            }}
+            onClick={() => {
+              setOnSelectedIndex(index);
+            }}
+            style={
+              mode === "HORIZONTAL"
+                ? {}
+                : {
+                    minHeight: spanRefs.current[index]?.offsetWidth + 60 + "px",
+                  }
+            }
+          >
+            <img
+              src={
+                FILE_TYPE_ICON_MANAGER[file.fileName.split(".").pop()]?.ICON512
+              }
+              className={
+                mode === "HORIZONTAL"
+                  ? "file_selection_bar_item_filetype_icon1114"
+                  : "file_selection_bar_item_filetype_icon_vertical0123"
+              }
+              alt="close"
+              style={{
+                opacity: index === onSelectedIndex ? "1" : "0.32",
+              }}
+            />
+            <span
+              ref={(el) => (spanRefs.current[index] = el)}
+              className={
+                mode === "HORIZONTAL"
+                  ? "file_selection_bar_file_text1114"
+                  : "file_selection_bar_file_text_vertical0123"
+              }
+              style={{
+                opacity: index === onSelectedIndex ? "1" : "0.32",
+              }}
+            >
+              {file.fileName}
+            </span>
+            <img
+              src={SYSTEM_ICON_MANAGER.close.ICON512}
+              className={
+                mode === "HORIZONTAL"
+                  ? "file_selection_bar_item_close_icon1114"
+                  : "file_selection_bar_item_close_icon_vertical0123"
+              }
+              alt="close"
+              draggable="false"
+              onDragOver={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+              }}
+              onClick={(e) => {
+                onFileDelete(e)(index);
+              }}
+            />
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+const MonacoEditorGroup = ({
+  files,
+  setFiles,
+  setOnRightClickItem,
+  onSelectedIndex,
+  mode,
+}) => {
+  const [diffContent, setDiffContent] = useState(null);
+  const [onSelectedContent, setOnSelectedContent] = useState(null);
+  const [onAppendContent, setOnAppendContent] = useState(null);
+  const setFileContent = (index) => (value) => {
+    const editedFiles = [...files];
+    editedFiles[index].fileContent = value;
+    setFiles(editedFiles);
+  };
+  const handleRightClick = (event) => {
+    event.preventDefault();
+    if (onSelectedContent || navigator.clipboard.readText() !== "") {
+      setOnRightClickItem({
+        source: "vecoder_editor",
+        condition: { paste: true },
+        content: { customizeRequest: customizeRequest },
+        target: "vecoder_editor",
+      });
+    } else {
+      setOnRightClickItem({
+        source: "vecoder_editor",
+        condition: { paste: false },
+        content: { customizeRequest: customizeRequest },
+        target: "vecoder_editor",
+      });
+    }
+  };
+  return mode === "HORIZONTAL"
+    ? files.map((file, index) => {
+        return (
+          <Editor
+            key={index}
+            editor_content={files[index].fileContent}
+            editor_setContent={setFileContent(index)}
+            editor_language={files[index].fileLanguage}
+            //Functional props
+            onAppendContent={onAppendContent}
+            setOnAppendContent={setOnAppendContent}
+            setOnSelected={setOnSelectedContent}
+            onContextMenu={(e) => {
+              handleRightClick(e);
+            }}
+            display={
+              file.filePath === files[onSelectedIndex]?.filePath ? true : false
+            }
+
+            //editor_diffContent={diffContent}
+            //editor_setDiffContent={setDiffContent}
+          ></Editor>
+        );
+      })
+    : null;
+};
+const VecoderEditor = ({
+  imported_files,
+  setImportedFiles,
+  //Context Menu
+  onRightClickItem,
+  setOnRightClickItem,
+  rightClickCommand,
+  setRightClickCommand,
+  //Drag and Drop
+  draggedItem,
+  setDraggedItem,
+  draggedOverItem,
+  setDraggedOverItem,
+  dragCommand,
+  setDragCommand,
+}) => {
+  /* Initialize File Data ------------------------------------------------------ */
+  const [onSelectedIndex, setOnSelectedIndex] = useState(null);
+  const [onSelectedCotent, setOnSelectedCotent] = useState(null);
+  /* Initialize File Data ------------------------------------------------------ */
+
+  /* API =================================================================================== */
+  const getAST = async () => {
+    const requestBody = {
+      language: imported_files[onSelectedIndex].fileLanguage,
+      prompt: onSelectedCotent.selectedText,
+    };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8200/AST/python",
+        requestBody
+      );
+      console.log(response.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const handleCustomizeRequest = async () => {
+    setCustomizeRequest(rightClickCommand.content);
+    let prompt = "";
+    const requestURL = rightClickCommand?.content?.requestURL;
+
+    if (!requestURL) {
+      console.log("requestURL is not defined");
+      return;
+    }
+    switch (rightClickCommand?.content?.inputFormat) {
+      case "onSelect":
+        prompt = onSelectedCotent?.selectedText || "";
+        break;
+      case "entireFile":
+        if (imported_files?.length > onSelectedIndex && imported_files?.length) {
+          const selectedFile = imported_files[onSelectedIndex]?.fileName;
+          const file = imported_files.find((f) => f.fileName === selectedFile);
+          prompt = file?.fileContent || "";
+        }
+        break;
+      default:
+        console.log("Invalid input format");
+        return;
+    }
+    const requestBody = {
+      language: imported_files?.[onSelectedIndex]?.fileLanguage || "defaultLanguage",
+      prompt: prompt,
+    };
+    switch (rightClickCommand?.content?.requestMethod) {
+      case "GET":
+        try {
+          const response = await axios.get(requestURL, requestBody);
+          console.log(response.data);
+        } catch (e) {
+          console.log("Error in axios request:", e);
+        }
+        break;
+      case "POST":
+        try {
+          const response = await axios.post(requestURL, requestBody);
+          console.log(response.data);
+        } catch (e) {
+          console.log("Error in axios request:", e);
+        }
+        break;
+      default:
+        console.log("Invalid request method");
+        return;
+    }
+  };
+  /* API =================================================================================== */
+
+  /* Context Menu ----------------------------------------------------------------------- */
+  const [customizeRequest, setCustomizeRequest] = useState(null);
+  const handleLeftClick = (event) => {
+    setOnRightClickItem(null);
+  };
+  useEffect(() => {
+    if (rightClickCommand && rightClickCommand.target === "vecoder_editor") {
+      handleRightClickCommand(rightClickCommand.command);
+      setRightClickCommand(null);
+      setOnRightClickItem(null);
+    }
+  }, [rightClickCommand]);
+  const handleRightClickCommand = async (command) => {
+    switch (command) {
+      case "viewAST":
+        getAST();
+        break;
+      case "copy":
+        navigator.clipboard.writeText(onSelectedCotent.selectedText);
+        break;
+      case "paste":
+        setOnAppendContent(await navigator.clipboard.readText());
+        break;
+      case "customizeRequest":
+        await handleCustomizeRequest();
+        break;
+    }
+  };
+  /* Context Menu ----------------------------------------------------------------------- */
+
+  /* HORIZONTAL OR VERTICAL MODE ====================================================== */
+  const editorContainerRef = useRef(null);
+  const [mode, setMode] = useState("HORIZONTAL"); //["HORIZONTAL", "VERTICAL"]
+  useEffect(() => {
+    if (editorContainerRef.current) {
+      editorContainerRef.current?.offsetWidth <= 50
+        ? setMode("VERTICAL")
+        : setMode("HORIZONTAL");
+    }
+  }, [editorContainerRef.current?.offsetWidth]);
+  /* HORIZONTAL OR VERTICAL MODE ====================================================== */
 
   return (
     <div
@@ -337,213 +502,34 @@ const VecoderEditor = ({
         handleLeftClick(e);
       }}
     >
-      {editorContainerRef.current?.offsetWidth <= 50 ? (
-        <div style={{ height: "100%" }}>
-          {/*Editor Top Right Section*/}
-          <div className="code_editor_top_right_section1113">
-            <img
-              src={SYSTEM_ICON_MANAGER.close.ICON512}
-              className="code_editor_close_icon1113"
-              draggable="false"
-              alt="close"
-            />
-          </div>
-          {/*Editor File Selection Bar*/}
-          <div
-            className="file_selection_bar_container_vertical0122"
-            ref={fileSelectionBarContainerRef}
-            onDragOver={(e) => {
-              fileSelectionBarOnDragOver(e);
-            }}
-            onDragLeave={(e) => {
-              fileSelectionBarOnDragLeave(e);
-            }}
-          >
-            {files.map((file, index) => {
-              let className;
-              switch (true) {
-                case index === onSelectedIndex:
-                  className = "file_selection_bar_item_selected_vertical0123";
-                  break;
-                case index === onSwapIndex:
-                  className = "file_selection_bar_item_selected_vertical0123";
-                  break;
-                default:
-                  className = "file_selection_bar_item_vertical0123";
-              }
-              return (
-                <div
-                  key={index}
-                  className={className}
-                  draggable={true}
-                  onDragStart={(e) => {
-                    onFileDragStart(e, index);
-                  }}
-                  onDragEnd={(e) => {
-                    onFileDragEnd(e);
-                  }}
-                  onClick={() => {
-                    setOnSelectedIndex(index);
-                  }}
-                  style={{
-                    minHeight: spanRefs.current[index]?.offsetWidth + 60 + "px",
-                  }}
-                >
-                  <img
-                    src={
-                      FILE_TYPE_ICON_MANAGER[file.fileName.split(".").pop()]
-                        ?.ICON512
-                    }
-                    className="file_selection_bar_item_filetype_icon_vertical0123"
-                    alt="close"
-                    style={{
-                      opacity: index === onSelectedIndex ? "1" : "0.32",
-                    }}
-                  />
-                  <span
-                    ref={(el) => (spanRefs.current[index] = el)}
-                    className="file_selection_bar_file_text_vertical0123"
-                    style={{
-                      opacity: index === onSelectedIndex ? "1" : "0.32",
-                    }}
-                  >
-                    {file.fileName}
-                  </span>
-                  <img
-                    src={SYSTEM_ICON_MANAGER.close.ICON512}
-                    className="file_selection_bar_item_close_icon_vertical0123"
-                    alt="close"
-                    draggable="false"
-                    onDragOver={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                    }}
-                    onClick={(e) => {
-                      onFileDelete(e)(index);
-                    }}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      ) : (
-        <div style={{ height: "100%" }}>
-          {/*Monaco Editor -------------------------------------------------------------- */}
-          {files.map((file, index) => {
-            return (
-              <Editor
-                key={index}
-                editor_content={files[index].fileContent}
-                editor_setContent={setFileContent(index)}
-                editor_language={files[index].fileLanguage}
-                //Functional props
-                onAppendContent={onAppendContent}
-                setOnAppendContent={setOnAppendContent}
-                setOnSelected={setOnSelectedCode}
-                onContextMenu={(e) => {
-                  handleRightClick(e);
-                }}
-                display={
-                  file.filePath === files[onSelectedIndex]?.filePath
-                    ? true
-                    : false
-                }
-
-                //editor_diffContent={diffContent}
-                //editor_setDiffContent={setDiffContent}
-              ></Editor>
-            );
-          })}
-          {/*Monaco Editor -------------------------------------------------------------- */}
-
-          {/*Editor Top Bar Container -------------------------------------------------------------- */}
-          {/*Editor Top Right Section*/}
-          <div className="code_editor_top_right_section1113">
-            <img
-              src={SYSTEM_ICON_MANAGER.close.ICON512}
-              className="code_editor_close_icon1113"
-              draggable="false"
-              alt="close"
-            />
-          </div>
-          {/*Editor File Selection Bar*/}
-          <div
-            className="file_selection_bar_container1114"
-            ref={fileSelectionBarContainerRef}
-            onDragOver={(e) => {
-              fileSelectionBarOnDragOver(e);
-            }}
-            onDragLeave={(e) => {
-              fileSelectionBarOnDragLeave(e);
-            }}
-          >
-            {files.map((file, index) => {
-              let className;
-              switch (true) {
-                case index === onSelectedIndex:
-                  className = "file_selection_bar_item_selected1114";
-                  break;
-                case index === onSwapIndex:
-                  className = "file_selection_bar_item_selected1114";
-                  break;
-                default:
-                  className = "file_selection_bar_item1114";
-              }
-              return (
-                <div
-                  key={index}
-                  className={className}
-                  draggable={true}
-                  onDragStart={(e) => {
-                    onFileDragStart(e, index);
-                  }}
-                  onDragEnd={(e) => {
-                    onFileDragEnd(e);
-                  }}
-                  onClick={() => {
-                    setOnSelectedIndex(index);
-                  }}
-                >
-                  <img
-                    src={
-                      FILE_TYPE_ICON_MANAGER[file.fileName.split(".").pop()]
-                        ?.ICON512
-                    }
-                    className="file_selection_bar_item_filetype_icon1114"
-                    alt="close"
-                    style={{
-                      opacity: index === onSelectedIndex ? "1" : "0.32",
-                    }}
-                  />
-                  <span
-                    className="file_selection_bar_file_text1114"
-                    style={{
-                      opacity: index === onSelectedIndex ? "1" : "0.32",
-                    }}
-                  >
-                    {file.fileName}
-                  </span>
-                  <img
-                    src={SYSTEM_ICON_MANAGER.close.ICON512}
-                    className="file_selection_bar_item_close_icon1114"
-                    alt="close"
-                    draggable="false"
-                    onDragOver={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                    }}
-                    onClick={(e) => {
-                      onFileDelete(e)(index);
-                    }}
-                  />
-                </div>
-              );
-            })}
-          </div>
-          {/*Editor Top Bar Container -------------------------------------------------------------- */}
-        </div>
-      )}
+      <div style={{ height: "100%" }}>
+        <MonacoEditorGroup
+          //DATA
+          files={imported_files}
+          setFiles={setImportedFiles}
+          setOnRightClickItem={setOnRightClickItem}
+          onSelectedIndex={onSelectedIndex}
+          //HORIZONTAL OR VERTICAL MODE
+          mode={mode}
+        />
+        <TopRightSection />
+        <FileSelectionBar
+          //DATA
+          files={imported_files}
+          setFiles={setImportedFiles}
+          onSelectedIndex={onSelectedIndex}
+          setOnSelectedIndex={setOnSelectedIndex}
+          //DRAG AND DROP
+          draggedItem={draggedItem}
+          setDraggedItem={setDraggedItem}
+          draggedOverItem={draggedOverItem}
+          setDraggedOverItem={setDraggedOverItem}
+          dragCommand={dragCommand}
+          setDragCommand={setDragCommand}
+          //HORIZONTAL OR VERTICAL MODE
+          mode={mode}
+        />
+      </div>
     </div>
   );
 };
