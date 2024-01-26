@@ -146,68 +146,68 @@ export const ICON_MANAGER = () => {
       jpg: {
         ICON16: JPG16,
         ICON512: JPG512,
-        LABEL_COLOR: "#CCCCCC",
+        LABEL_COLOR: "#8C8C8C",
         language: "image",
       },
       png: {
         ICON16: PNG16,
         ICON512: PNG512,
-        LABEL_COLOR: "#CCCCCC",
+        LABEL_COLOR: "#8C8C8C",
         language: "image",
       },
       svg: {
         ICON16: SVG16,
         ICON512: SVG512,
-        LABEL_COLOR: "#CCCCCC",
+        LABEL_COLOR: "#8C8C8C",
         language: "image",
       },
       //DOCUMENT FILE TYPES
       txt: {
         ICON16: TXT16,
         ICON512: TXT512,
-        LABEL_COLOR: "#CCCCCC",
+        LABEL_COLOR: "#8C8C8C",
         language: "text",
       },
       pdf: {
         ICON16: PDF16,
         ICON512: PDF512,
-        LABEL_COLOR: "#CCCCCC",
+        LABEL_COLOR: "#8C8C8C",
         language: "pdf",
       },
       pptx: {
         ICON16: PPTX16,
         ICON512: PPTX512,
-        LABEL_COLOR: "#CCCCCC",
+        LABEL_COLOR: "#8C8C8C",
         language: "powerpoint",
       },
       ppt: {
         ICON16: PPT16,
         ICON512: PPT512,
-        LABEL_COLOR: "#CCCCCC",
+        LABEL_COLOR: "#8C8C8C",
         language: "powerpoint",
       },
       xlsx: {
         ICON16: XLSX16,
         ICON512: XLSX512,
-        LABEL_COLOR: "#CCCCCC",
+        LABEL_COLOR: "#8C8C8C",
         language: "excel",
       },
       xls: {
         ICON16: XLS16,
         ICON512: XLS512,
-        LABEL_COLOR: "#CCCCCC",
+        LABEL_COLOR: "#8C8C8C",
         language: "excel",
       },
       docx: {
         ICON16: DOCX16,
         ICON512: DOCX512,
-        LABEL_COLOR: "#CCCCCC",
+        LABEL_COLOR: "#8C8C8C",
         language: "word",
       },
       doc: {
         ICON16: DOC16,
         ICON512: DOC512,
-        LABEL_COLOR: "#CCCCCC",
+        LABEL_COLOR: "#8C8C8C",
         language: "word",
       },
       //DATABASE FILE TYPES
@@ -221,19 +221,19 @@ export const ICON_MANAGER = () => {
       gitignore: {
         ICON16: GITIGNORE16,
         ICON512: GITIGNORE512,
-        LABEL_COLOR: "#CCCCCC",
+        LABEL_COLOR: "#8C8C8C",
         language: "gitignore",
       },
       md: {
         ICON16: MD16,
         ICON512: MD512,
-        LABEL_COLOR: "#CCCCCC",
+        LABEL_COLOR: "#8C8C8C",
         language: "markdown",
       },
       env: {
         ICON16: ENV16,
         ICON512: ENV512,
-        LABEL_COLOR: "#CCCCCC",
+        LABEL_COLOR: "#8C8C8C",
         language: "env",
       },
     };
@@ -269,6 +269,7 @@ export const ICON_MANAGER = () => {
     const TRASH16 = require("./SYSTEM_ICONs/16X16/trash.png");
     const SEND16 = require("./SYSTEM_ICONs/16X16/send.png");
     const SAVE16 = require("./SYSTEM_ICONs/16X16/save.png");
+    const SEARCH16 = require("./SYSTEM_ICONs/16X16/search.png");
     /* 16X16 ICONs ---------------------------------------------------------------------- */
 
     /* 512X512 ICONs ---------------------------------------------------------------------- */
@@ -290,6 +291,7 @@ export const ICON_MANAGER = () => {
     const TRASH512 = require("./SYSTEM_ICONs/512X512/trash.png");
     const SEND512 = require("./SYSTEM_ICONs/512X512/send.png");
     const SAVE512 = require("./SYSTEM_ICONs/512X512/save.png");
+    const SEARCH512 = require("./SYSTEM_ICONs/512X512/search.png");
     /* 512X512 ICONs ---------------------------------------------------------------------- */
 
     SYSTEM_ICON_MANAGER = {
@@ -381,6 +383,11 @@ export const ICON_MANAGER = () => {
       save: {
         ICON16: SAVE16,
         ICON512: SAVE512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      search: {
+        ICON16: SEARCH16,
+        ICON512: SEARCH512,
         LABEL_COLOR: "#CCCCCC",
       },
     };

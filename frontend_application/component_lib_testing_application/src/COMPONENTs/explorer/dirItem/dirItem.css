@@ -6,19 +6,19 @@
   position: relative;
 
   /*FONT*/
-  font-size: 11pt;
+  font-size: 14px;
   font-family: "Roboto";
   letter-spacing: 0pt;
   white-space: nowrap;
   color: #cccccc;
 
   /*SIZE*/
-  padding: 1pt 4pt 1pt 5pt;
-  right: 0pt;
-  left: 0pt;
+  padding: 1px 0px 1px 6px;
+  right: 0px;
+  left: 0px;
 
   /*STYLE*/
-  border-radius: 0pt;
+  border-radius: 2px;
   overflow: hidden;
 
   -webkit-user-select: none;
@@ -34,22 +34,22 @@
   position: relative;
 
   /*FONT*/
-  font-size: 11pt;
+  font-size: 14px;
   font-family: "Roboto";
   letter-spacing: 0pt;
   white-space: nowrap;
   color: #cccccc;
 
   /*SIZE*/
-  padding: 1pt 4pt 1pt 5pt;
-  right: 0pt;
-  left: 0pt;
+  padding: 1px 0px 1px 6px;
+  right: 0px;
+  left: 0px;
 
   /*STYLE*/
   background-color: #323232;
-  border-radius: 3pt;
+  border-radius: 2px;
 
-  box-shadow: inset 0 0 0 1pt #4d4d4d;
+  box-shadow: inset 0 0 0 1px #4d4d4d;
   overflow: hidden;
 
   -webkit-user-select: none;
@@ -63,18 +63,18 @@
   position: relative;
 
   /*FONT*/
-  font-size: 11pt;
+  font-size: 14px;
   font-family: "Roboto";
-  letter-spacing: 0pt;
+  letter-spacing: 0px;
   white-space: nowrap;
   color: #cccccc;
 
   /*SIZE*/
-  padding: 1pt 4pt 1pt 5pt;
+  padding: 1px 0px 1px 6px;
 
   /*STYLE*/
   background-color: #2a2d2e;
-  border-radius: 3pt;
+  border-radius: 2px;
 }
 .dir_item_component_script_icon0725 {
   transition: all 0.08s ease;
@@ -82,10 +82,10 @@
   /*POSITION*/
   position: relative;
 
-  left: -2pt;
-  top: 0.75pt;
-  height: 12pt;
-  width: 12pt;
+  left: -2.2px;
+  top: 0.2px;
+  height: 16px;
+  width: 16px;
 }
 .dir_item_component_file_icon_container0125 {
   transition: all 0.08s ease;
@@ -93,10 +93,10 @@
   /*POSITION*/
   position: relative;
 
-  left: -2pt;
-  top: 0.75pt;
-  height: 12pt;
-  width: 12pt;
+  left: -2.2px;
+  top: 0.2px;
+  height: 16px;
+  width: 16px;
 }
 .dir_item_component_arrow_icon_right0725 {
   transition: all 0.08s ease;
@@ -104,19 +104,19 @@
   /*POSITION*/
   position: relative;
 
-  left: -2pt;
-  top: 1.5pt;
-  height: 10pt;
-  width: 10pt;
+  left: -1px;
+  top: 2px;
+  height: 13px;
+  width: 13px;
 }
 .dir_item_component_arrow_icon_right_no_animation1018 {
   /*POSITION*/
   position: relative;
 
-  left: -2pt;
-  top: 1.5pt;
-  height: 10pt;
-  width: 10pt;
+  left: -1px;
+  top: 2px;
+  height: 13px;
+  width: 13px;
 }
 .dir_item_component_arrow_icon_down0725 {
   transition: all 0.08s ease;
@@ -124,10 +124,10 @@
   /*POSITION*/
   position: relative;
 
-  left: -1.5pt;
-  top: 2pt;
-  height: 10pt;
-  width: 10pt;
+  left: -1px;
+  top: 2px;
+  height: 13px;
+  width: 13px;
 
   transform: rotate(90deg);
 
@@ -142,10 +142,10 @@
   /*POSITION*/
   position: relative;
 
-  left: -1.5pt;
-  top: 2pt;
-  height: 10pt;
-  width: 10pt;
+  left: -1px;
+  top: 2px;
+  height: 13px;
+  width: 13px;
 
   transform: rotate(90deg);
 
@@ -158,35 +158,35 @@
   /*POSITION*/
   position: relative;
 
-  left: -2pt;
-  top: 1.5pt;
-  height: 10pt;
-  width: 10pt;
+  left: -1px;
+  top: 2px;
+  height: 13px;
+  width: 13px;
 
   opacity: 0.32;
 }
 .dir_item_component_dir_list0725 {
   /*POSITION*/
   position: relative;
-  right: 0pt;
+  right: 0px;
 
   /*SIZE*/
-  padding: 0pt 0pt 0pt 0pt;
-  margin: 0pt 0pt 0pt 8pt;
+  padding: 0px;
+  margin: 0px 0px 0px 11px;
   height: auto;
 
   /*STYLE*/
   list-style: none;
-  border-left: #4d4d4d solid 1pt;
+  border-left: #4d4d4d solid 1px;
 }
 .dir_item_component_dir_list0725 li {
   /*POSITION*/
   position: relative;
-  right: 0pt;
-  left: 0pt;
+  right: 0px;
+  left: 0px;
 
   /*SIZE*/
-  padding: 2pt 0pt 0pt 0pt;
+  padding: 2px 0px 0px 0px;
 
   /*STYLE*/
   list-style: none;
@@ -197,12 +197,12 @@
   /*POSITION*/
   display: flex;
   position: relative;
-  left: 0pt;
+  left: 0px;
 
   /*FONT*/
-  font-size: 11pt;
+  font-size: 14px;
   font-family: "Roboto";
-  letter-spacing: 0pt;
+  letter-spacing: 0px;
   white-space: nowrap;
   color: #cccccc;
 
@@ -212,11 +212,11 @@
 
   /*STYLE*/
   background-color: #2a2d2e;
-  border-radius: 3pt;
+  border-radius: 2px;
   border: none;
   outline: none;
 
-  box-shadow: inset 0 0 0 1pt #0d66ac;
+  box-shadow: inset 0 0 0 1px #0d66ac;
 
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -231,9 +231,9 @@
   position: relative;
 
   /*FONT*/
-  font-size: 11pt;
+  font-size: 14px;
   font-family: "Roboto";
-  letter-spacing: 0pt;
+  letter-spacing: 0px;
   white-space: nowrap;
   color: #cccccc;
 
@@ -241,7 +241,7 @@
 
   /*STYLE*/
   background-color: #2a2d2e;
-  border-radius: 3pt;
+  border-radius: 2px;
   border: none;
   outline: none;
 
@@ -249,31 +249,31 @@
 }
 @keyframes dir_item_component_input_box_shake_aniamtion {
   0% {
-    transform: translateX(0pt);
+    transform: translateX(0px);
   }
   12.5% {
-    transform: translateX(2pt);
+    transform: translateX(4px);
   }
   25% {
-    transform: translateX(0pt);
+    transform: translateX(0px);
   }
   37.5% {
-    transform: translateX(-2pt);
+    transform: translateX(-4px);
   }
   50% {
-    transform: translateX(0pt);
+    transform: translateX(0px);
   }
   62.5% {
-    transform: translateX(2pt);
+    transform: translateX(4px);
   }
   75% {
-    transform: translateX(0pt);
+    transform: translateX(0px);
   }
   87.5% {
-    transform: translateX(-2pt);
+    transform: translateX(-4px);
   }
   100% {
-    transform: translateX(0pt);
+    transform: translateX(0px);
   }
 }
 .dir_item_component_input_box0803:focus {

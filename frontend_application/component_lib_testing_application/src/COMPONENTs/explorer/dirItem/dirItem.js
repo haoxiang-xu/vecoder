@@ -1,8 +1,41 @@
 import React, { useState, useEffect, useRef } from "react";
-
-import "./dirItem.css";
 import { ICON_MANAGER } from "../../../ICONs/icon_manager";
+import "./dirItem.css";
 
+const FileTypeIconLoader = ({ fileIcon, fileIconBackground }) => {
+  /* ICON Loader ----------------------------------------------------------------- */
+  const [isFileTypeIconLoad, setIsFileTypeIconLoad] = useState(false);
+  const handleFileTypeIconLoad = () => {
+    setIsFileTypeIconLoad(true);
+  };
+  /* ICON Loader ----------------------------------------------------------------- */
+  return (
+    <div>
+      {fileIcon !== undefined ? (
+        <div
+          className="dir_item_component_script_icon0725"
+          style={
+            isFileTypeIconLoad
+              ? {}
+              : {
+                  backgroundImage: `url(${fileIconBackground})`,
+                }
+          }
+        >
+          <img
+            src={fileIcon}
+            className="dir_item_component_script_icon0725"
+            loading="lazy"
+            onLoad={handleFileTypeIconLoad}
+            draggable={"false"}
+          ></img>
+        </div>
+      ) : (
+        <div></div>
+      )}
+    </div>
+  );
+};
 const DirItem = ({
   file,
   root,
@@ -253,10 +286,24 @@ const DirItem = ({
       }
     }
   }, [onSingleClickFile]);
-
   useEffect(() => {
     if (onRightClickItem === null) {
       setIsRightClicked(false);
+    } else if (
+      onRightClickItem.source ===
+      "vecoder_explorer/" + file.filePath
+    ) {
+      setFileNameClassName("dir_item_component_file_name_on_selected0827");
+    } else {
+      if (onSingleClickFile !== null) {
+        if (onSingleClickFile.filePath === file.filePath) {
+          setFileNameClassName("dir_item_component_file_name_on_selected0827");
+        } else {
+          setFileNameClassName("dir_item_component_file_name0725");
+        }
+      } else {
+        setFileNameClassName("dir_item_component_file_name0725");
+      }
     }
   }, [onRightClickItem]);
 
@@ -581,16 +628,6 @@ const DirItem = ({
                   className={fileNameClassName}
                   onClick={handleExpandIconOnClick}
                   onContextMenu={handleFolderOnRightClick}
-                  style={
-                    onRightClickItem !== null &&
-                    isRightClicked &&
-                    onRightClickItem.content?.fileName === file.fileName
-                      ? {
-                          backgroundColor: "#2a2d2e",
-                          borderRadius: "3pt",
-                        }
-                      : {}
-                  }
                 >
                   <img
                     src={SYSTEM_ICON_MANAGER.arrow.ICON512}
@@ -621,16 +658,6 @@ const DirItem = ({
                   className={fileNameClassName}
                   onClick={(e) => handleOnLeftClick(e)}
                   onContextMenu={handleFolderOnRightClick}
-                  style={
-                    onRightClickItem !== null &&
-                    isRightClicked &&
-                    onRightClickItem.content?.fileName === file.fileName
-                      ? {
-                          backgroundColor: "#2a2d2e",
-                          borderRadius: "3pt",
-                        }
-                      : {}
-                  }
                 >
                   <img
                     src={SYSTEM_ICON_MANAGER.arrow.ICON512}
@@ -671,50 +698,15 @@ const DirItem = ({
                         "dir_item_component_container_expand_animation " +
                         expandingTime +
                         "s",
-                      ...(onRightClickItem !== null &&
-                      isRightClicked &&
-                      onRightClickItem.content?.fileName === file.fileName
-                        ? {
-                            backgroundColor: "#2a2d2e",
-                            borderRadius: "3pt",
-                          }
-                        : {}),
                     }
-                  : {
-                      ...(onRightClickItem !== null &&
-                      isRightClicked &&
-                      onRightClickItem.content?.fileName === file.fileName
-                        ? {
-                            backgroundColor: "#2a2d2e",
-                            borderRadius: "3pt",
-                          }
-                        : {}),
-                    }
+                  : {}
               }
               onContextMenu={handleFileOnRightClick}
             >
-              {fileIcon !== undefined ? (
-                <div
-                  className = "dir_item_component_script_icon0725"
-                  style={
-                    isFileTypeIconLoad
-                      ? {}
-                      : {
-                          backgroundImage: `url(${fileIconBackground})`,
-                        }
-                  }
-                >
-                  <img
-                    src={fileIcon}
-                    className="dir_item_component_script_icon0725"
-                    loading="lazy"
-                    onLoad={handleFileTypeIconLoad}
-                    draggable={"false"}
-                  ></img>
-                </div>
-              ) : (
-                <div></div>
-              )}
+              <FileTypeIconLoader
+                fileIcon={fileIcon}
+                fileIconBackground={fileIconBackground}
+              />
               {filename}
             </span>
           )}
