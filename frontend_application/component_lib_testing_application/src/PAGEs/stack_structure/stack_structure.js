@@ -2,15 +2,227 @@ import React, { useState, useEffect, useRef } from "react";
 import VecoderEditor from "../../COMPONENTs/vecoder_editor/vecoder_editor";
 import RightClickContextMenu from "../../COMPONENTs/rightClickContextMenu/rightClickContextMenu";
 import Explorer from "../../COMPONENTs/explorer/explorer";
-
 import "./stack_structure.css";
 
-const StackStructure = () => {
-  const [forceRefresh, setForceRefresh] = useState(false);
-  const refresh = () => {
-    setForceRefresh(!forceRefresh);
+/* CONSTANT VARIABLES ================================================================================================================================== */
+const RESIZER = {
+  type: "RESIZER",
+  min_width: 16,
+  width: 16,
+  max_width: 16,
+  content: "",
+};
+const END = {
+  type: "END",
+  min_width: 512,
+  width: 512,
+  max_width: 512,
+  content: "",
+};
+/* CONSTANT VARIABLES ================================================================================================================================== */
+
+const Resizer = ({
+  index,
+  //Stack Data
+  item,
+  stackRefs,
+  stacks,
+  setStacks,
+  //Reszier Drag and Drop
+  onDragIndex,
+  setOnDropIndex,
+  resizerOnMouseDown,
+  setResizerOnMouseDown,
+}) => {
+  const [resizerClassname, setResizerClassname] = useState(
+    "stack_structure_resizer0122"
+  );
+  const handleResizerMouseDown = (e, index) => {
+    setResizerOnMouseDown(true);
+    const startX = e.clientX;
+    const left_start_width = stacks[index - 1].width;
+    const right_start_width = stacks[index + 1].width;
+    const scroll_x_start_position = window.scrollX;
+
+    const handleMouseMove = (e) => {
+      e.preventDefault();
+      const moveX = e.clientX - startX;
+      const left_width = left_start_width + moveX;
+      const right_width = right_start_width - moveX;
+      if (e.clientX > window.innerWidth - RESIZER.width / 2) {
+        // IF RIGHT ITEM OUTSIDE OF WINDOW
+        const editedStacks = [...stacks];
+        editedStacks[index - 1].width = Math.min(
+          editedStacks[index - 1].max_width,
+          window.innerWidth -
+            stackRefs.current[index - 1]?.getBoundingClientRect().x -
+            RESIZER.width / 2
+        );
+        setStacks(editedStacks);
+      } else if (
+        index + 1 === stacks.length - 1 ||
+        e.clientX + right_width >= window.innerWidth - 6
+      ) {
+        // IF RIGHT ITEM OUTSIDE OF WINDOW OR SECOND LAST ITEM WON'T CHANGE END WIDTH
+        if (
+          left_width > stacks[index - 1].min_width &&
+          left_width < stacks[index - 1].max_width
+        ) {
+          const editedStacks = [...stacks];
+          editedStacks[index - 1].width = left_width;
+          setStacks(editedStacks);
+        } else if (left_width < stacks[index - 1].min_width) {
+          const new_left_width = stacks[index - 1].min_width;
+
+          const editedStacks = [...stacks];
+          editedStacks[index - 1].width = new_left_width;
+          setStacks(editedStacks);
+        }
+      } else {
+        if (
+          left_width > stacks[index - 1].min_width &&
+          right_width > stacks[index + 1].min_width &&
+          left_width < stacks[index - 1].max_width &&
+          right_width < stacks[index + 1].max_width
+        ) {
+          const editedStacks = [...stacks];
+          editedStacks[index - 1].width = left_width;
+          editedStacks[index + 1].width = right_width;
+          setStacks(editedStacks);
+        } else if (
+          left_width > stacks[index - 1].min_width &&
+          left_width < stacks[index - 1].max_width &&
+          stacks[index + 1].width === stacks[index + 1].min_width
+        ) {
+          const editedStacks = [...stacks];
+          editedStacks[index - 1].width = left_width;
+          setStacks(editedStacks);
+        } else if (
+          left_width < stacks[index - 1].min_width &&
+          right_width < stacks[index + 1].max_width
+        ) {
+          const new_left_width = stacks[index - 1].min_width;
+          const new_right_width =
+            right_start_width +
+            (left_start_width - stacks[index - 1].min_width);
+
+          const editedStacks = [...stacks];
+          editedStacks[index - 1].width = new_left_width;
+          editedStacks[index + 1].width = new_right_width;
+          setStacks(editedStacks);
+        } else if (
+          right_width < stacks[index + 1].min_width &&
+          left_width < stacks[index - 1].max_width
+        ) {
+          const new_right_width = stacks[index + 1].min_width;
+          const new_left_width =
+            left_start_width +
+            (right_start_width - stacks[index + 1].min_width);
+
+          const editedStacks = [...stacks];
+          editedStacks[index - 1].width = new_left_width;
+          editedStacks[index + 1].width = new_right_width;
+          setStacks(editedStacks);
+        }
+      }
+    };
+    const handleMouseUp = (e) => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+      setResizerOnMouseDown(false);
+    };
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
   };
-  /* Right Click Menu ---------------------------------------------------------------------------------------------------------------------------------- */
+  const handleResizerDoubleClick = (e, index) => {
+    if (stacks[index + 1].width === stacks[index + 1].min_width) {
+      const editedStacks = [...stacks];
+      editedStacks[index + 1].width = Math.min(
+        editedStacks[index + 1].max_width,
+        window.innerWidth -
+          stackRefs.current[index + 1]?.getBoundingClientRect().x -
+          RESIZER.width / 2
+      );
+      setStacks(editedStacks);
+    } else {
+      const editedStacks = [...stacks];
+      editedStacks[index + 1].width = editedStacks[index + 1].min_width;
+      setStacks(editedStacks);
+    }
+  };
+  const resizerOnDragOver = (e, index) => {
+    if (onDragIndex === -1) {
+      return;
+    }
+    setOnDropIndex(index);
+  };
+  return (
+    <div
+      className={"stack_structure_resizer_container0122"}
+      ref={(el) => (stackRefs.current[index] = el)}
+      key={index}
+      style={{
+        width: item.width,
+        cursor: "ew-resize",
+      }}
+      onMouseEnter={(e) => {
+        if (!resizerOnMouseDown) {
+          setResizerClassname("stack_structure_resizer_hover0122");
+        }
+      }}
+      onMouseLeave={(e) => {
+        if (!resizerOnMouseDown) {
+          setResizerClassname("stack_structure_resizer0122");
+        }
+      }}
+      onMouseDown={(e) => {
+        handleResizerMouseDown(e, index);
+      }}
+      onDragOver={(e) => {
+        resizerOnDragOver(e, index),
+          setResizerClassname("stack_structure_resizer_onDragOver0122");
+      }}
+      onDragLeave={(e) => {
+        setResizerClassname("stack_structure_resizer0122");
+      }}
+      onDoubleClick={(e) => {
+        handleResizerDoubleClick(e, index);
+      }}
+      draggable={false}
+    >
+      <div className={resizerClassname}></div>
+    </div>
+  );
+};
+const End = ({
+  index,
+  //Stack Data
+  item,
+  stackRefs,
+  //Reszier Drag and Drop
+  onDropIndex,
+}) => {
+  return (
+    <div
+      className={"stack_structure_item0116"}
+      ref={(el) => (stackRefs.current[index] = el)}
+      key={index}
+      style={{
+        width: item.width,
+      }}
+      draggable={false}
+    >
+      {" "}
+      {index === onDropIndex ? (
+        <div className="stack_structure_item_overlay0122"></div>
+      ) : (
+        <div></div>
+      )}
+    </div>
+  );
+};
+const StackStructure = () => {
+  /* Right Click Menu ================================================================================================================================== */
   const [isRightClicked, setIsRightClicked] = useState(false);
   const [rightClickX, setRightClickX] = useState(-1);
   const [rightClickY, setRightClickY] = useState(-1);
@@ -32,30 +244,15 @@ const StackStructure = () => {
     setIsRightClicked(false);
     setOnRightClickItem(null);
   };
-  /* Right Click Menu ---------------------------------------------------------------------------------------------------------------------------------- */
+  /* Right Click Menu ================================================================================================================================== */
 
-  /* Stack Item Drag and Drop ----------------------------------------------------------------- */
+  /* Children Item Drag and Drop ----------------------------------------------------------------- */
   const [draggedItem, setDraggedItem] = useState(null);
   const [draggedOverItem, setDraggedOverItem] = useState(null);
   const [dragCommand, setDragCommand] = useState(null);
-  /* Stack Item Drag and Drop ----------------------------------------------------------------- */
+  /* Children Item Drag and Drop ----------------------------------------------------------------- */
 
-  /* DATA ----------------------------------------------------------------------------------------------------------------------------------------------- */
-  const RESIZER = {
-    type: "RESIZER",
-    min_width: 16,
-    width: 16,
-    max_width: 16,
-    content: "",
-  };
-  let STACK_WINDOW_SIZE_MAX_WIDTH = window.innerWidth - RESIZER.width;
-  const END = {
-    type: "END",
-    min_width: 512,
-    width: 512,
-    max_width: 512,
-    content: "",
-  };
+  /* DATA =============================================================================================================================================== */
   //Explorer Data ----------------------------------------------------------------------
   const EXPLORER_FILES = {
     fileName: "vecoder",
@@ -694,7 +891,7 @@ class Car {
   ];
   const [stacks, setStacks] = useState(stacking_data);
   const stackRefs = useRef([]);
-  /* DATA ----------------------------------------------------------------------------------------------------------------------------------------------- */
+  /* DATA =============================================================================================================================================== */
 
   /* Stack Container Drag and Drop ------------------------------------------------------------ */
   const stackStructureContainerRef = useRef(null);
@@ -745,15 +942,9 @@ class Car {
       }
     }
   };
-  const resizerOnDragOver = (e, index) => {
-    if (onDragIndex === -1) {
-      return;
-    }
-    setOnDropIndex(index);
-  };
   /* Stack Container Drag and Drop ------------------------------------------------------------ */
 
-  /* Resizer ------------------------------------------------------------------------------------------------------------------------------------------- */
+  /* Resizer =============================================================================================================================================== */
   const [resizerOnMouseDown, setResizerOnMouseDown] = useState(false);
   const scrollToPosition = (position) => {
     window.scrollTo({
@@ -761,121 +952,7 @@ class Car {
       behavior: "auto",
     });
   };
-  const handleResizerMouseDown = (e, index) => {
-    setResizerOnMouseDown(true);
-    const startX = e.clientX;
-    const left_start_width = stacks[index - 1].width;
-    const right_start_width = stacks[index + 1].width;
-    const scroll_x_start_position = window.scrollX;
-
-    const handleMouseMove = (e) => {
-      e.preventDefault();
-      const moveX = e.clientX - startX;
-      const left_width = left_start_width + moveX;
-      const right_width = right_start_width - moveX;
-      if (e.clientX > window.innerWidth - RESIZER.width / 2) {
-        // IF RIGHT ITEM OUTSIDE OF WINDOW
-        const editedStacks = [...stacks];
-        editedStacks[index - 1].width = Math.min(
-          editedStacks[index - 1].max_width,
-          window.innerWidth -
-            stackRefs.current[index - 1]?.getBoundingClientRect().x -
-            RESIZER.width / 2
-        );
-        setStacks(editedStacks);
-      } else if (
-        index + 1 === stacks.length - 1 ||
-        e.clientX + right_width >= window.innerWidth - 6
-      ) {
-        // IF RIGHT ITEM OUTSIDE OF WINDOW OR SECOND LAST ITEM WON'T CHANGE END WIDTH
-        if (
-          left_width > stacks[index - 1].min_width &&
-          left_width < stacks[index - 1].max_width
-        ) {
-          const editedStacks = [...stacks];
-          editedStacks[index - 1].width = left_width;
-          setStacks(editedStacks);
-        } else if (left_width < stacks[index - 1].min_width) {
-          const new_left_width = stacks[index - 1].min_width;
-
-          const editedStacks = [...stacks];
-          editedStacks[index - 1].width = new_left_width;
-          setStacks(editedStacks);
-        }
-      } else {
-        if (
-          left_width > stacks[index - 1].min_width &&
-          right_width > stacks[index + 1].min_width &&
-          left_width < stacks[index - 1].max_width &&
-          right_width < stacks[index + 1].max_width
-        ) {
-          const editedStacks = [...stacks];
-          editedStacks[index - 1].width = left_width;
-          editedStacks[index + 1].width = right_width;
-          setStacks(editedStacks);
-        } else if (
-          left_width > stacks[index - 1].min_width &&
-          left_width < stacks[index - 1].max_width &&
-          stacks[index + 1].width === stacks[index + 1].min_width
-        ) {
-          const editedStacks = [...stacks];
-          editedStacks[index - 1].width = left_width;
-          setStacks(editedStacks);
-        } else if (
-          left_width < stacks[index - 1].min_width &&
-          right_width < stacks[index + 1].max_width
-        ) {
-          const new_left_width = stacks[index - 1].min_width;
-          const new_right_width =
-            right_start_width +
-            (left_start_width - stacks[index - 1].min_width);
-
-          const editedStacks = [...stacks];
-          editedStacks[index - 1].width = new_left_width;
-          editedStacks[index + 1].width = new_right_width;
-          setStacks(editedStacks);
-        } else if (
-          right_width < stacks[index + 1].min_width &&
-          left_width < stacks[index - 1].max_width
-        ) {
-          const new_right_width = stacks[index + 1].min_width;
-          const new_left_width =
-            left_start_width +
-            (right_start_width - stacks[index + 1].min_width);
-
-          const editedStacks = [...stacks];
-          editedStacks[index - 1].width = new_left_width;
-          editedStacks[index + 1].width = new_right_width;
-          setStacks(editedStacks);
-        }
-      }
-    };
-    const handleMouseUp = (e) => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
-      setResizerOnMouseDown(false);
-    };
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseup", handleMouseUp);
-  };
-  const handleResizerDoubleClick = (e, index) => {
-    if (stacks[index + 1].width === stacks[index + 1].min_width) {
-      const editedStacks = [...stacks];
-      editedStacks[index + 1].width = Math.min(
-        editedStacks[index + 1].max_width,
-        window.innerWidth -
-          stackRefs.current[index + 1]?.getBoundingClientRect().x -
-          RESIZER.width / 2
-      );
-      setStacks(editedStacks);
-    } else {
-      const editedStacks = [...stacks];
-      editedStacks[index + 1].width = editedStacks[index + 1].min_width;
-      setStacks(editedStacks);
-    }
-    refresh();
-  };
-  /* Resizer ------------------------------------------------------------------------------------------------------------------------------------------- */
+  /* Resizer =============================================================================================================================================== */
 
   return (
     <div
@@ -892,7 +969,7 @@ class Car {
     >
       {stacks.map((item, index) => {
         switch (item?.type) {
-          case "EMPTY_CONTAINER":
+          case "TEST_CONTAINER":
             return (
               <div
                 className={"stack_structure_item0116"}
@@ -991,66 +1068,33 @@ class Car {
               </div>
             );
           case "RESIZER":
-            const [resizerClassname, setResizerClassname] = useState(
-              "stack_structure_resizer0122"
-            );
             return (
-              <div
-                className={"stack_structure_resizer_container0122"}
-                ref={(el) => (stackRefs.current[index] = el)}
+              <Resizer
                 key={index}
-                style={{
-                  width: item.width,
-                  cursor: "ew-resize",
-                }}
-                onMouseEnter={(e) => {
-                  if (!resizerOnMouseDown) {
-                    setResizerClassname("stack_structure_resizer_hover0122");
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!resizerOnMouseDown) {
-                    setResizerClassname("stack_structure_resizer0122");
-                  }
-                }}
-                onMouseDown={(e) => {
-                  handleResizerMouseDown(e, index);
-                }}
-                onDragOver={(e) => {
-                  resizerOnDragOver(e, index),
-                    setResizerClassname(
-                      "stack_structure_resizer_onDragOver0122"
-                    );
-                }}
-                onDragLeave={(e) => {
-                  setResizerClassname("stack_structure_resizer0122");
-                }}
-                onDoubleClick={(e) => {
-                  handleResizerDoubleClick(e, index);
-                }}
-                draggable={false}
-              >
-                <div className={resizerClassname}></div>
-              </div>
+                index={index}
+                //Stack Data
+                item={item}
+                stackRefs={stackRefs}
+                stacks={stacks}
+                setStacks={setStacks}
+                //Reszier Drag and Drop
+                onDragIndex={onDragIndex}
+                setOnDropIndex={setOnDropIndex}
+                resizerOnMouseDown={resizerOnMouseDown}
+                setResizerOnMouseDown={setResizerOnMouseDown}
+              />
             );
           case "END":
             return (
-              <div
-                className={"stack_structure_item0116"}
-                ref={(el) => (stackRefs.current[index] = el)}
+              <End
                 key={index}
-                style={{
-                  width: item.width,
-                }}
-                draggable={false}
-              >
-                {" "}
-                {index === onDropIndex ? (
-                  <div className="stack_structure_item_overlay0122"></div>
-                ) : (
-                  <div></div>
-                )}
-              </div>
+                index={index}
+                //Stack Data
+                item={item}
+                stackRefs={stackRefs}
+                //Reszier Drag and Drop
+                onDropIndex={onDropIndex}
+              />
             );
           default:
             break;
