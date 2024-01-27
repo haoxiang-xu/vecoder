@@ -304,15 +304,22 @@ const FileSelectionBar = ({
   );
 };
 const MonacoEditorGroup = ({
+  code_editor_index,
+  //FILE DATA
   files,
   setFiles,
+  //CONTEXT MENU
   setOnRightClickItem,
   onSelectedIndex,
+  onSelectedContent,
+  setOnSelectedContent,
+  onAppendContent,
+  setOnAppendContent,
+  customizeRequest,
+  //HORIZONTAL OR VERTICAL MODE
   mode,
 }) => {
   const [diffContent, setDiffContent] = useState(null);
-  const [onSelectedContent, setOnSelectedContent] = useState(null);
-  const [onAppendContent, setOnAppendContent] = useState(null);
   const setFileContent = (index) => (value) => {
     const editedFiles = [...files];
     editedFiles[index].fileContent = value;
@@ -322,17 +329,17 @@ const MonacoEditorGroup = ({
     event.preventDefault();
     if (onSelectedContent || navigator.clipboard.readText() !== "") {
       setOnRightClickItem({
-        source: "vecoder_editor",
+        source: "vecoder_editor" + "/" + code_editor_index.toString(),
         condition: { paste: true },
         content: { customizeRequest: customizeRequest },
-        target: "vecoder_editor",
+        target: "vecoder_editor" + "/" + code_editor_index.toString(),
       });
     } else {
       setOnRightClickItem({
-        source: "vecoder_editor",
+        source: "vecoder_editor" + "/" + code_editor_index.toString(),
         condition: { paste: false },
         content: { customizeRequest: customizeRequest },
-        target: "vecoder_editor",
+        target: "vecoder_editor" + "/" + code_editor_index.toString(),
       });
     }
   };
@@ -341,13 +348,14 @@ const MonacoEditorGroup = ({
         return (
           <Editor
             key={index}
+            //Editor required parameters
             editor_content={files[index].fileContent}
             editor_setContent={setFileContent(index)}
             editor_language={files[index].fileLanguage}
-            //Functional props
+            //Editor function parameters
             onAppendContent={onAppendContent}
             setOnAppendContent={setOnAppendContent}
-            setOnSelected={setOnSelectedContent}
+            setOnSelectedContent={setOnSelectedContent}
             onContextMenu={(e) => {
               handleRightClick(e);
             }}
@@ -363,6 +371,7 @@ const MonacoEditorGroup = ({
     : null;
 };
 const VecoderEditor = ({
+  code_editor_index,
   imported_files,
   setImportedFiles,
   //Context Menu
@@ -378,16 +387,15 @@ const VecoderEditor = ({
   dragCommand,
   setDragCommand,
 }) => {
-  /* Initialize File Data ------------------------------------------------------ */
   const [onSelectedIndex, setOnSelectedIndex] = useState(null);
   const [onSelectedCotent, setOnSelectedCotent] = useState(null);
-  /* Initialize File Data ------------------------------------------------------ */
+  const [onAppendContent, setOnAppendContent] = useState(null);
 
   /* API =================================================================================== */
   const getAST = async () => {
     const requestBody = {
       language: imported_files[onSelectedIndex].fileLanguage,
-      prompt: onSelectedCotent.selectedText,
+      prompt: onSelectedCotent?.selectedText,
     };
 
     try {
@@ -414,7 +422,10 @@ const VecoderEditor = ({
         prompt = onSelectedCotent?.selectedText || "";
         break;
       case "entireFile":
-        if (imported_files?.length > onSelectedIndex && imported_files?.length) {
+        if (
+          imported_files?.length > onSelectedIndex &&
+          imported_files?.length
+        ) {
           const selectedFile = imported_files[onSelectedIndex]?.fileName;
           const file = imported_files.find((f) => f.fileName === selectedFile);
           prompt = file?.fileContent || "";
@@ -425,7 +436,8 @@ const VecoderEditor = ({
         return;
     }
     const requestBody = {
-      language: imported_files?.[onSelectedIndex]?.fileLanguage || "defaultLanguage",
+      language:
+        imported_files?.[onSelectedIndex]?.fileLanguage || "defaultLanguage",
       prompt: prompt,
     };
     switch (rightClickCommand?.content?.requestMethod) {
@@ -458,7 +470,11 @@ const VecoderEditor = ({
     setOnRightClickItem(null);
   };
   useEffect(() => {
-    if (rightClickCommand && rightClickCommand.target === "vecoder_editor") {
+    if (
+      rightClickCommand &&
+      rightClickCommand.target ===
+        "vecoder_editor" + "/" + code_editor_index.toString()
+    ) {
       handleRightClickCommand(rightClickCommand.command);
       setRightClickCommand(null);
       setOnRightClickItem(null);
@@ -470,7 +486,9 @@ const VecoderEditor = ({
         getAST();
         break;
       case "copy":
-        navigator.clipboard.writeText(onSelectedCotent.selectedText);
+        if (onSelectedCotent) {
+          await navigator.clipboard.writeText(onSelectedCotent?.selectedText);
+        }
         break;
       case "paste":
         setOnAppendContent(await navigator.clipboard.readText());
@@ -504,11 +522,18 @@ const VecoderEditor = ({
     >
       <div style={{ height: "100%" }}>
         <MonacoEditorGroup
-          //DATA
+          code_editor_index={code_editor_index}
+          //FILE DATA
           files={imported_files}
           setFiles={setImportedFiles}
+          //CONTEXT MENU
           setOnRightClickItem={setOnRightClickItem}
           onSelectedIndex={onSelectedIndex}
+          onSelectedContent={onSelectedCotent}
+          setOnSelectedContent={setOnSelectedCotent}
+          onAppendContent={onAppendContent}
+          setOnAppendContent={setOnAppendContent}
+          customizeRequest={customizeRequest}
           //HORIZONTAL OR VERTICAL MODE
           mode={mode}
         />

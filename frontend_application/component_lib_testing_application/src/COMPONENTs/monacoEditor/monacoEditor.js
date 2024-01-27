@@ -10,7 +10,7 @@ const Editor = ({
   //Editor function parameters
   onAppendContent,
   setOnAppendContent,
-  setOnSelected,
+  setOnSelectedContent,
   onContextMenu,
   display,
 
@@ -75,7 +75,7 @@ const Editor = ({
       .getModel()
       .getValueInRange(select_range);
 
-    setOnSelected({ selectedText: selectedText, select_range: select_range });
+    setOnSelectedContent({ selectedText: selectedText, select_range: select_range });
   };
   useEffect(() => {
     if (onAppendContent && monacoRef.current && display) {

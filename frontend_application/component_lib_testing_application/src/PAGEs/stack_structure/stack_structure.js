@@ -969,6 +969,7 @@ class Car {
                 }}
               >
                 <VecoderEditor
+                  code_editor_index={item.code_editor_index}
                   imported_files={code_editor_files[item.code_editor_index]}
                   setImportedFiles={setFiles(item.code_editor_index)}
                   onRightClickItem={onRightClickItem}

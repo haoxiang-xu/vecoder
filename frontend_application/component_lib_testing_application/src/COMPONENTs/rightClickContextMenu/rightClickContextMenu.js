@@ -15,7 +15,6 @@ const RightClickContextMenu = ({
 
   const progressRightClickCommand = (command, content) => {
     content = content ? content : onRightClickItem.content;
-
     setRightClickCommand({
       command: command,
       content: content,
@@ -26,7 +25,7 @@ const RightClickContextMenu = ({
   /* Define Menu Items -------------------------------------------------------------------------------------- */
   const [onHoverContextItemIndex, setOnHoverContextItemIndex] = useState(null);
   if (onRightClickItem !== null) {
-    if (onRightClickItem.source === "vecoder_editor") {
+    if (onRightClickItem.source.split('/')[0] === "vecoder_editor") {
       let pasteItem = onRightClickItem.condition.paste ? (
         <ContextItem
           key={"paste"}

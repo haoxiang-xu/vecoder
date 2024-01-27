@@ -54,6 +54,7 @@
 
   /*STYLE*/
   background-color: #2e2e2e;
+  box-shadow: 0px 4px 12px 4px rgba(0, 0, 0, 0.16);
 }
 .code_editor_close_icon1113:active {
   transition: all 0.1s ease;
@@ -156,7 +157,7 @@
   overflow: hidden;
 
   /*STYLE*/
-  background-color: #444444;
+  background-color: #323232;
   color: white;
 
   border-radius: 4px;
@@ -243,7 +244,7 @@
   position: relative;
 
   /*STYLE*/
-  background-color: #2e2e2e;
+  background-color: #323232;
   color: white;
   overflow: hidden;
 
