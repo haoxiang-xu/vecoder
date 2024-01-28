@@ -46,7 +46,7 @@
   right: 5px;
 
   /*STYLE*/
-  border-radius: 4px;
+  border-radius: 5px;
   padding: 9px;
 }
 .code_editor_close_icon1113:hover {
@@ -136,7 +136,7 @@
   /*STYLE*/
   background-color: #252525;
   color: white;
-  border-radius: 4px;
+  border-radius: 5px;
   margin: 5px 6px 4px 0px;
 }
 .file_selection_bar_item1114:hover {
@@ -159,7 +159,7 @@
   background-color: #323232;
   color: white;
 
-  border-radius: 4px;
+  border-radius: 5px;
   margin: 5px 6px 4px 0px;
 }
 .file_selection_bar_file_text1114 {

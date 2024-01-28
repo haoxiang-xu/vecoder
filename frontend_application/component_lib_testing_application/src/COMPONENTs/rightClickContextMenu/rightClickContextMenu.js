@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-
+import ContextItem from "./contextItem/contextItem";
 import "./rightClickContextMenu.css";
 
-import ContextItem from "./contextItem/contextItem";
+const CONTEXTMENU_WIDTH = 238;
 
 const RightClickContextMenu = ({
   x,
@@ -12,7 +12,6 @@ const RightClickContextMenu = ({
   setRightClickCommand,
 }) => {
   let contextItems = [];
-
   const progressRightClickCommand = (command, content) => {
     content = content ? content : onRightClickItem.content;
     setRightClickCommand({
@@ -25,7 +24,7 @@ const RightClickContextMenu = ({
   /* Define Menu Items -------------------------------------------------------------------------------------- */
   const [onHoverContextItemIndex, setOnHoverContextItemIndex] = useState(null);
   if (onRightClickItem !== null) {
-    if (onRightClickItem.source.split('/')[0] === "vecoder_editor") {
+    if (onRightClickItem.source.split("/")[0] === "vecoder_editor") {
       let pasteItem = onRightClickItem.condition.paste ? (
         <ContextItem
           key={"paste"}
@@ -34,6 +33,7 @@ const RightClickContextMenu = ({
           progressRightClickCommand={progressRightClickCommand}
           onHoverContextItemIndex={onHoverContextItemIndex}
           setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+          parentContextMenuWidth={CONTEXTMENU_WIDTH}
         />
       ) : (
         <ContextItem
@@ -43,6 +43,7 @@ const RightClickContextMenu = ({
           progressRightClickCommand={progressRightClickCommand}
           onHoverContextItemIndex={onHoverContextItemIndex}
           setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+          parentContextMenuWidth={CONTEXTMENU_WIDTH}
         />
       );
       contextItems = [
@@ -53,6 +54,7 @@ const RightClickContextMenu = ({
           progressRightClickCommand={progressRightClickCommand}
           onHoverContextItemIndex={onHoverContextItemIndex}
           setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+          parentContextMenuWidth={CONTEXTMENU_WIDTH}
         />,
         <ContextItem
           key={"fix"}
@@ -61,6 +63,7 @@ const RightClickContextMenu = ({
           progressRightClickCommand={progressRightClickCommand}
           onHoverContextItemIndex={onHoverContextItemIndex}
           setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+          parentContextMenuWidth={CONTEXTMENU_WIDTH}
         />,
         <ContextItem
           key={"customizeAPI"}
@@ -69,6 +72,7 @@ const RightClickContextMenu = ({
           progressRightClickCommand={progressRightClickCommand}
           onHoverContextItemIndex={onHoverContextItemIndex}
           setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+          parentContextMenuWidth={CONTEXTMENU_WIDTH}
         />,
         <ContextItem
           key={"hr1"}
@@ -77,6 +81,7 @@ const RightClickContextMenu = ({
           progressRightClickCommand={progressRightClickCommand}
           onHoverContextItemIndex={onHoverContextItemIndex}
           setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+          parentContextMenuWidth={CONTEXTMENU_WIDTH}
         />,
         <ContextItem
           key={"updateAST"}
@@ -85,6 +90,7 @@ const RightClickContextMenu = ({
           progressRightClickCommand={progressRightClickCommand}
           onHoverContextItemIndex={onHoverContextItemIndex}
           setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+          parentContextMenuWidth={CONTEXTMENU_WIDTH}
         />,
         <ContextItem
           key={"viewAST"}
@@ -93,6 +99,7 @@ const RightClickContextMenu = ({
           progressRightClickCommand={progressRightClickCommand}
           onHoverContextItemIndex={onHoverContextItemIndex}
           setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+          parentContextMenuWidth={CONTEXTMENU_WIDTH}
         />,
         <ContextItem
           key={"hr2"}
@@ -101,6 +108,7 @@ const RightClickContextMenu = ({
           progressRightClickCommand={progressRightClickCommand}
           onHoverContextItemIndex={onHoverContextItemIndex}
           setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+          parentContextMenuWidth={CONTEXTMENU_WIDTH}
         />,
         <ContextItem
           key={"copy"}
@@ -109,6 +117,7 @@ const RightClickContextMenu = ({
           progressRightClickCommand={progressRightClickCommand}
           onHoverContextItemIndex={onHoverContextItemIndex}
           setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+          parentContextMenuWidth={CONTEXTMENU_WIDTH}
         />,
         pasteItem,
       ];
@@ -121,6 +130,7 @@ const RightClickContextMenu = ({
           progressRightClickCommand={progressRightClickCommand}
           onHoverContextItemIndex={onHoverContextItemIndex}
           setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+          parentContextMenuWidth={CONTEXTMENU_WIDTH}
         />
       ) : (
         <ContextItem
@@ -130,6 +140,7 @@ const RightClickContextMenu = ({
           progressRightClickCommand={progressRightClickCommand}
           onHoverContextItemIndex={onHoverContextItemIndex}
           setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+          parentContextMenuWidth={CONTEXTMENU_WIDTH}
         />
       );
       if (
@@ -148,6 +159,7 @@ const RightClickContextMenu = ({
               progressRightClickCommand={progressRightClickCommand}
               onHoverContextItemIndex={onHoverContextItemIndex}
               setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+              parentContextMenuWidth={CONTEXTMENU_WIDTH}
             />,
             <ContextItem
               key={"newFolder"}
@@ -156,6 +168,7 @@ const RightClickContextMenu = ({
               progressRightClickCommand={progressRightClickCommand}
               onHoverContextItemIndex={onHoverContextItemIndex}
               setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+              parentContextMenuWidth={CONTEXTMENU_WIDTH}
             />,
             <ContextItem
               key={"insertFile"}
@@ -164,6 +177,7 @@ const RightClickContextMenu = ({
               progressRightClickCommand={progressRightClickCommand}
               onHoverContextItemIndex={onHoverContextItemIndex}
               setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+              parentContextMenuWidth={CONTEXTMENU_WIDTH}
             />,
             <ContextItem
               key={"hr1"}
@@ -172,6 +186,7 @@ const RightClickContextMenu = ({
               progressRightClickCommand={progressRightClickCommand}
               onHoverContextItemIndex={onHoverContextItemIndex}
               setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+              parentContextMenuWidth={CONTEXTMENU_WIDTH}
             />,
             <ContextItem
               key={"unpaste"}
@@ -180,6 +195,7 @@ const RightClickContextMenu = ({
               progressRightClickCommand={progressRightClickCommand}
               onHoverContextItemIndex={onHoverContextItemIndex}
               setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+              parentContextMenuWidth={CONTEXTMENU_WIDTH}
             />,
           ];
         } else {
@@ -191,6 +207,7 @@ const RightClickContextMenu = ({
               progressRightClickCommand={progressRightClickCommand}
               onHoverContextItemIndex={onHoverContextItemIndex}
               setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+              parentContextMenuWidth={CONTEXTMENU_WIDTH}
             />,
             <ContextItem
               key={"newFolder"}
@@ -199,6 +216,7 @@ const RightClickContextMenu = ({
               progressRightClickCommand={progressRightClickCommand}
               onHoverContextItemIndex={onHoverContextItemIndex}
               setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+              parentContextMenuWidth={CONTEXTMENU_WIDTH}
             />,
             <ContextItem
               key={"insertFile"}
@@ -207,6 +225,7 @@ const RightClickContextMenu = ({
               progressRightClickCommand={progressRightClickCommand}
               onHoverContextItemIndex={onHoverContextItemIndex}
               setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+              parentContextMenuWidth={CONTEXTMENU_WIDTH}
             />,
             <ContextItem
               key={"hr1"}
@@ -215,6 +234,7 @@ const RightClickContextMenu = ({
               progressRightClickCommand={progressRightClickCommand}
               onHoverContextItemIndex={onHoverContextItemIndex}
               setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+              parentContextMenuWidth={CONTEXTMENU_WIDTH}
             />,
             <ContextItem
               key={"copy"}
@@ -223,6 +243,7 @@ const RightClickContextMenu = ({
               progressRightClickCommand={progressRightClickCommand}
               onHoverContextItemIndex={onHoverContextItemIndex}
               setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+              parentContextMenuWidth={CONTEXTMENU_WIDTH}
             />,
             pasteItem,
             <ContextItem
@@ -232,6 +253,7 @@ const RightClickContextMenu = ({
               progressRightClickCommand={progressRightClickCommand}
               onHoverContextItemIndex={onHoverContextItemIndex}
               setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+              parentContextMenuWidth={CONTEXTMENU_WIDTH}
             />,
             <ContextItem
               key={"rename"}
@@ -240,6 +262,7 @@ const RightClickContextMenu = ({
               progressRightClickCommand={progressRightClickCommand}
               onHoverContextItemIndex={onHoverContextItemIndex}
               setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+              parentContextMenuWidth={CONTEXTMENU_WIDTH}
             />,
             <ContextItem
               key={"delete"}
@@ -248,6 +271,7 @@ const RightClickContextMenu = ({
               progressRightClickCommand={progressRightClickCommand}
               onHoverContextItemIndex={onHoverContextItemIndex}
               setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+              parentContextMenuWidth={CONTEXTMENU_WIDTH}
             />,
           ];
         }
@@ -260,6 +284,7 @@ const RightClickContextMenu = ({
             progressRightClickCommand={progressRightClickCommand}
             onHoverContextItemIndex={onHoverContextItemIndex}
             setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+            parentContextMenuWidth={CONTEXTMENU_WIDTH}
           />,
           <ContextItem
             key={"hr1"}
@@ -268,6 +293,7 @@ const RightClickContextMenu = ({
             progressRightClickCommand={progressRightClickCommand}
             onHoverContextItemIndex={onHoverContextItemIndex}
             setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+            parentContextMenuWidth={CONTEXTMENU_WIDTH}
           />,
           <ContextItem
             key={"rename"}
@@ -276,6 +302,7 @@ const RightClickContextMenu = ({
             progressRightClickCommand={progressRightClickCommand}
             onHoverContextItemIndex={onHoverContextItemIndex}
             setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+            parentContextMenuWidth={CONTEXTMENU_WIDTH}
           />,
           <ContextItem
             key={"delete"}
@@ -284,6 +311,7 @@ const RightClickContextMenu = ({
             progressRightClickCommand={progressRightClickCommand}
             onHoverContextItemIndex={onHoverContextItemIndex}
             setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+            parentContextMenuWidth={CONTEXTMENU_WIDTH}
           />,
         ];
       }
@@ -292,17 +320,15 @@ const RightClickContextMenu = ({
   }
   /* Define Menu Items -------------------------------------------------------------------------------------- */
 
-  /* CONSTANST -------------------------------------------------------------------------------------- */
-  const CONTEXTMENU_WIDTH = 256;
-  const CONTEXTITEM_HEIGHT = 36 * contextItems.length + 18;
-  /* CONSTANST -------------------------------------------------------------------------------------- */
+  /* CONTEXT MENU DIMENSIONs ================================================================================= */
+  const CONTEXTITEM_HEIGHT = 35 * contextItems.length + 10;
+  /* CONTEXT MENU DIMENSIONs ================================================================================= */
 
   /* Menu Styling and Position -------------------------------------------------------------------------- */
   const menuRef = useRef(null);
   const [menuStyle, setMenuStyle] = useState(
     "rightClickContextMenu_component_container0802"
   );
-
   const [position, setPosition] = useState({
     top:
       window.innerHeight < y + CONTEXTITEM_HEIGHT ? y - CONTEXTITEM_HEIGHT : y,

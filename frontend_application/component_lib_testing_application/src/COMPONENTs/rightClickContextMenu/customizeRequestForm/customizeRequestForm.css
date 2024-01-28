@@ -3,10 +3,10 @@
   position: relative;
   display: block;
   /*SIZE*/
-  height: 256pt;
+  height: 328px;
   width: 100%;
   /*STYLE*/
-  font-size: 10pt;
+  font-size: 11px;
   font-family: "Roboto";
   color: #686868;
   overflow: hidden;
@@ -15,11 +15,13 @@
   /*POSITION*/
   position: relative;
   display: block;
+  top: 2px;
+  left: 8px;
 
   /*STYLE*/
-  font-size: 11pt;
+  font-size: 13px;
   font-family: "Roboto";
-  letter-spacing: 0.2pt;
+  letter-spacing: 0.6px;
   color: #cccccc;
 }
 .customizeRequestForm_component_subcontainer1120 {
@@ -27,7 +29,7 @@
   position: relative;
   display: block;
   /*SIZE*/
-  margin: 0pt 0pt 0pt 6pt;
+  margin: 2px 0px 0px 8px;
   width: 100%;
   /*STYLE*/
   overflow: hidden;
@@ -38,24 +40,24 @@
   /*POSITION*/
   display: flex;
   position: relative;
-  left: 0pt;
-  width: 90%;
+  left: 0px;
+  width: 275px;
 
   /*FONT*/
-  font-size: 10pt;
+  font-size: 12px;
   font-family: "Roboto";
-  letter-spacing: 0pt;
+  letter-spacing: 0px;
   white-space: nowrap;
   color: #cccccc;
 
   /*SIZE*/
-  height: 16pt;
-  padding: 2pt 7pt 2pt 5pt;
-  margin: 2pt 0pt 2pt 0pt;
+  height: 21px;
+  padding: 2px 7px 2px 5px;
+  margin: 2px 0px 2px 0px;
 
   /*STYLE*/
   background-color: #2a2d2e;
-  border-radius: 3pt;
+  border-radius: 2px;
   border: none;
   outline: none;
 
@@ -68,18 +70,19 @@
   /*POSITION*/
   position: relative;
   display: block;
+  left: 0px;
+  height: 26px;
+  width: 287px;
 
   /*SIZE*/
-  height: 21pt;
-  width: 95%;
-  padding: 2pt 5pt 2pt 5pt;
-  margin: 2pt 0pt 2pt 0pt;
-  font-size: 10pt;
+  padding: 2px 7px 2px 5px;
+  margin: 2px 0px 2px 0px;
+  font-size: 12px;
   font-family: "Roboto";
   color: #cccccc;
 
   /*STYLE*/
-  border-radius: 3pt;
+  border-radius: 2px;
   overflow: hidden;
   background-color: #2a2d2e;
   border: none;
@@ -89,25 +92,25 @@
   transition: all 0.08s ease;
   /*POSITION*/
   position: absolute;
-  bottom: 5pt;
-  left: 6pt;
-  width: 95%;
+  bottom: 6px;
+  left: 8px;
+  width: 287px;
 
   /*FONT*/
-  font-size: 10pt;
+  font-size: 13px;
   font-family: "Roboto";
-  letter-spacing: 0pt;
+  letter-spacing: 0px;
   white-space: nowrap;
   color: #cccccc;
 
   /*SIZE*/
-  height: 26pt;
-  padding: 2pt 7pt 2pt 5pt;
-  margin: 2pt 0pt 2pt 0pt;
+  height: 32px;
+  padding: 2px 7px 2px 5px;
+  margin: 2px 0px 2px 0px;
 
   /*STYLE*/
   background-color: #2a2d2e;
-  border-radius: 3pt;
+  border-radius: 2px;
   border: none;
   outline: none;
 

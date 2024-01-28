@@ -28,7 +28,7 @@ const SubContextMenu = ({
         newTop -= menuHeight - 56;
       }
       if (x + subContextMenuWidth > window.innerWidth) {
-        newLeft = newLeft - (subContextMenuWidth + parentContextMenuWidth) + 12;
+        newLeft = newLeft - (subContextMenuWidth + parentContextMenuWidth);
       }
 
       setPosition({
@@ -59,6 +59,7 @@ const SubContextMenu = ({
           item_function={contextItemFunction}
           onRightClickItem={onRightClickItem}
           progressRightClickCommand={progressRightClickCommand}
+          parentContextMenuWidth={parentContextMenuWidth}
         />
       ))}
     </div>
