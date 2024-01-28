@@ -21,6 +21,19 @@
   display: inline-block;
   overflow: hidden;
 }
+.stack_structure_item_test0128 {
+  /*POSITION*/
+  width: 256px;
+  height: 100%;
+  position: relative;
+
+  /*STYLE*/
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  box-sizing: border-box;
+  display: inline-block;
+  overflow: hidden;
+}
 .stack_structure_code_editor0122 {
   /*POSITION*/
   height: 100%;
@@ -62,12 +75,12 @@
   padding: 13px;
 
   /*STYLE*/
-  background-color: #292929;
-  color: #181818;
+  background-color: #181818;
+  color: #0d66ac;
   font-weight: bold;
-  font-size: 72pt;
+  font-size: 36pt;
   font-family: "Roboto Mono", monospace;
-  line-height: 64px;
+  line-height: 100px;
 }
 .stack_structure_resizer0122 {
   transition: all 0.32s ease;

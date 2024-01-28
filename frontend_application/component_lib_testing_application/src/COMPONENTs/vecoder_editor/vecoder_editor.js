@@ -304,7 +304,7 @@ const FileSelectionBar = ({
   );
 };
 const MonacoEditorGroup = ({
-  code_editor_index,
+  code_editor_container_ref_index,
   //FILE DATA
   files,
   setFiles,
@@ -329,17 +329,21 @@ const MonacoEditorGroup = ({
     event.preventDefault();
     if (onSelectedContent || navigator.clipboard.readText() !== "") {
       setOnRightClickItem({
-        source: "vecoder_editor" + "/" + code_editor_index.toString(),
+        source:
+          "vecoder_editor" + "/" + code_editor_container_ref_index.toString(),
         condition: { paste: true },
         content: { customizeRequest: customizeRequest },
-        target: "vecoder_editor" + "/" + code_editor_index.toString(),
+        target:
+          "vecoder_editor" + "/" + code_editor_container_ref_index.toString(),
       });
     } else {
       setOnRightClickItem({
-        source: "vecoder_editor" + "/" + code_editor_index.toString(),
+        source:
+          "vecoder_editor" + "/" + code_editor_container_ref_index.toString(),
         condition: { paste: false },
         content: { customizeRequest: customizeRequest },
-        target: "vecoder_editor" + "/" + code_editor_index.toString(),
+        target:
+          "vecoder_editor" + "/" + code_editor_container_ref_index.toString(),
       });
     }
   };
@@ -371,7 +375,8 @@ const MonacoEditorGroup = ({
     : null;
 };
 const VecoderEditor = ({
-  code_editor_index,
+  code_editor_width,
+  code_editor_container_ref_index,
   imported_files,
   setImportedFiles,
   //Context Menu
@@ -473,7 +478,7 @@ const VecoderEditor = ({
     if (
       rightClickCommand &&
       rightClickCommand.target ===
-        "vecoder_editor" + "/" + code_editor_index.toString()
+        "vecoder_editor" + "/" + code_editor_container_ref_index.toString()
     ) {
       handleRightClickCommand(rightClickCommand.command);
       setRightClickCommand(null);
@@ -501,28 +506,22 @@ const VecoderEditor = ({
   /* Context Menu ----------------------------------------------------------------------- */
 
   /* HORIZONTAL OR VERTICAL MODE ====================================================== */
-  const editorContainerRef = useRef(null);
   const [mode, setMode] = useState("HORIZONTAL"); //["HORIZONTAL", "VERTICAL"]
   useEffect(() => {
-    if (editorContainerRef.current) {
-      editorContainerRef.current?.offsetWidth <= 50
-        ? setMode("VERTICAL")
-        : setMode("HORIZONTAL");
-    }
-  }, [editorContainerRef.current?.offsetWidth]);
+    code_editor_width <= 50 ? setMode("VERTICAL") : setMode("HORIZONTAL");
+  }, [code_editor_width]);
   /* HORIZONTAL OR VERTICAL MODE ====================================================== */
 
   return (
     <div
       className="code_editor_container1113"
-      ref={editorContainerRef}
       onClick={(e) => {
         handleLeftClick(e);
       }}
     >
       <div style={{ height: "100%" }}>
         <MonacoEditorGroup
-          code_editor_index={code_editor_index}
+          code_editor_container_ref_index={code_editor_container_ref_index}
           //FILE DATA
           files={imported_files}
           setFiles={setImportedFiles}

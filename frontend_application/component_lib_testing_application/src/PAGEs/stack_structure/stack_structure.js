@@ -5,23 +5,67 @@ import Explorer from "../../COMPONENTs/explorer/explorer";
 import "./stack_structure.css";
 
 /* CONSTANT VARIABLES ================================================================================================================================== */
-const RESIZER = {
+const RESIZER_CONTAINER = {
   type: "RESIZER",
   min_width: 16,
   width: 16,
   max_width: 16,
   content: "",
 };
-const END = {
+const ENDING_CONTAINER = {
   type: "END",
   min_width: 512,
   width: 512,
   max_width: 512,
   content: "",
 };
+const TEST_CONTAINER = {
+  type: "TESTING_CONTAINER",
+  min_width: 40,
+  width: 600,
+  max_width: 2048,
+  content: "TEST",
+};
 /* CONSTANT VARIABLES ================================================================================================================================== */
 
-const Resizer = ({
+/* CONTAINERS ------------------------------------------------------------------------------------------------------------- */
+const TestingLabelContainer = ({
+  index,
+  //Stack Data
+  item,
+  stackRefs,
+  //Stack Structure Container Drag and Drop
+  onStackItemDragStart,
+  onStackItemDragEnd,
+  resizerOnMouseDown,
+  onDropIndex,
+}) => {
+  return (
+    <div
+      className={"stack_structure_item_test0128"}
+      ref={(el) => (stackRefs.current[index] = el)}
+      key={index}
+      draggable={resizerOnMouseDown ? false : true}
+      onDragStart={(e) => {
+        onStackItemDragStart(e, index);
+      }}
+      onDragEnd={(e) => {
+        onStackItemDragEnd(e);
+      }}
+      style={{
+        width: item.width,
+      }}
+    >
+      {index === onDropIndex ? (
+        <div className="stack_structure_item_overlay0122"></div>
+      ) : (
+        <div></div>
+      )}
+      <span className="stack_structure_label0116">{item.content}</span>
+    </div>
+  );
+};
+const ResizerTypeContainer = ({
   index,
   //Stack Data
   item,
@@ -49,14 +93,14 @@ const Resizer = ({
       const moveX = e.clientX - startX;
       const left_width = left_start_width + moveX;
       const right_width = right_start_width - moveX;
-      if (e.clientX > window.innerWidth - RESIZER.width / 2) {
+      if (e.clientX > window.innerWidth - RESIZER_CONTAINER.width / 2) {
         // IF RIGHT ITEM OUTSIDE OF WINDOW
         const editedStacks = [...stacks];
         editedStacks[index - 1].width = Math.min(
           editedStacks[index - 1].max_width,
           window.innerWidth -
             stackRefs.current[index - 1]?.getBoundingClientRect().x -
-            RESIZER.width / 2
+            RESIZER_CONTAINER.width / 2
         );
         setStacks(editedStacks);
       } else if (
@@ -141,7 +185,7 @@ const Resizer = ({
         editedStacks[index + 1].max_width,
         window.innerWidth -
           stackRefs.current[index + 1]?.getBoundingClientRect().x -
-          RESIZER.width / 2
+          RESIZER_CONTAINER.width / 2
       );
       setStacks(editedStacks);
     } else {
@@ -194,7 +238,133 @@ const Resizer = ({
     </div>
   );
 };
-const End = ({
+const ExplorerTypeContainer = ({
+  index,
+  //Stack Data
+  item,
+  stackRefs,
+  stacks,
+  setStacks,
+  //Explorer Data
+  explorer_files,
+  setExplorer_files,
+  //Stack Structure Container Drag and Drop
+  onDropIndex,
+  onStackItemDragStart,
+  onStackItemDragEnd,
+  resizerOnMouseDown,
+  //Context Menu Data
+  onRightClickItem,
+  setOnRightClickItem,
+  rightClickCommand,
+  setRightClickCommand,
+}) => {
+  return (
+    <div
+      className="stack_structure_explorer0122"
+      ref={(el) => (stackRefs.current[index] = el)}
+      key={index}
+      draggable={resizerOnMouseDown ? false : true}
+      onDragStart={(e) => {
+        onStackItemDragStart(e, index);
+      }}
+      onDragEnd={(e) => {
+        onStackItemDragEnd(e);
+      }}
+      style={{
+        width: item.width,
+      }}
+    >
+      <Explorer
+        files={explorer_files}
+        setFiles={setExplorer_files}
+        onRightClickItem={onRightClickItem}
+        setOnRightClickItem={setOnRightClickItem}
+        rightClickCommand={rightClickCommand}
+        setRightClickCommand={setRightClickCommand}
+      />
+      {index === onDropIndex ? (
+        <div className="stack_structure_item_overlay0122"></div>
+      ) : (
+        <div></div>
+      )}
+    </div>
+  );
+};
+const VecoderEditorTypeContainer = ({
+  index,
+  //Stack Data
+  item,
+  stackRefs,
+  stacks,
+  setStacks,
+  //Vecoder Editor Data
+  code_editor_files,
+  setCode_editor_files,
+  setCode_editor_file_on_index,
+  //Stack Structure Container Drag and Drop
+  onDropIndex,
+  onStackItemDragStart,
+  onStackItemDragEnd,
+  resizerOnMouseDown,
+  //Context Menu Data
+  onRightClickItem,
+  setOnRightClickItem,
+  rightClickCommand,
+  setRightClickCommand,
+  //Code Editor Drag and Drop
+  draggedItem,
+  setDraggedItem,
+  draggedOverItem,
+  setDraggedOverItem,
+  dragCommand,
+  setDragCommand,
+}) => {
+  return (
+    <div
+      className="stack_structure_code_editor0122"
+      ref={(el) => (stackRefs.current[index] = el)}
+      key={index}
+      draggable={resizerOnMouseDown ? false : true}
+      onDragStart={(e) => {
+        onStackItemDragStart(e, index);
+      }}
+      onDragEnd={(e) => {
+        onStackItemDragEnd(e);
+      }}
+      style={{
+        width: item.width,
+      }}
+    >
+      <VecoderEditor
+        code_editor_width={item.width}
+        code_editor_container_ref_index={item.code_editor_container_ref_index}
+        imported_files={code_editor_files[item.code_editor_container_ref_index]}
+        setImportedFiles={setCode_editor_file_on_index(
+          item.code_editor_container_ref_index
+        )}
+        //Context Menu
+        onRightClickItem={onRightClickItem}
+        setOnRightClickItem={setOnRightClickItem}
+        rightClickCommand={rightClickCommand}
+        setRightClickCommand={setRightClickCommand}
+        //Drag and Drop
+        draggedItem={draggedItem}
+        setDraggedItem={setDraggedItem}
+        draggedOverItem={draggedOverItem}
+        setDraggedOverItem={setDraggedOverItem}
+        dragCommand={dragCommand}
+        setDragCommand={setDragCommand}
+      />
+      {index === onDropIndex ? (
+        <div className="stack_structure_item_overlay0122"></div>
+      ) : (
+        <div></div>
+      )}
+    </div>
+  );
+};
+const EndingContainer = ({
   index,
   //Stack Data
   item,
@@ -221,6 +391,8 @@ const End = ({
     </div>
   );
 };
+/* CONTAINERS ------------------------------------------------------------------------------------------------------------- */
+
 const StackStructure = () => {
   /* Right Click Menu ================================================================================================================================== */
   const [isRightClicked, setIsRightClicked] = useState(false);
@@ -468,12 +640,12 @@ const StackStructure = () => {
     ],
   };
   const [explorer_files, setExplorer_files] = useState(EXPLORER_FILES);
-  const EXPLORER = {
+  const EXPLORER_CONTAINER = {
     type: "EXPLORER",
     min_width: 40,
     width: 256,
     max_width: 2048,
-    content: explorer_files,
+    explorer_container_ref_index: 0,
   };
   //Code Editor Data -------------------------------------------------------------------
   const CODE_EDITOR_FILES = [
@@ -858,7 +1030,7 @@ class Car {
     ],
   ];
   const [code_editor_files, setCode_editor_files] = useState(CODE_EDITOR_FILES);
-  const setFiles = (index) => (value) => {
+  const setCode_editor_file_on_index = (index) => (value) => {
     const newCode_editor_files = [...code_editor_files];
     newCode_editor_files[index] = value;
     setCode_editor_files(newCode_editor_files);
@@ -869,27 +1041,29 @@ class Car {
       min_width: 40,
       width: 600,
       max_width: 2048,
-      code_editor_index: 0,
+      code_editor_container_ref_index: 0,
     },
     {
       type: "CODE_EDITOR",
       min_width: 40,
       width: 600,
       max_width: 2048,
-      code_editor_index: 1,
+      code_editor_container_ref_index: 1,
     },
   ];
   //Stacking Data ----------------------------------------------------------------------
-  const stacking_data = [
-    EXPLORER,
-    RESIZER,
+  const stacking_structure = [
+    EXPLORER_CONTAINER,
+    RESIZER_CONTAINER,
     CODE_EDITORs[0],
-    RESIZER,
+    RESIZER_CONTAINER,
     CODE_EDITORs[1],
-    RESIZER,
-    END,
+    RESIZER_CONTAINER,
+    TEST_CONTAINER,
+    RESIZER_CONTAINER,
+    ENDING_CONTAINER,
   ];
-  const [stacks, setStacks] = useState(stacking_data);
+  const [stacks, setStacks] = useState(stacking_structure);
   const stackRefs = useRef([]);
   /* DATA =============================================================================================================================================== */
 
@@ -967,109 +1141,85 @@ class Car {
       onContextMenu={handleRightClick}
       onClick={handleLeftClick}
     >
+      {/*Stack Structure Containers-----------------------------------------------------------------*/}
       {stacks.map((item, index) => {
         switch (item?.type) {
-          case "TEST_CONTAINER":
+          case "TESTING_CONTAINER":
             return (
-              <div
-                className={"stack_structure_item0116"}
-                ref={(el) => (stackRefs.current[index] = el)}
+              <TestingLabelContainer
                 key={index}
-                draggable={resizerOnMouseDown ? false : true}
-                onDragStart={(e) => {
-                  onStackItemDragStart(e, index);
-                }}
-                onDragEnd={(e) => {
-                  onStackItemDragEnd(e);
-                }}
-                style={{
-                  width: item.width,
-                }}
-              >
-                {index === onDropIndex ? (
-                  <div className="stack_structure_item_overlay0122"></div>
-                ) : (
-                  <div></div>
-                )}
-                <span className="stack_structure_label0116">
-                  {item.content}
-                </span>
-              </div>
+                index={index}
+                //Stack Data
+                item={item}
+                stackRefs={stackRefs}
+                //Stack Structure Container Drag and Drop
+                onStackItemDragStart={onStackItemDragStart}
+                onStackItemDragEnd={onStackItemDragEnd}
+                resizerOnMouseDown={resizerOnMouseDown}
+                onDropIndex={onDropIndex}
+              />
             );
           case "EXPLORER":
             return (
-              <div
-                className="stack_structure_explorer0122"
-                ref={(el) => (stackRefs.current[index] = el)}
+              <ExplorerTypeContainer
                 key={index}
-                draggable={resizerOnMouseDown ? false : true}
-                onDragStart={(e) => {
-                  onStackItemDragStart(e, index);
-                }}
-                onDragEnd={(e) => {
-                  onStackItemDragEnd(e);
-                }}
-                style={{
-                  width: item.width,
-                }}
-              >
-                <Explorer
-                  files={item.content}
-                  setFiles={setExplorer_files}
-                  onRightClickItem={onRightClickItem}
-                  setOnRightClickItem={setOnRightClickItem}
-                  rightClickCommand={rightClickCommand}
-                  setRightClickCommand={setRightClickCommand}
-                />
-                {index === onDropIndex ? (
-                  <div className="stack_structure_item_overlay0122"></div>
-                ) : (
-                  <div></div>
-                )}
-              </div>
+                index={index}
+                //Stack Data
+                item={item}
+                stackRefs={stackRefs}
+                stacks={stacks}
+                setStacks={setStacks}
+                //Explorer Data
+                explorer_files={explorer_files}
+                setExplorer_files={setExplorer_files}
+                //Stack Structure Container Drag and Drop
+                onDropIndex={onDropIndex}
+                onStackItemDragStart={onStackItemDragStart}
+                onStackItemDragEnd={onStackItemDragEnd}
+                resizerOnMouseDown={resizerOnMouseDown}
+                //Context Menu Data
+                onRightClickItem={onRightClickItem}
+                setOnRightClickItem={setOnRightClickItem}
+                rightClickCommand={rightClickCommand}
+                setRightClickCommand={setRightClickCommand}
+              />
             );
           case "CODE_EDITOR":
             return (
-              <div
-                className="stack_structure_code_editor0122"
-                ref={(el) => (stackRefs.current[index] = el)}
+              <VecoderEditorTypeContainer
                 key={index}
-                draggable={resizerOnMouseDown ? false : true}
-                onDragStart={(e) => {
-                  onStackItemDragStart(e, index);
-                }}
-                onDragEnd={(e) => {
-                  onStackItemDragEnd(e);
-                }}
-                style={{
-                  width: item.width,
-                }}
-              >
-                <VecoderEditor
-                  code_editor_index={item.code_editor_index}
-                  imported_files={code_editor_files[item.code_editor_index]}
-                  setImportedFiles={setFiles(item.code_editor_index)}
-                  onRightClickItem={onRightClickItem}
-                  setOnRightClickItem={setOnRightClickItem}
-                  rightClickCommand={rightClickCommand}
-                  setRightClickCommand={setRightClickCommand}
-                  draggedItem={draggedItem}
-                  setDraggedItem={setDraggedItem}
-                  draggedOverItem={draggedOverItem}
-                  setDraggedOverItem={setDraggedOverItem}
-                  dragCommand={dragCommand}
-                  setDragCommand={setDragCommand}
-                />
-                {index === onDropIndex ? (
-                  <div className="stack_structure_item_overlay0122"></div>
-                ) : (
-                  <div></div>
-                )}
-              </div>
+                index={index}
+                //Stack Data
+                item={item}
+                stackRefs={stackRefs}
+                stacks={stacks}
+                setStacks={setStacks}
+                //Vecoder Editor Data
+                code_editor_files={code_editor_files}
+                setCode_editor_files={setCode_editor_files}
+                setCode_editor_file_on_index={setCode_editor_file_on_index}
+                //Stack Structure Container Drag and Drop
+                onDropIndex={onDropIndex}
+                onStackItemDragStart={onStackItemDragStart}
+                onStackItemDragEnd={onStackItemDragEnd}
+                resizerOnMouseDown={resizerOnMouseDown}
+                //Context Menu Data
+                onRightClickItem={onRightClickItem}
+                setOnRightClickItem={setOnRightClickItem}
+                rightClickCommand={rightClickCommand}
+                setRightClickCommand={setRightClickCommand}
+                //Code Editor Drag and Drop
+                draggedItem={draggedItem}
+                setDraggedItem={setDraggedItem}
+                draggedOverItem={draggedOverItem}
+                setDraggedOverItem={setDraggedOverItem}
+                dragCommand={dragCommand}
+                setDragCommand={setDragCommand}
+              />
             );
           case "RESIZER":
             return (
-              <Resizer
+              <ResizerTypeContainer
                 key={index}
                 index={index}
                 //Stack Data
@@ -1086,7 +1236,7 @@ class Car {
             );
           case "END":
             return (
-              <End
+              <EndingContainer
                 key={index}
                 index={index}
                 //Stack Data
@@ -1100,16 +1250,20 @@ class Car {
             break;
         }
       })}
+      {/*Stack Structure Containers-----------------------------------------------------------------*/}
+      {/*Right Click Menu===============================================================*/}
       {isRightClicked ? (
         <RightClickContextMenu
           x={rightClickX}
           y={rightClickY}
           onRightClickItem={onRightClickItem}
+          setOnRightClickItem={setOnRightClickItem}
           setRightClickCommand={setRightClickCommand}
         />
       ) : (
         <div></div>
       )}
+      {/*Right Click Menu===============================================================*/}
     </div>
   );
 };
