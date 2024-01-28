@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ICON_MANAGER } from "../../../ICONs/icon_manager";
-import SubContextMenu from "../subContextMenu/subContextMenu";
+import { SubContextMenu } from "../rightClickContextMenu";
 import Form from "../customizeRequestForm/customizeRequestForm";
 import "./contextItem.css";
 
@@ -157,12 +157,10 @@ const CustomizedRequestFormContextItem = ({
   onRightClickItem,
 }) => {
   return (
-    <div className="contextItem_component_container1119">
-      <Form
-        progressCustomizeRequest={progressCustomizeRequest}
-        onRightClickItem={onRightClickItem}
-      ></Form>
-    </div>
+    <Form
+      progressCustomizeRequest={progressCustomizeRequest}
+      onRightClickItem={onRightClickItem}
+    ></Form>
   );
 };
 const DefaultContextItem = ({
@@ -175,7 +173,7 @@ const DefaultContextItem = ({
   parentContextMenuWidth,
 }) => {
   const menuRef = useRef(null);
-  const [contextItemContainerId, setContextItemContainerId] = useState(
+  const [contextItemContainerClassName, setContextItemContainerClassName] = useState(
     CONTEXT_MENU_FUNCTION_MANAGER[item_function]?.CLICKABLE
       ? "contextItem_component_container0802"
       : "contextItem_component_container_unclickable0826"
@@ -203,7 +201,11 @@ const DefaultContextItem = ({
             subContextMenuWidth={
               CONTEXT_MENU_FUNCTION_MANAGER[item_function].SUB_MENU_WIDTH
             }
-            x={menuRef.current.getBoundingClientRect().left + parentContextMenuWidth - 12}
+            x={
+              menuRef.current.getBoundingClientRect().left +
+              parentContextMenuWidth -
+              12
+            }
             y={menuRef.current.getBoundingClientRect().top}
             onRightClickItem={onRightClickItem}
             progressRightClickCommand={progressRightClickCommand}
@@ -230,16 +232,17 @@ const DefaultContextItem = ({
   return (
     <div
       ref={menuRef}
-      id={contextItemContainerId}
+      className={contextItemContainerClassName}
       onClick={(e) => {
         handleItemOnClick(e);
       }}
       onMouseEnter={handleItemOnHover}
     >
+      {/* Icon ----------------------------------------------------------------- */}
       {CONTEXT_MENU_FUNCTION_MANAGER[item_function].ICON !== undefined ? (
         /* Icon Loader ----------------------------------------------------------------- */
         <div
-          id="contextItem_blur_loader0827"
+          className="contextItem_blur_loader0827"
           style={
             isFunctionIconLoaded
               ? {}
@@ -250,41 +253,37 @@ const DefaultContextItem = ({
         >
           <img
             src={CONTEXT_MENU_FUNCTION_MANAGER[item_function].ICON}
-            id="contextItem_component_icon0802"
+            className="contextItem_component_icon0802"
             loading="lazy"
             onLoad={handleFunctionIconLoad}
           />
         </div>
-      ) : (
-        /* Icon Loader ----------------------------------------------------------------- */
-        <div></div>
-      )}
+      ) : null}
       {/* Icon ----------------------------------------------------------------- */}
 
-      {/* Label ----------------------------------------------------------------- */}
+      {/* Label ================================================================= */}
       <span
-        id="contextItem_component_label0802"
+        className="contextItem_component_label0802"
         style={{
           color: CONTEXT_MENU_FUNCTION_MANAGER[item_function].LABEL_COLOR,
         }}
       >
         {CONTEXT_MENU_FUNCTION_MANAGER[item_function].LABEL}
       </span>
-      {/* Label ----------------------------------------------------------------- */}
+      {/* Label ================================================================= */}
+
       {/* Paste Preview ----------------------------------------------------------------- */}
       {item_function === "paste" ? (
-        <span id="contextItem_component_copyfile_label0827">
+        <span className="contextItem_component_copyfile_label0827">
           {onRightClickItem.condition.paste}
         </span>
-      ) : (
-        <div></div>
-      )}
+      ) : null}
       {/* Paste Preview ----------------------------------------------------------------- */}
 
-      {/* More Options ----------------------------------------------------------------- */}
+      {/* More Options ==================================================================== */}
       {CONTEXT_MENU_FUNCTION_MANAGER[item_function].MORE_OPTIONS !== null ? (
         <div
-          id="contextItem_more_options_blur_loader1119"
+          className="contextItem_more_options_blur_loader1119"
           style={
             isMoreOptionIconLoaded
               ? {}
@@ -295,16 +294,14 @@ const DefaultContextItem = ({
         >
           <img
             src={SYSTEM_ICON_MANAGER.arrow.ICON512}
-            id="contextItem_component_more_options_icon1119"
+            className="contextItem_component_more_options_icon1119"
             loading="lazy"
             onLoad={handleMoreOptionIconLoad}
           />
         </div>
-      ) : (
-        <div></div>
-      )}
-      {subContextMenu}
-      {/* More Options ----------------------------------------------------------------- */}
+      ) : null}
+      {onHoverContextItemIndex === item_function ? subContextMenu : null}
+      {/* More Options ==================================================================== */}
     </div>
   );
 };
@@ -327,7 +324,7 @@ const ContextItem = ({
       case "hr":
         return (
           <div>
-            <hr id="contextItem_component_br0802" />
+            <hr className="contextItem_component_br0802" />
           </div>
         );
       case "customizeRequest":

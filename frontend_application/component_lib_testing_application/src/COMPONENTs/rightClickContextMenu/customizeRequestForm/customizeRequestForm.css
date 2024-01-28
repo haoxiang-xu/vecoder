@@ -2,35 +2,45 @@
   /*POSITION*/
   position: relative;
   display: block;
+  padding: 0px;
+
   /*SIZE*/
-  height: 328px;
   width: 100%;
+
   /*STYLE*/
-  font-size: 11px;
+  font-size: 12px;
   font-family: "Roboto";
   color: #686868;
   overflow: hidden;
 }
-#ustomizeRequestForm_component_title1120 {
+.customizeRequestForm_component_title1120 {
   /*POSITION*/
   position: relative;
   display: block;
-  top: 2px;
-  left: 8px;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  padding: 16px 0px 16px 8px;
 
   /*STYLE*/
-  font-size: 13px;
+  font-size: 16px;
   font-family: "Roboto";
+  font-weight: lighter;
   letter-spacing: 0.6px;
-  color: #cccccc;
+  color: #686868;
 }
 .customizeRequestForm_component_subcontainer1120 {
   /*POSITION*/
   position: relative;
   display: block;
+
   /*SIZE*/
-  margin: 2px 0px 0px 8px;
-  width: 100%;
+  margin: 4px 0px 0px 0px;
+  padding: 0px 0px 0px 8px;
+  right: 0px;
+  left: 0px;
+  height: 46px;
+
   /*STYLE*/
   overflow: hidden;
 }
@@ -38,10 +48,10 @@
   transition: all 0.08s ease;
 
   /*POSITION*/
-  display: flex;
-  position: relative;
-  left: 0px;
-  width: 275px;
+  position: absolute;
+  left: 8px;
+  top: 15px;
+  right: 8px;
 
   /*FONT*/
   font-size: 12px;
@@ -53,7 +63,6 @@
   /*SIZE*/
   height: 21px;
   padding: 2px 7px 2px 5px;
-  margin: 2px 0px 2px 0px;
 
   /*STYLE*/
   background-color: #2a2d2e;
@@ -68,15 +77,15 @@
 }
 .customizeRequestForm_component_select1120 {
   /*POSITION*/
-  position: relative;
   display: block;
-  left: 0px;
-  height: 26px;
-  width: 287px;
+  position: absolute;
+  left: 8px;
+  top: 15px;
+  right: 8px;
 
   /*SIZE*/
+  height: 25px;
   padding: 2px 7px 2px 5px;
-  margin: 2px 0px 2px 0px;
   font-size: 12px;
   font-family: "Roboto";
   color: #cccccc;
@@ -94,7 +103,7 @@
   position: absolute;
   bottom: 6px;
   left: 8px;
-  width: 287px;
+  right: 8px;
 
   /*FONT*/
   font-size: 13px;

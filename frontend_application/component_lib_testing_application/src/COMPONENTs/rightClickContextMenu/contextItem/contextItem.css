@@ -1,4 +1,4 @@
-#contextItem_component_container0802 {
+.contextItem_component_container0802 {
   /*POSITION*/
   display: flex;
   position: relative;
@@ -19,7 +19,27 @@
   animation-timing-function: linear;
   animation: contextItem_component_container_expand_animation 0.1s;
 }
-#contextItem_component_container_unclickable0826 {
+.contextItem_component_container0802:hover {
+  /*POSITION*/
+  display: flex;
+  position: relative;
+
+  /*SIZE*/
+  padding: 8px 6px 8px 16px;
+  right: 0px;
+  left: 0px;
+
+  /*STYLE*/
+  background-color: #2a2d2e;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px 4px rgba(0, 0, 0, 0.12);
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.contextItem_component_container_unclickable0826 {
   /*POSITION*/
   display: flex;
   position: relative;
@@ -63,27 +83,7 @@
     opacity: 1;
   }
 }
-#contextItem_component_container0802:hover {
-  /*POSITION*/
-  display: flex;
-  position: relative;
-
-  /*SIZE*/
-  padding: 8px 6px 8px 16px;
-  right: 0px;
-  left: 0px;
-
-  /*STYLE*/
-  background-color: #2a2d2e;
-  border-radius: 5px;
-  box-shadow: 0px 4px 8px 4px rgba(0, 0, 0, 0.12);
-
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-#contextItem_component_label0802 {
+.contextItem_component_label0802 {
   /*POSITION*/
   display: flex;
   position: relative;
@@ -95,7 +95,7 @@
   letter-spacing: 0pt;
   white-space: nowrap;
 }
-#contextItem_component_copyfile_label0827 {
+.contextItem_component_copyfile_label0827 {
   /*POSITION*/
   display: flex;
   position: relative;
@@ -113,7 +113,7 @@
   overflow: hidden;
   opacity: 0.64;
 }
-#contextItem_component_icon0802 {
+.contextItem_component_icon0802 {
   transition: all 0.08s ease;
 
   /*POSITION*/
@@ -127,14 +127,14 @@
 
   pointer-events: none;
 }
-#contextItem_component_br0802 {
+.contextItem_component_br0802 {
   border-top: 1px solid #3a3a3a;
   border-bottom: 0px solid #3a3a3a;
   border-right: 0px solid #3a3a3a;
   border-left: 0px solid #3a3a3a;
   margin: 17px 0px 17px 0px;
 }
-#contextItem_blur_loader0827 {
+.contextItem_blur_loader0827 {
   /*POSITION*/
   display: flex;
   position: relative;
@@ -149,7 +149,7 @@
   background-position: center;
   background-size: cover;
 }
-#contextItem_component_more_options_icon1119 {
+.contextItem_component_more_options_icon1119 {
   transition: all 0.08s ease;
 
   /*POSITION*/
@@ -159,7 +159,7 @@
   height: 10px;
   width: 10px;
 }
-#contextItem_more_options_blur_loader1119 {
+.contextItem_more_options_blur_loader1119 {
   transition: all 0.08s ease;
 
   /*POSITION*/

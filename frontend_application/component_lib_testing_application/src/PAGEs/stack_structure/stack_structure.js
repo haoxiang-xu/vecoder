@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import VecoderEditor from "../../COMPONENTs/vecoder_editor/vecoder_editor";
-import RightClickContextMenu from "../../COMPONENTs/rightClickContextMenu/rightClickContextMenu";
+import { ContextMenu } from "../../COMPONENTs/rightClickContextMenu/rightClickContextMenu";
 import Explorer from "../../COMPONENTs/explorer/explorer";
 import "./stack_structure.css";
 
@@ -1059,8 +1059,6 @@ class Car {
     RESIZER_CONTAINER,
     CODE_EDITORs[1],
     RESIZER_CONTAINER,
-    TEST_CONTAINER,
-    RESIZER_CONTAINER,
     ENDING_CONTAINER,
   ];
   const [stacks, setStacks] = useState(stacking_structure);
@@ -1254,7 +1252,7 @@ class Car {
       {/*Stack Structure Containers-----------------------------------------------------------------*/}
       {/*Right Click Menu===============================================================*/}
       {isRightClicked ? (
-        <RightClickContextMenu
+        <ContextMenu
           x={rightClickX}
           y={rightClickY}
           onRightClickItem={onRightClickItem}

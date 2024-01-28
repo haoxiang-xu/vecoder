@@ -3,6 +3,40 @@ import ContextItem from "./contextItem/contextItem";
 import "./rightClickContextMenu.css";
 
 const CONTEXTMENU_WIDTH = 238;
+const CONTEXTITEM_BORDER = 10;
+const CONTEXTITEM_HEIGHT = 35;
+const COMPONENT_ITEM_FUNCTION_CONFIG = {
+  vecoder_editor: [
+    "continue",
+    "fix",
+    "customizeAPI",
+    "hr",
+    "updateAST",
+    "viewAST",
+    "hr",
+    "copy",
+    "paste_or_unpaste",
+  ],
+  vecoder_explorer_root_folder: [
+    "newFile",
+    "newFolder",
+    "insertFile",
+    "hr",
+    "paste_or_unpaste",
+  ],
+  vecoder_explorer_folder: [
+    "newFile",
+    "newFolder",
+    "insertFile",
+    "hr",
+    "copy",
+    "paste_or_unpaste",
+    "hr",
+    "rename",
+    "delete",
+  ],
+  vecoder_explorer_file: ["copy", "hr", "rename", "delete"],
+};
 
 const RightClickContextMenu = ({
   x,
@@ -20,332 +54,163 @@ const RightClickContextMenu = ({
       target: onRightClickItem.target,
     });
   };
+  const configContextMenuItems = (onRightClickItem) => {
+    const pasteCondition = onRightClickItem?.condition.paste
+      ? "paste"
+      : "unpaste";
+    console.log(onRightClickItem);
+    if (onRightClickItem !== null) {
+      if (onRightClickItem.source.split("/")[0] === "vecoder_editor") {
+        contextItems = COMPONENT_ITEM_FUNCTION_CONFIG.vecoder_editor.map(
+          (contextItemFunction, index) =>
+            contextItemFunction === "paste_or_unpaste" ? (
+              <ContextItem
+                key={index}
+                item_function={pasteCondition}
+                onRightClickItem={onRightClickItem}
+                progressRightClickCommand={progressRightClickCommand}
+                onHoverContextItemIndex={onHoverContextItemIndex}
+                setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+                parentContextMenuWidth={CONTEXTMENU_WIDTH}
+              />
+            ) : (
+              <ContextItem
+                key={index}
+                item_function={contextItemFunction}
+                onRightClickItem={onRightClickItem}
+                progressRightClickCommand={progressRightClickCommand}
+                onHoverContextItemIndex={onHoverContextItemIndex}
+                setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+                parentContextMenuWidth={CONTEXTMENU_WIDTH}
+              />
+            )
+        );
+      } else if (onRightClickItem.source.split("/")[0] === "vecoder_explorer") {
+        if (
+          onRightClickItem.content.fileType &&
+          onRightClickItem.content.fileType === "folder"
+        ) {
+          if (
+            onRightClickItem.content.filePath &&
+            onRightClickItem.content.filePath.split("/").length === 1
+          ) {
+            contextItems =
+              COMPONENT_ITEM_FUNCTION_CONFIG.vecoder_explorer_root_folder.map(
+                (contextItemFunction, index) =>
+                  contextItemFunction === "paste_or_unpaste" ? (
+                    <ContextItem
+                      key={index}
+                      item_function={pasteCondition}
+                      onRightClickItem={onRightClickItem}
+                      progressRightClickCommand={progressRightClickCommand}
+                      onHoverContextItemIndex={onHoverContextItemIndex}
+                      setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+                      parentContextMenuWidth={CONTEXTMENU_WIDTH}
+                    />
+                  ) : (
+                    <ContextItem
+                      key={index}
+                      item_function={contextItemFunction}
+                      onRightClickItem={onRightClickItem}
+                      progressRightClickCommand={progressRightClickCommand}
+                      onHoverContextItemIndex={onHoverContextItemIndex}
+                      setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+                      parentContextMenuWidth={CONTEXTMENU_WIDTH}
+                    />
+                  )
+              );
+          } else {
+            contextItems =
+              COMPONENT_ITEM_FUNCTION_CONFIG.vecoder_explorer_folder.map(
+                (contextItemFunction, index) =>
+                  contextItemFunction === "paste_or_unpaste" ? (
+                    <ContextItem
+                      key={index}
+                      item_function={pasteCondition}
+                      onRightClickItem={onRightClickItem}
+                      progressRightClickCommand={progressRightClickCommand}
+                      onHoverContextItemIndex={onHoverContextItemIndex}
+                      setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+                      parentContextMenuWidth={CONTEXTMENU_WIDTH}
+                    />
+                  ) : (
+                    <ContextItem
+                      key={index}
+                      item_function={contextItemFunction}
+                      onRightClickItem={onRightClickItem}
+                      progressRightClickCommand={progressRightClickCommand}
+                      onHoverContextItemIndex={onHoverContextItemIndex}
+                      setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+                      parentContextMenuWidth={CONTEXTMENU_WIDTH}
+                    />
+                  )
+              );
+          }
+        } else {
+          contextItems =
+            COMPONENT_ITEM_FUNCTION_CONFIG.vecoder_explorer_file.map(
+              (contextItemFunction, index) =>
+                contextItemFunction === "paste_or_unpaste" ? (
+                  <ContextItem
+                    key={index}
+                    item_function={pasteCondition}
+                    onRightClickItem={onRightClickItem}
+                    progressRightClickCommand={progressRightClickCommand}
+                    onHoverContextItemIndex={onHoverContextItemIndex}
+                    setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+                    parentContextMenuWidth={CONTEXTMENU_WIDTH}
+                  />
+                ) : (
+                  <ContextItem
+                    key={index}
+                    item_function={contextItemFunction}
+                    onRightClickItem={onRightClickItem}
+                    progressRightClickCommand={progressRightClickCommand}
+                    onHoverContextItemIndex={onHoverContextItemIndex}
+                    setOnHoverContextItemIndex={setOnHoverContextItemIndex}
+                    parentContextMenuWidth={CONTEXTMENU_WIDTH}
+                  />
+                )
+            );
+        }
+      } else {
+      }
+    }
+    return contextItems;
+  };
 
   /* Define Menu Items -------------------------------------------------------------------------------------- */
   const [onHoverContextItemIndex, setOnHoverContextItemIndex] = useState(null);
-  if (onRightClickItem !== null) {
-    if (onRightClickItem.source.split("/")[0] === "vecoder_editor") {
-      let pasteItem = onRightClickItem.condition.paste ? (
-        <ContextItem
-          key={"paste"}
-          item_function={"paste"}
-          onRightClickItem={onRightClickItem}
-          progressRightClickCommand={progressRightClickCommand}
-          onHoverContextItemIndex={onHoverContextItemIndex}
-          setOnHoverContextItemIndex={setOnHoverContextItemIndex}
-          parentContextMenuWidth={CONTEXTMENU_WIDTH}
-        />
-      ) : (
-        <ContextItem
-          key={"unpaste"}
-          item_function={"unpaste"}
-          onRightClickItem={onRightClickItem}
-          progressRightClickCommand={progressRightClickCommand}
-          onHoverContextItemIndex={onHoverContextItemIndex}
-          setOnHoverContextItemIndex={setOnHoverContextItemIndex}
-          parentContextMenuWidth={CONTEXTMENU_WIDTH}
-        />
-      );
-      contextItems = [
-        <ContextItem
-          key={"continue"}
-          item_function={"continue"}
-          onRightClickItem={onRightClickItem}
-          progressRightClickCommand={progressRightClickCommand}
-          onHoverContextItemIndex={onHoverContextItemIndex}
-          setOnHoverContextItemIndex={setOnHoverContextItemIndex}
-          parentContextMenuWidth={CONTEXTMENU_WIDTH}
-        />,
-        <ContextItem
-          key={"fix"}
-          item_function={"fix"}
-          onRightClickItem={onRightClickItem}
-          progressRightClickCommand={progressRightClickCommand}
-          onHoverContextItemIndex={onHoverContextItemIndex}
-          setOnHoverContextItemIndex={setOnHoverContextItemIndex}
-          parentContextMenuWidth={CONTEXTMENU_WIDTH}
-        />,
-        <ContextItem
-          key={"customizeAPI"}
-          item_function={"customizeAPI"}
-          onRightClickItem={onRightClickItem}
-          progressRightClickCommand={progressRightClickCommand}
-          onHoverContextItemIndex={onHoverContextItemIndex}
-          setOnHoverContextItemIndex={setOnHoverContextItemIndex}
-          parentContextMenuWidth={CONTEXTMENU_WIDTH}
-        />,
-        <ContextItem
-          key={"hr1"}
-          item_function={"hr"}
-          onRightClickItem={onRightClickItem}
-          progressRightClickCommand={progressRightClickCommand}
-          onHoverContextItemIndex={onHoverContextItemIndex}
-          setOnHoverContextItemIndex={setOnHoverContextItemIndex}
-          parentContextMenuWidth={CONTEXTMENU_WIDTH}
-        />,
-        <ContextItem
-          key={"updateAST"}
-          item_function={"updateAST"}
-          onRightClickItem={onRightClickItem}
-          progressRightClickCommand={progressRightClickCommand}
-          onHoverContextItemIndex={onHoverContextItemIndex}
-          setOnHoverContextItemIndex={setOnHoverContextItemIndex}
-          parentContextMenuWidth={CONTEXTMENU_WIDTH}
-        />,
-        <ContextItem
-          key={"viewAST"}
-          item_function={"viewAST"}
-          onRightClickItem={onRightClickItem}
-          progressRightClickCommand={progressRightClickCommand}
-          onHoverContextItemIndex={onHoverContextItemIndex}
-          setOnHoverContextItemIndex={setOnHoverContextItemIndex}
-          parentContextMenuWidth={CONTEXTMENU_WIDTH}
-        />,
-        <ContextItem
-          key={"hr2"}
-          item_function={"hr"}
-          onRightClickItem={onRightClickItem}
-          progressRightClickCommand={progressRightClickCommand}
-          onHoverContextItemIndex={onHoverContextItemIndex}
-          setOnHoverContextItemIndex={setOnHoverContextItemIndex}
-          parentContextMenuWidth={CONTEXTMENU_WIDTH}
-        />,
-        <ContextItem
-          key={"copy"}
-          item_function={"copy"}
-          onRightClickItem={onRightClickItem}
-          progressRightClickCommand={progressRightClickCommand}
-          onHoverContextItemIndex={onHoverContextItemIndex}
-          setOnHoverContextItemIndex={setOnHoverContextItemIndex}
-          parentContextMenuWidth={CONTEXTMENU_WIDTH}
-        />,
-        pasteItem,
-      ];
-    } else if (onRightClickItem.source.split("/")[0] === "vecoder_explorer") {
-      let pasteItem = onRightClickItem.condition.paste ? (
-        <ContextItem
-          key={"paste"}
-          item_function={"paste"}
-          onRightClickItem={onRightClickItem}
-          progressRightClickCommand={progressRightClickCommand}
-          onHoverContextItemIndex={onHoverContextItemIndex}
-          setOnHoverContextItemIndex={setOnHoverContextItemIndex}
-          parentContextMenuWidth={CONTEXTMENU_WIDTH}
-        />
-      ) : (
-        <ContextItem
-          key={"unpaste"}
-          item_function={"unpaste"}
-          onRightClickItem={onRightClickItem}
-          progressRightClickCommand={progressRightClickCommand}
-          onHoverContextItemIndex={onHoverContextItemIndex}
-          setOnHoverContextItemIndex={setOnHoverContextItemIndex}
-          parentContextMenuWidth={CONTEXTMENU_WIDTH}
-        />
-      );
-      if (
-        onRightClickItem.content.fileType &&
-        onRightClickItem.content.fileType === "folder"
-      ) {
-        if (
-          onRightClickItem.content.filePath &&
-          onRightClickItem.content.filePath.split("/").length === 1
-        ) {
-          contextItems = [
-            <ContextItem
-              key={"newFile"}
-              item_function={"newFile"}
-              onRightClickItem={onRightClickItem}
-              progressRightClickCommand={progressRightClickCommand}
-              onHoverContextItemIndex={onHoverContextItemIndex}
-              setOnHoverContextItemIndex={setOnHoverContextItemIndex}
-              parentContextMenuWidth={CONTEXTMENU_WIDTH}
-            />,
-            <ContextItem
-              key={"newFolder"}
-              item_function={"newFolder"}
-              onRightClickItem={onRightClickItem}
-              progressRightClickCommand={progressRightClickCommand}
-              onHoverContextItemIndex={onHoverContextItemIndex}
-              setOnHoverContextItemIndex={setOnHoverContextItemIndex}
-              parentContextMenuWidth={CONTEXTMENU_WIDTH}
-            />,
-            <ContextItem
-              key={"insertFile"}
-              item_function={"insertFile"}
-              onRightClickItem={onRightClickItem}
-              progressRightClickCommand={progressRightClickCommand}
-              onHoverContextItemIndex={onHoverContextItemIndex}
-              setOnHoverContextItemIndex={setOnHoverContextItemIndex}
-              parentContextMenuWidth={CONTEXTMENU_WIDTH}
-            />,
-            <ContextItem
-              key={"hr1"}
-              item_function={"hr"}
-              onRightClickItem={onRightClickItem}
-              progressRightClickCommand={progressRightClickCommand}
-              onHoverContextItemIndex={onHoverContextItemIndex}
-              setOnHoverContextItemIndex={setOnHoverContextItemIndex}
-              parentContextMenuWidth={CONTEXTMENU_WIDTH}
-            />,
-            <ContextItem
-              key={"unpaste"}
-              item_function={"unpaste"}
-              onRightClickItem={onRightClickItem}
-              progressRightClickCommand={progressRightClickCommand}
-              onHoverContextItemIndex={onHoverContextItemIndex}
-              setOnHoverContextItemIndex={setOnHoverContextItemIndex}
-              parentContextMenuWidth={CONTEXTMENU_WIDTH}
-            />,
-          ];
-        } else {
-          contextItems = [
-            <ContextItem
-              key={"newFile"}
-              item_function={"newFile"}
-              onRightClickItem={onRightClickItem}
-              progressRightClickCommand={progressRightClickCommand}
-              onHoverContextItemIndex={onHoverContextItemIndex}
-              setOnHoverContextItemIndex={setOnHoverContextItemIndex}
-              parentContextMenuWidth={CONTEXTMENU_WIDTH}
-            />,
-            <ContextItem
-              key={"newFolder"}
-              item_function={"newFolder"}
-              onRightClickItem={onRightClickItem}
-              progressRightClickCommand={progressRightClickCommand}
-              onHoverContextItemIndex={onHoverContextItemIndex}
-              setOnHoverContextItemIndex={setOnHoverContextItemIndex}
-              parentContextMenuWidth={CONTEXTMENU_WIDTH}
-            />,
-            <ContextItem
-              key={"insertFile"}
-              item_function={"insertFile"}
-              onRightClickItem={onRightClickItem}
-              progressRightClickCommand={progressRightClickCommand}
-              onHoverContextItemIndex={onHoverContextItemIndex}
-              setOnHoverContextItemIndex={setOnHoverContextItemIndex}
-              parentContextMenuWidth={CONTEXTMENU_WIDTH}
-            />,
-            <ContextItem
-              key={"hr1"}
-              item_function={"hr"}
-              onRightClickItem={onRightClickItem}
-              progressRightClickCommand={progressRightClickCommand}
-              onHoverContextItemIndex={onHoverContextItemIndex}
-              setOnHoverContextItemIndex={setOnHoverContextItemIndex}
-              parentContextMenuWidth={CONTEXTMENU_WIDTH}
-            />,
-            <ContextItem
-              key={"copy"}
-              item_function={"copy"}
-              onRightClickItem={onRightClickItem}
-              progressRightClickCommand={progressRightClickCommand}
-              onHoverContextItemIndex={onHoverContextItemIndex}
-              setOnHoverContextItemIndex={setOnHoverContextItemIndex}
-              parentContextMenuWidth={CONTEXTMENU_WIDTH}
-            />,
-            pasteItem,
-            <ContextItem
-              key={"hr2"}
-              item_function={"hr"}
-              onRightClickItem={onRightClickItem}
-              progressRightClickCommand={progressRightClickCommand}
-              onHoverContextItemIndex={onHoverContextItemIndex}
-              setOnHoverContextItemIndex={setOnHoverContextItemIndex}
-              parentContextMenuWidth={CONTEXTMENU_WIDTH}
-            />,
-            <ContextItem
-              key={"rename"}
-              item_function={"rename"}
-              onRightClickItem={onRightClickItem}
-              progressRightClickCommand={progressRightClickCommand}
-              onHoverContextItemIndex={onHoverContextItemIndex}
-              setOnHoverContextItemIndex={setOnHoverContextItemIndex}
-              parentContextMenuWidth={CONTEXTMENU_WIDTH}
-            />,
-            <ContextItem
-              key={"delete"}
-              item_function={"delete"}
-              onRightClickItem={onRightClickItem}
-              progressRightClickCommand={progressRightClickCommand}
-              onHoverContextItemIndex={onHoverContextItemIndex}
-              setOnHoverContextItemIndex={setOnHoverContextItemIndex}
-              parentContextMenuWidth={CONTEXTMENU_WIDTH}
-            />,
-          ];
-        }
-      } else {
-        contextItems = [
-          <ContextItem
-            key={"copy"}
-            item_function={"copy"}
-            onRightClickItem={onRightClickItem}
-            progressRightClickCommand={progressRightClickCommand}
-            onHoverContextItemIndex={onHoverContextItemIndex}
-            setOnHoverContextItemIndex={setOnHoverContextItemIndex}
-            parentContextMenuWidth={CONTEXTMENU_WIDTH}
-          />,
-          <ContextItem
-            key={"hr1"}
-            item_function={"hr"}
-            onRightClickItem={onRightClickItem}
-            progressRightClickCommand={progressRightClickCommand}
-            onHoverContextItemIndex={onHoverContextItemIndex}
-            setOnHoverContextItemIndex={setOnHoverContextItemIndex}
-            parentContextMenuWidth={CONTEXTMENU_WIDTH}
-          />,
-          <ContextItem
-            key={"rename"}
-            item_function={"rename"}
-            onRightClickItem={onRightClickItem}
-            progressRightClickCommand={progressRightClickCommand}
-            onHoverContextItemIndex={onHoverContextItemIndex}
-            setOnHoverContextItemIndex={setOnHoverContextItemIndex}
-            parentContextMenuWidth={CONTEXTMENU_WIDTH}
-          />,
-          <ContextItem
-            key={"delete"}
-            item_function={"delete"}
-            onRightClickItem={onRightClickItem}
-            progressRightClickCommand={progressRightClickCommand}
-            onHoverContextItemIndex={onHoverContextItemIndex}
-            setOnHoverContextItemIndex={setOnHoverContextItemIndex}
-            parentContextMenuWidth={CONTEXTMENU_WIDTH}
-          />,
-        ];
-      }
-    } else {
-    }
-  }
+  contextItems = configContextMenuItems(onRightClickItem);
   /* Define Menu Items -------------------------------------------------------------------------------------- */
 
   /* CONTEXT MENU DIMENSIONs ================================================================================= */
-  const CONTEXTITEM_HEIGHT = 35 * contextItems.length + 10;
+  const CONTEXTMENU_HEIGHT =
+    CONTEXTITEM_HEIGHT * contextItems.length + CONTEXTITEM_BORDER;
   /* CONTEXT MENU DIMENSIONs ================================================================================= */
 
   /* Menu Styling and Position -------------------------------------------------------------------------- */
   const menuRef = useRef(null);
-  const [menuStyle, setMenuStyle] = useState(
+  const [menuClassName, setMenuClassName] = useState(
     "rightClickContextMenu_component_container0802"
   );
   const [position, setPosition] = useState({
     top:
-      window.innerHeight < y + CONTEXTITEM_HEIGHT ? y - CONTEXTITEM_HEIGHT : y,
+      window.innerHeight < y + CONTEXTMENU_HEIGHT ? y - CONTEXTMENU_HEIGHT : y,
     left: window.innerWidth < x + CONTEXTMENU_WIDTH ? x - CONTEXTMENU_WIDTH : x,
   });
   const setMenuPosition = () => {
     if (menuRef.current) {
       let newStyle = "rightClickContextMenu_component_container0802";
 
-      if (window.innerHeight < y + CONTEXTITEM_HEIGHT) {
+      if (window.innerHeight < y + CONTEXTMENU_HEIGHT) {
         newStyle = "rightClickContextMenu_component_container_leftbottom0930";
       }
       if (window.innerWidth < x + CONTEXTMENU_WIDTH) {
         newStyle = "rightClickContextMenu_component_container_rigttop0930";
       }
       if (
-        window.innerHeight < y + CONTEXTITEM_HEIGHT &&
+        window.innerHeight < y + CONTEXTMENU_HEIGHT &&
         window.innerWidth < x + CONTEXTMENU_WIDTH
       ) {
         newStyle = "rightClickContextMenu_component_container_rightbottom0930";
@@ -353,13 +218,13 @@ const RightClickContextMenu = ({
 
       setPosition({
         top:
-          window.innerHeight < y + CONTEXTITEM_HEIGHT
-            ? y - CONTEXTITEM_HEIGHT
+          window.innerHeight < y + CONTEXTMENU_HEIGHT
+            ? y - CONTEXTMENU_HEIGHT
             : y,
         left:
           window.innerWidth < x + CONTEXTMENU_WIDTH ? x - CONTEXTMENU_WIDTH : x,
       });
-      setMenuStyle(newStyle);
+      setMenuClassName(newStyle);
     }
   };
   useEffect(() => {
@@ -371,7 +236,7 @@ const RightClickContextMenu = ({
   return (
     <div>
       {onRightClickItem !== null ? (
-        <div id={menuStyle} ref={menuRef} style={position}>
+        <div className={menuClassName} ref={menuRef} style={position}>
           {contextItems}
         </div>
       ) : (
@@ -380,5 +245,73 @@ const RightClickContextMenu = ({
     </div>
   );
 };
+const RightClickSubContextMenu = ({
+  contextItemFunctions,
+  subContextMenuWidth,
+  x,
+  y,
+  onRightClickItem,
+  progressRightClickCommand,
+  parentContextMenuWidth,
+}) => {
+  const menuRef = useRef(null);
+  const [menuStyle, setMenuStyle] = useState(
+    "subContextMenu_component_container1119"
+  );
+  const handleOnRightClick = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+  };
+
+  /* Menu Styling and Position -------------------------------------------------------------------------- */
+  const [position, setPosition] = useState({ top: y, left: x });
+  const setMenuPosition = () => {
+    if (menuRef.current) {
+      const menuHeight = menuRef.current.offsetHeight;
+
+      let newTop = y;
+      let newLeft = x;
+
+      if (y + menuHeight > window.innerHeight) {
+        newTop -= 360 + CONTEXTITEM_BORDER - CONTEXTITEM_HEIGHT;
+      }
+      if (x + subContextMenuWidth > window.innerWidth) {
+        newLeft = newLeft - (subContextMenuWidth + parentContextMenuWidth);
+      }
+
+      setPosition({
+        top: newTop,
+        left: newLeft,
+        width: subContextMenuWidth + "px",
+      });
+    }
+  };
+  useEffect(() => {
+    setMenuPosition();
+  }, [x, y]);
+  /* Menu Styling and Position -------------------------------------------------------------------------- */
+
+  return (
+    <div
+      className={menuStyle}
+      style={position}
+      ref={menuRef}
+      onContextMenu={handleOnRightClick}
+    >
+      {contextItemFunctions.map((contextItemFunction, index) => (
+        <ContextItem
+          key={index}
+          item_function={contextItemFunction}
+          onRightClickItem={onRightClickItem}
+          progressRightClickCommand={progressRightClickCommand}
+          parentContextMenuWidth={parentContextMenuWidth}
+        />
+      ))}
+    </div>
+  );
+};
 
 export default RightClickContextMenu;
+
+export const ContextMenu = RightClickContextMenu;
+export const SubContextMenu = RightClickSubContextMenu;

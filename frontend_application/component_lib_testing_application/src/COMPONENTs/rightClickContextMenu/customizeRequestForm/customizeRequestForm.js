@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./customizeRequestForm.css";
 
+const FORM_HEIGHT = 360;
+
 const Form = ({ progressCustomizeRequest, onRightClickItem }) => {
   const [requestURL, setRequestURL] = useState(
     onRightClickItem?.content?.customizeRequest?.requestURL
@@ -33,12 +35,12 @@ const Form = ({ progressCustomizeRequest, onRightClickItem }) => {
   };
 
   return (
-    <div className="customizeRequestForm_component_container1120">
+    <div className="customizeRequestForm_component_container1120" style={{height: FORM_HEIGHT}}>
       <link
         href="https://fonts.googleapis.com/css?family=Roboto"
         rel="stylesheet"
       ></link>
-      <span id="ustomizeRequestForm_component_title1120">
+      <span className="customizeRequestForm_component_title1120">
         Customize Request
       </span>
       <div>
