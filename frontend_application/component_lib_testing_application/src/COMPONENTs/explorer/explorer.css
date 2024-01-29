@@ -103,6 +103,7 @@
   overflow-y: hidden;
   overflow-x: hidden;
   height: 30px;
+  max-width: 512px;
 
   /*STYLE*/
   background-color: #323232;

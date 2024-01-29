@@ -173,11 +173,12 @@ const DefaultContextItem = ({
   parentContextMenuWidth,
 }) => {
   const menuRef = useRef(null);
-  const [contextItemContainerClassName, setContextItemContainerClassName] = useState(
-    CONTEXT_MENU_FUNCTION_MANAGER[item_function]?.CLICKABLE
-      ? "contextItem_component_container0802"
-      : "contextItem_component_container_unclickable0826"
-  );
+  const [contextItemContainerClassName, setContextItemContainerClassName] =
+    useState(
+      CONTEXT_MENU_FUNCTION_MANAGER[item_function]?.CLICKABLE
+        ? "contextItem_component_container0802"
+        : "contextItem_component_container_unclickable0826"
+    );
   const handleItemOnClick = (e) => {
     if (CONTEXT_MENU_FUNCTION_MANAGER[item_function].MORE_OPTIONS === null) {
       progressRightClickCommand(item_function);
@@ -351,6 +352,10 @@ const ContextItem = ({
     <div>
       <link
         href="https://fonts.googleapis.com/css?family=Roboto"
+        rel="stylesheet"
+      ></link>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;700&display=swap"
         rel="stylesheet"
       ></link>
       {renderContextItem(

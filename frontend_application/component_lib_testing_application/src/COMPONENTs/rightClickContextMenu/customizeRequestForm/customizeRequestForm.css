@@ -20,14 +20,14 @@
   top: 0px;
   right: 0px;
   left: 0px;
-  padding: 16px 0px 16px 8px;
+  padding: 24px 0px 0px 32px;
 
   /*STYLE*/
-  font-size: 16px;
-  font-family: "Roboto";
+  font-size: 18px;
+  font-family: "Jost";
   font-weight: lighter;
   letter-spacing: 0.6px;
-  color: #686868;
+  color: #cccccc;
 }
 .customizeRequestForm_component_subcontainer1120 {
   /*POSITION*/
@@ -35,11 +35,11 @@
   display: block;
 
   /*SIZE*/
-  margin: 4px 0px 0px 0px;
-  padding: 0px 0px 0px 8px;
+  margin: 0px;
+  padding: 0px 0px 1px 32px;
   right: 0px;
   left: 0px;
-  height: 46px;
+  height: 40px;
 
   /*STYLE*/
   overflow: hidden;
@@ -49,9 +49,9 @@
 
   /*POSITION*/
   position: absolute;
-  left: 8px;
+  left: 32px;
   top: 15px;
-  right: 8px;
+  right: 32px;
 
   /*FONT*/
   font-size: 12px;
@@ -61,13 +61,13 @@
   color: #cccccc;
 
   /*SIZE*/
-  height: 21px;
+  height: 17px;
   padding: 2px 7px 2px 5px;
 
   /*STYLE*/
-  background-color: #2a2d2e;
-  border-radius: 2px;
-  border: none;
+  background-color: #202020;
+  border: 1px solid #3a3a3a;
+  border-radius: 4px;
   outline: none;
 
   -webkit-user-select: none;
@@ -79,9 +79,9 @@
   /*POSITION*/
   display: block;
   position: absolute;
-  left: 8px;
+  left: 32px;
   top: 15px;
-  right: 8px;
+  right: 32px;
 
   /*SIZE*/
   height: 25px;
@@ -91,26 +91,26 @@
   color: #cccccc;
 
   /*STYLE*/
-  border-radius: 2px;
+  border-radius: 4px;
   overflow: hidden;
-  background-color: #2a2d2e;
-  border: none;
+  background-color: #202020;
+  border: 1px solid #3a3a3a;
   outline: none;
 }
 .customizeRequestForm_component_button1120 {
-  transition: all 0.08s ease;
+  transition: all 0.16s ease;
   /*POSITION*/
   position: absolute;
-  bottom: 6px;
-  left: 8px;
-  right: 8px;
+  bottom: 32px;
+  left: 32px;
+  right: 32px;
 
   /*FONT*/
-  font-size: 13px;
-  font-family: "Roboto";
+  font-size: 14px;
+  font-family: "Jost";
   letter-spacing: 0px;
   white-space: nowrap;
-  color: #cccccc;
+  color: #686868;
 
   /*SIZE*/
   height: 32px;
@@ -118,9 +118,9 @@
   margin: 2px 0px 2px 0px;
 
   /*STYLE*/
-  background-color: #2a2d2e;
-  border-radius: 2px;
-  border: none;
+  background-color: #202020;
+  border: 1px solid #3a3a3a;
+  border-radius: 4px;
   outline: none;
 
   -webkit-user-select: none;
@@ -129,6 +129,9 @@
   user-select: none;
 }
 .customizeRequestForm_component_button1120:hover {
-  transition: all 0.08s ease;
-  background-color: #494949;
+  transition: all 0.16s ease;
+  background-color: #2a2d2e;
+  color: #cccccc;
+  border: #2a2d2e;
+  box-shadow: 0px 4px 12px 4px rgba(0, 0, 0, 0.08);
 }

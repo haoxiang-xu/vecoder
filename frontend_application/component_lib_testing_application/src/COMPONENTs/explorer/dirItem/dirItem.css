@@ -58,21 +58,6 @@
   user-select: none;
 }
 .dir_item_component_file_name0725:hover {
-  /*POSITION*/
-  display: flex;
-  position: relative;
-
-  /*FONT*/
-  font-size: 14px;
-  font-family: "Roboto";
-  letter-spacing: 0px;
-  white-space: nowrap;
-  color: #cccccc;
-
-  /*SIZE*/
-  padding: 1px 0px 1px 6px;
-
-  /*STYLE*/
   background-color: #2a2d2e;
   border-radius: 2px;
 }

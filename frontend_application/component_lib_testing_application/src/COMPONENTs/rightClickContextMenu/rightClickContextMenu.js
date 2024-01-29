@@ -273,7 +273,7 @@ const RightClickSubContextMenu = ({
       let newLeft = x;
 
       if (y + menuHeight > window.innerHeight) {
-        newTop -= 360 + CONTEXTITEM_BORDER - CONTEXTITEM_HEIGHT;
+        newTop -= 300 + CONTEXTITEM_BORDER - CONTEXTITEM_HEIGHT;
       }
       if (x + subContextMenuWidth > window.innerWidth) {
         newLeft = newLeft - (subContextMenuWidth + parentContextMenuWidth);
