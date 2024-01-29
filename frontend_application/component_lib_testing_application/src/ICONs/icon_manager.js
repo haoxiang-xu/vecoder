@@ -270,6 +270,11 @@ export const ICON_MANAGER = () => {
     const SEND16 = require("./SYSTEM_ICONs/16X16/send.png");
     const SAVE16 = require("./SYSTEM_ICONs/16X16/save.png");
     const SEARCH16 = require("./SYSTEM_ICONs/16X16/search.png");
+
+    const RIGHT_ARROW16 = require("./SYSTEM_ICONs/16X16/right_arrow.png");
+    const LEFT_ARROW16 = require("./SYSTEM_ICONs/16X16/left_arrow.png");
+    const UP_ARROW16 = require("./SYSTEM_ICONs/16X16/up_arrow.png");
+    const DOWN_ARROW16 = require("./SYSTEM_ICONs/16X16/down_arrow.png");
     /* 16X16 ICONs ---------------------------------------------------------------------- */
 
     /* 512X512 ICONs ---------------------------------------------------------------------- */
@@ -292,6 +297,11 @@ export const ICON_MANAGER = () => {
     const SEND512 = require("./SYSTEM_ICONs/512X512/send.png");
     const SAVE512 = require("./SYSTEM_ICONs/512X512/save.png");
     const SEARCH512 = require("./SYSTEM_ICONs/512X512/search.png");
+
+    const RIGHT_ARROW512 = require("./SYSTEM_ICONs/512X512/right_arrow.png");
+    const LEFT_ARROW512 = require("./SYSTEM_ICONs/512X512/left_arrow.png");
+    const UP_ARROW512 = require("./SYSTEM_ICONs/512X512/up_arrow.png");
+    const DOWN_ARROW512 = require("./SYSTEM_ICONs/512X512/down_arrow.png");
     /* 512X512 ICONs ---------------------------------------------------------------------- */
 
     SYSTEM_ICON_MANAGER = {
@@ -388,6 +398,26 @@ export const ICON_MANAGER = () => {
       search: {
         ICON16: SEARCH16,
         ICON512: SEARCH512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      rightArrow: {
+        ICON16: RIGHT_ARROW16,
+        ICON512: RIGHT_ARROW512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      leftArrow: {
+        ICON16: LEFT_ARROW16,
+        ICON512: LEFT_ARROW512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      upArrow: {
+        ICON16: UP_ARROW16,
+        ICON512: UP_ARROW512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      downArrow: {
+        ICON16: DOWN_ARROW16,
+        ICON512: DOWN_ARROW512,
         LABEL_COLOR: "#CCCCCC",
       },
     };

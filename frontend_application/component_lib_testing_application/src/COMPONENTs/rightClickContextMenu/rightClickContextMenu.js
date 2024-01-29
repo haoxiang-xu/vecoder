@@ -58,7 +58,6 @@ const RightClickContextMenu = ({
     const pasteCondition = onRightClickItem?.condition.paste
       ? "paste"
       : "unpaste";
-    console.log(onRightClickItem);
     if (onRightClickItem !== null) {
       if (onRightClickItem.source.split("/")[0] === "vecoder_editor") {
         contextItems = COMPONENT_ITEM_FUNCTION_CONFIG.vecoder_editor.map(

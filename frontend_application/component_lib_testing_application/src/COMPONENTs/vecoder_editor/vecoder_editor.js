@@ -29,9 +29,28 @@ try {
 }
 /* Load ICON manager --------------------------------------------------------------------------------- */
 
-const TopRightSection = ({ mode }) => {
+const TopRightSection = ({
+  mode,
+  //Maximize and Minimize Container
+  onMaximizeOnClick,
+  onMinimizeOnClick,
+}) => {
   return mode === "HORIZONTAL" ? (
     <div className="code_editor_top_right_section1113">
+      <img
+        src={SYSTEM_ICON_MANAGER.rightArrow.ICON512}
+        className="code_editor_maximize_icon0129"
+        draggable="false"
+        onClick={onMaximizeOnClick}
+        alt="close"
+      />
+      <img
+        src={SYSTEM_ICON_MANAGER.leftArrow.ICON512}
+        className="code_editor_minimize_icon0129"
+        draggable="false"
+        onClick={onMinimizeOnClick}
+        alt="close"
+      />
       <img
         src={SYSTEM_ICON_MANAGER.close.ICON512}
         className="code_editor_close_icon1113"
@@ -41,6 +60,13 @@ const TopRightSection = ({ mode }) => {
     </div>
   ) : (
     <div className="code_editor_top_right_section_vertical0129">
+      <img
+        src={SYSTEM_ICON_MANAGER.rightArrow.ICON512}
+        className="code_editor_maximize_icon_vertical0129"
+        draggable="false"
+        onClick={onMaximizeOnClick}
+        alt="close"
+      />
       <img
         src={SYSTEM_ICON_MANAGER.close.ICON512}
         className="code_editor_close_icon_vertical0129"
@@ -400,6 +426,9 @@ const VecoderEditor = ({
   setDraggedOverItem,
   dragCommand,
   setDragCommand,
+  //Maximize and Minimize Container
+  onMaximizeOnClick,
+  onMinimizeOnClick,
 }) => {
   const [onSelectedIndex, setOnSelectedIndex] = useState(null);
   const [onSelectedCotent, setOnSelectedCotent] = useState(null);
@@ -545,7 +574,12 @@ const VecoderEditor = ({
           //HORIZONTAL OR VERTICAL MODE
           mode={mode}
         />
-        <TopRightSection mode={mode} />
+        <TopRightSection
+          mode={mode}
+          //Maximize and Minimize Container
+          onMaximizeOnClick={onMaximizeOnClick}
+          onMinimizeOnClick={onMinimizeOnClick}
+        />
         <FileSelectionBar
           //DATA
           files={imported_files}

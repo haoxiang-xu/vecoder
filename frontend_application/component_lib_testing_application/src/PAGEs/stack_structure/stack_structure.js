@@ -77,6 +77,9 @@ const ResizerTypeContainer = ({
   setOnDropIndex,
   resizerOnMouseDown,
   setResizerOnMouseDown,
+  //Resizer Double Click Functions
+  maximizeContainer,
+  minimizeContainer,
 }) => {
   const [resizerClassname, setResizerClassname] = useState(
     "stack_structure_resizer0122"
@@ -180,18 +183,9 @@ const ResizerTypeContainer = ({
   };
   const handleResizerDoubleClick = (e, index) => {
     if (stacks[index + 1].width === stacks[index + 1].min_width) {
-      const editedStacks = [...stacks];
-      editedStacks[index + 1].width = Math.min(
-        editedStacks[index + 1].max_width,
-        window.innerWidth -
-          stackRefs.current[index + 1]?.getBoundingClientRect().x -
-          RESIZER_CONTAINER.width / 2
-      );
-      setStacks(editedStacks);
+      maximizeContainer(index + 1);
     } else {
-      const editedStacks = [...stacks];
-      editedStacks[index + 1].width = editedStacks[index + 1].min_width;
-      setStacks(editedStacks);
+      minimizeContainer(index + 1);
     }
   };
   const resizerOnDragOver = (e, index) => {
@@ -319,7 +313,16 @@ const VecoderEditorTypeContainer = ({
   setDraggedOverItem,
   dragCommand,
   setDragCommand,
+  //Maximize and Minimize Container
+  maximizeContainer,
+  minimizeContainer,
 }) => {
+  const onMaximizeOnClick = () => {
+    maximizeContainer(index);
+  };
+  const onMinimizeOnClick = () => {
+    minimizeContainer(index);
+  };
   return (
     <div
       className="stack_structure_code_editor0122"
@@ -355,6 +358,9 @@ const VecoderEditorTypeContainer = ({
         setDraggedOverItem={setDraggedOverItem}
         dragCommand={dragCommand}
         setDragCommand={setDragCommand}
+        //Maximize and Minimize Container
+        onMaximizeOnClick={onMaximizeOnClick}
+        onMinimizeOnClick={onMinimizeOnClick}
       />
       {index === onDropIndex ? (
         <div className="stack_structure_item_overlay0122"></div>
@@ -1125,6 +1131,21 @@ class Car {
       behavior: "auto",
     });
   };
+  const maximizeContainer = (index) => {
+    const editedStacks = [...stacks];
+    editedStacks[index].width = Math.min(
+      editedStacks[index].max_width,
+      window.innerWidth -
+        stackRefs.current[index]?.getBoundingClientRect().x -
+        RESIZER_CONTAINER.width / 2
+    );
+    setStacks(editedStacks);
+  };
+  const minimizeContainer = (index) => {
+    const editedStacks = [...stacks];
+    editedStacks[index].width = editedStacks[index].min_width;
+    setStacks(editedStacks);
+  };
   /* Resizer =============================================================================================================================================== */
 
   return (
@@ -1214,6 +1235,9 @@ class Car {
                 setDraggedOverItem={setDraggedOverItem}
                 dragCommand={dragCommand}
                 setDragCommand={setDragCommand}
+                //Maximize and Minimize Container
+                maximizeContainer={maximizeContainer}
+                minimizeContainer={minimizeContainer}
               />
             );
           case "RESIZER":
@@ -1231,6 +1255,9 @@ class Car {
                 setOnDropIndex={setOnDropIndex}
                 resizerOnMouseDown={resizerOnMouseDown}
                 setResizerOnMouseDown={setResizerOnMouseDown}
+                //Resizer Double Click Functions
+                maximizeContainer={maximizeContainer}
+                minimizeContainer={minimizeContainer}
               />
             );
           case "END":
