@@ -1,5 +1,20 @@
 import React, { useState, useRef, useEffect } from "react";
+import { ICON_MANAGER } from "../../../ICONs/icon_manager";
 import "./customizeRequestForm.css";
+
+/* Load ICON manager -------------------------------- */
+let SYSTEM_ICON_MANAGER = {
+  default: {
+    ICON: null,
+    LABEL_COLOR: "#C8C8C8",
+  },
+};
+try {
+  SYSTEM_ICON_MANAGER = ICON_MANAGER().SYSTEM_ICON_MANAGER;
+} catch (e) {
+  console.log(e);
+}
+/* Load ICON manager -------------------------------- */
 
 const FORM_HEIGHT = 300;
 
@@ -47,6 +62,10 @@ const Form = ({ progressCustomizeRequest, onRightClickItem }) => {
         href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;700&display=swap"
         rel="stylesheet"
       ></link>
+      <img
+        className="customizeRequestForm_component_title_icon0129"
+        src={SYSTEM_ICON_MANAGER.customize.ICON512}
+      />
       <span className="customizeRequestForm_component_title1120">
         Customize Request
       </span>

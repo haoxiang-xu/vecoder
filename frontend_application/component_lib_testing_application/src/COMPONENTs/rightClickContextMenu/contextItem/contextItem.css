@@ -17,7 +17,7 @@
   user-select: none;
 
   animation-timing-function: linear;
-  animation: contextItem_component_container_expand_animation 0.1s;
+  animation: contextItem_component_container_expand_animation 0.12s;
 }
 .contextItem_component_container0802:hover {
   /*POSITION*/
@@ -156,8 +156,8 @@
   position: absolute;
 
   /*SIZE*/
-  height: 10px;
-  width: 10px;
+  height: 16px;
+  width: 16px;
 }
 .contextItem_more_options_blur_loader1119 {
   transition: all 0.08s ease;
@@ -166,10 +166,10 @@
   position: absolute;
 
   /*SIZE*/
-  right: 7px;
-  top: 13px;
-  width: 10px;
-  width: 10px;
+  right: 9.5px;
+  top: 9.5px;
+  width: 16px;
+  width: 16px;
 
   opacity: 0.64;
 }

@@ -253,7 +253,7 @@ export const ICON_MANAGER = () => {
     /* 16X16 ICONs ---------------------------------------------------------------------- */
     const CLOSE_ICON16 = require("./SYSTEM_ICONs/16X16/close.png");
     const ARROW_ICON16 = require("./SYSTEM_ICONs/16X16/arrow.png");
-    const CODE_ICON16 = require("./SYSTEM_ICONs/16X16/code.png");
+    const AST_ICON16 = require("./SYSTEM_ICONs/16X16/ast.png");
     const CONTINUE_ICON16 = require("./SYSTEM_ICONs/16X16/continue.png");
     const COPY_ICON16 = require("./SYSTEM_ICONs/16X16/copy.png");
     const CUSTOMIZE16 = require("./SYSTEM_ICONs/16X16/customize.png");
@@ -275,7 +275,7 @@ export const ICON_MANAGER = () => {
     /* 512X512 ICONs ---------------------------------------------------------------------- */
     const CLOSE_ICON512 = require("./SYSTEM_ICONs/512X512/close.png");
     const ARROW_ICON512 = require("./SYSTEM_ICONs/512X512/arrow.png");
-    const CODE_ICON512 = require("./SYSTEM_ICONs/512X512/code.png");
+    const AST_ICON512 = require("./SYSTEM_ICONs/512X512/ast.png");
     const CONTINUE_ICON512 = require("./SYSTEM_ICONs/512X512/continue.png");
     const COPY_ICON512 = require("./SYSTEM_ICONs/512X512/copy.png");
     const CUSTOMIZE512 = require("./SYSTEM_ICONs/512X512/customize.png");
@@ -305,9 +305,9 @@ export const ICON_MANAGER = () => {
         ICON512: ARROW_ICON512,
         LABEL_COLOR: "#CCCCCC",
       },
-      code: {
-        ICON16: CODE_ICON16,
-        ICON512: CODE_ICON512,
+      ast: {
+        ICON16: AST_ICON16,
+        ICON512: AST_ICON512,
         LABEL_COLOR: "#CCCCCC",
       },
       continue: {

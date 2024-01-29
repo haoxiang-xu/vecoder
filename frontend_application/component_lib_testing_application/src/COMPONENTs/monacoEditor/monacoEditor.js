@@ -75,7 +75,10 @@ const Editor = ({
       .getModel()
       .getValueInRange(select_range);
 
-    setOnSelectedContent({ selectedText: selectedText, select_range: select_range });
+    setOnSelectedContent({
+      selectedText: selectedText,
+      select_range: select_range,
+    });
   };
   useEffect(() => {
     if (onAppendContent && monacoRef.current && display) {

@@ -267,13 +267,13 @@ const RightClickSubContextMenu = ({
   const [position, setPosition] = useState({ top: y, left: x });
   const setMenuPosition = () => {
     if (menuRef.current) {
-      const menuHeight = menuRef.current.offsetHeight;
+      const CustomizeRequestFormWidth = 300;
 
       let newTop = y;
       let newLeft = x;
 
-      if (y + menuHeight > window.innerHeight) {
-        newTop -= 300 + CONTEXTITEM_BORDER - CONTEXTITEM_HEIGHT;
+      if (y + CustomizeRequestFormWidth > window.innerHeight) {
+        newTop -= CustomizeRequestFormWidth + CONTEXTITEM_BORDER - CONTEXTITEM_HEIGHT;
       }
       if (x + subContextMenuWidth > window.innerWidth) {
         newLeft = newLeft - (subContextMenuWidth + parentContextMenuWidth);

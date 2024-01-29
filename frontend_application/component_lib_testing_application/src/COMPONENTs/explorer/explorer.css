@@ -97,7 +97,8 @@
   position: absolute;
   top: 5px;
   left: 5px;
-  right: 41px;
+  left: 40px;
+  right: 40px;
 
   /*SIZE*/
   overflow-y: hidden;

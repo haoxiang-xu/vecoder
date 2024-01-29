@@ -12,6 +12,46 @@
   font-family: "Roboto";
   color: #686868;
   overflow: hidden;
+
+  animation-timing-function: linear;
+  animation: customizeRequestForm_component_container_expand_animation 0.16s;
+}
+@keyframes customizeRequestForm_component_container_expand_animation {
+  0% {
+    height: 0px;
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.64;
+  }
+  45% {
+    height: 200px;    
+    opacity: 1;
+  }
+  100% {
+    height: 300px;
+    opacity: 1;
+  }
+}
+.customizeRequestForm_component_title_icon0129 {
+  /*POSITION*/
+  position: absolute;
+  display: block;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  padding: 26px 0px 0px 32px;
+
+  /*SIZE*/
+  width: 18px;
+  height: 18px;
+
+  /*STYLE*/
+  font-size: 18px;
+  font-family: "Jost";
+  font-weight: lighter;
+  letter-spacing: 0.6px;
+  color: #cccccc;
 }
 .customizeRequestForm_component_title1120 {
   /*POSITION*/
@@ -20,7 +60,7 @@
   top: 0px;
   right: 0px;
   left: 0px;
-  padding: 24px 0px 0px 32px;
+  padding: 24px 0px 0px 54px;
 
   /*STYLE*/
   font-size: 18px;

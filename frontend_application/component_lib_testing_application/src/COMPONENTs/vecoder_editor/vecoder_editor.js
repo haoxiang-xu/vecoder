@@ -29,12 +29,21 @@ try {
 }
 /* Load ICON manager --------------------------------------------------------------------------------- */
 
-const TopRightSection = () => {
-  return (
+const TopRightSection = ({ mode }) => {
+  return mode === "HORIZONTAL" ? (
     <div className="code_editor_top_right_section1113">
       <img
         src={SYSTEM_ICON_MANAGER.close.ICON512}
         className="code_editor_close_icon1113"
+        draggable="false"
+        alt="close"
+      />
+    </div>
+  ) : (
+    <div className="code_editor_top_right_section_vertical0129">
+      <img
+        src={SYSTEM_ICON_MANAGER.close.ICON512}
+        className="code_editor_close_icon_vertical0129"
         draggable="false"
         alt="close"
       />
@@ -536,7 +545,7 @@ const VecoderEditor = ({
           //HORIZONTAL OR VERTICAL MODE
           mode={mode}
         />
-        <TopRightSection />
+        <TopRightSection mode={mode} />
         <FileSelectionBar
           //DATA
           files={imported_files}
