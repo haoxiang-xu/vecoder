@@ -42,14 +42,32 @@ const TopLeftSection = ({
   const onMaximizeOnHover = () => {
     setMaxIconOnHover(true);
     setMinIconOnHover(false);
-    setMaximizeIconStyling({ opacity: 1, zIndex: 1, padding: "9px 4px 9px 4px", left: 50 });
-    setMinimizeIconStyling({ opacity: 0.16, zIndex: 0, padding: "9px 0px 9px 0px" });
+    setMaximizeIconStyling({
+      opacity: 1,
+      zIndex: 1,
+      padding: "9px 4px 9px 4px",
+      left: 50,
+    });
+    setMinimizeIconStyling({
+      opacity: 0.16,
+      zIndex: 0,
+      padding: "9px 0px 9px 0px",
+    });
   };
   const onMinimizeOnHover = () => {
     setMaxIconOnHover(false);
     setMinIconOnHover(true);
-    setMaximizeIconStyling({ opacity: 0.16, zIndex: 0, padding: "9px 0px 9px 0px", left: 58 });
-    setMinimizeIconStyling({ opacity: 1, zIndex: 1, padding: "9px 4px 9px 4px" });
+    setMaximizeIconStyling({
+      opacity: 0.16,
+      zIndex: 0,
+      padding: "9px 0px 9px 0px",
+      left: 58,
+    });
+    setMinimizeIconStyling({
+      opacity: 1,
+      zIndex: 1,
+      padding: "9px 4px 9px 4px",
+    });
   };
   const onMaximizeOut = () => {
     setMaxIconOnHover(false);
@@ -99,7 +117,11 @@ const TopLeftSection = ({
         src={SYSTEM_ICON_MANAGER.rightArrow.ICON512}
         className="code_editor_maximize_icon_vertical0129"
         draggable="false"
-        onClick={onMaximizeOnClick}
+        onClick={(e) => {
+          onMaximizeOnClick();
+          setMaxIconOnHover(false);
+          setMinIconOnHover(false);
+        }}
         alt="close"
       />
       <img
