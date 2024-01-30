@@ -7,9 +7,9 @@ import "./stack_structure.css";
 /* CONSTANT VARIABLES ================================================================================================================================== */
 const RESIZER_CONTAINER = {
   type: "RESIZER",
-  min_width: 16,
-  width: 16,
-  max_width: 16,
+  min_width: 12,
+  width: 12,
+  max_width: 12,
   content: "",
 };
 const ENDING_CONTAINER = {
