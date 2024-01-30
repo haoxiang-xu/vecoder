@@ -14,9 +14,9 @@ const RESIZER_CONTAINER = {
 };
 const ENDING_CONTAINER = {
   type: "END",
-  min_width: 512,
-  width: 512,
-  max_width: 512,
+  min_width: 128,
+  width: 128,
+  max_width: 128,
   content: "",
 };
 const TEST_CONTAINER = {
@@ -313,15 +313,15 @@ const VecoderEditorTypeContainer = ({
   setDraggedOverItem,
   dragCommand,
   setDragCommand,
-  //Maximize and Minimize Container
-  maximizeContainer,
-  minimizeContainer,
+  //Expand and Narrow Container
+  expandContainer,
+  narrowContainer,
 }) => {
   const onMaximizeOnClick = () => {
-    maximizeContainer(index);
+    expandContainer(index);
   };
   const onMinimizeOnClick = () => {
-    minimizeContainer(index);
+    narrowContainer(index);
   };
   return (
     <div
@@ -1146,6 +1146,81 @@ class Car {
     editedStacks[index].width = editedStacks[index].min_width;
     setStacks(editedStacks);
   };
+  const expandContainer = (index) => {
+    const editedStacks = [...stacks];
+    let next_index = index + 2;
+    let current_index = index;
+
+    while (
+      next_index < editedStacks.length - 1 &&
+      stackRefs.current[next_index]?.getBoundingClientRect().x +
+        editedStacks[next_index].width +
+        RESIZER_CONTAINER.width / 2 <
+        window.innerWidth
+    ) {
+      current_index = next_index;
+      next_index = next_index + 2;
+    }
+
+    const adding_width =
+      window.innerWidth -
+      (stackRefs.current[current_index]?.getBoundingClientRect().x +
+        editedStacks[current_index].width +
+        RESIZER_CONTAINER.width / 2);
+
+    editedStacks[index].width = Math.min(
+      editedStacks[index].max_width,
+      editedStacks[index].width + adding_width
+    );
+    setStacks(editedStacks);
+  };
+  const narrowContainer = (index) => {
+    const editedStacks = [...stacks];
+    let next_index = index + 2;
+    let current_index = index;
+
+    while (
+      next_index < editedStacks.length &&
+      stackRefs.current[next_index]?.getBoundingClientRect().x +
+        editedStacks[next_index].width +
+        RESIZER_CONTAINER.width / 2 <=
+        window.innerWidth
+    ) {
+      current_index = next_index;
+      next_index = next_index + 2;
+    }
+
+    if (
+      stackRefs.current[current_index]?.getBoundingClientRect().x +
+        editedStacks[current_index].width +
+        RESIZER_CONTAINER.width / 2 >
+      window.innerWidth
+    ) {
+      editedStacks[index].width = Math.max(
+        editedStacks[index].min_width,
+        editedStacks[index].width -
+          (stackRefs.current[current_index]?.getBoundingClientRect().x +
+            editedStacks[current_index].width +
+            RESIZER_CONTAINER.width / 2 -
+            window.innerWidth)
+      );
+      setStacks(editedStacks);
+    } else if (next_index < editedStacks.length) {
+      editedStacks[index].width = Math.max(
+        editedStacks[index].min_width,
+        editedStacks[index].width -
+          (stackRefs.current[next_index]?.getBoundingClientRect().x +
+            editedStacks[next_index].width -
+            window.innerWidth) -
+          RESIZER_CONTAINER.width / 2
+      );
+    } else {
+      //Else set current container to min width
+      editedStacks[index].width = editedStacks[index].min_width;
+    }
+
+    setStacks(editedStacks);
+  };
   /* Resizer =============================================================================================================================================== */
 
   return (
@@ -1235,9 +1310,9 @@ class Car {
                 setDraggedOverItem={setDraggedOverItem}
                 dragCommand={dragCommand}
                 setDragCommand={setDragCommand}
-                //Maximize and Minimize Container
-                maximizeContainer={maximizeContainer}
-                minimizeContainer={minimizeContainer}
+                //Expand and Narrow Container
+                expandContainer={expandContainer}
+                narrowContainer={narrowContainer}
               />
             );
           case "RESIZER":
