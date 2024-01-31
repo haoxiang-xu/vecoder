@@ -14,7 +14,7 @@
   overflow: hidden;
 
   animation-timing-function: linear;
-  animation: customizeRequestForm_component_container_expand_animation 0.16s;
+  animation: customizeRequestForm_component_container_expand_animation 0.12s;
 }
 @keyframes customizeRequestForm_component_container_expand_animation {
   0% {

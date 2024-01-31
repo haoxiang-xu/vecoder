@@ -126,7 +126,7 @@ const TopLeftSection = ({
       />
       <img
         src={SYSTEM_ICON_MANAGER.close.ICON512}
-        className="code_editor_close_icon_vertical0129"
+        className="code_editor_close_icon1113"
         draggable="false"
         alt="close"
       />
