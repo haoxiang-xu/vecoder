@@ -174,7 +174,7 @@
   height: 38px;
 
   /*STYLE*/
-  border-radius: 5px;
+  border-radius: 0px 5px 0px 0px;
   overflow-y: hidden;
 }
 .file_selection_bar_container1114::-webkit-scrollbar {
@@ -204,7 +204,7 @@
   flex-direction: column;
 
   /*STYLE*/
-  border-radius: 5px;
+  border-radius: 0px 0px 0px 5px;
   overflow-y: scroll;
   overflow-x: hidden;
 }

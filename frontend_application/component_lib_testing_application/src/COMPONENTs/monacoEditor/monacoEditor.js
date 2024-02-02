@@ -67,6 +67,7 @@ const Editor = ({
     defineTheme(monaco);
     registerCompletionProvider(monaco);
     registerInlineCompletionProvider(monaco);
+    registerEventListeners(monaco, editor);
   }
   ////Get monaco editor on selected content
   const getEditorOnSelected = (monacoRef) => {
@@ -228,5 +229,42 @@ const getSuggestionsBasedOnPrefix = (model, position) => {
   }
 
   return [];
+};
+////Register event listeners for monaco editor
+const registerEventListeners = (monaco, editor) => {
+  editor.onMouseDown((e) => {
+    const { position } = e.target;
+    if (position) {
+      console.log(
+        `Clicked at line ${position.lineNumber}, column ${position.column}`
+      );
+    }
+  });
+};
+////Append Content Widget for monaco editor
+const appendContentWidget = (monaco, editor) => {
+  editor.addContentWidget({
+    getId: function () {
+      return "my.content.widget";
+    },
+    getDomNode: function () {
+      if (!this.domNode) {
+        this.domNode = document.createElement("div");
+        this.domNode.innerHTML = "Custom Content";
+        this.domNode.style.background = "lightgrey";
+        this.domNode.style.color = "black";
+      }
+      return this.domNode;
+    },
+    getPosition: function () {
+      return {
+        position: {
+          lineNumber: 5,
+          column: 1,
+        },
+        preference: ["above", "below"],
+      };
+    },
+  });
 };
 /*INITIALIZE MONACO EDITOR FUNCTION GROUP----------------------------------------------------*/
