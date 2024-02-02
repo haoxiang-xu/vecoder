@@ -130,19 +130,6 @@
   /*STYLE*/
   box-sizing: border-box;
 }
-.code_editor_close_icon_vertical0129:hover {
-  transition: all 0.2s ease;
-
-  /*STYLE*/
-  background-color: #2e2e2e;
-  box-shadow: 0px 4px 12px 4px rgba(0, 0, 0, 0.16);
-}
-.code_editor_close_icon_vertical0129:active {
-  transition: all 0.1s ease;
-
-  /*STYLE*/
-  background-color: #444444;
-}
 .code_editor_maximize_icon_vertical0129 {
   transition: all 0.2s ease;
 
