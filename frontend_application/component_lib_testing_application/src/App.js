@@ -15,10 +15,9 @@ function App() {
       <Routes>
         <Route path="/developmenteditor" element={<DevelopmentEditor />} />
         <Route path="/upload" element={<UploadFile />} />
-        <Route path="/codeeditor" element={<CodeEditorPage />} />
         <Route path="/explorer" element={<Home />} />
-        <Route path="/" element={<StackStructure />} />
         <Route path="/chat" element={<ChatBox />} />
+        <Route path="/" element={<StackStructure />} />
       </Routes>
     </Router>
   );

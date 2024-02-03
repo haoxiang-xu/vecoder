@@ -226,8 +226,15 @@ const FileSelectionBar = ({
       );
       const lastItem = childrenArray[childrenArray.length - 1];
       const lastItemRect = lastItem.getBoundingClientRect();
-      const isAfterLastItem =
-        e.clientY > lastItemRect.top && e.clientX > lastItemRect.right;
+      let isAfterLastItem = false;
+
+      if (mode === "HORIZONTAL") {
+        isAfterLastItem =
+          e.clientY > lastItemRect.top && e.clientX > lastItemRect.right;
+      } else {
+        isAfterLastItem =
+          e.clientX > lastItemRect.left && e.clientY > lastItemRect.bottom;
+      }
 
       if (isAfterLastItem) {
         if (onDragIndex !== childrenArray.length - 1) {

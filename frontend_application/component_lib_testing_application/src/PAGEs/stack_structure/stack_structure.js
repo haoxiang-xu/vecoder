@@ -3,6 +3,32 @@ import VecoderEditor from "../../COMPONENTs/vecoder_editor/vecoder_editor";
 import { ContextMenu } from "../../COMPONENTs/rightClickContextMenu/rightClickContextMenu";
 import Explorer from "../../COMPONENTs/explorer/explorer";
 import "./stack_structure.css";
+import { ICON_MANAGER } from "../../ICONs/icon_manager";
+
+/* Load ICON manager --------------------------------------------------------------------------------- */
+let FILE_TYPE_ICON_MANAGER = {
+  default: {
+    ICON: null,
+    LABEL_COLOR: "#C8C8C8",
+  },
+};
+try {
+  FILE_TYPE_ICON_MANAGER = ICON_MANAGER().FILE_TYPE_ICON_MANAGER;
+} catch (e) {
+  console.log(e);
+}
+let SYSTEM_ICON_MANAGER = {
+  default: {
+    ICON: null,
+    LABEL_COLOR: "#C8C8C8",
+  },
+};
+try {
+  SYSTEM_ICON_MANAGER = ICON_MANAGER().SYSTEM_ICON_MANAGER;
+} catch (e) {
+  console.log(e);
+}
+/* Load ICON manager --------------------------------------------------------------------------------- */
 
 /* CONSTANT VARIABLES ================================================================================================================================== */
 const RESIZER_CONTAINER = {
@@ -330,6 +356,7 @@ const VecoderEditorTypeContainer = ({
       key={index}
       draggable={resizerOnMouseDown ? false : true}
       onDragStart={(e) => {
+        e.stopPropagation();
         onStackItemDragStart(e, index);
       }}
       onDragEnd={(e) => {
