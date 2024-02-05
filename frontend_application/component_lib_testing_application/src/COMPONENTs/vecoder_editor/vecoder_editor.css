@@ -226,15 +226,11 @@
 /*File Selection Bar Item ---------------------------------------------------------------- */
 /*Horizontal Mode*/
 .file_selection_bar_item1114 {
-  transition: all 0.16s ease;
-
   /*POSITION*/
   height: 30px;
   position: relative;
 
   flex: 0 0 auto;
-  white-space: nowrap;
-  display: inline-block;
   overflow: hidden;
 
   /*STYLE*/
@@ -256,8 +252,6 @@
 
   flex: 0 0 auto;
   white-space: nowrap;
-  display: inline-block;
-  overflow: hidden;
 
   /*STYLE*/
   background-color: #323232;
@@ -268,9 +262,10 @@
 }
 .file_selection_bar_file_text1114 {
   /*POSITION*/
-  position: relative;
-  top: -3px;
-  padding: 0px 12px 0px 0px;
+  position: absolute;
+  top: 4px;
+  left: 30px;
+  padding: 0px 0px 0px 0px;
 
   /*SIZE*/
   font-size: 14px;
@@ -280,22 +275,21 @@
 }
 .file_selection_bar_item_filetype_icon1114 {
   /*POSITION*/
-  position: relative;
-  padding: 7px 7px 0px 7px;
+  position: absolute;
+  padding: 7px 0px 0px 7px;
 
   /*SIZE*/
+  top: 0px;
   width: 16px;
   height: 16px;
-
-  pointer-events: none;
 }
 .file_selection_bar_item_close_icon1114 {
   transition: all 0.2s ease;
 
   /*POSITION*/
-  position: relative;
+  position: absolute;
 
-  top: 2px;
+  top: 5px;
   right: 5px;
   padding: 5px;
 
@@ -320,8 +314,6 @@
 }
 /*Vertical Mode*/
 .file_selection_bar_item_vertical0123 {
-  transition: all 0.16s ease;
-
   /*POSITION*/
   width: 30px;
   position: relative;
@@ -362,14 +354,14 @@
   width: 16px;
   height: 16px;
 
-  pointer-events: none;
+
 }
 .file_selection_bar_file_text_vertical0123 {
   /*POSITION*/
   transform: rotate(90deg);
   transform-origin: top left;
   position: absolute;
-  top: 29px;
+  top: 30px;
   left: 26px;
 
   /*SIZE*/

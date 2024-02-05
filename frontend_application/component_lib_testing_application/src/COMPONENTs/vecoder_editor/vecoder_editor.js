@@ -156,6 +156,7 @@ const FileSelectionBar = ({
 
   /* File Selection Bar parameters & Functions ==================================================== */
   const fileSelectionBarContainerRef = useRef(null);
+  const fileItemRefs = useRef([]);
   const [onDragIndex, setOnDragIndex] = useState(-1);
   const [onDropIndex, setOnDropIndex] = useState(-1);
   const [onSwapIndex, setOnSwapIndex] = useState(-1);
@@ -176,6 +177,24 @@ const FileSelectionBar = ({
   };
   const onFileDragStart = (e, index) => {
     e.stopPropagation();
+    const cloneNode = fileItemRefs.current[index].cloneNode(true);
+
+    cloneNode.style.position = "absolute";
+    cloneNode.style.top = "-1000px";
+    cloneNode.style.left = "-1000px";
+    if (mode === "HORIZONTAL") {
+      cloneNode.style.maxWidth = "30px";
+    } else {
+      cloneNode.style.maxHeight = "30px";
+    }
+    cloneNode.style.opacity = "1";
+    cloneNode.style.overflow = "hidden";
+    cloneNode.style.backgroundColor = "#323232";
+
+    document.body.appendChild(cloneNode);
+
+    e.dataTransfer.setDragImage(cloneNode, 26, 26);
+    setTimeout(() => document.body.removeChild(cloneNode), 0);
 
     setOnSelectedIndex(index);
     setOnDragIndex(index);
@@ -183,6 +202,8 @@ const FileSelectionBar = ({
   };
   const onFileDragEnd = (e, index) => {
     e.stopPropagation();
+
+    document.body.style.cursor = "";
 
     if (onDropIndex !== -1) {
       const editedFiles = [...files];
@@ -202,7 +223,6 @@ const FileSelectionBar = ({
   };
   const fileSelectionBarOnDragOver = (e) => {
     e.preventDefault();
-    e.stopPropagation();
     const targetElement = e.target.closest(
       ".file_selection_bar_item1114, " +
         ".file_selection_bar_item_selected1114, " +
@@ -314,6 +334,7 @@ const FileSelectionBar = ({
     >
       {files.map((file, index) => {
         let className;
+        let containerStyle = {};
         switch (true) {
           case index === onSelectedIndex:
             mode === "HORIZONTAL"
@@ -330,9 +351,19 @@ const FileSelectionBar = ({
               ? (className = "file_selection_bar_item1114")
               : (className = "file_selection_bar_item_vertical0123");
         }
+        if (mode === "HORIZONTAL") {
+          containerStyle = {
+            width: spanRefs.current[index]?.offsetWidth + 60 + "px",
+          };
+        } else {
+          containerStyle = {
+            height: spanRefs.current[index]?.offsetWidth + 60 + "px",
+          };
+        }
         return (
           <div
             key={index}
+            ref={(el) => (fileItemRefs.current[index] = el)}
             className={className}
             draggable={true}
             onDragStart={(e) => {
@@ -344,41 +375,8 @@ const FileSelectionBar = ({
             onClick={() => {
               setOnSelectedIndex(index);
             }}
-            style={
-              mode === "HORIZONTAL"
-                ? {}
-                : {
-                    minHeight: spanRefs.current[index]?.offsetWidth + 60 + "px",
-                  }
-            }
+            style={containerStyle}
           >
-            <img
-              src={
-                FILE_TYPE_ICON_MANAGER[file.fileName.split(".").pop()]?.ICON512
-              }
-              className={
-                mode === "HORIZONTAL"
-                  ? "file_selection_bar_item_filetype_icon1114"
-                  : "file_selection_bar_item_filetype_icon_vertical0123"
-              }
-              alt="close"
-              style={{
-                opacity: index === onSelectedIndex ? "1" : "0.32",
-              }}
-            />
-            <span
-              ref={(el) => (spanRefs.current[index] = el)}
-              className={
-                mode === "HORIZONTAL"
-                  ? "file_selection_bar_file_text1114"
-                  : "file_selection_bar_file_text_vertical0123"
-              }
-              style={{
-                opacity: index === onSelectedIndex ? "1" : "0.32",
-              }}
-            >
-              {file.fileName}
-            </span>
             <img
               src={SYSTEM_ICON_MANAGER.close.ICON512}
               className={
@@ -394,6 +392,31 @@ const FileSelectionBar = ({
               }}
               onClick={(e) => {
                 onFileDelete(e)(index);
+              }}
+              style={index === onDragIndex ? { opacity: 0 } : { opacity: 1 }}
+            />
+            <span
+              ref={(el) => (spanRefs.current[index] = el)}
+              className={
+                mode === "HORIZONTAL"
+                  ? "file_selection_bar_file_text1114"
+                  : "file_selection_bar_file_text_vertical0123"
+              }
+            >
+              {file.fileName}
+            </span>
+            <img
+              src={
+                FILE_TYPE_ICON_MANAGER[file.fileName.split(".").pop()]?.ICON512
+              }
+              className={
+                mode === "HORIZONTAL"
+                  ? "file_selection_bar_item_filetype_icon1114"
+                  : "file_selection_bar_item_filetype_icon_vertical0123"
+              }
+              alt="close"
+              style={{
+                opacity: index === onSelectedIndex ? "1" : "0.32",
               }}
             />
           </div>
