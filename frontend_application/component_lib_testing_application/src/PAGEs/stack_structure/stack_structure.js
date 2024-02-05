@@ -1104,6 +1104,22 @@ class Car {
   const [onDropIndex, setOnDropIndex] = useState(-1);
 
   const onStackItemDragStart = (e, index) => {
+    const cloneNode = stackRefs.current[index].cloneNode(true);
+    cloneNode.style.position = "absolute";
+    cloneNode.style.top = "-1000px";
+    cloneNode.style.left = "-1000px";
+    cloneNode.style.opacity = "1";
+    cloneNode.style.overflow = "hidden";
+    cloneNode.style.backgroundColor = "#323232";
+
+    cloneNode.style.width = "128px";
+    cloneNode.style.height = "128px";
+
+    document.body.appendChild(cloneNode);
+
+    e.dataTransfer.setDragImage(cloneNode, 128, 128);
+    setTimeout(() => document.body.removeChild(cloneNode), 0);
+
     setOnDragIndex(index);
   };
   const onStackItemDragEnd = (e) => {

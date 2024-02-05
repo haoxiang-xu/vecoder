@@ -153,6 +153,9 @@ const FileSelectionBar = ({
   const refresh = () => {
     setForceRefresh(!forceRefresh);
   };
+  useEffect(() => {
+    refresh();
+  }, [files]);
 
   /* File Selection Bar parameters & Functions ==================================================== */
   const fileSelectionBarContainerRef = useRef(null);
