@@ -282,6 +282,25 @@ const FileSelectionBar = ({
     setOnSwapIndex(onDropIndex);
   }, [onDropIndex]);
   useEffect(() => {
+    if (onSelectedIndex !== -1) {
+      const itemScrollLeft = fileItemRefs.current[onSelectedIndex]?.offsetLeft;
+      const itemWidth = fileItemRefs.current[onSelectedIndex]?.offsetWidth;
+      const containerScrollLeft =
+        fileSelectionBarContainerRef.current.scrollLeft;
+      const containerWidth = fileSelectionBarContainerRef.current?.offsetWidth;
+
+      if (itemScrollLeft < containerScrollLeft) {
+        fileSelectionBarContainerRef.current.scrollLeft = itemScrollLeft;
+      } else if (
+        itemScrollLeft + itemWidth >
+        containerScrollLeft + containerWidth
+      ) {
+        fileSelectionBarContainerRef.current.scrollLeft =
+          itemScrollLeft + itemWidth - containerWidth;
+      }
+    }
+  }, [onSelectedIndex]);
+  useEffect(() => {
     if (onDropIndex !== -1 && dragCommand === "APPEND TO TARGET") {
       const editedFiles = [...files];
       const dragedFile = draggedItem;
@@ -393,7 +412,6 @@ const FileSelectionBar = ({
               onClick={(e) => {
                 onFileDelete(e)(index);
               }}
-              style={index === onDragIndex ? { opacity: 0 } : { opacity: 1 }}
             />
             <span
               ref={(el) => (spanRefs.current[index] = el)}

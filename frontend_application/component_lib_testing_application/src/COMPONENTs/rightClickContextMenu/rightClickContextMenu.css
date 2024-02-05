@@ -2,7 +2,7 @@
   /*POSITION*/
   position: fixed;
   padding: 5px;
-  z-index: 1;
+  z-index: 9;
 
   /*SIZE*/
   height: wrap-content;
@@ -20,7 +20,7 @@
   /*POSITION*/
   position: fixed;
   padding: 5px;
-  z-index: 1;
+  z-index: 9;
 
   /*SIZE*/
   height: wrap-content;
@@ -38,7 +38,7 @@
   /*POSITION*/
   position: fixed;
   padding: 5px;
-  z-index: 1;
+  z-index: 9;
 
   /*SIZE*/
   height: wrap-content;
@@ -56,7 +56,7 @@
   /*POSITION*/
   position: fixed;
   padding: 5px;
-  z-index: 1;
+  z-index: 9;
 
   /*SIZE*/
   height: wrap-content;
@@ -74,7 +74,7 @@
   /*POSITION*/
   position: fixed;
   padding: 5px;
-  z-index: 2;
+  z-index: 12;
 
   /*SIZE*/
   height: wrap-content;
