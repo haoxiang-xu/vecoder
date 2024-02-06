@@ -298,8 +298,7 @@ const FileSelectionBar = ({
         itemScrollLeft + itemWidth >
         containerScrollLeft + containerWidth
       ) {
-        fileSelectionBarContainerRef.current.scrollLeft =
-          itemScrollLeft + itemWidth - containerWidth;
+        fileSelectionBarContainerRef.current.scrollLeft = itemScrollLeft;
       }
     }
   }, [onSelectedIndex]);
@@ -567,7 +566,8 @@ const VecoderEditor = ({
 
     try {
       const response = await axios.post(
-        "http://localhost:8200/AST/python",
+        "http://localhost:8200/AST/" +
+          imported_files[onSelectedIndex].fileLanguage,
         requestBody
       );
       console.log(response.data);
