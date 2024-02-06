@@ -543,6 +543,22 @@ const VecoderEditor = ({
   const [onAppendContent, setOnAppendContent] = useState(null);
 
   /* API =================================================================================== */
+  const continueAPI = async () => {
+    const requestBody = {
+      language: imported_files[onSelectedIndex].fileLanguage,
+      prompt: onSelectedCotent?.selectedText,
+    };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8200/openai/continue",
+        requestBody
+      );
+      console.log(response.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   const getAST = async () => {
     const requestBody = {
       language: imported_files[onSelectedIndex].fileLanguage,
@@ -633,6 +649,9 @@ const VecoderEditor = ({
   }, [rightClickCommand]);
   const handleRightClickCommand = async (command) => {
     switch (command) {
+      case "continue":
+        continueAPI();
+        break;
       case "viewAST":
         getAST();
         break;
