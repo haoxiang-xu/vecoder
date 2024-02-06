@@ -68,6 +68,19 @@
 
   pointer-events: none;
 }
+.stack_structure_item_overlay_invisible0206 {
+    /*POSITION*/
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+  
+    /*STYLE*/
+    border-radius: 4px;
+    background-color: #8b2727;
+    opacity: 0;
+}
 .stack_structure_label0116 {
   transition: all 0.12s ease;
   /*POSITION*/

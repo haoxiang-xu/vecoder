@@ -270,6 +270,7 @@ const ExplorerTypeContainer = ({
   setExplorer_files,
   //Stack Structure Container Drag and Drop
   onDropIndex,
+  onDragIndex,
   onStackItemDragStart,
   onStackItemDragEnd,
   resizerOnMouseDown,
@@ -308,6 +309,9 @@ const ExplorerTypeContainer = ({
       ) : (
         <div></div>
       )}
+      {onDragIndex !== -1 ? (
+        <div className="stack_structure_item_overlay_invisible0206"></div>
+      ) : null}
     </div>
   );
 };
@@ -324,6 +328,7 @@ const VecoderEditorTypeContainer = ({
   setCode_editor_file_on_index,
   //Stack Structure Container Drag and Drop
   onDropIndex,
+  onDragIndex,
   onStackItemDragStart,
   onStackItemDragEnd,
   resizerOnMouseDown,
@@ -394,6 +399,9 @@ const VecoderEditorTypeContainer = ({
       ) : (
         <div></div>
       )}
+      {onDragIndex !== -1 ? (
+        <div className="stack_structure_item_overlay_invisible0206"></div>
+      ) : null}
     </div>
   );
 };
@@ -1106,8 +1114,8 @@ class Car {
   const onStackItemDragStart = (e, index) => {
     const cloneNode = stackRefs.current[index].cloneNode(true);
     cloneNode.style.position = "absolute";
-    cloneNode.style.top = "-1000px";
-    cloneNode.style.left = "-1000px";
+    cloneNode.style.top = "-10000px";
+    cloneNode.style.left = "-10000px";
     cloneNode.style.opacity = "1";
     cloneNode.style.overflow = "hidden";
     cloneNode.style.backgroundColor = "#323232";
@@ -1117,7 +1125,7 @@ class Car {
 
     document.body.appendChild(cloneNode);
 
-    e.dataTransfer.setDragImage(cloneNode, 128, 128);
+    e.dataTransfer.setDragImage(new Image(FILE_TYPE_ICON_MANAGER.java.ICON512), 128, 128);
     setTimeout(() => document.body.removeChild(cloneNode), 0);
 
     setOnDragIndex(index);
@@ -1312,6 +1320,7 @@ class Car {
                 setExplorer_files={setExplorer_files}
                 //Stack Structure Container Drag and Drop
                 onDropIndex={onDropIndex}
+                onDragIndex={onDragIndex}
                 onStackItemDragStart={onStackItemDragStart}
                 onStackItemDragEnd={onStackItemDragEnd}
                 resizerOnMouseDown={resizerOnMouseDown}
@@ -1338,6 +1347,7 @@ class Car {
                 setCode_editor_file_on_index={setCode_editor_file_on_index}
                 //Stack Structure Container Drag and Drop
                 onDropIndex={onDropIndex}
+                onDragIndex={onDragIndex}
                 onStackItemDragStart={onStackItemDragStart}
                 onStackItemDragEnd={onStackItemDragEnd}
                 resizerOnMouseDown={resizerOnMouseDown}

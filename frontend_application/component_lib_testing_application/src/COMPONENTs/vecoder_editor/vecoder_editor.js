@@ -439,6 +439,12 @@ const FileSelectionBar = ({
                 opacity: index === onSelectedIndex ? "1" : "0.32",
               }}
             />
+            {onDragIndex !== -1 ? (
+              <div
+                className="file_selection_bar_item_overlay_invisible0206"
+                style={containerStyle}
+              ></div>
+            ) : null}
           </div>
         );
       })}

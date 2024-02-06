@@ -353,8 +353,6 @@
   /*SIZE*/
   width: 16px;
   height: 16px;
-
-
 }
 .file_selection_bar_file_text_vertical0123 {
   /*POSITION*/
@@ -401,3 +399,16 @@
   background-color: #838383;
 }
 /*File Selection Bar Item ---------------------------------------------------------------- */
+.file_selection_bar_item_overlay_invisible0206 {
+  /*POSITION*/
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+
+  /*STYLE*/
+  border-radius: 4px;
+  background-color: #8b2727;
+  opacity: 0;
+}
