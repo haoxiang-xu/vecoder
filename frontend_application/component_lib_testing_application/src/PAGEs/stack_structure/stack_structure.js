@@ -279,7 +279,16 @@ const ExplorerTypeContainer = ({
   setOnRightClickItem,
   rightClickCommand,
   setRightClickCommand,
+  //Expand and Narrow Container
+  expandContainer,
+  narrowContainer,
 }) => {
+  const onMaximizeOnClick = () => {
+    expandContainer(index);
+  };
+  const onMinimizeOnClick = () => {
+    narrowContainer(index);
+  };
   return (
     <div
       className="stack_structure_explorer0122"
@@ -297,18 +306,19 @@ const ExplorerTypeContainer = ({
       }}
     >
       <Explorer
+        explorer_width={item.width}
         files={explorer_files}
         setFiles={setExplorer_files}
         onRightClickItem={onRightClickItem}
         setOnRightClickItem={setOnRightClickItem}
         rightClickCommand={rightClickCommand}
         setRightClickCommand={setRightClickCommand}
+        onMaximizeOnClick={onMaximizeOnClick}
+        onMinimizeOnClick={onMinimizeOnClick}
       />
       {index === onDropIndex ? (
         <div className="stack_structure_item_overlay0122"></div>
-      ) : (
-        <div></div>
-      )}
+      ) : null}
       {onDragIndex !== -1 ? (
         <div className="stack_structure_item_overlay_invisible0206"></div>
       ) : null}
@@ -396,9 +406,7 @@ const VecoderEditorTypeContainer = ({
       />
       {index === onDropIndex ? (
         <div className="stack_structure_item_overlay0122"></div>
-      ) : (
-        <div></div>
-      )}
+      ) : null}
       {onDragIndex !== -1 ? (
         <div className="stack_structure_item_overlay_invisible0206"></div>
       ) : null}
@@ -1125,7 +1133,11 @@ class Car {
 
     document.body.appendChild(cloneNode);
 
-    e.dataTransfer.setDragImage(new Image(FILE_TYPE_ICON_MANAGER.java.ICON512), 128, 128);
+    e.dataTransfer.setDragImage(
+      new Image(FILE_TYPE_ICON_MANAGER.java.ICON512),
+      128,
+      128
+    );
     setTimeout(() => document.body.removeChild(cloneNode), 0);
 
     setOnDragIndex(index);
@@ -1329,6 +1341,9 @@ class Car {
                 setOnRightClickItem={setOnRightClickItem}
                 rightClickCommand={rightClickCommand}
                 setRightClickCommand={setRightClickCommand}
+                //Expand and Narrow Container
+                expandContainer={expandContainer}
+                narrowContainer={narrowContainer}
               />
             );
           case "CODE_EDITOR":

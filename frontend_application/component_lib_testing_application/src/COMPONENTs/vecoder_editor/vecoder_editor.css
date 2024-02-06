@@ -167,7 +167,7 @@
   /*POSITION*/
   display: flex;
   position: absolute;
-  left: 76px;
+  left: 75px;
   right: 5px;
   top: 5px;
   height: 38px;
@@ -196,7 +196,7 @@
   /*POSITION*/
   position: absolute;
   left: 5px;
-  top: 76px;
+  top: 75px;
   right: 0px;
   bottom: 5px;
 
@@ -411,4 +411,31 @@
   border-radius: 4px;
   background-color: #8b2727;
   opacity: 0;
+}
+.file_selection_bar_item_overlay_highlight0206 {
+  /*POSITION*/
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+
+  /*STYLE*/
+  border-radius: 4px;
+  background-color: #ffffff;
+  opacity: 0.12;
+
+  pointer-events: none;
+  animation: file_selection_bar_item_overlay_highlight_animation 0.24s ease-in-out;
+}
+@keyframes file_selection_bar_item_overlay_highlight_animation {
+  0% {
+    opacity: 0;
+  }
+  72% {
+    opacity: 0.18;
+  }
+  100% {
+    opacity: 0.12;
+  }
 }

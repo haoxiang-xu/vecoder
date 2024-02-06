@@ -67,6 +67,18 @@
   opacity: 0.16;
 
   pointer-events: none;
+  animation: stack_structure_item_overlay_animation 0.18s ease-in-out;
+}
+@keyframes stack_structure_item_overlay_animation {
+  0% {
+    opacity: 0;
+  }
+  36% {
+    opacity: 0.24;
+  }
+  100% {
+    opacity: 0.16;
+  }
 }
 .stack_structure_item_overlay_invisible0206 {
     /*POSITION*/

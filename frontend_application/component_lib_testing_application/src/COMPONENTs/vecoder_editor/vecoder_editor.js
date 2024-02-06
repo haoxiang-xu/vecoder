@@ -91,7 +91,7 @@ const TopLeftSection = ({
         onClick={onMaximizeOnClick}
         onMouseOver={onMaximizeOnHover}
         onMouseOut={onMaximizeOut}
-        alt="close"
+        alt="maximize"
         style={MaximizeIconStyling}
       />
       <img
@@ -101,7 +101,7 @@ const TopLeftSection = ({
         onClick={onMinimizeOnClick}
         onMouseOver={onMinimizeOnHover}
         onMouseOut={onMinimizeOut}
-        alt="close"
+        alt="minimize"
         style={MinimizeIconStyling}
       />
       <img
@@ -122,7 +122,7 @@ const TopLeftSection = ({
           setMaxIconOnHover(false);
           setMinIconOnHover(false);
         }}
-        alt="close"
+        alt="maximize"
       />
       <img
         src={SYSTEM_ICON_MANAGER.close.ICON512}
@@ -362,11 +362,6 @@ const FileSelectionBar = ({
               ? (className = "file_selection_bar_item_selected1114")
               : (className = "file_selection_bar_item_selected_vertical0123");
             break;
-          case index === onSwapIndex:
-            mode === "HORIZONTAL"
-              ? (className = "file_selection_bar_item_selected1114")
-              : (className = "file_selection_bar_item_selected_vertical0123");
-            break;
           default:
             mode === "HORIZONTAL"
               ? (className = "file_selection_bar_item1114")
@@ -439,9 +434,17 @@ const FileSelectionBar = ({
                 opacity: index === onSelectedIndex ? "1" : "0.32",
               }}
             />
+            {/* Drag and Drop Invisible Overlay ---------------------------------------------- */}
             {onDragIndex !== -1 || draggedItem != null ? (
               <div
                 className="file_selection_bar_item_overlay_invisible0206"
+                style={containerStyle}
+              ></div>
+            ) : null}
+            {/* Drag and Drop HighLight Overlay ---------------------------------------------- */}
+            {index === onDropIndex ? (
+              <div
+                className="file_selection_bar_item_overlay_highlight0206"
                 style={containerStyle}
               ></div>
             ) : null}
