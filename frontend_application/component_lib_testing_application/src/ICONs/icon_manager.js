@@ -1,7 +1,10 @@
+import React, { useState, useEffect, useRef } from "react";
+
 export const ICON_MANAGER = () => {
   /*FILE_TYPE_STYLING_MANAGER ---------------------------------------------------------------- */
   let FILE_TYPE_ICON_MANAGER = {
     default: {
+      ICON16: null,
       ICON: null,
       LABEL_COLOR: "#C8C8C8",
     },
@@ -75,6 +78,11 @@ export const ICON_MANAGER = () => {
     /* 512X512 ICONs ---------------------------------------------------------------------- */
 
     FILE_TYPE_ICON_MANAGER = {
+      default: {
+        ICON16: null,
+        ICON: null,
+        LABEL_COLOR: "#C8C8C8",
+      },
       //CODE FILE TYPES
       js: {
         ICON16: JS16,
@@ -245,6 +253,7 @@ export const ICON_MANAGER = () => {
   /*FILE_TYPE_STYLING_MANAGER ---------------------------------------------------------------- */
   let SYSTEM_ICON_MANAGER = {
     default: {
+      ICON16: null,
       ICON: null,
       LABEL_COLOR: "#C8C8C8",
     },
@@ -305,6 +314,11 @@ export const ICON_MANAGER = () => {
     /* 512X512 ICONs ---------------------------------------------------------------------- */
 
     SYSTEM_ICON_MANAGER = {
+      default: {
+        ICON16: null,
+        ICON: null,
+        LABEL_COLOR: "#C8C8C8",
+      },
       close: {
         ICON16: CLOSE_ICON16,
         ICON512: CLOSE_ICON512,
@@ -430,4 +444,33 @@ export const ICON_MANAGER = () => {
     FILE_TYPE_ICON_MANAGER: FILE_TYPE_ICON_MANAGER,
     SYSTEM_ICON_MANAGER: SYSTEM_ICON_MANAGER,
   };
+};
+export const ICON_LOADER = ({ iconID }) => {
+  const [iconSrc, setIconSrc] = useState(null);
+  const [isIconLoad, setIsIconLoad] = useState(false);
+  const handleIconLoad = () => {
+    setIsIconLoad(true);
+  };
+
+  if (ICON_MANAGER().FILE_TYPE_ICON_MANAGER[iconID]) {
+    setIconSrc(ICON_MANAGER().FILE_TYPE_ICON_MANAGER[iconID]);
+  } else if (ICON_MANAGER().SYSTEM_ICON_MANAGER[iconID]) {
+    setIconSrc(ICON_MANAGER().SYSTEM_ICON_MANAGER[iconID]);
+  } else {
+    setIconSrc(ICON_MANAGER().SYSTEM_ICON_MANAGER.default);
+  }
+
+  return (
+    <div
+      style={
+        setIsIconLoad
+          ? null
+          : {
+              backgroundImage: `url(${iconSrc.ICON16})`,
+            }
+      }
+    >
+      <img src={iconSrc.ICON512} />
+    </div>
+  );
 };
