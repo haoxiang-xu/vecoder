@@ -720,7 +720,7 @@ const DirItem = ({
         <div ref={DirListRef} style={{ height: "fit-content" }}>
           <ul className={dirListClassName}>
             {dir.map((item, index) => (
-              <li key={index} style={expendAnimation}>
+              <li key={item.filePath} style={expendAnimation}>
                 <DirItem
                   file={item}
                   root={false}

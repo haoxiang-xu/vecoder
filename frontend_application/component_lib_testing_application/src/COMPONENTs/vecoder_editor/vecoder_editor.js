@@ -399,7 +399,7 @@ const FileSelectionBar = ({
         }
         return (
           <div
-            key={index}
+            key={file.filePath}
             ref={(el) => (fileItemRefs.current[index] = el)}
             className={className}
             draggable={true}
@@ -526,8 +526,9 @@ const MonacoEditorGroup = ({
     ? files.map((file, index) => {
         return (
           <Editor
-            key={index}
+            key={files[index].filePath}
             //Editor required parameters
+            editor_filePath={files[index].filePath}
             editor_content={files[index].fileContent}
             editor_setContent={setFileContent(index)}
             editor_language={files[index].fileLanguage}

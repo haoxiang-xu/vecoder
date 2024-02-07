@@ -695,6 +695,7 @@ const StackStructure = () => {
   };
   const [explorer_files, setExplorer_files] = useState(EXPLORER_FILES);
   const EXPLORER_CONTAINER = {
+    unique_key: 202402073,
     type: "EXPLORER",
     min_width: 40,
     width: 256,
@@ -1091,6 +1092,7 @@ class Car {
   };
   const CODE_EDITORs = [
     {
+      unique_key: 202402071,
       type: "CODE_EDITOR",
       min_width: 40,
       width: 600,
@@ -1098,6 +1100,7 @@ class Car {
       code_editor_container_ref_index: 0,
     },
     {
+      unique_key: 202402072,
       type: "CODE_EDITOR",
       min_width: 40,
       width: 600,
@@ -1334,7 +1337,7 @@ class Car {
           case "EXPLORER":
             return (
               <ExplorerTypeContainer
-                key={index}
+                key={item.unique_key}
                 index={index}
                 //Stack Data
                 item={item}
@@ -1363,7 +1366,7 @@ class Car {
           case "CODE_EDITOR":
             return (
               <VecoderEditorTypeContainer
-                key={index}
+                key={item.unique_key}
                 index={index}
                 //Stack Data
                 item={item}

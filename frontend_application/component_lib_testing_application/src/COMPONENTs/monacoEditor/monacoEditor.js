@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import MonacoEditor from "@monaco-editor/react";
-import { MonacoDiffEditor } from "react-monaco-editor";
+import { MonacoDiffEditor, monaco } from "react-monaco-editor";
 
 const Editor = ({
   //Editor required parameters
+  editor_filePath,
   editor_content,
   editor_setContent,
   editor_language,
