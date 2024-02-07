@@ -29,6 +29,44 @@ try {
 }
 /* Load ICON manager --------------------------------------------------------------------------------- */
 
+const GhostDragImage = ({ draggedItem }) => {
+  const [position, setPosition] = useState({ x: -9999, y: -9999 });
+
+  useEffect(() => {
+    const onDragOver = (e) => {
+      setPosition({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener("dragover", onDragOver);
+    return () => {
+      window.removeEventListener("dragover", onDragOver);
+    };
+  }, []);
+
+  return (
+    <>
+      {draggedItem ? (
+        <div
+          className="ghost_drag_image_container0207"
+          style={{
+            left: position.x,
+            top: position.y,
+          }}
+        >
+          <img
+            className="ghost_drag_image_filetype_image0207"
+            src={
+              FILE_TYPE_ICON_MANAGER[draggedItem?.fileName.split(".").pop()]
+                ?.ICON512
+            }
+          />
+          <span className="ghost_drag_image_filetype_label0207">
+            {draggedItem?.fileName}
+          </span>
+        </div>
+      ) : null}
+    </>
+  );
+};
 const TopLeftSection = ({
   mode,
   //Maximize and Minimize Container
@@ -180,24 +218,7 @@ const FileSelectionBar = ({
   };
   const onFileDragStart = (e, index) => {
     e.stopPropagation();
-    const cloneNode = fileItemRefs.current[index].cloneNode(true);
-
-    cloneNode.style.position = "absolute";
-    cloneNode.style.top = "-1000px";
-    cloneNode.style.left = "-1000px";
-    if (mode === "HORIZONTAL") {
-      cloneNode.style.maxWidth = "30px";
-    } else {
-      cloneNode.style.maxHeight = "30px";
-    }
-    cloneNode.style.opacity = "1";
-    cloneNode.style.overflow = "hidden";
-    cloneNode.style.backgroundColor = "#323232";
-
-    document.body.appendChild(cloneNode);
-
-    e.dataTransfer.setDragImage(cloneNode, 26, 26);
-    setTimeout(() => document.body.removeChild(cloneNode), 0);
+    e.dataTransfer.setDragImage(new Image(), 0, 0);
 
     setOnSelectedIndex(index);
     setOnDragIndex(index);
@@ -451,6 +472,9 @@ const FileSelectionBar = ({
           </div>
         );
       })}
+      {onDragIndex !== -1 || draggedItem != null ? (
+        <GhostDragImage draggedItem={draggedItem} />
+      ) : null}
     </div>
   );
 };

@@ -443,6 +443,11 @@ const EndingContainer = ({
 /* CONTAINERS ------------------------------------------------------------------------------------------------------------- */
 
 const StackStructure = () => {
+  const [
+    stackStructureContainerClassName,
+    setStackStructureContainerClassName,
+  ] = useState("stack_structure_container0116");
+
   /* Right Click Menu ================================================================================================================================== */
   const [isRightClicked, setIsRightClicked] = useState(false);
   const [rightClickX, setRightClickX] = useState(-1);
@@ -455,8 +460,8 @@ const StackStructure = () => {
 
     const boundingRect = event.currentTarget.getBoundingClientRect();
 
-    const rightClickX = event.clientX - boundingRect.left;
-    const rightClickY = event.clientY - boundingRect.top;
+    const rightClickX = event.clientX;
+    const rightClickY = event.clientY;
 
     setRightClickX(rightClickX);
     setRightClickY(rightClickY);
@@ -1184,6 +1189,15 @@ class Car {
       }
     }
   };
+  useEffect(() => {
+    if (onDragIndex !== -1) {
+      setStackStructureContainerClassName(
+        "stack_structure_container_minimize0207"
+      );
+    } else {
+      setStackStructureContainerClassName("stack_structure_container0116");
+    }
+  }, [onDragIndex]);
   /* Stack Container Drag and Drop ------------------------------------------------------------ */
 
   /* Resizer =============================================================================================================================================== */
@@ -1288,7 +1302,7 @@ class Car {
 
   return (
     <div
-      className="stack_structure_container0116"
+      className={stackStructureContainerClassName}
       ref={stackStructureContainerRef}
       onDragOver={(e) => {
         containerOnDragOver(e);

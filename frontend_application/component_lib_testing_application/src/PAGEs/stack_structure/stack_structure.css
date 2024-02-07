@@ -1,4 +1,6 @@
 .stack_structure_container0116 {
+  transition: all 0.32s ease;
+  
   /*POSITION*/
   display: flex;
   position: absolute;
@@ -9,6 +11,21 @@
   /* top: 200px;
   left: 0px;
   bottom: 200px; */
+
+  /*STYLE*/
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+.stack_structure_container_minimize0207 {
+  transition: all 0.32s ease;
+
+  /*POSITION*/
+  display: flex;
+  position: absolute;
+
+  top: 200px;
+  left: 0px;
+  bottom: 200px;
 
   /*STYLE*/
   overflow-x: hidden;

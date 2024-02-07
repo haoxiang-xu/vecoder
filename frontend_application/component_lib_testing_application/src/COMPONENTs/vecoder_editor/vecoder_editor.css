@@ -439,3 +439,71 @@
     opacity: 0.12;
   }
 }
+
+/* Ghost Drag Image ================================================================= */
+.ghost_drag_image_container0207 {
+  /*POSITION*/
+  transform: translate(-50%, -64%);
+  position: fixed;
+  width: 38px;
+  height: 38px;
+
+  /*STYLE*/
+  background-color: #252525;
+  color: white;
+
+  border-radius: 5px;
+  margin: 0px 0px 5px 0px;
+  border: 1px solid #3a3a3a;
+  opacity: 1;
+
+  pointer-events: none;
+  z-index: 12;
+
+  animation: ghost_drag_image_container_animation0207 0.16s ease-in-out;
+}
+@keyframes ghost_drag_image_container_animation0207 {
+  0% {
+    width: 0px;
+    height: 0px;
+  }
+  100% {
+    width: 38px;
+    height: 38px;
+  }
+}
+.ghost_drag_image_filetype_image0207 {
+  /*POSITION*/
+  position: absolute;
+  padding: 6px;
+
+  /*SIZE*/
+  width: 26px;
+  height: 26px;
+
+  animation: ghost_drag_image_filetype_image_animation0207 0.12s ease-in-out;
+}
+@keyframes ghost_drag_image_filetype_image_animation0207 {
+  0% {
+    width: 0px;
+    height: 0px;
+  }
+  100% {
+    width: 26px;
+    height: 26px;
+  }
+}
+.ghost_drag_image_filetype_label0207 {
+  /*POSITION*/
+  position: absolute;
+  top: 8px;
+  left: 44px;
+  padding: 0px 0px 0px 0px;
+
+  /*SIZE*/
+  font-size: 15px;
+  color: #cccccc;
+
+  pointer-events: none;
+  opacity: 0.64;
+}
