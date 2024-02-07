@@ -1,5 +1,3 @@
-import React, { useState, useEffect, useRef } from "react";
-
 export const ICON_MANAGER = () => {
   /*FILE_TYPE_STYLING_MANAGER ---------------------------------------------------------------- */
   let FILE_TYPE_ICON_MANAGER = {
@@ -444,33 +442,4 @@ export const ICON_MANAGER = () => {
     FILE_TYPE_ICON_MANAGER: FILE_TYPE_ICON_MANAGER,
     SYSTEM_ICON_MANAGER: SYSTEM_ICON_MANAGER,
   };
-};
-export const ICON_LOADER = ({ iconID }) => {
-  const [iconSrc, setIconSrc] = useState(null);
-  const [isIconLoad, setIsIconLoad] = useState(false);
-  const handleIconLoad = () => {
-    setIsIconLoad(true);
-  };
-
-  if (ICON_MANAGER().FILE_TYPE_ICON_MANAGER[iconID]) {
-    setIconSrc(ICON_MANAGER().FILE_TYPE_ICON_MANAGER[iconID]);
-  } else if (ICON_MANAGER().SYSTEM_ICON_MANAGER[iconID]) {
-    setIconSrc(ICON_MANAGER().SYSTEM_ICON_MANAGER[iconID]);
-  } else {
-    setIconSrc(ICON_MANAGER().SYSTEM_ICON_MANAGER.default);
-  }
-
-  return (
-    <div
-      style={
-        setIsIconLoad
-          ? null
-          : {
-              backgroundImage: `url(${iconSrc.ICON16})`,
-            }
-      }
-    >
-      <img src={iconSrc.ICON512} />
-    </div>
-  );
 };
