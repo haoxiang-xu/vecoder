@@ -1,6 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import MonacoEditor from "@monaco-editor/react";
 import { MonacoDiffEditor, monaco } from "react-monaco-editor";
+import { monacoEditorContexts } from "../../CONTEXTs/monacoEditorContexts";
 
 const Editor = ({
   //Editor required parameters
@@ -59,11 +60,19 @@ const Editor = ({
     onChange: editor_setContent,
     onMount: onEditorMount,
   };
+  const {
+    code_editor_files,
+    setCode_editor_files,
+    setCode_editor_file_on_index,
+  } = useContext(monacoEditorContexts);
   /*MONACO EDITOR OPTIONS-----------------------------------------------------------------------*/
 
   /*MONACO EDITOR FUNCTIONs-----------------------------------------------------------------------*/
   ////On editor mount
   function onEditorMount(editor, monaco) {
+    editor.onDidChangeModelContent(() => {
+      console.log(code_editor_files);
+    });
     monacoRef.current = editor;
     defineTheme(monaco);
     registerCompletionProvider(monaco);
