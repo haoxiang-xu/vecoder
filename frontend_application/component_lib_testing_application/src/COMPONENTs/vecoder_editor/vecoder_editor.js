@@ -1,8 +1,9 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import axios from "axios";
 import Editor from "../monacoEditor/monacoEditor";
 import "./vecoder_editor.css";
 import { ICON_MANAGER } from "../../ICONs/icon_manager";
+import { globalDragAndDropContexts } from "../../CONTEXTs/globalDragAndDropContexts";
 
 /* Load ICON manager --------------------------------------------------------------------------------- */
 let FILE_TYPE_ICON_MANAGER = {
@@ -34,6 +35,7 @@ const GhostDragImage = ({ draggedItem }) => {
 
   useEffect(() => {
     const onDragOver = (e) => {
+      e.dataTransfer.setDragImage(new Image(), 0, 0);
       setPosition({ x: e.clientX, y: e.clientY });
     };
     window.addEventListener("dragover", onDragOver);
@@ -177,16 +179,17 @@ const FileSelectionBar = ({
   setFiles,
   onSelectedIndex,
   setOnSelectedIndex,
-  //DRAG AND DROP
-  draggedItem,
-  setDraggedItem,
-  draggedOverItem,
-  setDraggedOverItem,
-  dragCommand,
-  setDragCommand,
   //HORIZONTAL OR VERTICAL MODE
   mode,
 }) => {
+  const {
+    draggedItem,
+    setDraggedItem,
+    draggedOverItem,
+    setDraggedOverItem,
+    dragCommand,
+    setDragCommand,
+  } = useContext(globalDragAndDropContexts);
   const [forceRefresh, setForceRefresh] = useState(false);
   const refresh = () => {
     setForceRefresh(!forceRefresh);
@@ -560,13 +563,6 @@ const VecoderEditor = ({
   setOnRightClickItem,
   rightClickCommand,
   setRightClickCommand,
-  //Drag and Drop
-  draggedItem,
-  setDraggedItem,
-  draggedOverItem,
-  setDraggedOverItem,
-  dragCommand,
-  setDragCommand,
   //Maximize and Minimize Container
   onMaximizeOnClick,
   onMinimizeOnClick,
@@ -747,13 +743,6 @@ const VecoderEditor = ({
           setFiles={setImportedFiles}
           onSelectedIndex={onSelectedIndex}
           setOnSelectedIndex={setOnSelectedIndex}
-          //DRAG AND DROP
-          draggedItem={draggedItem}
-          setDraggedItem={setDraggedItem}
-          draggedOverItem={draggedOverItem}
-          setDraggedOverItem={setDraggedOverItem}
-          dragCommand={dragCommand}
-          setDragCommand={setDragCommand}
           //HORIZONTAL OR VERTICAL MODE
           mode={mode}
         />

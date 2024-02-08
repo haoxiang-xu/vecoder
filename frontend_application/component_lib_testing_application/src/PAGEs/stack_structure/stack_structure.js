@@ -7,6 +7,7 @@ import Explorer from "../../COMPONENTs/explorer/explorer";
 import { ICON_MANAGER } from "../../ICONs/icon_manager";
 //CONTEXTs -----------------------------------------------------------------------------------------
 import { stackStructureResizerContexts } from "../../CONTEXTs/stackStructureResizerContexts";
+import { globalDragAndDropContexts } from "../../CONTEXTs/globalDragAndDropContexts";
 import { rightClickContextMenuCommandContexts } from "../../CONTEXTs/rightClickContextMenuContexts";
 import { monacoEditorContexts } from "../../CONTEXTs/monacoEditorContexts";
 //CSS ----------------------------------------------------------------------------------------------
@@ -355,13 +356,6 @@ const VecoderEditorTypeContainer = ({
   setOnRightClickItem,
   rightClickCommand,
   setRightClickCommand,
-  //Code Editor Drag and Drop
-  draggedItem,
-  setDraggedItem,
-  draggedOverItem,
-  setDraggedOverItem,
-  dragCommand,
-  setDragCommand,
   //Expand and Narrow Container
   expandContainer,
   narrowContainer,
@@ -409,13 +403,6 @@ const VecoderEditorTypeContainer = ({
         setOnRightClickItem={setOnRightClickItem}
         rightClickCommand={rightClickCommand}
         setRightClickCommand={setRightClickCommand}
-        //Drag and Drop
-        draggedItem={draggedItem}
-        setDraggedItem={setDraggedItem}
-        draggedOverItem={draggedOverItem}
-        setDraggedOverItem={setDraggedOverItem}
-        dragCommand={dragCommand}
-        setDragCommand={setDragCommand}
         //Maximize and Minimize Container
         onMaximizeOnClick={onMaximizeOnClick}
         onMinimizeOnClick={onMinimizeOnClick}
@@ -1340,148 +1327,133 @@ class Car {
         }}
       >
         {/*Stack Structure Containers-----------------------------------------------------------------*/}
-        <stackStructureResizerContexts.Provider
+        <globalDragAndDropContexts.Provider
           value={{
-            onDropIndex,
-            setOnDropIndex,
-            onDragIndex,
-            setOnDragIndex,
-            onStackItemDragStart,
-            onStackItemDragEnd,
-            resizerOnMouseDown,
-            setResizerOnMouseDown,
+            draggedItem,
+            setDraggedItem,
+            draggedOverItem,
+            setDraggedOverItem,
+            dragCommand,
+            setDragCommand,
           }}
         >
-          {stacks.map((item, index) => {
-            switch (item?.type) {
-              case "TESTING_CONTAINER":
-                return (
-                  <TestingLabelContainer
-                    key={"TEST" + index}
-                    index={index}
-                    //Stack Data
-                    item={item}
-                    stackRefs={stackRefs}
-                    //Stack Structure Container Drag and Drop
-                    onStackItemDragStart={onStackItemDragStart}
-                    onStackItemDragEnd={onStackItemDragEnd}
-                    resizerOnMouseDown={resizerOnMouseDown}
-                    onDropIndex={onDropIndex}
-                  />
-                );
-              case "EXPLORER":
-                return (
-                  <ExplorerTypeContainer
-                    key={"EXPLORER" + item.explorer_container_ref_index}
-                    index={index}
-                    //Stack Data
-                    item={item}
-                    stackRefs={stackRefs}
-                    stacks={stacks}
-                    setStacks={setStacks}
-                    //Explorer Data
-                    explorer_files={explorer_files}
-                    setExplorer_files={setExplorer_files}
-                    //Stack Structure Container Drag and Drop
-                    onDropIndex={onDropIndex}
-                    onDragIndex={onDragIndex}
-                    onStackItemDragStart={onStackItemDragStart}
-                    onStackItemDragEnd={onStackItemDragEnd}
-                    resizerOnMouseDown={resizerOnMouseDown}
-                    //Context Menu Data
-                    onRightClickItem={onRightClickItem}
-                    setOnRightClickItem={setOnRightClickItem}
-                    rightClickCommand={rightClickCommand}
-                    setRightClickCommand={setRightClickCommand}
-                    //Expand and Narrow Container
-                    expandContainer={expandContainer}
-                    narrowContainer={narrowContainer}
-                  />
-                );
-              case "CODE_EDITOR":
-                return (
-                  <monacoEditorContexts.Provider
-                    key={"CODE_EDITOR" + item.code_editor_container_ref_index}
-                    value={{
-                      code_editor_files,
-                      setCode_editor_files,
-                      setCode_editor_file_on_index,
-                    }}
-                  >
-                    <VecoderEditorTypeContainer
+          <stackStructureResizerContexts.Provider
+            value={{
+              onDropIndex,
+              setOnDropIndex,
+              onDragIndex,
+              setOnDragIndex,
+              onStackItemDragStart,
+              onStackItemDragEnd,
+              resizerOnMouseDown,
+              setResizerOnMouseDown,
+            }}
+          >
+            {stacks.map((item, index) => {
+              switch (item?.type) {
+                case "TESTING_CONTAINER":
+                  return (
+                    <TestingLabelContainer
+                      key={"TEST" + index}
+                      index={index}
+                      //Stack Data
+                      item={item}
+                      stackRefs={stackRefs}
+                      //Stack Structure Container Drag and Drop
+                      onStackItemDragStart={onStackItemDragStart}
+                      onStackItemDragEnd={onStackItemDragEnd}
+                      resizerOnMouseDown={resizerOnMouseDown}
+                      onDropIndex={onDropIndex}
+                    />
+                  );
+                case "EXPLORER":
+                  return (
+                    <ExplorerTypeContainer
+                      key={"EXPLORER" + item.explorer_container_ref_index}
                       index={index}
                       //Stack Data
                       item={item}
                       stackRefs={stackRefs}
                       stacks={stacks}
                       setStacks={setStacks}
-                      //Vecoder Editor Data
-                      code_editor_files={code_editor_files}
-                      setCode_editor_files={setCode_editor_files}
-                      setCode_editor_file_on_index={
-                        setCode_editor_file_on_index
-                      }
-                      //Stack Structure Container Drag and Drop
-                      onDropIndex={onDropIndex}
-                      onDragIndex={onDragIndex}
-                      onStackItemDragStart={onStackItemDragStart}
-                      onStackItemDragEnd={onStackItemDragEnd}
-                      resizerOnMouseDown={resizerOnMouseDown}
+                      //Explorer Data
+                      explorer_files={explorer_files}
+                      setExplorer_files={setExplorer_files}
                       //Context Menu Data
                       onRightClickItem={onRightClickItem}
                       setOnRightClickItem={setOnRightClickItem}
                       rightClickCommand={rightClickCommand}
                       setRightClickCommand={setRightClickCommand}
-                      //Code Editor Drag and Drop
-                      draggedItem={draggedItem}
-                      setDraggedItem={setDraggedItem}
-                      draggedOverItem={draggedOverItem}
-                      setDraggedOverItem={setDraggedOverItem}
-                      dragCommand={dragCommand}
-                      setDragCommand={setDragCommand}
                       //Expand and Narrow Container
                       expandContainer={expandContainer}
                       narrowContainer={narrowContainer}
                     />
-                  </monacoEditorContexts.Provider>
-                );
-              case "RESIZER":
-                return (
-                  <ResizerTypeContainer
-                    key={"RESZIER" + index}
-                    index={index}
-                    //Stack Data
-                    item={item}
-                    stackRefs={stackRefs}
-                    stacks={stacks}
-                    setStacks={setStacks}
-                    //Reszier Drag and Drop
-                    onDragIndex={onDragIndex}
-                    setOnDropIndex={setOnDropIndex}
-                    resizerOnMouseDown={resizerOnMouseDown}
-                    setResizerOnMouseDown={setResizerOnMouseDown}
-                    //Resizer Double Click Functions
-                    maximizeContainer={maximizeContainer}
-                    minimizeContainer={minimizeContainer}
-                  />
-                );
-              case "END":
-                return (
-                  <EndingContainer
-                    key={"END" + index}
-                    index={index}
-                    //Stack Data
-                    item={item}
-                    stackRefs={stackRefs}
-                    //Reszier Drag and Drop
-                    onDropIndex={onDropIndex}
-                  />
-                );
-              default:
-                break;
-            }
-          })}
-        </stackStructureResizerContexts.Provider>
+                  );
+                case "CODE_EDITOR":
+                  return (
+                    <monacoEditorContexts.Provider
+                      key={"CODE_EDITOR" + item.code_editor_container_ref_index}
+                      value={{
+                        code_editor_files,
+                        setCode_editor_files,
+                        setCode_editor_file_on_index,
+                      }}
+                    >
+                      <VecoderEditorTypeContainer
+                        index={index}
+                        //Stack Data
+                        item={item}
+                        stackRefs={stackRefs}
+                        stacks={stacks}
+                        setStacks={setStacks}
+                        //Vecoder Editor Data
+                        code_editor_files={code_editor_files}
+                        setCode_editor_files={setCode_editor_files}
+                        setCode_editor_file_on_index={
+                          setCode_editor_file_on_index
+                        }
+                        //Context Menu Data
+                        onRightClickItem={onRightClickItem}
+                        setOnRightClickItem={setOnRightClickItem}
+                        rightClickCommand={rightClickCommand}
+                        setRightClickCommand={setRightClickCommand}
+                        //Expand and Narrow Container
+                        expandContainer={expandContainer}
+                        narrowContainer={narrowContainer}
+                      />
+                    </monacoEditorContexts.Provider>
+                  );
+                case "RESIZER":
+                  return (
+                    <ResizerTypeContainer
+                      key={"RESZIER" + index}
+                      index={index}
+                      //Stack Data
+                      item={item}
+                      stackRefs={stackRefs}
+                      stacks={stacks}
+                      setStacks={setStacks}
+                      //Resizer Double Click Functions
+                      maximizeContainer={maximizeContainer}
+                      minimizeContainer={minimizeContainer}
+                    />
+                  );
+                case "END":
+                  return (
+                    <EndingContainer
+                      key={"END" + index}
+                      index={index}
+                      //Stack Data
+                      item={item}
+                      stackRefs={stackRefs}
+                    />
+                  );
+                default:
+                  break;
+              }
+            })}
+          </stackStructureResizerContexts.Provider>
+        </globalDragAndDropContexts.Provider>
         {/*Stack Structure Containers-----------------------------------------------------------------*/}
         {/*Right Click Menu===============================================================*/}
         {isRightClicked ? <ContextMenu /> : <div></div>}
