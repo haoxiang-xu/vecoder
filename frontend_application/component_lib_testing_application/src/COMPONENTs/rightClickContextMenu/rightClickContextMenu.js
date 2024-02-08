@@ -5,42 +5,12 @@ import {
   rightClickContextMenuCommandContexts,
   rightClickContextMenuInsideContexts,
 } from "../../CONTEXTs/rightClickContextMenuContexts";
-
-const CONTEXTMENU_WIDTH = 238;
-const CONTEXTITEM_BORDER = 10;
-const CONTEXTITEM_HEIGHT = 35;
-const COMPONENT_ITEM_FUNCTION_CONFIG = {
-  vecoder_editor: [
-    "continue",
-    "fix",
-    "customizeAPI",
-    "hr",
-    "updateAST",
-    "viewAST",
-    "hr",
-    "copy",
-    "paste_or_unpaste",
-  ],
-  vecoder_explorer_root_folder: [
-    "newFile",
-    "newFolder",
-    "insertFile",
-    "hr",
-    "paste_or_unpaste",
-  ],
-  vecoder_explorer_folder: [
-    "newFile",
-    "newFolder",
-    "insertFile",
-    "hr",
-    "copy",
-    "paste_or_unpaste",
-    "hr",
-    "rename",
-    "delete",
-  ],
-  vecoder_explorer_file: ["copy", "hr", "rename", "delete"],
-};
+import {
+  CONTEXTMENU_WIDTH,
+  CONTEXTITEM_BORDER,
+  CONTEXTITEM_HEIGHT,
+  COMPONENT_ITEM_FUNCTION_CONFIG,
+} from "../../CONSTs/contextMenuConfig";
 
 const RightClickContextMenu = ({}) => {
   const {

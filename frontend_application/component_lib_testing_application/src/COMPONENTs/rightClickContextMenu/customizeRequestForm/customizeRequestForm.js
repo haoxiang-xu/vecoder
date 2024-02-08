@@ -5,6 +5,7 @@ import {
   rightClickContextMenuInsideContexts,
 } from "../../../CONTEXTs/rightClickContextMenuContexts";
 import "./customizeRequestForm.css";
+import { CUSTOMIZE_REQUEST_FORM_HEIGHT } from "../../../CONSTs/contextMenuConfig";
 
 /* Load ICON manager -------------------------------- */
 let SYSTEM_ICON_MANAGER = {
@@ -19,8 +20,6 @@ try {
   console.log(e);
 }
 /* Load ICON manager -------------------------------- */
-
-const FORM_HEIGHT = 300;
 
 const Form = () => {
   const { progressCustomizeRequest } = useContext(
@@ -60,7 +59,7 @@ const Form = () => {
   return (
     <div
       className="customizeRequestForm_component_container1120"
-      style={{ height: FORM_HEIGHT }}
+      style={{ height: CUSTOMIZE_REQUEST_FORM_HEIGHT }}
     >
       <link
         href="https://fonts.googleapis.com/css?family=Roboto"
