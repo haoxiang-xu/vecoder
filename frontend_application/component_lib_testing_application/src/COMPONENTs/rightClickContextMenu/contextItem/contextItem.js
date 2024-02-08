@@ -1,8 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { ICON_MANAGER } from "../../../ICONs/icon_manager";
 import { SubContextMenu } from "../rightClickContextMenu";
 import Form from "../customizeRequestForm/customizeRequestForm";
 import "./contextItem.css";
+import {
+  rightClickContextMenuCommandContexts,
+  rightClickContextMenuInsideContexts,
+} from "../../../CONTEXTs/rightClickContextMenuContexts";
 
 /* Load ICON manager -------------------------------- */
 let SYSTEM_ICON_MANAGER = {
@@ -152,26 +156,16 @@ const CONTEXT_MENU_FUNCTION_MANAGER = {
 };
 /* Context Menu Item List ============================================================================================================= */
 
-const CustomizedRequestFormContextItem = ({
-  progressCustomizeRequest,
-  onRightClickItem,
-}) => {
-  return (
-    <Form
-      progressCustomizeRequest={progressCustomizeRequest}
-      onRightClickItem={onRightClickItem}
-    ></Form>
-  );
+const CustomizedRequestFormContextItem = () => {
+  return <Form></Form>;
 };
-const DefaultContextItem = ({
-  item_function,
-  onRightClickItem,
-  progressRightClickCommand,
-  //Context Menu onHover
-  onHoverContextItemIndex,
-  setOnHoverContextItemIndex,
-  parentContextMenuWidth,
-}) => {
+const DefaultContextItem = ({ item_function, parentContextMenuWidth }) => {
+  const { onRightClickItem } = useContext(rightClickContextMenuCommandContexts);
+  const {
+    progressRightClickCommand,
+    onHoverContextItemIndex,
+    setOnHoverContextItemIndex,
+  } = useContext(rightClickContextMenuInsideContexts);
   const menuRef = useRef(null);
   const [contextItemContainerClassName, setContextItemContainerClassName] =
     useState(
@@ -306,21 +300,8 @@ const DefaultContextItem = ({
     </div>
   );
 };
-const ContextItem = ({
-  item_function,
-  onRightClickItem,
-  progressRightClickCommand,
-  onHoverContextItemIndex,
-  setOnHoverContextItemIndex,
-  parentContextMenuWidth,
-}) => {
-  const renderContextItem = (
-    item_function,
-    onRightClickItem,
-    progressRightClickCommand,
-    onHoverContextItemIndex,
-    setOnHoverContextItemIndex
-  ) => {
+const ContextItem = ({ item_function, parentContextMenuWidth }) => {
+  const renderContextItem = (item_function) => {
     switch (item_function) {
       case "hr":
         return (
@@ -330,19 +311,12 @@ const ContextItem = ({
         );
       case "customizeRequest":
         return (
-          <CustomizedRequestFormContextItem
-            progressCustomizeRequest={progressRightClickCommand}
-            onRightClickItem={onRightClickItem}
-          ></CustomizedRequestFormContextItem>
+          <CustomizedRequestFormContextItem></CustomizedRequestFormContextItem>
         );
       default:
         return (
           <DefaultContextItem
             item_function={item_function}
-            onRightClickItem={onRightClickItem}
-            progressRightClickCommand={progressRightClickCommand}
-            onHoverContextItemIndex={onHoverContextItemIndex}
-            setOnHoverContextItemIndex={setOnHoverContextItemIndex}
             parentContextMenuWidth={parentContextMenuWidth}
           ></DefaultContextItem>
         );
@@ -358,13 +332,7 @@ const ContextItem = ({
         href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;700&display=swap"
         rel="stylesheet"
       ></link>
-      {renderContextItem(
-        item_function,
-        onRightClickItem,
-        progressRightClickCommand,
-        onHoverContextItemIndex,
-        setOnHoverContextItemIndex
-      )}
+      {renderContextItem(item_function)}
     </div>
   );
 };

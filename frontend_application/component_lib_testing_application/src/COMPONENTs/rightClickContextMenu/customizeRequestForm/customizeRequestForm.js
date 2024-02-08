@@ -1,5 +1,9 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import { ICON_MANAGER } from "../../../ICONs/icon_manager";
+import {
+  rightClickContextMenuCommandContexts,
+  rightClickContextMenuInsideContexts,
+} from "../../../CONTEXTs/rightClickContextMenuContexts";
 import "./customizeRequestForm.css";
 
 /* Load ICON manager -------------------------------- */
@@ -18,7 +22,11 @@ try {
 
 const FORM_HEIGHT = 300;
 
-const Form = ({ progressCustomizeRequest, onRightClickItem }) => {
+const Form = () => {
+  const { progressCustomizeRequest } = useContext(
+    rightClickContextMenuInsideContexts
+  );
+  const { onRightClickItem } = useContext(rightClickContextMenuCommandContexts);
   const [requestURL, setRequestURL] = useState(
     onRightClickItem?.content?.customizeRequest?.requestURL
       ? onRightClickItem?.content?.customizeRequest?.requestURL
