@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import MonacoEditor from "@monaco-editor/react";
 import { MonacoDiffEditor, monaco } from "react-monaco-editor";
+import { vecoderEditorContexts } from "../../CONTEXTs/vecoderEditorContexts";
 import { monacoEditorContexts } from "../../CONTEXTs/monacoEditorContexts";
 
 const Editor = ({
@@ -15,13 +16,28 @@ const Editor = ({
   setOnSelectedContent,
   onContextMenu,
   display,
-
   //Diff Editor optional parameters
   editor_diffContent,
   editor_setDiffContent,
 }) => {
+  const {
+    code_editor_files,
+    setCode_editor_files,
+    setCode_editor_file_on_index,
+  } = useContext(monacoEditorContexts);
+  const {
+    monacoEditorsOptionsAndContentData,
+    setMonacoEditorsOptionsAndContentData,
+    accessMonacoEditorsDataByPath,
+    updateMonacoEditorsDataByPath,
+    appendMonacoEditorsDataByPath,
+    removeMonacoEditorsDataByPath,
+    updateMonacoEditorViewStateByPath,
+    updateMonacoEditorModelByPath,
+  } = useContext(vecoderEditorContexts);
+
   /*MONACO EDITOR OPTIONS-----------------------------------------------------------------------*/
-  const monacoRef = useRef(null);
+  const monacoRef = useRef();
   const baseEditorOptions = React.useMemo(
     () => ({
       contextmenu: false,
@@ -29,7 +45,7 @@ const Editor = ({
       minimap: { enabled: false },
       roundedSelection: true,
       fontSize: 14,
-      lineNumbers: "off",
+      lineNumbers: "on",
       scrollbar: {
         vertical: "visible",
         horizontal: "visible",
@@ -44,41 +60,35 @@ const Editor = ({
     }),
     []
   );
-  const diffEditorOptions = React.useMemo(
-    () => ({
-      ...baseEditorOptions,
-      readOnly: true,
-      enableSplitViewResizing: false,
-      renderSideBySide: true,
-    }),
-    [baseEditorOptions]
-  );
-  const editorProps = {
-    language: editor_language,
-    theme: "vs-dark",
-    options: editor_diffContent ? diffEditorOptions : baseEditorOptions,
-    onChange: editor_setContent,
-    onMount: onEditorMount,
-  };
-  const {
-    code_editor_files,
-    setCode_editor_files,
-    setCode_editor_file_on_index,
-  } = useContext(monacoEditorContexts);
   /*MONACO EDITOR OPTIONS-----------------------------------------------------------------------*/
 
-  /*MONACO EDITOR FUNCTIONs-----------------------------------------------------------------------*/
+  /*MONACO EDITOR FUNCTIONs======================================================================*/
   ////On editor mount
-  function onEditorMount(editor, monaco) {
-    editor.onDidChangeModelContent(() => {
-      console.log(code_editor_files);
-    });
+  const onEditorMount = (editor, monaco) => {
     monacoRef.current = editor;
+
     defineTheme(monaco);
+    applyEditorOptionsInMemory(
+      editor,
+      monaco,
+      monacoRef,
+      editor_filePath,
+      monacoEditorsOptionsAndContentData,
+      accessMonacoEditorsDataByPath
+    );
     registerCompletionProvider(monaco);
     registerInlineCompletionProvider(monaco);
     registerEventListeners(monaco, editor);
-  }
+    registerStateChangeListeners(
+      monaco,
+      editor,
+      editor_filePath,
+      monacoEditorsOptionsAndContentData,
+      updateMonacoEditorViewStateByPath,
+      updateMonacoEditorModelByPath
+    );
+    console.log(editor.getModel()._isDisposed);
+  };
   ////Get monaco editor on selected content
   const getEditorOnSelected = (monacoRef) => {
     const select_range = monacoRef.current.getSelection();
@@ -115,7 +125,26 @@ const Editor = ({
       setOnAppendContent(null);
     }
   }, [onAppendContent, monacoRef]);
-  /*MONACO EDITOR FUNCTIONs-----------------------------------------------------------------------*/
+  /*MONACO EDITOR FUNCTIONs======================================================================*/
+
+  /*MONACO EDITOR OPTIONS-----------------------------------------------------------------------*/
+  const diffEditorOptions = React.useMemo(
+    () => ({
+      ...baseEditorOptions,
+      readOnly: true,
+      enableSplitViewResizing: false,
+      renderSideBySide: true,
+    }),
+    [baseEditorOptions]
+  );
+  const editorProps = {
+    language: editor_language,
+    theme: "vs-dark",
+    options: editor_diffContent ? diffEditorOptions : baseEditorOptions,
+    onChange: editor_setContent,
+    onMount: onEditorMount,
+  };
+  /*MONACO EDITOR OPTIONS-----------------------------------------------------------------------*/
 
   return display ? (
     <div
@@ -245,11 +274,59 @@ const registerEventListeners = (monaco, editor) => {
   editor.onMouseDown((e) => {
     const { position } = e.target;
     if (position) {
-      console.log(
-        `Clicked at line ${position.lineNumber}, column ${position.column}`
-      );
+      // console.log(
+      //   `Clicked at line ${position.lineNumber}, column ${position.column}`
+      // );
     }
   });
+};
+////Register state change listeners for monaco editor
+const registerStateChangeListeners = (
+  monaco,
+  editor,
+  editor_filePath,
+  monacoEditorsOptionsAndContentData,
+  updateMonacoEditorViewStateByPath,
+  updateMonacoEditorModelByPath
+) => {
+  editor.onDidScrollChange((e) => {
+    const viewState = editor.saveViewState();
+    updateMonacoEditorViewStateByPath(editor_filePath, viewState);
+    const Model = editor.getModel();
+    updateMonacoEditorModelByPath(editor_filePath, Model);
+  });
+  editor.onDidChangeModelContent((e) => {
+    const viewState = editor.saveViewState();
+    updateMonacoEditorViewStateByPath(editor_filePath, viewState);
+    const Model = editor.getModel();
+    updateMonacoEditorModelByPath(editor_filePath, Model);
+  });
+};
+////Apply editor options for monaco editor
+const applyEditorOptionsInMemory = (
+  editor,
+  monaco,
+  monacoRef,
+  editor_filePath,
+  monacoEditorsOptionsAndContentData,
+  accessMonacoEditorsDataByPath
+) => {
+  if (monacoEditorsOptionsAndContentData[editor_filePath].viewState) {
+    editor.restoreViewState(
+      monacoEditorsOptionsAndContentData[editor_filePath].viewState
+    );
+  }
+  if (monacoEditorsOptionsAndContentData[editor_filePath].model) {
+    const newModel = monacoEditorsOptionsAndContentData[editor_filePath].model;
+    if (newModel && !newModel.isDisposed) {
+      editor.setModel(newModel);
+    } else {
+      console.error(
+        "Attempted to set a disposed model on the editor.",
+        editor_filePath
+      );
+    }
+  }
 };
 ////Append Content Widget for monaco editor
 const appendContentWidget = (monaco, editor) => {
