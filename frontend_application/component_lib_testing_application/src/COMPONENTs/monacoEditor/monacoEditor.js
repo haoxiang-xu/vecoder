@@ -79,7 +79,6 @@ const Editor = ({
     );
     registerCompletionProvider(monaco);
     registerInlineCompletionProvider(monaco);
-    registerEventListeners(monaco, editor);
     registerStateChangeListeners(
       monaco,
       editor,
@@ -88,7 +87,7 @@ const Editor = ({
       updateMonacoEditorViewStateByPath,
       updateMonacoEditorModelByPath
     );
-    console.log(editor.getModel()._isDisposed);
+    //console.log(editor.getModel()._isDisposed);
   };
   ////Get monaco editor on selected content
   const getEditorOnSelected = (monacoRef) => {
@@ -259,17 +258,6 @@ const getSuggestionsBasedOnPrefix = (model, position) => {
 
   return [];
 };
-////Register event listeners for monaco editor
-const registerEventListeners = (monaco, editor) => {
-  editor.onMouseDown((e) => {
-    const { position } = e.target;
-    if (position) {
-      // console.log(
-      //   `Clicked at line ${position.lineNumber}, column ${position.column}`
-      // );
-    }
-  });
-};
 ////Register state change listeners for monaco editor
 const registerStateChangeListeners = (
   monaco,
@@ -290,6 +278,14 @@ const registerStateChangeListeners = (
     updateMonacoEditorViewStateByPath(editor_filePath, viewState);
     const Model = editor.getModel();
     updateMonacoEditorModelByPath(editor_filePath, Model);
+  });
+  editor.onMouseDown((e) => {
+    const { position } = e.target;
+    if (position) {
+      // console.log(
+      //   `Clicked at line ${position.lineNumber}, column ${position.column}`
+      // );
+    }
   });
 };
 ////Apply editor options for monaco editor
