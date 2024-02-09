@@ -301,6 +301,8 @@ const applyEditorOptionsInMemory = (
     editor.restoreViewState(
       monacoEditorsOptionsAndContentData[editor_filePath].viewState
     );
+  } else {
+    editor.getAction("editor.foldAll").run();
   }
   if (monacoEditorsOptionsAndContentData[editor_filePath].model) {
     const newModel = monacoEditorsOptionsAndContentData[editor_filePath].model;
