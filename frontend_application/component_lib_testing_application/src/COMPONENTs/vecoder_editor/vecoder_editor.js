@@ -525,33 +525,32 @@ const MonacoEditorGroup = ({
       });
     }
   };
-  return mode === "HORIZONTAL"
-    ? files.map((file, index) => {
-        return (
-          <Editor
-            key={files[index].filePath}
-            //Editor required parameters
-            editor_filePath={files[index].filePath}
-            editor_content={files[index].fileContent}
-            editor_setContent={setFileContent(index)}
-            editor_language={files[index].fileLanguage}
-            //Editor function parameters
-            onAppendContent={onAppendContent}
-            setOnAppendContent={setOnAppendContent}
-            setOnSelectedContent={setOnSelectedContent}
-            onContextMenu={(e) => {
-              handleRightClick(e);
-            }}
-            display={
-              file.filePath === files[onSelectedIndex]?.filePath ? true : false
-            }
 
-            //editor_diffContent={diffContent}
-            //editor_setDiffContent={setDiffContent}
-          ></Editor>
-        );
-      })
-    : null;
+  return files.map((file, index) => {
+    return (
+      <Editor
+        key={files[index].filePath}
+        //Editor required parameters
+        editor_filePath={files[index].filePath}
+        editor_content={files[index].fileContent}
+        editor_setContent={setFileContent(index)}
+        editor_language={files[index].fileLanguage}
+        //Editor function parameters
+        onAppendContent={onAppendContent}
+        setOnAppendContent={setOnAppendContent}
+        setOnSelectedContent={setOnSelectedContent}
+        onContextMenu={(e) => {
+          handleRightClick(e);
+        }}
+        mode={mode}
+        display={
+          file.filePath === files[onSelectedIndex]?.filePath ? true : false
+        }
+        //editor_diffContent={diffContent}
+        //editor_setDiffContent={setDiffContent}
+      ></Editor>
+    );
+  });
 };
 const VecoderEditor = ({
   code_editor_width,

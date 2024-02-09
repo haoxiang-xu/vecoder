@@ -15,6 +15,7 @@ const Editor = ({
   setOnAppendContent,
   setOnSelectedContent,
   onContextMenu,
+  mode,
   display,
   //Diff Editor optional parameters
   editor_diffContent,
@@ -146,29 +147,18 @@ const Editor = ({
   };
   /*MONACO EDITOR OPTIONS-----------------------------------------------------------------------*/
 
-  return display ? (
+  return (
     <div
       className="MONACO_EDITOR_CONTAINER"
-      style={{ height: "100%", width: "100%" }}
+      style={{
+        height: "100%",
+        width: "100%",
+        display: display && mode === "HORIZONTAL" ? "block" : "none",
+      }}
       onContextMenu={(e) => {
         getEditorOnSelected(monacoRef);
         onContextMenu(e);
       }}
-    >
-      {editor_diffContent ? (
-        <MonacoDiffEditor
-          {...editorProps}
-          original={editor_content}
-          value={editor_diffContent}
-        />
-      ) : (
-        <MonacoEditor {...editorProps} value={editor_content} />
-      )}
-    </div>
-  ) : (
-    <div
-      className="MONACO_EDITOR_CONTAINER"
-      style={{ height: "100%", width: "100%", display: "none" }}
     >
       {editor_diffContent ? (
         <MonacoDiffEditor
