@@ -14,8 +14,8 @@ const COMPONENT_ITEM_FUNCTION_CONFIG = {
   vecoder_editor: [
     "continue",
     "fix",
-    "customizeAPI",
     "hr",
+    "customizeAPI",
     "AST",
     "hr",
     "fold",

@@ -285,6 +285,8 @@ export const ICON_MANAGER = () => {
 
     const FOLD16 = require("./SYSTEM_ICONs/16X16/fold.png");
     const UNFOLD16 = require("./SYSTEM_ICONs/16X16/unfold.png");
+
+    const FOLDER_TREE16 = require("./SYSTEM_ICONs/16X16/folder_tree.png");
     /* 16X16 ICONs ---------------------------------------------------------------------- */
 
     /* 512X512 ICONs ---------------------------------------------------------------------- */
@@ -315,6 +317,8 @@ export const ICON_MANAGER = () => {
 
     const FOLD512 = require("./SYSTEM_ICONs/512X512/fold.png");
     const UNFOLD512 = require("./SYSTEM_ICONs/512X512/unfold.png");
+
+    const FOLDER_TREE512 = require("./SYSTEM_ICONs/512X512/folder_tree.png");
     /* 512X512 ICONs ---------------------------------------------------------------------- */
 
     SYSTEM_ICON_MANAGER = {
@@ -446,6 +450,11 @@ export const ICON_MANAGER = () => {
       unfold: {
         ICON16: UNFOLD16,
         ICON512: UNFOLD512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      folderTree: {
+        ICON16: FOLDER_TREE16,
+        ICON512: FOLDER_TREE512,
         LABEL_COLOR: "#CCCCCC",
       },
     };

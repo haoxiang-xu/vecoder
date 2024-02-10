@@ -3,6 +3,7 @@ import axios from "axios";
 import Editor from "../monacoEditor/monacoEditor";
 import "./vecoder_editor.css";
 import { ICON_MANAGER } from "../../ICONs/icon_manager";
+import { rightClickContextMenuCommandContexts } from "../../CONTEXTs/rightClickContextMenuContexts";
 import { globalDragAndDropContexts } from "../../CONTEXTs/globalDragAndDropContexts";
 
 /* Load ICON manager --------------------------------------------------------------------------------- */
@@ -557,11 +558,6 @@ const VecoderEditor = ({
   code_editor_container_ref_index,
   imported_files,
   setImportedFiles,
-  //Context Menu
-  onRightClickItem,
-  setOnRightClickItem,
-  rightClickCommand,
-  setRightClickCommand,
   //Maximize and Minimize Container
   onMaximizeOnClick,
   onMinimizeOnClick,
@@ -661,6 +657,12 @@ const VecoderEditor = ({
   /* API =================================================================================== */
 
   /* Context Menu ----------------------------------------------------------------------- */
+  const {
+    onRightClickItem,
+    setOnRightClickItem,
+    rightClickCommand,
+    setRightClickCommand,
+  } = useContext(rightClickContextMenuCommandContexts);
   const [customizeRequest, setCustomizeRequest] = useState(null);
   const handleLeftClick = (event) => {
     setOnRightClickItem(null);
