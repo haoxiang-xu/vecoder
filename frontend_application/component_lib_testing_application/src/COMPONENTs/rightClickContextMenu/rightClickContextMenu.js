@@ -9,6 +9,8 @@ import {
   CONTEXTMENU_WIDTH,
   CONTEXTITEM_BORDER,
   CONTEXTITEM_HEIGHT,
+  CUSTOMIZE_REQUEST_FORM_WIDTH,
+  CUSTOMIZE_REQUEST_FORM_HEIGHT,
   COMPONENT_ITEM_FUNCTION_CONFIG,
 } from "../../CONSTs/contextMenuConfig";
 
@@ -122,7 +124,7 @@ const RightClickContextMenu = ({}) => {
   };
 
   /* Define Menu Items -------------------------------------------------------------------------------------- */
-  const [onHoverContextItemIndex, setOnHoverContextItemIndex] = useState(null);
+  const [onHoverContextItems, setOnHoverContextItems] = useState([]);
   contextItems = configContextMenuItems(onRightClickItem);
   /* Define Menu Items -------------------------------------------------------------------------------------- */
 
@@ -177,7 +179,7 @@ const RightClickContextMenu = ({}) => {
     }
   };
   useEffect(() => {
-    setOnHoverContextItemIndex(null);
+    setOnHoverContextItems(null);
     setMenuPosition();
   }, [rightClickX, rightClickY]);
   /* Menu Styling and Position -------------------------------------------------------------------------- */
@@ -186,8 +188,8 @@ const RightClickContextMenu = ({}) => {
     <rightClickContextMenuInsideContexts.Provider
       value={{
         progressRightClickCommand,
-        onHoverContextItemIndex,
-        setOnHoverContextItemIndex,
+        onHoverContextItems,
+        setOnHoverContextItems,
       }}
     >
       {onRightClickItem !== null ? (
@@ -220,14 +222,21 @@ const RightClickSubContextMenu = ({
   const [position, setPosition] = useState({ top: y, left: x });
   const setMenuPosition = () => {
     if (menuRef.current) {
-      const CustomizeRequestFormWidth = 300;
+      let subContextMenuHeight = 0;
+
+      if (contextItemFunctions.includes("customizeAPI")) {
+        subContextMenuHeight = CUSTOMIZE_REQUEST_FORM_HEIGHT;
+      } else {
+        subContextMenuHeight =
+          CONTEXTITEM_HEIGHT * contextItemFunctions.length + CONTEXTITEM_BORDER;
+      }
 
       let newTop = y;
       let newLeft = x;
 
-      if (y + CustomizeRequestFormWidth > window.innerHeight) {
+      if (y + subContextMenuHeight > window.innerHeight) {
         newTop -=
-          CustomizeRequestFormWidth + CONTEXTITEM_BORDER - CONTEXTITEM_HEIGHT;
+          subContextMenuHeight + CONTEXTITEM_BORDER - CONTEXTITEM_HEIGHT;
       }
       if (x + subContextMenuWidth > window.innerWidth) {
         newLeft = newLeft - (subContextMenuWidth + parentContextMenuWidth);

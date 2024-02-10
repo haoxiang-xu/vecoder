@@ -3,7 +3,9 @@ const CONTEXTMENU_WIDTH = 238;
 const CONTEXTITEM_BORDER = 10; //Define the border height of each context item to calculate the context menu height
 const CONTEXTITEM_HEIGHT = 35;
 
-const CUSTOMIZE_REQUEST_FORM_WIDTH = 300;
+const SUBCONTEXTMENU_WIDTH = 238;
+
+const CUSTOMIZE_REQUEST_FORM_WIDTH = 320;
 const CUSTOMIZE_REQUEST_FORM_HEIGHT = 300;
 /* Context Menu Dimensions --------------------------------------------- */
 
@@ -14,9 +16,10 @@ const COMPONENT_ITEM_FUNCTION_CONFIG = {
     "fix",
     "customizeAPI",
     "hr",
-    "updateAST",
-    "viewAST",
+    "AST",
     "hr",
+    "fold",
+    "unfold",
     "copy",
     "paste_or_unpaste",
   ],
@@ -46,6 +49,7 @@ export {
   CONTEXTMENU_WIDTH,
   CONTEXTITEM_BORDER,
   CONTEXTITEM_HEIGHT,
+  SUBCONTEXTMENU_WIDTH,
   CUSTOMIZE_REQUEST_FORM_WIDTH,
   CUSTOMIZE_REQUEST_FORM_HEIGHT,
   COMPONENT_ITEM_FUNCTION_CONFIG,

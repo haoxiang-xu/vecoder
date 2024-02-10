@@ -7,6 +7,15 @@ import {
   rightClickContextMenuCommandContexts,
   rightClickContextMenuInsideContexts,
 } from "../../../CONTEXTs/rightClickContextMenuContexts";
+import {
+  CONTEXTMENU_WIDTH,
+  CONTEXTITEM_BORDER,
+  CONTEXTITEM_HEIGHT,
+  SUBCONTEXTMENU_WIDTH,
+  CUSTOMIZE_REQUEST_FORM_WIDTH,
+  CUSTOMIZE_REQUEST_FORM_HEIGHT,
+  COMPONENT_ITEM_FUNCTION_CONFIG,
+} from "../../../CONSTs/contextMenuConfig";
 
 /* Load ICON manager -------------------------------- */
 let SYSTEM_ICON_MANAGER = {
@@ -30,6 +39,7 @@ const CONTEXT_MENU_FUNCTION_MANAGER = {
     LABEL_COLOR: SYSTEM_ICON_MANAGER.newFile.LABEL_COLOR,
     BACKGROUND_ICON: SYSTEM_ICON_MANAGER.newFile.ICON16,
     MORE_OPTIONS: null,
+    LEVEL: 0,
     CLICKABLE: true,
   },
   newFolder: {
@@ -38,6 +48,7 @@ const CONTEXT_MENU_FUNCTION_MANAGER = {
     LABEL_COLOR: SYSTEM_ICON_MANAGER.newFolder.LABEL_COLOR,
     BACKGROUND_ICON: SYSTEM_ICON_MANAGER.newFolder.ICON16,
     MORE_OPTIONS: null,
+    LEVEL: 0,
     CLICKABLE: true,
   },
   insertFile: {
@@ -46,6 +57,7 @@ const CONTEXT_MENU_FUNCTION_MANAGER = {
     LABEL_COLOR: SYSTEM_ICON_MANAGER.insertFile.LABEL_COLOR,
     BACKGROUND_ICON: SYSTEM_ICON_MANAGER.insertFile.ICON16,
     MORE_OPTIONS: null,
+    LEVEL: 0,
     CLICKABLE: true,
   },
   rename: {
@@ -54,6 +66,7 @@ const CONTEXT_MENU_FUNCTION_MANAGER = {
     LABEL_COLOR: SYSTEM_ICON_MANAGER.rename.LABEL_COLOR,
     BACKGROUND_ICON: SYSTEM_ICON_MANAGER.rename.ICON16,
     MORE_OPTIONS: null,
+    LEVEL: 0,
     CLICKABLE: true,
   },
   copy: {
@@ -62,6 +75,7 @@ const CONTEXT_MENU_FUNCTION_MANAGER = {
     LABEL_COLOR: SYSTEM_ICON_MANAGER.copy.LABEL_COLOR,
     BACKGROUND_ICON: SYSTEM_ICON_MANAGER.copy.ICON16,
     MORE_OPTIONS: null,
+    LEVEL: 0,
     CLICKABLE: true,
   },
   paste: {
@@ -70,6 +84,7 @@ const CONTEXT_MENU_FUNCTION_MANAGER = {
     LABEL_COLOR: SYSTEM_ICON_MANAGER.paste.LABEL_COLOR,
     BACKGROUND_ICON: SYSTEM_ICON_MANAGER.paste.ICON16,
     MORE_OPTIONS: null,
+    LEVEL: 0,
     CLICKABLE: true,
   },
   unpaste: {
@@ -78,6 +93,7 @@ const CONTEXT_MENU_FUNCTION_MANAGER = {
     LABEL_COLOR: SYSTEM_ICON_MANAGER.unpaste.LABEL_COLOR,
     BACKGROUND_ICON: SYSTEM_ICON_MANAGER.unpaste.ICON16,
     MORE_OPTIONS: null,
+    LEVEL: 0,
     CLICKABLE: false,
   },
   delete: {
@@ -86,6 +102,7 @@ const CONTEXT_MENU_FUNCTION_MANAGER = {
     LABEL_COLOR: SYSTEM_ICON_MANAGER.trash.LABEL_COLOR,
     BACKGROUND_ICON: SYSTEM_ICON_MANAGER.trash.ICON16,
     MORE_OPTIONS: null,
+    LEVEL: 0,
     CLICKABLE: true,
   },
   duplicate: {
@@ -94,6 +111,7 @@ const CONTEXT_MENU_FUNCTION_MANAGER = {
     LABEL_COLOR: SYSTEM_ICON_MANAGER.duplicate.LABEL_COLOR,
     BACKGROUND_ICON: SYSTEM_ICON_MANAGER.duplicate.ICON16,
     MORE_OPTIONS: null,
+    LEVEL: 0,
     CLICKABLE: true,
   },
   continue: {
@@ -102,6 +120,7 @@ const CONTEXT_MENU_FUNCTION_MANAGER = {
     LABEL_COLOR: SYSTEM_ICON_MANAGER.continue.LABEL_COLOR,
     BACKGROUND_ICON: SYSTEM_ICON_MANAGER.continue.ICON16,
     MORE_OPTIONS: null,
+    LEVEL: 0,
     CLICKABLE: true,
   },
   fix: {
@@ -110,14 +129,17 @@ const CONTEXT_MENU_FUNCTION_MANAGER = {
     LABEL_COLOR: SYSTEM_ICON_MANAGER.fix.LABEL_COLOR,
     BACKGROUND_ICON: SYSTEM_ICON_MANAGER.fix.ICON16,
     MORE_OPTIONS: null,
+    LEVEL: 0,
     CLICKABLE: true,
   },
-  updateAST: {
-    ICON: SYSTEM_ICON_MANAGER.update.ICON512,
-    LABEL: "update AST",
-    LABEL_COLOR: SYSTEM_ICON_MANAGER.update.LABEL_COLOR,
-    BACKGROUND_ICON: SYSTEM_ICON_MANAGER.update.ICON16,
-    MORE_OPTIONS: null,
+  AST: {
+    ICON: SYSTEM_ICON_MANAGER.ast.ICON512,
+    LABEL: "AST",
+    LABEL_COLOR: SYSTEM_ICON_MANAGER.ast.LABEL_COLOR,
+    BACKGROUND_ICON: SYSTEM_ICON_MANAGER.ast.ICON16,
+    MORE_OPTIONS: ["viewAST", "updateAST"],
+    SUB_MENU_WIDTH: SUBCONTEXTMENU_WIDTH,
+    LEVEL: 0,
     CLICKABLE: true,
   },
   viewAST: {
@@ -126,6 +148,16 @@ const CONTEXT_MENU_FUNCTION_MANAGER = {
     LABEL_COLOR: SYSTEM_ICON_MANAGER.ast.LABEL_COLOR,
     BACKGROUND_ICON: SYSTEM_ICON_MANAGER.ast.ICON16,
     MORE_OPTIONS: null,
+    LEVEL: 1,
+    CLICKABLE: true,
+  },
+  updateAST: {
+    ICON: SYSTEM_ICON_MANAGER.update.ICON512,
+    LABEL: "update AST",
+    LABEL_COLOR: SYSTEM_ICON_MANAGER.update.LABEL_COLOR,
+    BACKGROUND_ICON: SYSTEM_ICON_MANAGER.update.ICON16,
+    MORE_OPTIONS: null,
+    LEVEL: 1,
     CLICKABLE: true,
   },
   customizeAPI: {
@@ -134,7 +166,8 @@ const CONTEXT_MENU_FUNCTION_MANAGER = {
     LABEL_COLOR: SYSTEM_ICON_MANAGER.customize.LABEL_COLOR,
     BACKGROUND_ICON: SYSTEM_ICON_MANAGER.customize.ICON16,
     MORE_OPTIONS: ["customizeRequest"],
-    SUB_MENU_WIDTH: 320,
+    SUB_MENU_WIDTH: CUSTOMIZE_REQUEST_FORM_WIDTH,
+    LEVEL: 0,
     CLICKABLE: true,
   },
   sendRequest: {
@@ -143,6 +176,7 @@ const CONTEXT_MENU_FUNCTION_MANAGER = {
     LABEL_COLOR: SYSTEM_ICON_MANAGER.send.LABEL_COLOR,
     BACKGROUND_ICON: SYSTEM_ICON_MANAGER.send.ICON16,
     MORE_OPTIONS: null,
+    LEVEL: 1,
     CLICKABLE: true,
   },
   customizeRequest: {
@@ -151,6 +185,25 @@ const CONTEXT_MENU_FUNCTION_MANAGER = {
     LABEL_COLOR: SYSTEM_ICON_MANAGER.customize.LABEL_COLOR,
     BACKGROUND_ICON: SYSTEM_ICON_MANAGER.customize.ICON16,
     MORE_OPTIONS: null,
+    LEVEL: 1,
+    CLICKABLE: true,
+  },
+  fold: {
+    ICON: SYSTEM_ICON_MANAGER.fold.ICON512,
+    LABEL: "Fold All",
+    LABEL_COLOR: SYSTEM_ICON_MANAGER.fold.LABEL_COLOR,
+    BACKGROUND_ICON: SYSTEM_ICON_MANAGER.fold.ICON16,
+    MORE_OPTIONS: null,
+    LEVEL: 0,
+    CLICKABLE: true,
+  },
+  unfold: {
+    ICON: SYSTEM_ICON_MANAGER.unfold.ICON512,
+    LABEL: "Unfold All",
+    LABEL_COLOR: SYSTEM_ICON_MANAGER.unfold.LABEL_COLOR,
+    BACKGROUND_ICON: SYSTEM_ICON_MANAGER.unfold.ICON16,
+    MORE_OPTIONS: null,
+    LEVEL: 0,
     CLICKABLE: true,
   },
 };
@@ -163,8 +216,8 @@ const DefaultContextItem = ({ item_function, parentContextMenuWidth }) => {
   const { onRightClickItem } = useContext(rightClickContextMenuCommandContexts);
   const {
     progressRightClickCommand,
-    onHoverContextItemIndex,
-    setOnHoverContextItemIndex,
+    onHoverContextItems,
+    setOnHoverContextItems,
   } = useContext(rightClickContextMenuInsideContexts);
   const menuRef = useRef(null);
   const [contextItemContainerClassName, setContextItemContainerClassName] =
@@ -181,12 +234,32 @@ const DefaultContextItem = ({ item_function, parentContextMenuWidth }) => {
     }
   };
   const handleItemOnHover = () => {
-    setOnHoverContextItemIndex(item_function);
+    setOnHoverContextItems((prevItems) => {
+      if (!prevItems || prevItems.length === 0) {
+        return [item_function];
+      } else if (
+        CONTEXT_MENU_FUNCTION_MANAGER[prevItems[prevItems.length - 1]].LEVEL <
+        CONTEXT_MENU_FUNCTION_MANAGER[item_function].LEVEL
+      ) {
+        return [...prevItems, item_function];
+      } else if (
+        CONTEXT_MENU_FUNCTION_MANAGER[prevItems[prevItems.length - 1]].LEVEL ===
+        CONTEXT_MENU_FUNCTION_MANAGER[item_function].LEVEL
+      ) {
+        return [...prevItems.slice(0, prevItems.length - 1), item_function];
+      } else if (
+        CONTEXT_MENU_FUNCTION_MANAGER[prevItems[prevItems.length - 1]].LEVEL >
+        CONTEXT_MENU_FUNCTION_MANAGER[item_function].LEVEL
+      ) {
+        return [...prevItems.slice(0, item_function.LEVEL + 1), item_function];
+      }
+      return prevItems;
+    });
   };
   /* Sub Context Menu ----------------------------------------------------------------- */
   const [subContextMenu, setSubContextMenu] = useState(null);
   useEffect(() => {
-    if (onHoverContextItemIndex === item_function) {
+    if (onHoverContextItems?.some((item) => item === item_function)) {
       if (CONTEXT_MENU_FUNCTION_MANAGER[item_function].MORE_OPTIONS !== null) {
         setSubContextMenu(
           <SubContextMenu
@@ -211,7 +284,7 @@ const DefaultContextItem = ({ item_function, parentContextMenuWidth }) => {
     } else {
       setSubContextMenu(null);
     }
-  }, [onHoverContextItemIndex]);
+  }, [onHoverContextItems]);
   /* Sub Context Menu ----------------------------------------------------------------- */
 
   /* ICON Loader ===================================================================== */
@@ -295,7 +368,9 @@ const DefaultContextItem = ({ item_function, parentContextMenuWidth }) => {
           />
         </div>
       ) : null}
-      {onHoverContextItemIndex === item_function ? subContextMenu : null}
+      {onHoverContextItems?.some((item) => item === item_function)
+        ? subContextMenu
+        : null}
       {/* More Options ==================================================================== */}
     </div>
   );

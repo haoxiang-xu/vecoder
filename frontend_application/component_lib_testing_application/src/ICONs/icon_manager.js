@@ -277,11 +277,14 @@ export const ICON_MANAGER = () => {
     const SEND16 = require("./SYSTEM_ICONs/16X16/send.png");
     const SAVE16 = require("./SYSTEM_ICONs/16X16/save.png");
     const SEARCH16 = require("./SYSTEM_ICONs/16X16/search.png");
-
+  
     const RIGHT_ARROW16 = require("./SYSTEM_ICONs/16X16/right_arrow.png");
     const LEFT_ARROW16 = require("./SYSTEM_ICONs/16X16/left_arrow.png");
     const UP_ARROW16 = require("./SYSTEM_ICONs/16X16/up_arrow.png");
     const DOWN_ARROW16 = require("./SYSTEM_ICONs/16X16/down_arrow.png");
+
+    const FOLD16 = require("./SYSTEM_ICONs/16X16/fold.png");
+    const UNFOLD16 = require("./SYSTEM_ICONs/16X16/unfold.png");
     /* 16X16 ICONs ---------------------------------------------------------------------- */
 
     /* 512X512 ICONs ---------------------------------------------------------------------- */
@@ -309,6 +312,9 @@ export const ICON_MANAGER = () => {
     const LEFT_ARROW512 = require("./SYSTEM_ICONs/512X512/left_arrow.png");
     const UP_ARROW512 = require("./SYSTEM_ICONs/512X512/up_arrow.png");
     const DOWN_ARROW512 = require("./SYSTEM_ICONs/512X512/down_arrow.png");
+
+    const FOLD512 = require("./SYSTEM_ICONs/512X512/fold.png");
+    const UNFOLD512 = require("./SYSTEM_ICONs/512X512/unfold.png");
     /* 512X512 ICONs ---------------------------------------------------------------------- */
 
     SYSTEM_ICON_MANAGER = {
@@ -430,6 +436,16 @@ export const ICON_MANAGER = () => {
       downArrow: {
         ICON16: DOWN_ARROW16,
         ICON512: DOWN_ARROW512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      fold: {
+        ICON16: FOLD16,
+        ICON512: FOLD512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      unfold: {
+        ICON16: UNFOLD16,
+        ICON512: UNFOLD512,
         LABEL_COLOR: "#CCCCCC",
       },
     };
