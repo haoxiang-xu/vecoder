@@ -426,7 +426,7 @@
   opacity: 0.12;
 
   pointer-events: none;
-  animation: file_selection_bar_item_overlay_highlight_animation 0.24s ease-in-out;
+  animation: file_selection_bar_item_overlay_highlight_animation 0.16s ease-in-out;
 }
 @keyframes file_selection_bar_item_overlay_highlight_animation {
   0% {

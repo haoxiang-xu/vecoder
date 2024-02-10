@@ -277,7 +277,7 @@ export const ICON_MANAGER = () => {
     const SEND16 = require("./SYSTEM_ICONs/16X16/send.png");
     const SAVE16 = require("./SYSTEM_ICONs/16X16/save.png");
     const SEARCH16 = require("./SYSTEM_ICONs/16X16/search.png");
-  
+
     const RIGHT_ARROW16 = require("./SYSTEM_ICONs/16X16/right_arrow.png");
     const LEFT_ARROW16 = require("./SYSTEM_ICONs/16X16/left_arrow.png");
     const UP_ARROW16 = require("./SYSTEM_ICONs/16X16/up_arrow.png");
@@ -287,6 +287,9 @@ export const ICON_MANAGER = () => {
     const UNFOLD16 = require("./SYSTEM_ICONs/16X16/unfold.png");
 
     const FOLDER_TREE16 = require("./SYSTEM_ICONs/16X16/folder_tree.png");
+    const DRAFTING_COMPASS16 = require("./SYSTEM_ICONs/16X16/drafting_compass.png");
+    const SOFTWARE16 = require("./SYSTEM_ICONs/16X16/software.png");
+    const MORE_OPTIONS16 = require("./SYSTEM_ICONs/16X16/more_options.png");
     /* 16X16 ICONs ---------------------------------------------------------------------- */
 
     /* 512X512 ICONs ---------------------------------------------------------------------- */
@@ -319,6 +322,9 @@ export const ICON_MANAGER = () => {
     const UNFOLD512 = require("./SYSTEM_ICONs/512X512/unfold.png");
 
     const FOLDER_TREE512 = require("./SYSTEM_ICONs/512X512/folder_tree.png");
+    const DRAFTING_COMPASS512 = require("./SYSTEM_ICONs/512X512/drafting_compass.png");
+    const SOFTWARE512 = require("./SYSTEM_ICONs/512X512/software.png");
+    const MORE_OPTIONS512 = require("./SYSTEM_ICONs/512X512/more_options.png");
     /* 512X512 ICONs ---------------------------------------------------------------------- */
 
     SYSTEM_ICON_MANAGER = {
@@ -455,6 +461,21 @@ export const ICON_MANAGER = () => {
       folderTree: {
         ICON16: FOLDER_TREE16,
         ICON512: FOLDER_TREE512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      draftingCompass: {
+        ICON16: DRAFTING_COMPASS16,
+        ICON512: DRAFTING_COMPASS512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      software: {
+        ICON16: SOFTWARE16,
+        ICON512: SOFTWARE512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      moreOptions: {
+        ICON16: MORE_OPTIONS16,
+        ICON512: MORE_OPTIONS512,
         LABEL_COLOR: "#CCCCCC",
       },
     };
