@@ -224,7 +224,7 @@ const RightClickSubContextMenu = ({
     if (menuRef.current) {
       let subContextMenuHeight = 0;
 
-      if (contextItemFunctions.includes("customizeAPI")) {
+      if (contextItemFunctions?.some((item) => item === "customizeRequest")) {
         subContextMenuHeight = CUSTOMIZE_REQUEST_FORM_HEIGHT;
       } else {
         subContextMenuHeight =
