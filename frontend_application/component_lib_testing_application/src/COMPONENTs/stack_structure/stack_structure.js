@@ -1126,6 +1126,7 @@ class Car {
   const [onDropIndex, setOnDropIndex] = useState(-1);
 
   const onStackItemDragStart = (e, index) => {
+    handleLeftClick(e);
     const cloneNode = stackRefs.current[index].cloneNode(true);
     cloneNode.style.position = "absolute";
     cloneNode.style.top = "-10000px";
