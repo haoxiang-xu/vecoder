@@ -106,8 +106,10 @@ const Editor = ({
       const editor = monacoRef.current.editor || monacoRef.current;
       const selection = editor.getSelection();
       const range = new monaco.Range(
-        selection.startLineNumber,
-        selection.startColumn,
+        // selection.startLineNumber,
+        // selection.startColumn,
+        selection.endLineNumber,
+        selection.endColumn,
         selection.endLineNumber,
         selection.endColumn
       );

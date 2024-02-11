@@ -577,6 +577,8 @@ const VecoderEditor = ({
         "http://localhost:8200/openai/continue",
         requestBody
       );
+      console.log(onSelectedCotent);
+      setOnAppendContent(response.data.data.content);
       console.log(response.data);
     } catch (e) {
       console.log(e);
