@@ -33,7 +33,6 @@ try {
 
 const GhostDragImage = ({ draggedItem }) => {
   const [position, setPosition] = useState({ x: -9999, y: -9999 });
-
   useEffect(() => {
     const onDragOver = (e) => {
       e.dataTransfer.setDragImage(new Image(), 0, 0);
