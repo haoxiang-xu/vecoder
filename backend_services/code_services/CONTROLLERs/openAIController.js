@@ -90,7 +90,6 @@ router.post("/continue", async (req, res) => {
     const chatCompletion = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       temperature: 0.2,
-      max_tokens: 256,
       messages: [
         { role: "system", content: instruction },
         //{ role: "system", content: req.body.analyzeCode },
