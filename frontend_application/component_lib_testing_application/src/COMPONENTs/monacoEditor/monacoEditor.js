@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect, useContext } from "react";
 import MonacoEditor from "@monaco-editor/react";
 import { MonacoDiffEditor, monaco } from "react-monaco-editor";
 import { vecoderEditorContexts } from "../../CONTEXTs/vecoderEditorContexts";
-import { monacoEditorContexts } from "../../CONTEXTs/monacoEditorContexts";
 
 const Editor = ({
   //Editor required parameters
@@ -21,11 +20,6 @@ const Editor = ({
   editor_diffContent,
   editor_setDiffContent,
 }) => {
-  const {
-    code_editor_files,
-    setCode_editor_files,
-    setCode_editor_file_on_index,
-  } = useContext(monacoEditorContexts);
   const {
     monacoEditorsOptionsAndContentData,
     setMonacoEditorsOptionsAndContentData,
