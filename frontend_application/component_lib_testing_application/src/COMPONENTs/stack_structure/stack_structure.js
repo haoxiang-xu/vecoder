@@ -9,7 +9,6 @@ import { ICON_MANAGER } from "../../ICONs/icon_manager";
 import { stackStructureResizerContexts } from "../../CONTEXTs/stackStructureResizerContexts";
 import { globalDragAndDropContexts } from "../../CONTEXTs/globalDragAndDropContexts";
 import { rightClickContextMenuCommandContexts } from "../../CONTEXTs/rightClickContextMenuContexts";
-import { monacoEditorContexts } from "../../CONTEXTs/monacoEditorContexts";
 //CSS ----------------------------------------------------------------------------------------------
 import "./stack_structure.css";
 
@@ -1392,37 +1391,29 @@ class Car {
                   );
                 case "CODE_EDITOR":
                   return (
-                    <monacoEditorContexts.Provider
+                    <VecoderEditorTypeContainer
                       key={"CODE_EDITOR" + item.code_editor_container_ref_index}
-                      value={{
-                        code_editor_files,
-                        setCode_editor_files,
-                        setCode_editor_file_on_index,
-                      }}
-                    >
-                      <VecoderEditorTypeContainer
-                        index={index}
-                        //Stack Data
-                        item={item}
-                        stackRefs={stackRefs}
-                        stacks={stacks}
-                        setStacks={setStacks}
-                        //Vecoder Editor Data
-                        code_editor_files={code_editor_files}
-                        setCode_editor_files={setCode_editor_files}
-                        setCode_editor_file_on_index={
-                          setCode_editor_file_on_index
-                        }
-                        //Context Menu Data
-                        onRightClickItem={onRightClickItem}
-                        setOnRightClickItem={setOnRightClickItem}
-                        rightClickCommand={rightClickCommand}
-                        setRightClickCommand={setRightClickCommand}
-                        //Expand and Narrow Container
-                        expandContainer={expandContainer}
-                        narrowContainer={narrowContainer}
-                      />
-                    </monacoEditorContexts.Provider>
+                      index={index}
+                      //Stack Data
+                      item={item}
+                      stackRefs={stackRefs}
+                      stacks={stacks}
+                      setStacks={setStacks}
+                      //Vecoder Editor Data
+                      code_editor_files={code_editor_files}
+                      setCode_editor_files={setCode_editor_files}
+                      setCode_editor_file_on_index={
+                        setCode_editor_file_on_index
+                      }
+                      //Context Menu Data
+                      onRightClickItem={onRightClickItem}
+                      setOnRightClickItem={setOnRightClickItem}
+                      rightClickCommand={rightClickCommand}
+                      setRightClickCommand={setRightClickCommand}
+                      //Expand and Narrow Container
+                      expandContainer={expandContainer}
+                      narrowContainer={narrowContainer}
+                    />
                   );
                 case "RESIZER":
                   return (
