@@ -32,17 +32,32 @@ try {
 /* Load ICON manager --------------------------------------------------------------------------------- */
 
 const GhostDragImage = ({ draggedItem }) => {
-  const [position, setPosition] = useState({ x: -9999, y: -9999 });
+  const [position, setPosition] = useState({
+    x: -9999,
+    y: -9999,
+  });
+  const [containerWidth, setContainerWidth] = useState(0);
+  const labelRef = useRef(null);
   useEffect(() => {
     const onDragOver = (e) => {
-      e.dataTransfer.setDragImage(new Image(), 0, 0);
-      setPosition({ x: e.clientX, y: e.clientY });
+      e.preventDefault();
+      const blankCanvas = document.createElement("canvas");
+      e.dataTransfer.setDragImage(blankCanvas, 0, 0);
+      setPosition({
+        x: e.clientX,
+        y: e.clientY,
+      });
     };
     window.addEventListener("dragover", onDragOver);
     return () => {
       window.removeEventListener("dragover", onDragOver);
     };
   }, []);
+  useEffect(() => {
+    if (labelRef.current) {
+      setContainerWidth(labelRef.current.offsetWidth);
+    }
+  }, [labelRef.current]);
 
   return (
     <>
@@ -52,16 +67,10 @@ const GhostDragImage = ({ draggedItem }) => {
           style={{
             left: position.x,
             top: position.y,
+            width: containerWidth + 24,
           }}
         >
-          <img
-            className="ghost_drag_image_filetype_image0207"
-            src={
-              FILE_TYPE_ICON_MANAGER[draggedItem?.fileName.split(".").pop()]
-                ?.ICON512
-            }
-          />
-          <span className="ghost_drag_image_filetype_label0207">
+          <span className="ghost_drag_image_filetype_label0207" ref={labelRef}>
             {draggedItem?.fileName}
           </span>
         </div>
@@ -221,7 +230,8 @@ const FileSelectionBar = ({
   };
   const onFileDragStart = (e, index) => {
     e.stopPropagation();
-    e.dataTransfer.setDragImage(new Image(), 0, 0);
+    const blankCanvas = document.createElement("canvas");
+    e.dataTransfer.setDragImage(blankCanvas, 0, 0);
 
     setOnSelectedIndex(index);
     setOnDragIndex(index);
