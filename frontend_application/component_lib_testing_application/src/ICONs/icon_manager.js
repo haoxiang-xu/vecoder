@@ -290,6 +290,8 @@ export const ICON_MANAGER = () => {
     const DRAFTING_COMPASS16 = require("./SYSTEM_ICONs/16X16/drafting_compass.png");
     const SOFTWARE16 = require("./SYSTEM_ICONs/16X16/software.png");
     const MORE_OPTIONS16 = require("./SYSTEM_ICONs/16X16/more_options.png");
+
+    const INVISIBLE16 = require("./SYSTEM_ICONs/16X16/invisible.png");
     /* 16X16 ICONs ---------------------------------------------------------------------- */
 
     /* 512X512 ICONs ---------------------------------------------------------------------- */
@@ -325,6 +327,8 @@ export const ICON_MANAGER = () => {
     const DRAFTING_COMPASS512 = require("./SYSTEM_ICONs/512X512/drafting_compass.png");
     const SOFTWARE512 = require("./SYSTEM_ICONs/512X512/software.png");
     const MORE_OPTIONS512 = require("./SYSTEM_ICONs/512X512/more_options.png");
+
+    const INVISIBLE512 = require("./SYSTEM_ICONs/512X512/invisible.png");
     /* 512X512 ICONs ---------------------------------------------------------------------- */
 
     SYSTEM_ICON_MANAGER = {
@@ -476,6 +480,11 @@ export const ICON_MANAGER = () => {
       moreOptions: {
         ICON16: MORE_OPTIONS16,
         ICON512: MORE_OPTIONS512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      invisible: {
+        ICON16: INVISIBLE16,
+        ICON512: INVISIBLE512,
         LABEL_COLOR: "#CCCCCC",
       },
     };

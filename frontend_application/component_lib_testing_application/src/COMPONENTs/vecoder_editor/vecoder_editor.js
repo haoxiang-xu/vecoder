@@ -41,8 +41,6 @@ const GhostDragImage = ({ draggedItem }) => {
   useEffect(() => {
     const onDragOver = (e) => {
       e.preventDefault();
-      const blankCanvas = document.createElement("canvas");
-      e.dataTransfer.setDragImage(blankCanvas, 0, 0);
       setPosition({
         x: e.clientX,
         y: e.clientY,
@@ -230,8 +228,7 @@ const FileSelectionBar = ({
   };
   const onFileDragStart = (e, index) => {
     e.stopPropagation();
-    const blankCanvas = document.createElement("canvas");
-    e.dataTransfer.setDragImage(blankCanvas, 0, 0);
+    e.dataTransfer.setDragImage(new Image(), 0, 0);
 
     setOnSelectedIndex(index);
     setOnDragIndex(index);
