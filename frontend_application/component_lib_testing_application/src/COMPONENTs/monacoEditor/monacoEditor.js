@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, useContext } from "react";
 import MonacoEditor from "@monaco-editor/react";
 import { MonacoDiffEditor, monaco } from "react-monaco-editor";
 import { vecoderEditorContexts } from "../../CONTEXTs/vecoderEditorContexts";
+import { globalDragAndDropContexts } from "../../CONTEXTs/globalDragAndDropContexts";
 
 const Editor = ({
   //Editor required parameters
@@ -30,6 +31,9 @@ const Editor = ({
     updateMonacoEditorViewStateByPath,
     updateMonacoEditorModelByPath,
   } = useContext(vecoderEditorContexts);
+  const { draggedItem, dragCommand, setDragCommand } = useContext(
+    globalDragAndDropContexts
+  );
 
   /*MONACO EDITOR OPTIONS-----------------------------------------------------------------------*/
   const monacoRef = useRef();
@@ -62,15 +66,19 @@ const Editor = ({
   const onEditorMount = (editor, monaco) => {
     monacoRef.current = editor;
 
-    defineTheme(monaco);
     applyEditorOptionsInMemory(
       editor,
       monaco,
       monacoRef,
       editor_filePath,
+      editor_language,
       monacoEditorsOptionsAndContentData,
-      accessMonacoEditorsDataByPath
+      accessMonacoEditorsDataByPath,
+      draggedItem,
+      dragCommand,
+      setDragCommand
     );
+    defineTheme(monaco);
     registerCompletionProvider(monaco);
     registerInlineCompletionProvider(monaco);
     registerStateChangeListeners(
@@ -121,6 +129,11 @@ const Editor = ({
       setOnAppendContent(null);
     }
   }, [onAppendContent, monacoRef]);
+  useEffect(() => {
+    if (draggedItem && draggedItem.filePath === editor_filePath) {
+      monacoRef.current.setModel(null);
+    }
+  }, [draggedItem]);
   /*MONACO EDITOR FUNCTIONs======================================================================*/
 
   /*MONACO EDITOR OPTIONS-----------------------------------------------------------------------*/
@@ -290,9 +303,18 @@ const applyEditorOptionsInMemory = (
   monaco,
   monacoRef,
   editor_filePath,
+  editor_language,
   monacoEditorsOptionsAndContentData,
-  accessMonacoEditorsDataByPath
+  accessMonacoEditorsDataByPath,
+  draggedItem,
+  dragCommand,
+  setDragCommand
 ) => {
+  if (monacoEditorsOptionsAndContentData[editor_filePath].model) {
+    monacoRef.current.setModel(
+      monacoEditorsOptionsAndContentData[editor_filePath].model
+    );
+  }
   if (monacoEditorsOptionsAndContentData[editor_filePath].viewState) {
     editor.restoreViewState(
       monacoEditorsOptionsAndContentData[editor_filePath].viewState
@@ -300,16 +322,8 @@ const applyEditorOptionsInMemory = (
   } else {
     editor.getAction("editor.foldAll").run();
   }
-  if (monacoEditorsOptionsAndContentData[editor_filePath].model) {
-    const newModel = monacoEditorsOptionsAndContentData[editor_filePath].model;
-    if (newModel && !newModel.isDisposed) {
-      editor.setModel(newModel);
-    } else {
-      console.error(
-        "Attempted to set a disposed model on the editor.",
-        editor_filePath
-      );
-    }
+  if (dragCommand === "WAITING FOR MODE APPEND") {
+    setDragCommand("DELETE FROM SOURCE");
   }
 };
 ////Append Content Widget for monaco editor

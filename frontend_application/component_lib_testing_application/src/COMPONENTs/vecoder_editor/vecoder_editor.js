@@ -349,7 +349,7 @@ const FileSelectionBar = ({
       setOnSwapIndex(-1);
       setDraggedItem(null);
       setDraggedOverItem(null);
-      setDragCommand("DELETE FROM SOURCE");
+      setDragCommand("WAITING FOR MODE APPEND");
     }
     if (onDragIndex !== -1 && dragCommand === "DELETE FROM SOURCE") {
       const editedFiles = [...files];
