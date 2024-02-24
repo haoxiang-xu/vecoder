@@ -59,6 +59,8 @@ const Editor = ({
     }),
     []
   );
+  const [monacoModel, setMonacoModel] = useState(null);
+  const [monacoViewState, setMonacoViewState] = useState(null);
   /*MONACO EDITOR OPTIONS-----------------------------------------------------------------------*/
 
   /*MONACO EDITOR FUNCTIONs======================================================================*/
@@ -130,8 +132,20 @@ const Editor = ({
     }
   }, [onAppendContent, monacoRef]);
   useEffect(() => {
-    if (draggedItem && draggedItem.filePath === editor_filePath) {
+    if (
+      draggedItem &&
+      draggedItem.filePath === editor_filePath
+    ) {
+      setMonacoModel(monacoRef.current.getModel());
+      setMonacoViewState(monacoRef.current.saveViewState());
       monacoRef.current.setModel(null);
+    } else if (
+      draggedItem === null && dragCommand === null && monacoModel && monacoViewState
+    ) {
+      monacoRef.current.setModel(monacoModel);
+      monacoRef.current.restoreViewState(monacoViewState);
+      setMonacoModel(null);
+      setMonacoViewState(null);
     }
   }, [draggedItem]);
   /*MONACO EDITOR FUNCTIONs======================================================================*/
