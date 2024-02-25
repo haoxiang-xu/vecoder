@@ -40,7 +40,7 @@
   top: 0px;
   right: 0px;
   left: 0px;
-  padding: 16px 0px 0px 16px;
+  padding: 22px 0px 0px 22px;
 
   /*SIZE*/
   width: 18px;
@@ -60,7 +60,7 @@
   top: 0px;
   right: 0px;
   left: 0px;
-  padding: 14px 0px 0px 38px;
+  padding: 22px 0px 0px 44px;
 
   /*STYLE*/
   font-size: 16px;
@@ -76,7 +76,7 @@
 
   /*SIZE*/
   margin: 0px;
-  padding: 0px 0px 1px 16px;
+  padding: 0px 0px 1px 22px;
   right: 0px;
   left: 0px;
   height: 36px;
@@ -89,9 +89,9 @@
 
   /*POSITION*/
   position: absolute;
-  left: 16px;
+  left: 22px;
   top: 15px;
-  right: 16px;
+  right: 22px;
 
   /*FONT*/
   font-size: 12px;
@@ -119,9 +119,9 @@
   /*POSITION*/
   display: block;
   position: absolute;
-  left: 16px;
+  left: 22px;
   top: 15px;
-  right: 16px;
+  right: 22px;
 
   /*SIZE*/
   height: 22px;
@@ -141,9 +141,9 @@
   transition: all 0.16s ease;
   /*POSITION*/
   position: absolute;
-  bottom: 16px;
-  left: 16px;
-  right: 16px;
+  bottom: 22px;
+  left: 22px;
+  right: 22px;
 
   /*FONT*/
   font-size: 14px;
@@ -153,7 +153,7 @@
   color: #686868;
 
   /*SIZE*/
-  height: 32px;
+  height: 26px;
   padding: 2px 7px 2px 5px;
   margin: 2px 0px 2px 0px;
 
