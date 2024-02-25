@@ -1,7 +1,7 @@
 /* Context Menu Dimensions --------------------------------------------- */
 const CONTEXTMENU_WIDTH = 238;
 const CONTEXTITEM_BORDER = 10; //Define the border height of each context item to calculate the context menu height
-const CONTEXTITEM_HEIGHT = 35;
+const CONTEXTITEM_HEIGHT = 26;
 
 const SUBCONTEXTMENU_WIDTH = 238;
 

@@ -454,8 +454,6 @@
 
   border-radius: 5px;
   margin: 0px 0px 5px 0px;
-  opacity: 1;
-
   pointer-events: none;
   z-index: 12;
 }
@@ -467,7 +465,7 @@
   padding: 0px 0px 0px 0px;
 
   /*SIZE*/
-  font-size: 15px;
+  font-size: 13px;
   color: #cccccc;
 
   pointer-events: none;
