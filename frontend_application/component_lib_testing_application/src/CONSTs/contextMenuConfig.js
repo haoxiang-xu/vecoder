@@ -5,8 +5,8 @@ const CONTEXTITEM_HEIGHT = 26;
 
 const SUBCONTEXTMENU_WIDTH = 238;
 
-const CUSTOMIZE_REQUEST_FORM_WIDTH = 320;
-const CUSTOMIZE_REQUEST_FORM_HEIGHT = 300;
+const CUSTOMIZE_REQUEST_FORM_WIDTH = 275;
+const CUSTOMIZE_REQUEST_FORM_HEIGHT = 260;
 /* Context Menu Dimensions --------------------------------------------- */
 
 /* Root Context Menu Item Config ===================================================================== */
