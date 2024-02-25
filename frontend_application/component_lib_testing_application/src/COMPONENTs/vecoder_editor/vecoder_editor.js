@@ -41,6 +41,7 @@ const GhostDragImage = ({ draggedItem }) => {
   useEffect(() => {
     const onDragOver = (e) => {
       e.preventDefault();
+      e.stopPropagation();
       setPosition({
         x: e.clientX,
         y: e.clientY,

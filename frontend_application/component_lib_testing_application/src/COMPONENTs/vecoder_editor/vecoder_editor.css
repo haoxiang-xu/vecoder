@@ -449,7 +449,6 @@
   height: 32px;
 
   /*STYLE*/
-  box-shadow: 0px 8px 16px 8px rgba(0, 0, 0, 0.08);
   background-color: #323232;
   color: white;
 
@@ -459,19 +458,6 @@
 
   pointer-events: none;
   z-index: 12;
-
-  animation: file_selection_bar_item_ghost_drag_image_animation 0.32s;
-}
-@keyframes file_selection_bar_item_ghost_drag_image_animation {
-  0% {
-    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.08);
-  }
-  32% {
-    box-shadow: 0px 2px 8px 2px rgba(0, 0, 0, 0.08);
-  }
-  100% {
-    box-shadow: 0px 8px 16px 8px rgba(0, 0, 0, 0.08);
-  }
 }
 .ghost_drag_image_filetype_label0207 {
   /*POSITION*/
