@@ -24,6 +24,18 @@ const MONACO_EDITOR_DEFAULT_TEST_DATA = {
     model: null,
   },
 };
+const VECODER_EDITOR_DEFAULT_TEST_DATA = [
+  {
+    codeEditorContainerRefIndex: 0,
+    onSelectedMonacoIndex: 0,
+    monacoEditorPaths: ["./code_editor.js", "./code_editor.css", "./main.py"],
+  },
+  {
+    codeEditorContainerRefIndex: 1,
+    onSelectedMonacoIndex: 0,
+    monacoEditorPaths: ["./index.html", "./main.java"],
+  },
+];
 
 const VecoderEditorPage = () => {
   /* Monaco Editor Data and Functions ------------------------------------ */
@@ -68,6 +80,13 @@ const VecoderEditorPage = () => {
     });
   };
   /* Monaco Editor Data and Functions ------------------------------------ */
+
+  /* Vecoder Editor Data and Functions ============================================================== */
+  const [
+    vecoderEditorOptionsAndContentData,
+    setVecoderEditorOptionsAndContentData,
+  ] = useState(VECODER_EDITOR_DEFAULT_TEST_DATA);
+  /* Vecoder Editor Data and Functions ============================================================== */
 
   return (
     <vecoderEditorContexts.Provider
