@@ -9,6 +9,7 @@
   width: 100%;
 
   /*STYLE*/
+  overflow: hidden;
   border-radius: 8px;
   background-color: #1e1e1e;
 }
@@ -60,7 +61,7 @@
   position: absolute;
 
   top: 0px;
-  right: 0px;
+  left: 0px;
 }
 .dir_list_component_close_icon0125 {
   transition: all 0.2s ease;
@@ -70,10 +71,10 @@
   height: 12px;
   position: absolute;
   top: 5px;
-  right: 5px;
+  left: 5px;
 
   /*STYLE*/
-  border-radius: 4px;
+  border-radius: 5px;
   padding: 9px;
 }
 .dir_list_component_close_icon0125:hover {
@@ -81,6 +82,7 @@
 
   /*STYLE*/
   background-color: #2e2e2e;
+  box-shadow: 0px 4px 12px 4px rgba(0, 0, 0, 0.16);
 }
 .dir_list_component_close_icon0125:active {
   transition: all 0.1s ease;
@@ -91,21 +93,27 @@
 
 /* Search Bar */
 .dir_list_component_search_bar_container0125 {
+  transition: all 0.32s ease;
   /*POSITION*/
   position: absolute;
   top: 5px;
   left: 5px;
-  right: 41px;
+  left: 75px;
+  right: 5px;
 
   /*SIZE*/
   overflow-y: hidden;
   overflow-x: hidden;
   height: 30px;
+  max-width: 512px;
 
   /*STYLE*/
-  box-shadow: 0px 4px 12px 4px rgba(0, 0, 0, 0.16);
   background-color: #323232;
-  border-radius: 4px;
+  border-radius: 5px;
+}
+.dir_list_component_search_bar_container0125:hover {
+  transition: all 0.32s ease;
+  box-shadow: 0px 4px 12px 4px rgba(0, 0, 0, 0.16);
 }
 .dir_list_component_search_bar_input0125 {
   transition: all 0.12s ease;

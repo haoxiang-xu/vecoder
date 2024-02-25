@@ -3,6 +3,31 @@ import { ICON_MANAGER } from "../../ICONs/icon_manager";
 import DirItem from "./dirItem/dirItem.js";
 import "./explorer.css";
 
+/* Load ICON manager --------------------------------------------------------------------------------- */
+let FILE_TYPE_ICON_MANAGER = {
+  default: {
+    ICON: null,
+    LABEL_COLOR: "#C8C8C8",
+  },
+};
+try {
+  FILE_TYPE_ICON_MANAGER = ICON_MANAGER().FILE_TYPE_ICON_MANAGER;
+} catch (e) {
+  console.log(e);
+}
+let SYSTEM_ICON_MANAGER = {
+  default: {
+    ICON: null,
+    LABEL_COLOR: "#C8C8C8",
+  },
+};
+try {
+  SYSTEM_ICON_MANAGER = ICON_MANAGER().SYSTEM_ICON_MANAGER;
+} catch (e) {
+  console.log(e);
+}
+/* Load ICON manager --------------------------------------------------------------------------------- */
+
 const SearchBar = ({}) => {
   /* Load ICON manager -------------------------------- */
   let SYSTEM_ICON_MANAGER = {
@@ -54,6 +79,98 @@ const CloseIcon = ({}) => {
       draggable="false"
       alt="close"
     />
+  );
+};
+const MinMaxIcon = ({
+  mode,
+  //Maximize and Minimize Container
+  onMaximizeOnClick,
+  onMinimizeOnClick,
+}) => {
+  const [MaxIconOnHover, setMaxIconOnHover] = useState(false);
+  const [MinIconOnHover, setMinIconOnHover] = useState(false);
+  const [MaximizeIconStyling, setMaximizeIconStyling] = useState(null);
+  const [MinimizeIconStyling, setMinimizeIconStyling] = useState(null);
+  const onMaximizeOnHover = () => {
+    setMaxIconOnHover(true);
+    setMinIconOnHover(false);
+    setMaximizeIconStyling({
+      opacity: 1,
+      zIndex: 1,
+      padding: "9px 4px 9px 4px",
+      left: 50,
+    });
+    setMinimizeIconStyling({
+      opacity: 0.16,
+      zIndex: 0,
+      padding: "9px 0px 9px 0px",
+    });
+  };
+  const onMinimizeOnHover = () => {
+    setMaxIconOnHover(false);
+    setMinIconOnHover(true);
+    setMaximizeIconStyling({
+      opacity: 0.16,
+      zIndex: 0,
+      padding: "9px 0px 9px 0px",
+      left: 58,
+    });
+    setMinimizeIconStyling({
+      opacity: 1,
+      zIndex: 1,
+      padding: "9px 4px 9px 4px",
+    });
+  };
+  const onMaximizeOut = () => {
+    setMaxIconOnHover(false);
+  };
+  const onMinimizeOut = () => {
+    setMinIconOnHover(false);
+  };
+  useEffect(() => {
+    if (!MaxIconOnHover && !MinIconOnHover) {
+      setMaximizeIconStyling(null);
+      setMinimizeIconStyling(null);
+    }
+  }, [MaxIconOnHover, MinIconOnHover]);
+
+  return mode === "HORIZONTAL" ? (
+    <div>
+      <img
+        src={SYSTEM_ICON_MANAGER.rightArrow.ICON512}
+        className="code_editor_maximize_icon0129"
+        draggable="false"
+        onClick={onMaximizeOnClick}
+        onMouseOver={onMaximizeOnHover}
+        onMouseOut={onMaximizeOut}
+        alt="maximize"
+        style={MaximizeIconStyling}
+      />
+      <img
+        src={SYSTEM_ICON_MANAGER.leftArrow.ICON512}
+        className="code_editor_minimize_icon0129"
+        draggable="false"
+        onClick={onMinimizeOnClick}
+        onMouseOver={onMinimizeOnHover}
+        onMouseOut={onMinimizeOut}
+        alt="minimize"
+        style={MinimizeIconStyling}
+      />
+    </div>
+  ) : (
+    <div>
+      <img
+        src={SYSTEM_ICON_MANAGER.rightArrow.ICON512}
+        className="code_editor_maximize_icon_vertical0129"
+        draggable="false"
+        onClick={(e) => {
+          onMaximizeOnClick();
+          setMaxIconOnHover(false);
+          setMinIconOnHover(false);
+        }}
+        alt="maximize"
+      />
+    </div>
   );
 };
 const DirList = ({
@@ -108,21 +225,28 @@ const DirList = ({
   );
 };
 const Explorer = ({
+  explorer_width,
   files,
   setFiles,
   onRightClickItem,
   setOnRightClickItem,
   rightClickCommand,
   setRightClickCommand,
+  //Maximize and Minimize Container
+  onMaximizeOnClick,
+  onMinimizeOnClick,
 }) => {
   const explorerRef = useRef(null);
+
+  /* HORIZONTAL OR VERTICAL MODE ====================================================== */
+  const [mode, setMode] = useState("HORIZONTAL"); //["HORIZONTAL", "VERTICAL"]
+  useEffect(() => {
+    explorer_width <= 50 ? setMode("VERTICAL") : setMode("HORIZONTAL");
+  }, [explorer_width]);
+  /* HORIZONTAL OR VERTICAL MODE ====================================================== */
   return (
     <div className="explorer_component_container0126" ref={explorerRef}>
-      {explorerRef.current?.offsetWidth <= 50 ? (
-        <div>
-          <CloseIcon />
-        </div>
-      ) : (
+      {mode === "VERTICAL" ? null : (
         <div>
           <DirList
             files={files}
@@ -132,9 +256,14 @@ const Explorer = ({
             setRightClickCommand={setRightClickCommand}
           />
           <SearchBar />
-          <CloseIcon />
         </div>
       )}
+      <MinMaxIcon
+        mode={mode}
+        onMaximizeOnClick={onMaximizeOnClick}
+        onMinimizeOnClick={onMinimizeOnClick}
+      />
+      <CloseIcon />
     </div>
   );
 };
@@ -146,10 +275,9 @@ const editFiles = (files_structure, edited_file_path, new_file) => {
 };
 const editFilePaths = (files_structure, append_file_path) => {
   return;
-}
+};
 const deleteFiles = (files_structure, deleted_file_path) => {
   return;
 };
-
 
 export default Explorer;

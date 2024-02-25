@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ICON_MANAGER } from "../../../ICONs/icon_manager";
+import { ICON_MANAGER, ICON_LOADER } from "../../../ICONs/icon_manager";
 import "./dirItem.css";
 
 const FileTypeIconLoader = ({ fileIcon, fileIconBackground }) => {
@@ -30,9 +30,7 @@ const FileTypeIconLoader = ({ fileIcon, fileIconBackground }) => {
             draggable={"false"}
           ></img>
         </div>
-      ) : (
-        <div></div>
-      )}
+      ) : null}
     </div>
   );
 };
@@ -720,7 +718,7 @@ const DirItem = ({
         <div ref={DirListRef} style={{ height: "fit-content" }}>
           <ul className={dirListClassName}>
             {dir.map((item, index) => (
-              <li key={index} style={expendAnimation}>
+              <li key={item.filePath} style={expendAnimation}>
                 <DirItem
                   file={item}
                   root={false}

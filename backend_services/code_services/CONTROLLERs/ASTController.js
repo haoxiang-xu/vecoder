@@ -66,11 +66,11 @@ router.post("/javascript", async (req, res) => {
     const ast = esprima.parseScript(req.body.prompt, { ecmaVersion: 2015 });
 
     // Log the AST to the console
-    console.log(JSON.stringify(ast, null, 2));
+    //console.log(JSON.stringify(ast, null, 2));
 
     // Continue with the rest of your logic (if needed)
     res.json({
-      ast: ast, // You can send the AST back in the response or process it further
+      AST: ast, // You can send the AST back in the response or process it further
     });
   } catch (error) {
     console.error(error);
@@ -127,7 +127,7 @@ router.post("/html", async (req, res) => {
     const parsedObject = JSON.parse(jsonString);
 
     res.json({
-      htmlAST: parsedObject,
+      AST: parsedObject,
       // You can add more properties if needed
     });
   } catch (error) {
@@ -198,7 +198,7 @@ router.post("/css", async (req, res) => {
     const cssAST = await parseCSSPromise(req.body.prompt);
 
     res.json({
-      cssAST: cssAST,
+      AST: cssAST,
       // You can add more properties if needed
     });
   } catch (error) {

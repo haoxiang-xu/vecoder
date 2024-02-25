@@ -2,6 +2,7 @@ export const ICON_MANAGER = () => {
   /*FILE_TYPE_STYLING_MANAGER ---------------------------------------------------------------- */
   let FILE_TYPE_ICON_MANAGER = {
     default: {
+      ICON16: null,
       ICON: null,
       LABEL_COLOR: "#C8C8C8",
     },
@@ -75,6 +76,11 @@ export const ICON_MANAGER = () => {
     /* 512X512 ICONs ---------------------------------------------------------------------- */
 
     FILE_TYPE_ICON_MANAGER = {
+      default: {
+        ICON16: null,
+        ICON: null,
+        LABEL_COLOR: "#C8C8C8",
+      },
       //CODE FILE TYPES
       js: {
         ICON16: JS16,
@@ -245,6 +251,7 @@ export const ICON_MANAGER = () => {
   /*FILE_TYPE_STYLING_MANAGER ---------------------------------------------------------------- */
   let SYSTEM_ICON_MANAGER = {
     default: {
+      ICON16: null,
       ICON: null,
       LABEL_COLOR: "#C8C8C8",
     },
@@ -253,7 +260,7 @@ export const ICON_MANAGER = () => {
     /* 16X16 ICONs ---------------------------------------------------------------------- */
     const CLOSE_ICON16 = require("./SYSTEM_ICONs/16X16/close.png");
     const ARROW_ICON16 = require("./SYSTEM_ICONs/16X16/arrow.png");
-    const CODE_ICON16 = require("./SYSTEM_ICONs/16X16/code.png");
+    const AST_ICON16 = require("./SYSTEM_ICONs/16X16/ast.png");
     const CONTINUE_ICON16 = require("./SYSTEM_ICONs/16X16/continue.png");
     const COPY_ICON16 = require("./SYSTEM_ICONs/16X16/copy.png");
     const CUSTOMIZE16 = require("./SYSTEM_ICONs/16X16/customize.png");
@@ -270,12 +277,27 @@ export const ICON_MANAGER = () => {
     const SEND16 = require("./SYSTEM_ICONs/16X16/send.png");
     const SAVE16 = require("./SYSTEM_ICONs/16X16/save.png");
     const SEARCH16 = require("./SYSTEM_ICONs/16X16/search.png");
+
+    const RIGHT_ARROW16 = require("./SYSTEM_ICONs/16X16/right_arrow.png");
+    const LEFT_ARROW16 = require("./SYSTEM_ICONs/16X16/left_arrow.png");
+    const UP_ARROW16 = require("./SYSTEM_ICONs/16X16/up_arrow.png");
+    const DOWN_ARROW16 = require("./SYSTEM_ICONs/16X16/down_arrow.png");
+
+    const FOLD16 = require("./SYSTEM_ICONs/16X16/fold.png");
+    const UNFOLD16 = require("./SYSTEM_ICONs/16X16/unfold.png");
+
+    const FOLDER_TREE16 = require("./SYSTEM_ICONs/16X16/folder_tree.png");
+    const DRAFTING_COMPASS16 = require("./SYSTEM_ICONs/16X16/drafting_compass.png");
+    const SOFTWARE16 = require("./SYSTEM_ICONs/16X16/software.png");
+    const MORE_OPTIONS16 = require("./SYSTEM_ICONs/16X16/more_options.png");
+
+    const INVISIBLE16 = require("./SYSTEM_ICONs/16X16/invisible.png");
     /* 16X16 ICONs ---------------------------------------------------------------------- */
 
     /* 512X512 ICONs ---------------------------------------------------------------------- */
     const CLOSE_ICON512 = require("./SYSTEM_ICONs/512X512/close.png");
     const ARROW_ICON512 = require("./SYSTEM_ICONs/512X512/arrow.png");
-    const CODE_ICON512 = require("./SYSTEM_ICONs/512X512/code.png");
+    const AST_ICON512 = require("./SYSTEM_ICONs/512X512/ast.png");
     const CONTINUE_ICON512 = require("./SYSTEM_ICONs/512X512/continue.png");
     const COPY_ICON512 = require("./SYSTEM_ICONs/512X512/copy.png");
     const CUSTOMIZE512 = require("./SYSTEM_ICONs/512X512/customize.png");
@@ -292,9 +314,29 @@ export const ICON_MANAGER = () => {
     const SEND512 = require("./SYSTEM_ICONs/512X512/send.png");
     const SAVE512 = require("./SYSTEM_ICONs/512X512/save.png");
     const SEARCH512 = require("./SYSTEM_ICONs/512X512/search.png");
+
+    const RIGHT_ARROW512 = require("./SYSTEM_ICONs/512X512/right_arrow.png");
+    const LEFT_ARROW512 = require("./SYSTEM_ICONs/512X512/left_arrow.png");
+    const UP_ARROW512 = require("./SYSTEM_ICONs/512X512/up_arrow.png");
+    const DOWN_ARROW512 = require("./SYSTEM_ICONs/512X512/down_arrow.png");
+
+    const FOLD512 = require("./SYSTEM_ICONs/512X512/fold.png");
+    const UNFOLD512 = require("./SYSTEM_ICONs/512X512/unfold.png");
+
+    const FOLDER_TREE512 = require("./SYSTEM_ICONs/512X512/folder_tree.png");
+    const DRAFTING_COMPASS512 = require("./SYSTEM_ICONs/512X512/drafting_compass.png");
+    const SOFTWARE512 = require("./SYSTEM_ICONs/512X512/software.png");
+    const MORE_OPTIONS512 = require("./SYSTEM_ICONs/512X512/more_options.png");
+
+    const INVISIBLE512 = require("./SYSTEM_ICONs/512X512/invisible.png");
     /* 512X512 ICONs ---------------------------------------------------------------------- */
 
     SYSTEM_ICON_MANAGER = {
+      default: {
+        ICON16: null,
+        ICON: null,
+        LABEL_COLOR: "#C8C8C8",
+      },
       close: {
         ICON16: CLOSE_ICON16,
         ICON512: CLOSE_ICON512,
@@ -305,9 +347,9 @@ export const ICON_MANAGER = () => {
         ICON512: ARROW_ICON512,
         LABEL_COLOR: "#CCCCCC",
       },
-      code: {
-        ICON16: CODE_ICON16,
-        ICON512: CODE_ICON512,
+      ast: {
+        ICON16: AST_ICON16,
+        ICON512: AST_ICON512,
         LABEL_COLOR: "#CCCCCC",
       },
       continue: {
@@ -388,6 +430,61 @@ export const ICON_MANAGER = () => {
       search: {
         ICON16: SEARCH16,
         ICON512: SEARCH512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      rightArrow: {
+        ICON16: RIGHT_ARROW16,
+        ICON512: RIGHT_ARROW512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      leftArrow: {
+        ICON16: LEFT_ARROW16,
+        ICON512: LEFT_ARROW512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      upArrow: {
+        ICON16: UP_ARROW16,
+        ICON512: UP_ARROW512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      downArrow: {
+        ICON16: DOWN_ARROW16,
+        ICON512: DOWN_ARROW512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      fold: {
+        ICON16: FOLD16,
+        ICON512: FOLD512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      unfold: {
+        ICON16: UNFOLD16,
+        ICON512: UNFOLD512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      folderTree: {
+        ICON16: FOLDER_TREE16,
+        ICON512: FOLDER_TREE512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      draftingCompass: {
+        ICON16: DRAFTING_COMPASS16,
+        ICON512: DRAFTING_COMPASS512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      software: {
+        ICON16: SOFTWARE16,
+        ICON512: SOFTWARE512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      moreOptions: {
+        ICON16: MORE_OPTIONS16,
+        ICON512: MORE_OPTIONS512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      invisible: {
+        ICON16: INVISIBLE16,
+        ICON512: INVISIBLE512,
         LABEL_COLOR: "#CCCCCC",
       },
     };
