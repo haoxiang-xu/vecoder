@@ -6,7 +6,7 @@ import Explorer from "../explorer/explorer";
 //ICONs --------------------------------------------------------------------------------------------
 import { ICON_MANAGER } from "../../ICONs/icon_manager";
 //CONTEXTs -----------------------------------------------------------------------------------------
-import { stackStructureResizerContexts } from "../../CONTEXTs/stackStructureResizerContexts";
+import { stackStructureDragAndDropContexts } from "../../CONTEXTs/stackStructureDragAndDropContexts";
 import { globalDragAndDropContexts } from "../../CONTEXTs/globalDragAndDropContexts";
 import { rightClickContextMenuCommandContexts } from "../../CONTEXTs/rightClickContextMenuContexts";
 //CSS ----------------------------------------------------------------------------------------------
@@ -74,7 +74,7 @@ const TestingLabelContainer = ({
     onStackItemDragStart,
     onStackItemDragEnd,
     resizerOnMouseDown,
-  } = useContext(stackStructureResizerContexts);
+  } = useContext(stackStructureDragAndDropContexts);
 
   return (
     <div
@@ -118,7 +118,7 @@ const ResizerTypeContainer = ({
     setOnDropIndex,
     resizerOnMouseDown,
     setResizerOnMouseDown,
-  } = useContext(stackStructureResizerContexts);
+  } = useContext(stackStructureDragAndDropContexts);
   const [resizerClassname, setResizerClassname] = useState(
     "stack_structure_resizer0122"
   );
@@ -296,7 +296,7 @@ const ExplorerTypeContainer = ({
     onStackItemDragStart,
     onStackItemDragEnd,
     resizerOnMouseDown,
-  } = useContext(stackStructureResizerContexts);
+  } = useContext(stackStructureDragAndDropContexts);
   const onMaximizeOnClick = () => {
     expandContainer(index);
   };
@@ -366,7 +366,7 @@ const VecoderEditorTypeContainer = ({
     onStackItemDragStart,
     onStackItemDragEnd,
     resizerOnMouseDown,
-  } = useContext(stackStructureResizerContexts);
+  } = useContext(stackStructureDragAndDropContexts);
   const onMaximizeOnClick = () => {
     expandContainer(index);
   };
@@ -422,7 +422,7 @@ const EndingContainer = ({
   stackRefs,
 }) => {
   //Stack Structure Container Drag and Drop
-  const { onDropIndex } = useContext(stackStructureResizerContexts);
+  const { onDropIndex } = useContext(stackStructureDragAndDropContexts);
   return (
     <div
       className={"stack_structure_item0116"}
@@ -1337,7 +1337,7 @@ class Car {
             setDragCommand,
           }}
         >
-          <stackStructureResizerContexts.Provider
+          <stackStructureDragAndDropContexts.Provider
             value={{
               onDropIndex,
               setOnDropIndex,
@@ -1444,7 +1444,7 @@ class Car {
                   break;
               }
             })}
-          </stackStructureResizerContexts.Provider>
+          </stackStructureDragAndDropContexts.Provider>
         </globalDragAndDropContexts.Provider>
         {/*Stack Structure Containers-----------------------------------------------------------------*/}
         {/*Right Click Menu===============================================================*/}

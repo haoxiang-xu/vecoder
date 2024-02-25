@@ -3,6 +3,7 @@ import MonacoEditor from "@monaco-editor/react";
 import { MonacoDiffEditor, monaco } from "react-monaco-editor";
 import { vecoderEditorContexts } from "../../CONTEXTs/vecoderEditorContexts";
 import { globalDragAndDropContexts } from "../../CONTEXTs/globalDragAndDropContexts";
+import { stackStructureDragAndDropContexts } from "../../CONTEXTs/stackStructureDragAndDropContexts";
 
 const Editor = ({
   //Editor required parameters
@@ -34,6 +35,7 @@ const Editor = ({
   const { draggedItem, dragCommand, setDragCommand } = useContext(
     globalDragAndDropContexts
   );
+  const { onDragIndex } = useContext(stackStructureDragAndDropContexts);
 
   /*MONACO EDITOR OPTIONS-----------------------------------------------------------------------*/
   const monacoRef = useRef();
@@ -131,23 +133,6 @@ const Editor = ({
       setOnAppendContent(null);
     }
   }, [onAppendContent, monacoRef]);
-  useEffect(() => {
-    if (draggedItem && draggedItem.filePath === editor_filePath) {
-      setMonacoModel(monacoRef.current.getModel());
-      setMonacoViewState(monacoRef.current.saveViewState());
-      monacoRef.current.setModel(null);
-    } else if (
-      draggedItem === null &&
-      dragCommand === null &&
-      monacoModel &&
-      monacoViewState
-    ) {
-      monacoRef.current.setModel(monacoModel);
-      monacoRef.current.restoreViewState(monacoViewState);
-      setMonacoModel(null);
-      setMonacoViewState(null);
-    }
-  }, [draggedItem]);
   /*MONACO EDITOR FUNCTIONs======================================================================*/
 
   /*MONACO EDITOR OPTIONS-----------------------------------------------------------------------*/
@@ -168,6 +153,39 @@ const Editor = ({
     onMount: onEditorMount,
   };
   /*MONACO EDITOR OPTIONS-----------------------------------------------------------------------*/
+
+  /*Drag and Drop Save and Reload Model=================================*/
+  useEffect(() => {
+    if (draggedItem && draggedItem.filePath === editor_filePath) {
+      setMonacoModel(monacoRef.current.getModel());
+      setMonacoViewState(monacoRef.current.saveViewState());
+
+      monacoRef.current.setModel(null);
+    } else if (
+      draggedItem === null &&
+      dragCommand === null &&
+      monacoModel &&
+      monacoViewState
+    ) {
+      monacoRef.current.setModel(monacoModel);
+      monacoRef.current.restoreViewState(monacoViewState);
+      setMonacoModel(null);
+      setMonacoViewState(null);
+    }
+  }, [draggedItem]);
+  useEffect(() => {
+    if (onDragIndex !== -1) {
+      setMonacoModel(monacoRef.current.getModel());
+      setMonacoViewState(monacoRef.current.saveViewState());
+      monacoRef.current.setModel(null);
+    } else if (onDragIndex === -1 && monacoModel && monacoViewState) {
+      monacoRef.current.setModel(monacoModel);
+      monacoRef.current.restoreViewState(monacoViewState);
+      setMonacoModel(null);
+      setMonacoViewState(null);
+    }
+  }, [onDragIndex]);
+  /*Drag and Drop Save and Reload Model=================================*/
 
   return (
     <div
