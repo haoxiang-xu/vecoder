@@ -432,6 +432,9 @@ const FileSelectionBar = ({
                   ? "file_selection_bar_item_close_icon1114"
                   : "file_selection_bar_item_close_icon_vertical0123"
               }
+              style={
+                onSelectedIndex === index ? { opacity: "1" } : { opacity: "0", pointerEvents: "none" }
+              }
               alt="close"
               draggable="false"
               onDragOver={(e) => {
