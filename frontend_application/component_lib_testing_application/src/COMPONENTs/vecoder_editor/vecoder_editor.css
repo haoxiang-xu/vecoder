@@ -290,7 +290,7 @@
   position: absolute;
 
   top: 5px;
-  right: 5px;
+  left: 5px;
   padding: 5px;
 
   /*SIZE*/
@@ -377,7 +377,7 @@
   position: absolute;
 
   left: 5px;
-  bottom: 5px;
+  top: 5px;
   padding: 5px;
 
   /*SIZE*/

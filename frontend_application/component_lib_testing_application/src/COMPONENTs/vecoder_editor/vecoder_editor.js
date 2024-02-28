@@ -401,11 +401,11 @@ const FileSelectionBar = ({
         }
         if (mode === "HORIZONTAL") {
           containerStyle = {
-            width: spanRefs.current[index]?.offsetWidth + 60 + "px",
+            width: spanRefs.current[index]?.offsetWidth + 38 + "px",
           };
         } else {
           containerStyle = {
-            height: spanRefs.current[index]?.offsetWidth + 60 + "px",
+            height: spanRefs.current[index]?.offsetWidth + 38 + "px",
           };
         }
         return (
@@ -425,26 +425,6 @@ const FileSelectionBar = ({
             }}
             style={containerStyle}
           >
-            <img
-              src={SYSTEM_ICON_MANAGER.close.ICON512}
-              className={
-                mode === "HORIZONTAL"
-                  ? "file_selection_bar_item_close_icon1114"
-                  : "file_selection_bar_item_close_icon_vertical0123"
-              }
-              style={
-                onSelectedIndex === index ? { opacity: "1" } : { opacity: "0", pointerEvents: "none" }
-              }
-              alt="close"
-              draggable="false"
-              onDragOver={(e) => {
-                e.stopPropagation();
-                e.preventDefault();
-              }}
-              onClick={(e) => {
-                onFileDelete(e)(index);
-              }}
-            />
             <span
               ref={(el) => (spanRefs.current[index] = el)}
               className={
@@ -466,7 +446,29 @@ const FileSelectionBar = ({
               }
               alt="close"
               style={{
-                opacity: index === onSelectedIndex ? "1" : "0.32",
+                opacity: index === onSelectedIndex ? "0" : "0.64",
+              }}
+            />
+            <img
+              src={SYSTEM_ICON_MANAGER.close.ICON512}
+              className={
+                mode === "HORIZONTAL"
+                  ? "file_selection_bar_item_close_icon1114"
+                  : "file_selection_bar_item_close_icon_vertical0123"
+              }
+              style={
+                onSelectedIndex === index
+                  ? { opacity: "1" }
+                  : { opacity: "0", pointerEvents: "none" }
+              }
+              alt="close"
+              draggable="false"
+              onDragOver={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+              }}
+              onClick={(e) => {
+                onFileDelete(e)(index);
               }}
             />
             {/* Drag and Drop Invisible Overlay ---------------------------------------------- */}
