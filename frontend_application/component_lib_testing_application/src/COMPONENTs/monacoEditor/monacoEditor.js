@@ -31,6 +31,13 @@ const Editor = ({
     removeMonacoEditorsDataByPath,
     updateMonacoEditorViewStateByPath,
     updateMonacoEditorModelByPath,
+
+    vecoderEditorContentData,
+    setVecoderEditorContentData,
+    updateVecoderEditorFileContentDataByPath,
+    accessVecoderEditorFileContentDataByPath,
+    accessVecoderEditorFileLanguageDataByPath,
+    accessVecoderEditorFileNameDataByPath,    
   } = useContext(vecoderEditorContexts);
   const { draggedItem, dragCommand, setDragCommand } = useContext(
     globalDragAndDropContexts
@@ -75,7 +82,7 @@ const Editor = ({
       monaco,
       monacoRef,
       editor_filePath,
-      editor_language,
+      accessVecoderEditorFileLanguageDataByPath(editor_filePath),
       monacoEditorsOptionsAndContentData,
       accessMonacoEditorsDataByPath,
       draggedItem,
@@ -146,10 +153,12 @@ const Editor = ({
     [baseEditorOptions]
   );
   const editorProps = {
-    language: editor_language,
+    language: accessVecoderEditorFileLanguageDataByPath(editor_filePath),
     theme: "vs-dark",
     options: editor_diffContent ? diffEditorOptions : baseEditorOptions,
-    onChange: editor_setContent,
+    onChange: (newValue, e) => {
+      updateVecoderEditorFileContentDataByPath(editor_filePath, newValue);
+    },
     onMount: onEditorMount,
   };
   /*MONACO EDITOR OPTIONS-----------------------------------------------------------------------*/
@@ -203,11 +212,14 @@ const Editor = ({
       {editor_diffContent ? (
         <MonacoDiffEditor
           {...editorProps}
-          original={editor_content}
+          original={accessVecoderEditorFileContentDataByPath(editor_filePath)}
           value={editor_diffContent}
         />
       ) : (
-        <MonacoEditor {...editorProps} value={editor_content} />
+        <MonacoEditor
+          {...editorProps}
+          value={accessVecoderEditorFileContentDataByPath(editor_filePath)}
+        />
       )}
     </div>
   );
