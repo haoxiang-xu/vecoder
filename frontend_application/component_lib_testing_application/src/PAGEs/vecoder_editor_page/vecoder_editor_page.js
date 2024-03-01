@@ -291,8 +291,7 @@ def get_compliment(color):
     "green": ["You must love nature!", "A very earthy choice!"],
     "yellow": ["Sunshine suits you!", "A bright and cheerful choice!"],
     "purple": ["A royal choice indeed!", "Mysterious and deep!"],
-  }
-        
+  } 
   # Get a random compliment for the given color, or a default one.
   return random.choice(compliments.get(color, ["That's a unique choice!"]))
     
@@ -393,7 +392,6 @@ renderFileContents();
     System.out.println(anotherCar.getDescription());
   }
 }
-
 class Car {
   private String make;
   private String model;
