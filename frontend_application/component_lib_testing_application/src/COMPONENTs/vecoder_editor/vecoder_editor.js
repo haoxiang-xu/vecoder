@@ -5,6 +5,7 @@ import "./vecoder_editor.css";
 import { ICON_MANAGER } from "../../ICONs/icon_manager";
 import { rightClickContextMenuCommandContexts } from "../../CONTEXTs/rightClickContextMenuContexts";
 import { globalDragAndDropContexts } from "../../CONTEXTs/globalDragAndDropContexts";
+import { vecoderEditorContexts } from "../../CONTEXTs/vecoderEditorContexts";
 
 /* Load ICON manager --------------------------------------------------------------------------------- */
 let FILE_TYPE_ICON_MANAGER = {
@@ -32,6 +33,9 @@ try {
 /* Load ICON manager --------------------------------------------------------------------------------- */
 
 const GhostDragImage = ({ draggedItem }) => {
+  const { accessVecoderEditorFileNameDataByPath } = useContext(
+    vecoderEditorContexts
+  );
   const [position, setPosition] = useState({
     x: -9999,
     y: -9999,
@@ -70,7 +74,7 @@ const GhostDragImage = ({ draggedItem }) => {
           }}
         >
           <span className="ghost_drag_image_filetype_label0207" ref={labelRef}>
-            {draggedItem?.fileName}
+            {accessVecoderEditorFileNameDataByPath(draggedItem)}
           </span>
         </div>
       ) : null}
@@ -182,9 +186,7 @@ const TopLeftSection = ({
   );
 };
 const FileSelectionBar = ({
-  //DATA
-  files,
-  setFiles,
+  code_editor_container_ref_index,
   onSelectedIndex,
   setOnSelectedIndex,
   //HORIZONTAL OR VERTICAL MODE
@@ -198,13 +200,15 @@ const FileSelectionBar = ({
     dragCommand,
     setDragCommand,
   } = useContext(globalDragAndDropContexts);
+  const {
+    updateMonacoEditorPathsByEditorIndex,
+    accessMonacoEditorPathsByEditorIndex,
+    accessVecoderEditorFileNameDataByPath,
+  } = useContext(vecoderEditorContexts);
   const [forceRefresh, setForceRefresh] = useState(false);
   const refresh = () => {
     setForceRefresh(!forceRefresh);
   };
-  useEffect(() => {
-    refresh();
-  }, [files]);
 
   /* File Selection Bar parameters & Functions ==================================================== */
   const fileSelectionBarContainerRef = useRef(null);
@@ -215,9 +219,14 @@ const FileSelectionBar = ({
 
   const onFileDelete = (e) => (index) => {
     e.stopPropagation();
-    const editedFiles = [...files];
+    const editedFiles = [
+      ...accessMonacoEditorPathsByEditorIndex(code_editor_container_ref_index),
+    ];
     editedFiles.splice(index, 1);
-    setFiles(editedFiles);
+    updateMonacoEditorPathsByEditorIndex(
+      code_editor_container_ref_index,
+      editedFiles
+    );
 
     if (onSelectedIndex === index) {
       setOnSelectedIndex(null);
@@ -233,7 +242,11 @@ const FileSelectionBar = ({
 
     setOnSelectedIndex(index);
     setOnDragIndex(index);
-    setDraggedItem(files[index]);
+    setDraggedItem(
+      accessMonacoEditorPathsByEditorIndex(code_editor_container_ref_index)[
+        index
+      ]
+    );
   };
   const onFileDragEnd = (e, index) => {
     e.stopPropagation();
@@ -241,11 +254,24 @@ const FileSelectionBar = ({
     document.body.style.cursor = "";
 
     if (onDropIndex !== -1) {
-      const editedFiles = [...files];
+      const editedFiles = [
+        ...accessMonacoEditorPathsByEditorIndex(
+          code_editor_container_ref_index
+        ),
+      ];
       const dragedFile = editedFiles.splice(onDragIndex, 1)[0];
       editedFiles.splice(onDropIndex, 0, dragedFile);
-      setFiles(editedFiles);
-      setOnSelectedIndex(Math.min(onDropIndex, files.length - 1));
+      updateMonacoEditorPathsByEditorIndex(
+        code_editor_container_ref_index,
+        editedFiles
+      );
+      setOnSelectedIndex(
+        Math.min(
+          onDropIndex,
+          accessMonacoEditorPathsByEditorIndex(code_editor_container_ref_index)
+            .length - 1
+        )
+      );
     }
     if (onDropIndex === -1 && draggedOverItem !== null) {
       setDragCommand("APPEND TO TARGET");
@@ -271,7 +297,11 @@ const FileSelectionBar = ({
       const dropIndex = childrenArray.indexOf(targetElement);
       if (dropIndex !== onDropIndex && dropIndex !== -1) {
         if (onDragIndex === -1) {
-          setDraggedOverItem(files[dropIndex]);
+          setDraggedOverItem(
+            accessMonacoEditorPathsByEditorIndex(
+              code_editor_container_ref_index
+            )[dropIndex]
+          );
         }
         setOnDropIndex(dropIndex);
       }
@@ -336,10 +366,17 @@ const FileSelectionBar = ({
   }, [onSelectedIndex]);
   useEffect(() => {
     if (onDropIndex !== -1 && dragCommand === "APPEND TO TARGET") {
-      const editedFiles = [...files];
+      const editedFiles = [
+        ...accessMonacoEditorPathsByEditorIndex(
+          code_editor_container_ref_index
+        ),
+      ];
       const dragedFile = draggedItem;
       editedFiles.splice(onDropIndex, 0, dragedFile);
-      setFiles(editedFiles);
+      updateMonacoEditorPathsByEditorIndex(
+        code_editor_container_ref_index,
+        editedFiles
+      );
       setOnSelectedIndex(onDropIndex);
 
       setOnDragIndex(-1);
@@ -350,9 +387,16 @@ const FileSelectionBar = ({
       setDragCommand("WAITING FOR MODE APPEND");
     }
     if (onDragIndex !== -1 && dragCommand === "DELETE FROM SOURCE") {
-      const editedFiles = [...files];
+      const editedFiles = [
+        ...accessMonacoEditorPathsByEditorIndex(
+          code_editor_container_ref_index
+        ),
+      ];
       editedFiles.splice(onDragIndex, 1);
-      setFiles(editedFiles);
+      updateMonacoEditorPathsByEditorIndex(
+        code_editor_container_ref_index,
+        editedFiles
+      );
       setOnSelectedIndex(null);
 
       setOnDragIndex(-1);
@@ -385,7 +429,9 @@ const FileSelectionBar = ({
         fileSelectionBarOnDragLeave(e);
       }}
     >
-      {files.map((file, index) => {
+      {accessMonacoEditorPathsByEditorIndex(
+        code_editor_container_ref_index
+      ).map((filePath, index) => {
         let className;
         let containerStyle = {};
         switch (true) {
@@ -410,7 +456,7 @@ const FileSelectionBar = ({
         }
         return (
           <div
-            key={file.filePath}
+            key={filePath}
             ref={(el) => (fileItemRefs.current[index] = el)}
             className={className}
             draggable={true}
@@ -433,11 +479,15 @@ const FileSelectionBar = ({
                   : "file_selection_bar_file_text_vertical0123"
               }
             >
-              {file.fileName}
+              {accessVecoderEditorFileNameDataByPath(filePath)}
             </span>
             <img
               src={
-                FILE_TYPE_ICON_MANAGER[file.fileName.split(".").pop()]?.ICON512
+                FILE_TYPE_ICON_MANAGER[
+                  accessVecoderEditorFileNameDataByPath(filePath)
+                    .split(".")
+                    .pop()
+                ]?.ICON512
               }
               className={
                 mode === "HORIZONTAL"
@@ -496,9 +546,6 @@ const FileSelectionBar = ({
 };
 const MonacoEditorGroup = ({
   code_editor_container_ref_index,
-  //FILE DATA
-  files,
-  setFiles,
   //CONTEXT MENU
   setOnRightClickItem,
   onSelectedIndex,
@@ -510,12 +557,10 @@ const MonacoEditorGroup = ({
   //HORIZONTAL OR VERTICAL MODE
   mode,
 }) => {
+  const { accessMonacoEditorPathsByEditorIndex } = useContext(
+    vecoderEditorContexts
+  );
   const [diffContent, setDiffContent] = useState(null);
-  const setFileContent = (index) => (value) => {
-    const editedFiles = [...files];
-    editedFiles[index].fileContent = value;
-    setFiles(editedFiles);
-  };
   const handleRightClick = (event) => {
     event.preventDefault();
     if (onSelectedContent || navigator.clipboard.readText() !== "") {
@@ -539,15 +584,14 @@ const MonacoEditorGroup = ({
     }
   };
 
-  return files.map((file, index) => {
+  return accessMonacoEditorPathsByEditorIndex(
+    code_editor_container_ref_index
+  ).map((filePath, index) => {
     return (
       <Editor
-        key={files[index].filePath}
+        key={filePath}
         //Editor required parameters
-        editor_filePath={files[index].filePath}
-        editor_content={files[index].fileContent}
-        editor_setContent={setFileContent(index)}
-        editor_language={files[index].fileLanguage}
+        editor_filePath={filePath}
         //Editor function parameters
         onAppendContent={onAppendContent}
         setOnAppendContent={setOnAppendContent}
@@ -557,7 +601,12 @@ const MonacoEditorGroup = ({
         }}
         mode={mode}
         display={
-          file.filePath === files[onSelectedIndex]?.filePath ? true : false
+          filePath ===
+          accessMonacoEditorPathsByEditorIndex(code_editor_container_ref_index)[
+            onSelectedIndex
+          ]
+            ? true
+            : false
         }
         //editor_diffContent={diffContent}
         //editor_setDiffContent={setDiffContent}
@@ -568,12 +617,15 @@ const MonacoEditorGroup = ({
 const VecoderEditor = ({
   code_editor_width,
   code_editor_container_ref_index,
-  imported_files,
-  setImportedFiles,
   //Maximize and Minimize Container
   onMaximizeOnClick,
   onMinimizeOnClick,
 }) => {
+  const {
+    accessMonacoEditorFileLanguageDataByEditorIndexAndOnSelectedIndex,
+    accessMonacoEditorFileContentDataByEditorIndexAndOnSelectedIndex,
+  } = useContext(vecoderEditorContexts);
+
   const [onSelectedIndex, setOnSelectedIndex] = useState(null);
   const [onSelectedCotent, setOnSelectedCotent] = useState(null);
   const [onAppendContent, setOnAppendContent] = useState(null);
@@ -581,7 +633,11 @@ const VecoderEditor = ({
   /* API =================================================================================== */
   const continueAPI = async () => {
     const requestBody = {
-      language: imported_files[onSelectedIndex].fileLanguage,
+      language:
+        accessMonacoEditorFileLanguageDataByEditorIndexAndOnSelectedIndex(
+          code_editor_container_ref_index,
+          onSelectedIndex
+        ),
       prompt: onSelectedCotent?.selectedText,
     };
 
@@ -599,14 +655,21 @@ const VecoderEditor = ({
   };
   const getAST = async () => {
     const requestBody = {
-      language: imported_files[onSelectedIndex].fileLanguage,
+      language:
+        accessMonacoEditorFileLanguageDataByEditorIndexAndOnSelectedIndex(
+          code_editor_container_ref_index,
+          onSelectedIndex
+        ),
       prompt: onSelectedCotent?.selectedText,
     };
 
     try {
       const response = await axios.post(
         "http://localhost:8200/AST/" +
-          imported_files[onSelectedIndex].fileLanguage,
+          accessMonacoEditorFileLanguageDataByEditorIndexAndOnSelectedIndex(
+            code_editor_container_ref_index,
+            onSelectedIndex
+          ),
         requestBody
       );
       console.log(response.data);
@@ -628,14 +691,11 @@ const VecoderEditor = ({
         prompt = onSelectedCotent?.selectedText || "";
         break;
       case "entireFile":
-        if (
-          imported_files?.length > onSelectedIndex &&
-          imported_files?.length
-        ) {
-          const selectedFile = imported_files[onSelectedIndex]?.fileName;
-          const file = imported_files.find((f) => f.fileName === selectedFile);
-          prompt = file?.fileContent || "";
-        }
+        prompt =
+          accessMonacoEditorFileContentDataByEditorIndexAndOnSelectedIndex(
+            code_editor_container_ref_index,
+            onSelectedIndex
+          ) || "";
         break;
       default:
         console.log("Invalid input format");
@@ -643,7 +703,10 @@ const VecoderEditor = ({
     }
     const requestBody = {
       language:
-        imported_files?.[onSelectedIndex]?.fileLanguage || "defaultLanguage",
+        accessMonacoEditorFileLanguageDataByEditorIndexAndOnSelectedIndex(
+          code_editor_container_ref_index,
+          onSelectedIndex
+        ) || "defaultLanguage",
       prompt: prompt,
     };
     switch (rightClickCommand?.content?.requestMethod) {
@@ -732,9 +795,6 @@ const VecoderEditor = ({
       <div style={{ height: "100%" }}>
         <MonacoEditorGroup
           code_editor_container_ref_index={code_editor_container_ref_index}
-          //FILE DATA
-          files={imported_files}
-          setFiles={setImportedFiles}
           //CONTEXT MENU
           setOnRightClickItem={setOnRightClickItem}
           onSelectedIndex={onSelectedIndex}
@@ -753,9 +813,7 @@ const VecoderEditor = ({
           onMinimizeOnClick={onMinimizeOnClick}
         />
         <FileSelectionBar
-          //DATA
-          files={imported_files}
-          setFiles={setImportedFiles}
+          code_editor_container_ref_index={code_editor_container_ref_index}
           onSelectedIndex={onSelectedIndex}
           setOnSelectedIndex={setOnSelectedIndex}
           //HORIZONTAL OR VERTICAL MODE
