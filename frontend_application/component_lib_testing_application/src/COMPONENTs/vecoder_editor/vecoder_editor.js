@@ -485,10 +485,10 @@ const FileSelectionBar = ({
                   ? {
                       left: mode === "HORIZONTAL" ? "47px" : "57%",
                       top: mode === "HORIZONTAL" ? "47%" : "47px",
-                      transition: "left 0.16s ease, top 0.16s ease",
+                      transition: "left 0.2s ease, top 0.2s ease",
                     }
                   : {
-                      transition: "left 0.16s ease",
+                      transition: "left 0.2s ease",
                     }
               }
             >
@@ -516,12 +516,12 @@ const FileSelectionBar = ({
                         mode === "HORIZONTAL"
                           ? "7px 0px 0px 28px"
                           : "28px 0px 0px 7px",
-                      transition: "padding 0.16s ease",
+                      transition: "padding 0.2s ease",
                     }
                   : {
                       opacity: "0.64",
                       padding: "7px 0px 0px 7px",
-                      transition: "padding 0.16s ease",
+                      transition: "padding 0.2s ease",
                     }
               }
             />
