@@ -622,11 +622,21 @@ const VecoderEditor = ({
   onMinimizeOnClick,
 }) => {
   const {
+    accessOnSelectedMonacoIndexByEditorIndex,
+    updateOnSelectedMonacoIndexByEditorIndex,
     accessMonacoEditorFileLanguageDataByEditorIndexAndOnSelectedIndex,
     accessMonacoEditorFileContentDataByEditorIndexAndOnSelectedIndex,
   } = useContext(vecoderEditorContexts);
 
-  const [onSelectedIndex, setOnSelectedIndex] = useState(null);
+  const [onSelectedIndex, setOnSelectedIndex] = useState(
+    accessOnSelectedMonacoIndexByEditorIndex(code_editor_container_ref_index)
+  );
+  useEffect(() => {
+    updateOnSelectedMonacoIndexByEditorIndex(
+      code_editor_container_ref_index,
+      onSelectedIndex
+    );
+  }, [onSelectedIndex]);
   const [onSelectedCotent, setOnSelectedCotent] = useState(null);
   const [onAppendContent, setOnAppendContent] = useState(null);
 

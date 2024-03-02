@@ -263,14 +263,15 @@
 .file_selection_bar_file_text1114 {
   /*POSITION*/
   position: absolute;
-  top: 5px;
+  transform: translate(0%, -50%);
+  top: 45%;
   left: 30px;
   padding: 0px 0px 0px 0px;
 
   /*SIZE*/
   font-size: 14px;
   color: #cccccc;
-
+  
   pointer-events: none;
 }
 .file_selection_bar_item_filetype_icon1114 {
