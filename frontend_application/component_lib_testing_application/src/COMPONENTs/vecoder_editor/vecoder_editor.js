@@ -407,45 +407,54 @@ const FileSelectionBar = ({
         let containerStyle = {};
         switch (true) {
           case index === onSelectedIndex:
-            mode === "HORIZONTAL"
-              ? (className = "file_selection_bar_item_selected1114")
-              : (className = "file_selection_bar_item_selected_vertical0123");
+            if (mode === "HORIZONTAL") {
+              className = "file_selection_bar_item_selected1114";
+              containerStyle = {
+                width: spanRefs.current[index]?.offsetWidth + 54 + "px",
+              };
+            } else {
+              className = "file_selection_bar_item_selected_vertical0123";
+              containerStyle = {
+                height: spanRefs.current[index]?.offsetWidth + 54 + "px",
+              };
+            }
+            if (index === onDragIndex) {
+              if (mode === "HORIZONTAL") {
+                containerStyle = {
+                  width: 0 + "px",
+                  height: 30 + "px",
+                  opacity: 0,
+                  margin: "0px 0px 0px 0px",
+                  overflow: "hidden",
+                  transition: "width 0.2s ease, opacity 0.32s ease",
+                };
+              } else {
+                containerStyle = {
+                  width: 30 + "px",
+                  height: 0 + "px",
+                  opacity: 0,
+                  margin: "0px 0px 0px 0px",
+                  overflow: "hidden",
+                  transition: "height 0.2s ease, opacity 0.32s ease",
+                };
+              }
+            }
             break;
           default:
-            mode === "HORIZONTAL"
-              ? (className = "file_selection_bar_item1114")
-              : (className = "file_selection_bar_item_vertical0123");
+            if (mode === "HORIZONTAL") {
+              className = "file_selection_bar_item1114";
+              containerStyle = {
+                width: spanRefs.current[index]?.offsetWidth + 38 + "px",
+              };
+            } else {
+              className = "file_selection_bar_item_vertical0123";
+              containerStyle = {
+                height: spanRefs.current[index]?.offsetWidth + 38 + "px",
+              };
+            }
         }
-        if (index === onDragIndex) {
-          if (mode === "HORIZONTAL") {
-            containerStyle = {
-              width: 0 + "px",
-              height: 30 + "px",
-              opacity: 0,
-              margin: "0px 0px 0px 0px",
-              overflow: "hidden",
-              transition: "width 0.2s ease, opacity 0.32s ease",
-            };
-          } else {
-            containerStyle = {
-              width: 30 + "px",
-              height: 0 + "px",
-              opacity: 0,
-              margin: "0px 0px 0px 0px",
-              overflow: "hidden",
-              transition: "height 0.2s ease, opacity 0.32s ease",
-            };
-          }
-        } else {
-          if (mode === "HORIZONTAL") {
-            containerStyle = {
-              width: spanRefs.current[index]?.offsetWidth + 38 + "px",
-            };
-          } else {
-            containerStyle = {
-              height: spanRefs.current[index]?.offsetWidth + 38 + "px",
-            };
-          }
+        if (onDragIndex !== -1) {
+          containerStyle = { ...containerStyle, backgroundColor: "#252525" };
         }
         return (
           <div
@@ -552,7 +561,7 @@ const FileSelectionBar = ({
             {index === onDropIndex ? (
               <div
                 className="file_selection_bar_item_overlay_highlight0206"
-                style={containerStyle}
+                style={{ ...containerStyle, backgroundColor: "#ffffff" }}
               ></div>
             ) : null}
           </div>
