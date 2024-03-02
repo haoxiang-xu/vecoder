@@ -8,7 +8,7 @@
   top: 0px;
 
   /*STYLE*/
-  border-radius: 8px;
+  border-radius: 11px;
   padding: 44px 6px 6px 6px;
 
   box-sizing: border-box;
@@ -46,7 +46,7 @@
   left: 5px;
 
   /*STYLE*/
-  border-radius: 5px;
+  border-radius: 6px;
   padding: 9px;
 }
 .code_editor_close_icon1113:hover {
@@ -73,7 +73,7 @@
   left: 55px;
 
   /*STYLE*/
-  border-radius: 5px;
+  border-radius: 6px;
   padding: 9px 3px 9px 0px;
 }
 .code_editor_maximize_icon0129:hover {
@@ -100,7 +100,7 @@
   left: 40px;
 
   /*STYLE*/
-  border-radius: 5px;
+  border-radius: 6px;
   padding: 9px 0px 9px 3px;
 }
 .code_editor_minimize_icon0129:hover {
@@ -140,7 +140,7 @@
   left: 5px;
 
   /*STYLE*/
-  border-radius: 5px;
+  border-radius: 6px;
   padding: 9px;
 }
 .code_editor_maximize_icon_vertical0129:hover {
@@ -236,7 +236,7 @@
   /*STYLE*/
   background-color: #252525;
   color: white;
-  border-radius: 5px;
+  border-radius: 6px;
   margin: 0px 6px 4px 0px;
 }
 .file_selection_bar_item1114:hover {
@@ -257,7 +257,7 @@
   background-color: #323232;
   color: white;
 
-  border-radius: 5px;
+  border-radius: 6px;
   margin: 0px 6px 4px 0px;
 }
 .file_selection_bar_file_text1114 {

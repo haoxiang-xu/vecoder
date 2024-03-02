@@ -10,7 +10,7 @@
 
   /*STYLE*/
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 11px;
   background-color: #1e1e1e;
 }
 #dir_list_component_container0725 {
@@ -74,7 +74,7 @@
   left: 5px;
 
   /*STYLE*/
-  border-radius: 5px;
+  border-radius: 6px;
   padding: 9px;
 }
 .dir_list_component_close_icon0125:hover {
@@ -109,7 +109,7 @@
 
   /*STYLE*/
   background-color: #323232;
-  border-radius: 5px;
+  border-radius: 6px;
 }
 .dir_list_component_search_bar_container0125:hover {
   transition: all 0.32s ease;
@@ -147,7 +147,7 @@
   right: 3px;
 
   /*STYLE*/
-  border-radius: 3px;
+  border-radius: 4px;
   padding: 5px;
 }
 .dir_list_component_search_bar_icon0125:hover {
