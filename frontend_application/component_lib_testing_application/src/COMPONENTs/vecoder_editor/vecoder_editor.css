@@ -256,6 +256,7 @@
   /*STYLE*/
   background-color: #323232;
   color: white;
+  overflow: hidden;
 
   border-radius: 6px;
   margin: 0px 6px 4px 0px;
@@ -277,7 +278,6 @@
 .file_selection_bar_item_filetype_icon1114 {
   /*POSITION*/
   position: absolute;
-  padding: 7px 0px 0px 7px;
 
   /*SIZE*/
   top: 0px;

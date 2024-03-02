@@ -204,6 +204,7 @@ const FileSelectionBar = ({
     updateMonacoEditorPathsByEditorIndex,
     accessMonacoEditorPathsByEditorIndex,
     accessVecoderEditorFileNameDataByPath,
+    moveGHOSTToIndex,
   } = useContext(vecoderEditorContexts);
   const [forceRefresh, setForceRefresh] = useState(false);
   const refresh = () => {
@@ -304,36 +305,6 @@ const FileSelectionBar = ({
           );
         }
         setOnDropIndex(dropIndex);
-      }
-    } else {
-      const childrenArray = Array.from(
-        fileSelectionBarContainerRef.current.children
-      );
-      const lastItem = childrenArray[childrenArray.length - 1];
-      const lastItemRect = lastItem.getBoundingClientRect();
-      let isAfterLastItem = null;
-
-      if (mode === "HORIZONTAL") {
-        isAfterLastItem =
-          e.clientY > lastItemRect.top && e.clientX > lastItemRect.right;
-      } else {
-        isAfterLastItem =
-          e.clientX > lastItemRect.left && e.clientY > lastItemRect.bottom;
-      }
-
-      if (isAfterLastItem != null) {
-        if (onDragIndex !== childrenArray.length - 1) {
-          let dropIndex = -1;
-          if (onDragIndex === -1) {
-            dropIndex = childrenArray.length;
-          } else {
-            dropIndex = childrenArray.length - 1;
-          }
-          setOnDropIndex(dropIndex);
-          if (onDragIndex === -1) {
-            setDraggedOverItem("fileSelectionBarContainerLastItem");
-          }
-        }
       }
     }
   };
@@ -445,14 +416,36 @@ const FileSelectionBar = ({
               ? (className = "file_selection_bar_item1114")
               : (className = "file_selection_bar_item_vertical0123");
         }
-        if (mode === "HORIZONTAL") {
-          containerStyle = {
-            width: spanRefs.current[index]?.offsetWidth + 38 + "px",
-          };
+        if (index === onDragIndex) {
+          if (mode === "HORIZONTAL") {
+            containerStyle = {
+              width: 0 + "px",
+              height: 30 + "px",
+              opacity: 0,
+              margin: "0px 0px 0px 0px",
+              overflow: "hidden",
+              transition: "width 0.2s ease, opacity 0.32s ease",
+            };
+          } else {
+            containerStyle = {
+              width: 30 + "px",
+              height: 0 + "px",
+              opacity: 0,
+              margin: "0px 0px 0px 0px",
+              overflow: "hidden",
+              transition: "height 0.2s ease, opacity 0.32s ease",
+            };
+          }
         } else {
-          containerStyle = {
-            height: spanRefs.current[index]?.offsetWidth + 38 + "px",
-          };
+          if (mode === "HORIZONTAL") {
+            containerStyle = {
+              width: spanRefs.current[index]?.offsetWidth + 38 + "px",
+            };
+          } else {
+            containerStyle = {
+              height: spanRefs.current[index]?.offsetWidth + 38 + "px",
+            };
+          }
         }
         return (
           <div
@@ -478,6 +471,17 @@ const FileSelectionBar = ({
                   ? "file_selection_bar_file_text1114"
                   : "file_selection_bar_file_text_vertical0123"
               }
+              style={
+                index === onSelectedIndex
+                  ? {
+                      left: mode === "HORIZONTAL" ? "47px" : "57%",
+                      top: mode === "HORIZONTAL" ? "47%" : "47px",
+                      transition: "left 0.16s ease, top 0.16s ease",
+                    }
+                  : {
+                      transition: "left 0.16s ease",
+                    }
+              }
             >
               {accessVecoderEditorFileNameDataByPath(filePath)}
             </span>
@@ -495,9 +499,22 @@ const FileSelectionBar = ({
                   : "file_selection_bar_item_filetype_icon_vertical0123"
               }
               alt="close"
-              style={{
-                opacity: index === onSelectedIndex ? "0" : "0.64",
-              }}
+              style={
+                index === onSelectedIndex
+                  ? {
+                      opacity: "1",
+                      padding:
+                        mode === "HORIZONTAL"
+                          ? "7px 0px 0px 28px"
+                          : "28px 0px 0px 7px",
+                      transition: "padding 0.16s ease",
+                    }
+                  : {
+                      opacity: "0.64",
+                      padding: "7px 0px 0px 7px",
+                      transition: "padding 0.16s ease",
+                    }
+              }
             />
             <img
               src={SYSTEM_ICON_MANAGER.close.ICON512}
@@ -509,7 +526,10 @@ const FileSelectionBar = ({
               style={
                 onSelectedIndex === index
                   ? { opacity: "1" }
-                  : { opacity: "0", pointerEvents: "none" }
+                  : {
+                      opacity: "0",
+                      pointerEvents: "none",
+                    }
               }
               alt="close"
               draggable="false"
@@ -587,7 +607,7 @@ const MonacoEditorGroup = ({
   return accessMonacoEditorPathsByEditorIndex(
     code_editor_container_ref_index
   ).map((filePath, index) => {
-    return (
+    return filePath !== "GHOST" ? (
       <Editor
         key={filePath}
         //Editor required parameters
@@ -611,7 +631,7 @@ const MonacoEditorGroup = ({
         //editor_diffContent={diffContent}
         //editor_setDiffContent={setDiffContent}
       ></Editor>
-    );
+    ) : null;
   });
 };
 const VecoderEditor = ({

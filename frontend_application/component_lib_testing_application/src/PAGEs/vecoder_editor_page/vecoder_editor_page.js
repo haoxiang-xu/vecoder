@@ -521,6 +521,12 @@ const VecoderEditorPage = () => {
       ]
     );
   };
+  const accessGHOSTIndexByEditorIndex = (codeEditorContainerRefIndex) => {
+    return vecoderEditorsOptionsData[
+      codeEditorContainerRefIndex
+    ].monacoEditorPaths.findIndex((element) => element === "GHOST");
+  };
+  const moveGHOSTToIndex = (codeEditorContainerRefIndex, index) => {};
   const [vecoderEditorContentData, setVecoderEditorContentData] = useState(
     DEFAULT_VECODER_EDITORS_CONTENT_DATA
   );
@@ -540,7 +546,6 @@ const VecoderEditorPage = () => {
       }
     });
   };
-
   const accessVecoderEditorFileContentDataByPath = (path) => {
     return vecoderEditorContentData[path].fileContent;
   };
@@ -572,6 +577,7 @@ const VecoderEditorPage = () => {
         accessMonacoEditorPathsByEditorIndex,
         accessMonacoEditorFileLanguageDataByEditorIndexAndOnSelectedIndex,
         accessMonacoEditorFileContentDataByEditorIndexAndOnSelectedIndex,
+        moveGHOSTToIndex,
 
         vecoderEditorContentData,
         setVecoderEditorContentData,
