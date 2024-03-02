@@ -244,7 +244,7 @@
   background-color: #2e2e2e;
 }
 .file_selection_bar_item_selected1114 {
-  transition: all 0.16s ease;
+  transition: opacity 0.16s ease, background-color 0.16s ease;
 
   /*POSITION*/
   height: 30px;
@@ -332,7 +332,7 @@
   background-color: #2e2e2e;
 }
 .file_selection_bar_item_selected_vertical0123 {
-  transition: all 0.16s ease;
+  transition: opacity 0.16s ease, background-color 0.16s ease;
 
   /*POSITION*/
   width: 30px;
@@ -447,13 +447,13 @@
   /*POSITION*/
   transform: translate(-50%, -16%);
   position: fixed;
-  height: 32px;
+  height: 24px;
 
   /*STYLE*/
   background-color: #323232;
   color: white;
 
-  border-radius: 5px;
+  border-radius: 6px;
   margin: 0px 0px 5px 0px;
   pointer-events: none;
   z-index: 12;
@@ -461,7 +461,8 @@
 .ghost_drag_image_filetype_label0207 {
   /*POSITION*/
   position: absolute;
-  top: 6px;
+  transform: translate(0%, -50%);
+  top: 47%;
   left: 12px;
   padding: 0px 0px 0px 0px;
 

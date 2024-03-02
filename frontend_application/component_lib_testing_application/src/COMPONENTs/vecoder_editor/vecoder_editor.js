@@ -311,7 +311,7 @@ const FileSelectionBar = ({
       );
       const lastItem = childrenArray[childrenArray.length - 1];
       const lastItemRect = lastItem.getBoundingClientRect();
-      let isAfterLastItem = false;
+      let isAfterLastItem = null;
 
       if (mode === "HORIZONTAL") {
         isAfterLastItem =
@@ -321,7 +321,7 @@ const FileSelectionBar = ({
           e.clientX > lastItemRect.left && e.clientY > lastItemRect.bottom;
       }
 
-      if (isAfterLastItem) {
+      if (isAfterLastItem != null) {
         if (onDragIndex !== childrenArray.length - 1) {
           let dropIndex = -1;
           if (onDragIndex === -1) {
