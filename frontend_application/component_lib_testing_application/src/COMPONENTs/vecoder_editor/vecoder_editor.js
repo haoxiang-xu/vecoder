@@ -400,10 +400,6 @@ const FileSelectionBar = ({
         fileSelectionBarOnDragLeave(e);
       }}
     >
-      <link
-        href="https://fonts.googleapis.com/css?family=Roboto"
-        rel="stylesheet"
-      ></link>
       {accessMonacoEditorPathsByEditorIndex(
         code_editor_container_ref_index
       ).map((filePath, index) => {
