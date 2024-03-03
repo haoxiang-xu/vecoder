@@ -239,7 +239,8 @@ const ResizerTypeContainer = ({
       ref={(el) => (stackRefs.current[index] = el)}
       key={index}
       style={{
-        width: item.width,
+        width: onDragIndex !== index - 1 ? item.width : "0px",
+        opacity: onDragIndex !== index - 1 ? "1" : "0",
         cursor: "ew-resize",
       }}
       onMouseEnter={(e) => {
@@ -317,7 +318,8 @@ const ExplorerTypeContainer = ({
         onStackItemDragEnd(e);
       }}
       style={{
-        width: item.width,
+        transition: onDragIndex !== -1 ? "width 0.2s" : "width 0s",
+        width: onDragIndex === index ? "0px" : item.width,
       }}
     >
       <Explorer
@@ -379,7 +381,8 @@ const VecoderEditorTypeContainer = ({
         onStackItemDragEnd(e);
       }}
       style={{
-        width: item.width,
+        transition: onDragIndex !== -1 ? "width 0.2s" : "width 0s",
+        width: onDragIndex === index ? "0px" : item.width,
       }}
     >
       <VecoderEditor
@@ -747,23 +750,35 @@ const StackStructure = () => {
     setOnDragIndex(index);
   };
   const onStackItemDragEnd = (e) => {
+    let fromIndex = -1;
+    let toIndex = -1;
+    const editedStacks = [...stacks];
+    const dragedItems = editedStacks.splice(onDragIndex, 2);
+    fromIndex = onDragIndex;
+
     if (onDropIndex !== -1 && onDropIndex === stacks.length - 1) {
-      const editedStacks = [...stacks];
-      const dragedItems = editedStacks.splice(onDragIndex, 2);
-      editedStacks.splice(onDropIndex - 2, 0, ...dragedItems);
-      setStacks(editedStacks);
+      toIndex = onDropIndex - 2;
     } else if (onDropIndex !== -1 && onDropIndex % 2 === 0) {
-      const editedStacks = [...stacks];
-      const dragedItems = editedStacks.splice(onDragIndex, 2);
-      editedStacks.splice(onDropIndex, 0, ...dragedItems);
-      setStacks(editedStacks);
+      if (onDragIndex < onDropIndex) {
+        toIndex = onDropIndex - 2;
+      } else {
+        toIndex = onDropIndex;
+      }
     } else if (onDropIndex !== -1 && onDropIndex % 2 === 1) {
-      const editedStacks = [...stacks];
-      const dragedItems = editedStacks.splice(onDragIndex, 2);
-      editedStacks.splice(onDropIndex - 1, 0, ...dragedItems);
-      setStacks(editedStacks);
+      if (onDragIndex < onDropIndex) {
+        toIndex = onDropIndex - 1;
+      } else {
+        toIndex = onDropIndex + 1;
+      }
     }
-    updateStackStructureContainerIndex(parseInt((onDragIndex)/2), parseInt((onDropIndex)/2));
+    updateStackStructureContainerIndex(
+      parseInt(fromIndex / 2),
+      parseInt(toIndex / 2)
+    );
+
+    editedStacks.splice(toIndex, 0, ...dragedItems);
+    setStacks(editedStacks);
+
     setOnDragIndex(-1);
     setOnDropIndex(-1);
   };
