@@ -227,7 +227,6 @@
 /*Horizontal Mode*/
 .file_selection_bar_item1114 {
   transition: width 0.32s ease;
-
   /*POSITION*/
   height: 30px;
   position: relative;
@@ -237,7 +236,6 @@
 
   /*STYLE*/
   background-color: #252525;
-  color: white;
   border-radius: 6px;
   margin: 0px 6px 4px 0px;
 }
@@ -320,14 +318,12 @@
 /*Vertical Mode*/
 .file_selection_bar_item_vertical0123 {
   transition: height 0.32s ease;
-
   /*POSITION*/
   width: 30px;
   position: relative;
 
   /*STYLE*/
   background-color: #252525;
-  color: white;
   overflow: hidden;
 
   border-radius: 6px;

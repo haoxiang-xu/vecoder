@@ -260,18 +260,33 @@ const FileSelectionBar = ({
           code_editor_container_ref_index
         ),
       ];
-      const dragedFile = editedFiles.splice(onDragIndex, 1)[0];
-      editedFiles.splice(onDropIndex, 0, dragedFile);
+
+      if (onDragIndex < onDropIndex) {
+        const dragedFile = editedFiles.splice(onDragIndex, 1)[0];
+        editedFiles.splice(onDropIndex - 1, 0, dragedFile);
+        setOnSelectedIndex(
+          Math.min(
+            onDropIndex - 1,
+            accessMonacoEditorPathsByEditorIndex(
+              code_editor_container_ref_index
+            ).length - 1
+          )
+        );
+      } else {
+        const dragedFile = editedFiles.splice(onDragIndex, 1)[0];
+        editedFiles.splice(onDropIndex, 0, dragedFile);
+        setOnSelectedIndex(
+          Math.min(
+            onDropIndex,
+            accessMonacoEditorPathsByEditorIndex(
+              code_editor_container_ref_index
+            ).length - 1
+          )
+        );
+      }
       updateMonacoEditorPathsByEditorIndex(
         code_editor_container_ref_index,
         editedFiles
-      );
-      setOnSelectedIndex(
-        Math.min(
-          onDropIndex,
-          accessMonacoEditorPathsByEditorIndex(code_editor_container_ref_index)
-            .length - 1
-        )
       );
     }
     if (onDropIndex === -1 && draggedOverItem !== null) {
@@ -438,6 +453,7 @@ const FileSelectionBar = ({
                   transition: "height 0.2s ease, opacity 0.32s ease",
                 };
               }
+            } else if (index === onDropIndex) {
             }
             break;
           default:
@@ -483,12 +499,16 @@ const FileSelectionBar = ({
               style={
                 index === onSelectedIndex
                   ? {
+                      color: "#cccccc",
                       left: mode === "HORIZONTAL" ? "47px" : "50%",
                       top: mode === "HORIZONTAL" ? "50%" : "47px",
-                      transition: "left 0.2s ease, top 0.2s ease",
+                      transition:
+                        "color 0.2s ease, left 0.2s ease, top 0.2s ease",
                     }
                   : {
-                      transition: "left 0.2s ease",
+                      color: "#8c8c8c",
+                      transition:
+                        "color 0.2s ease, left 0.2s ease, top 0.2s ease",
                     }
               }
             >
@@ -517,11 +537,13 @@ const FileSelectionBar = ({
                           ? "7px 0px 0px 28px"
                           : "28px 0px 0px 7px",
                       transition: "padding 0.2s ease",
+                      pointerEvents: "none",
                     }
                   : {
                       opacity: "0.64",
                       padding: "7px 0px 0px 7px",
                       transition: "padding 0.2s ease",
+                      pointerEvents: "none",
                     }
               }
             />
