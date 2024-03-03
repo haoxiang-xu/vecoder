@@ -226,6 +226,8 @@
 /*File Selection Bar Item ---------------------------------------------------------------- */
 /*Horizontal Mode*/
 .file_selection_bar_item1114 {
+  transition: width 0.32s ease;
+
   /*POSITION*/
   height: 30px;
   position: relative;
@@ -244,8 +246,8 @@
   background-color: #2e2e2e;
 }
 .file_selection_bar_item_selected1114 {
-  transition: opacity 0.16s ease,
-    background-color 0.16s ease position 0.16s ease;
+  transition: opacity 0.16s ease, background-color 0.16s ease,
+    position 0.16s ease, width 0.32s ease;
 
   /*POSITION*/
   height: 30px;
@@ -316,6 +318,8 @@
 }
 /*Vertical Mode*/
 .file_selection_bar_item_vertical0123 {
+  transition: height 0.32s ease;
+
   /*POSITION*/
   width: 30px;
   position: relative;
@@ -333,8 +337,8 @@
   background-color: #2e2e2e;
 }
 .file_selection_bar_item_selected_vertical0123 {
-  transition: opacity 0.16s ease,
-    background-color 0.16s ease position 0.16s ease;
+  transition: opacity 0.16s ease, background-color 0.16s ease,
+    position 0.16s ease, height 0.32s ease;
 
   /*POSITION*/
   width: 30px;

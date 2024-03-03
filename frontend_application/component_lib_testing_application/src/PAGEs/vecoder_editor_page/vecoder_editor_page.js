@@ -27,12 +27,12 @@ const DEFAULT_MONACO_EDITORS_OPTIONS_AND_CONTENT_DATA = {
 const DEFAULT_VECODER_EDITORS_OPTIONS_DATA = {
   0: {
     codeEditorContainerRefIndex: 0,
-    onSelectedMonacoIndex: 0,
+    onSelectedMonacoIndex: -1,
     monacoEditorPaths: ["./code_editor.js", "./code_editor.css", "./main.py"],
   },
   1: {
     codeEditorContainerRefIndex: 1,
-    onSelectedMonacoIndex: 0,
+    onSelectedMonacoIndex: -1,
     monacoEditorPaths: ["./index.html", "./main.java"],
   },
 };
