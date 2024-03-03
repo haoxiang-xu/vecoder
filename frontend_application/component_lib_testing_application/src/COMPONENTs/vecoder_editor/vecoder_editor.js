@@ -853,6 +853,10 @@ const VecoderEditor = ({
         handleLeftClick(e);
       }}
     >
+      <link
+        href="https://fonts.googleapis.com/css?family=Roboto"
+        rel="stylesheet"
+      ></link>
       <div style={{ height: "100%" }}>
         <MonacoEditorGroup
           code_editor_container_ref_index={code_editor_container_ref_index}
