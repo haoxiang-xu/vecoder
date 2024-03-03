@@ -20,11 +20,11 @@
   position: absolute;
   top: 42px;
   left: 0px;
-  right: 0px;
-  bottom: 0px;
+  right: 2px;
+  bottom: 4px;
   transform: translate(0%, 0%);
-  margin: 0px 4px 4px 0px;
-  padding: 0px 2px 0px 7px;
+  margin: 0px 2px 4px 3px;
+  padding: 0px 6px 0px 7px;
 
   /*SIZE*/
   box-sizing: border-box;

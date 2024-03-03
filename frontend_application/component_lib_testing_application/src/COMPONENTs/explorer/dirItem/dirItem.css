@@ -6,7 +6,7 @@
   position: relative;
 
   /*FONT*/
-  font-size: 14px;
+  font-size: 13px;
   font-family: "Roboto";
   letter-spacing: 0pt;
   white-space: nowrap;
@@ -34,7 +34,7 @@
   position: relative;
 
   /*FONT*/
-  font-size: 14px;
+  font-size: 13px;
   font-family: "Roboto";
   letter-spacing: 0pt;
   white-space: nowrap;
@@ -67,10 +67,11 @@
   /*POSITION*/
   position: relative;
 
-  left: -2.2px;
+  left: -2.4px;
   top: 0.2px;
-  height: 16px;
-  width: 16px;
+  height: 15px;
+  width: 15px;
+  border-radius: 1px;
 }
 .dir_item_component_file_icon_container0125 {
   transition: all 0.08s ease;
@@ -78,10 +79,11 @@
   /*POSITION*/
   position: relative;
 
-  left: -2.2px;
+  left: -2.4px;
   top: 0.2px;
-  height: 16px;
-  width: 16px;
+  height: 15px;
+  width: 15px;
+  border-radius: 1px;
 }
 .dir_item_component_arrow_icon_right0725 {
   transition: all 0.08s ease;
@@ -91,8 +93,8 @@
 
   left: -3.5px;
   top: 0px;
-  height: 18px;
-  width: 18px;
+  height: 16px;
+  width: 16px;
 }
 .dir_item_component_arrow_icon_right_no_animation1018 {
   /*POSITION*/
@@ -100,8 +102,8 @@
 
   left: -3.5px;
   top: 0px;
-  height: 18px;
-  width: 18px;
+  height: 16px;
+  width: 16px;
 }
 .dir_item_component_arrow_icon_down0725 {
   transition: all 0.08s ease;
@@ -111,8 +113,8 @@
 
   left: -3.5px;
   top: 0px;
-  height: 18px;
-  width: 18px;
+  height: 16px;
+  width: 16px;
 
   transform: rotate(90deg);
 
@@ -129,8 +131,8 @@
 
   left: -3.5px;
   top: 0px;
-  height: 18px;
-  width: 18px;
+  height: 16px;
+  width: 16px;
 
   transform: rotate(90deg);
 
