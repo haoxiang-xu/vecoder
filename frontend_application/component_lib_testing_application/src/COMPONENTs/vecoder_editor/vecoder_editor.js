@@ -204,7 +204,6 @@ const FileSelectionBar = ({
     updateMonacoEditorPathsByEditorIndex,
     accessMonacoEditorPathsByEditorIndex,
     accessVecoderEditorFileNameDataByPath,
-    moveGHOSTToIndex,
   } = useContext(vecoderEditorContexts);
   const [forceRefresh, setForceRefresh] = useState(false);
   const refresh = () => {

@@ -9,6 +9,7 @@ import { ICON_MANAGER } from "../../ICONs/icon_manager";
 import { stackStructureDragAndDropContexts } from "../../CONTEXTs/stackStructureDragAndDropContexts";
 import { globalDragAndDropContexts } from "../../CONTEXTs/globalDragAndDropContexts";
 import { rightClickContextMenuCommandContexts } from "../../CONTEXTs/rightClickContextMenuContexts";
+import { vecoderEditorContexts } from "../../CONTEXTs/vecoderEditorContexts";
 //CSS ----------------------------------------------------------------------------------------------
 import "./stack_structure.css";
 
@@ -431,6 +432,8 @@ const StackStructure = () => {
     stackStructureContainerClassName,
     setStackStructureContainerClassName,
   ] = useState("stack_structure_container0116");
+  const { stackStructureOptionsData, updateStackStructureContainerIndex } =
+    useContext(vecoderEditorContexts);
 
   /* Right Click Menu ================================================================================================================================== */
   const [isRightClicked, setIsRightClicked] = useState(false);
@@ -676,40 +679,40 @@ const StackStructure = () => {
     ],
   };
   const [explorer_files, setExplorer_files] = useState(EXPLORER_FILES);
-  const EXPLORER_CONTAINER = {
-    type: "EXPLORER",
-    min_width: 40,
-    width: 256,
-    max_width: 2048,
-    explorer_container_ref_index: -1,
-  };
-  //Code Editor Data -------------------------------------------------------------------
-  const CODE_EDITORs = [
-    {
-      type: "CODE_EDITOR",
-      min_width: 40,
-      width: 600,
-      max_width: 2048,
-      code_editor_container_ref_index: 0,
-    },
-    {
-      type: "CODE_EDITOR",
-      min_width: 40,
-      width: 600,
-      max_width: 2048,
-      code_editor_container_ref_index: 1,
-    },
-  ];
   //Stacking Data ----------------------------------------------------------------------
-  const stacking_structure = [
-    EXPLORER_CONTAINER,
-    RESIZER_CONTAINER,
-    CODE_EDITORs[0],
-    RESIZER_CONTAINER,
-    CODE_EDITORs[1],
-    RESIZER_CONTAINER,
-    ENDING_CONTAINER,
-  ];
+  let stacking_structure = [];
+  for (let index = 0; index < stackStructureOptionsData.length; index++) {
+    switch (stackStructureOptionsData[index].type) {
+      case "EXPLORER":
+        const EXPLORER_CONTAINER = {
+          type: "EXPLORER",
+          min_width: 40,
+          width: 256,
+          max_width: 2048,
+          explorer_container_ref_index:
+            stackStructureOptionsData[index].explorer_container_ref_index,
+        };
+        stacking_structure.push(EXPLORER_CONTAINER);
+        stacking_structure.push(RESIZER_CONTAINER);
+        break;
+      case "CODE_EDITOR":
+        const CODE_EDITOR = {
+          type: "CODE_EDITOR",
+          min_width: 40,
+          width: 600,
+          max_width: 2048,
+          code_editor_container_ref_index:
+            stackStructureOptionsData[index].code_editor_container_ref_index,
+        };
+        stacking_structure.push(CODE_EDITOR);
+        stacking_structure.push(RESIZER_CONTAINER);
+        break;
+      default:
+        break;
+    }
+  }
+  stacking_structure.push(ENDING_CONTAINER);
+
   const [stacks, setStacks] = useState(stacking_structure);
   const stackRefs = useRef([]);
   /* DATA =============================================================================================================================================== */
@@ -760,7 +763,7 @@ const StackStructure = () => {
       editedStacks.splice(onDropIndex - 1, 0, ...dragedItems);
       setStacks(editedStacks);
     }
-
+    updateStackStructureContainerIndex(parseInt((onDragIndex)/2), parseInt((onDropIndex)/2));
     setOnDragIndex(-1);
     setOnDropIndex(-1);
   };

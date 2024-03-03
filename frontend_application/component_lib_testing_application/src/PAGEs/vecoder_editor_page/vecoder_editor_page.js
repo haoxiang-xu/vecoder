@@ -25,13 +25,13 @@ const DEFAULT_MONACO_EDITORS_OPTIONS_AND_CONTENT_DATA = {
   },
 };
 const DEFAULT_VECODER_EDITORS_OPTIONS_DATA = {
-  0: {
-    codeEditorContainerRefIndex: 0,
+  1: {
+    code_editor_container_ref_index: 1,
     onSelectedMonacoIndex: -1,
     monacoEditorPaths: ["./code_editor.js", "./code_editor.css", "./main.py"],
   },
-  1: {
-    codeEditorContainerRefIndex: 1,
+  2: {
+    code_editor_container_ref_index: 2,
     onSelectedMonacoIndex: -1,
     monacoEditorPaths: ["./index.html", "./main.java"],
   },
@@ -412,6 +412,20 @@ class Car {
   `,
   },
 };
+const DEFAULT_STACK_STRUCTURE_OPTIONS_DATA = [
+  {
+    type: "EXPLORER",
+    explorer_container_ref_index: 0,
+  },
+  {
+    type: "CODE_EDITOR",
+    code_editor_container_ref_index: 1,
+  },
+  {
+    type: "CODE_EDITOR",
+    code_editor_container_ref_index: 2,
+  },
+];
 
 const VecoderEditorPage = () => {
   /* Monaco Editor Data and Functions ------------------------------------ */
@@ -521,12 +535,6 @@ const VecoderEditorPage = () => {
       ]
     );
   };
-  const accessGHOSTIndexByEditorIndex = (codeEditorContainerRefIndex) => {
-    return vecoderEditorsOptionsData[
-      codeEditorContainerRefIndex
-    ].monacoEditorPaths.findIndex((element) => element === "GHOST");
-  };
-  const moveGHOSTToIndex = (codeEditorContainerRefIndex, index) => {};
   const [vecoderEditorContentData, setVecoderEditorContentData] = useState(
     DEFAULT_VECODER_EDITORS_CONTENT_DATA
   );
@@ -557,6 +565,20 @@ const VecoderEditorPage = () => {
   };
   /* Vecoder Editor Data and Functions ============================================================== */
 
+  /* Stack Structure Data and Functions ============================================================== */
+  const [stackStructureOptionsData, setStackStructureOptionsData] = useState(
+    DEFAULT_STACK_STRUCTURE_OPTIONS_DATA
+  );
+  const updateStackStructureContainerIndex = (originalIndex, newIndex) => {
+    setStackStructureOptionsData((prevData) => {
+      const newOptionsData = [...prevData];
+      const popedData = newOptionsData.splice(originalIndex, 1);
+      newOptionsData.splice(newIndex, 0, popedData[0]);
+
+      return newOptionsData;
+    });
+  };
+  /* Stack Structure Data and Functions ============================================================== */
   return (
     <vecoderEditorContexts.Provider
       value={{
@@ -577,7 +599,6 @@ const VecoderEditorPage = () => {
         accessMonacoEditorPathsByEditorIndex,
         accessMonacoEditorFileLanguageDataByEditorIndexAndOnSelectedIndex,
         accessMonacoEditorFileContentDataByEditorIndexAndOnSelectedIndex,
-        moveGHOSTToIndex,
 
         vecoderEditorContentData,
         setVecoderEditorContentData,
@@ -585,6 +606,10 @@ const VecoderEditorPage = () => {
         accessVecoderEditorFileContentDataByPath,
         accessVecoderEditorFileLanguageDataByPath,
         accessVecoderEditorFileNameDataByPath,
+
+        stackStructureOptionsData,
+        setStackStructureOptionsData,
+        updateStackStructureContainerIndex,
       }}
     >
       <StackStructure />
