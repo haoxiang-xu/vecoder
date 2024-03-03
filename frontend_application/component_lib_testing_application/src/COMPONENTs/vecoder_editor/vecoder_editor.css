@@ -268,12 +268,13 @@
   /*POSITION*/
   position: absolute;
   transform: translate(0%, -50%);
-  top: 47%;
+  top: 50%;
   left: 30px;
   padding: 0px 0px 0px 0px;
 
   /*SIZE*/
-  font-size: 14px;
+  font-family: "Roboto";
+  font-size: 13px;
   color: #cccccc;
 
   pointer-events: none;
@@ -367,11 +368,12 @@
   transform-origin: top left;
   position: absolute;
   top: 30px;
-  left: 57%;
+  left: 50%;
 
   /*SIZE*/
   max-width: 128px;
-  font-size: 14px;
+  font-family: "Roboto";
+  font-size: 13px;
   color: #cccccc;
   overflow: hidden;
 

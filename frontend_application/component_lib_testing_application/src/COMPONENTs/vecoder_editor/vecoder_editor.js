@@ -400,6 +400,10 @@ const FileSelectionBar = ({
         fileSelectionBarOnDragLeave(e);
       }}
     >
+      <link
+        href="https://fonts.googleapis.com/css?family=Roboto"
+        rel="stylesheet"
+      ></link>
       {accessMonacoEditorPathsByEditorIndex(
         code_editor_container_ref_index
       ).map((filePath, index) => {
@@ -483,8 +487,8 @@ const FileSelectionBar = ({
               style={
                 index === onSelectedIndex
                   ? {
-                      left: mode === "HORIZONTAL" ? "47px" : "57%",
-                      top: mode === "HORIZONTAL" ? "47%" : "47px",
+                      left: mode === "HORIZONTAL" ? "47px" : "50%",
+                      top: mode === "HORIZONTAL" ? "50%" : "47px",
                       transition: "left 0.2s ease, top 0.2s ease",
                     }
                   : {
