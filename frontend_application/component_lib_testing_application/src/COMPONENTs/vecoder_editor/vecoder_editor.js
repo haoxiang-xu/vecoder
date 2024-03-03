@@ -483,12 +483,16 @@ const FileSelectionBar = ({
               style={
                 index === onSelectedIndex
                   ? {
+                      color: "#cccccc",
                       left: mode === "HORIZONTAL" ? "47px" : "50%",
                       top: mode === "HORIZONTAL" ? "50%" : "47px",
-                      transition: "left 0.2s ease, top 0.2s ease",
+                      transition:
+                        "color 0.2s ease, left 0.2s ease, top 0.2s ease",
                     }
                   : {
-                      transition: "left 0.2s ease",
+                      color: "#8c8c8c",
+                      transition:
+                        "color 0.2s ease, left 0.2s ease, top 0.2s ease",
                     }
               }
             >
