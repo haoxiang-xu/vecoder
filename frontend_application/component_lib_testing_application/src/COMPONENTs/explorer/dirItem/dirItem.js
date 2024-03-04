@@ -96,7 +96,6 @@ const DirItem = ({
       ? "dir_item_component_arrow_icon_down0725"
       : "dir_item_component_arrow_icon_right0725"
   );
-  const dirListClassName = "dir_item_component_dir_list0725";
   //Generate File name, File Icon and Text Color
   const [filename, setFilename] = useState(file.fileName);
   const [renameInput, setRenameInput] = useState(filename);
@@ -111,6 +110,16 @@ const DirItem = ({
   const [fileNameClassName, setFileNameClassName] = useState(
     "dir_item_component_file_name0725"
   );
+
+  /*Styling Related ----------------------------------------------------------------------------- */
+  const [dirItemOnHover, setDirItemOnHover] = useState(false);
+  const handleMouseEnter = () => {
+    setDirItemOnHover(true);
+  };
+  const handleMouseLeave = () => {
+    setDirItemOnHover(false);
+  };
+  /*Styling Related ----------------------------------------------------------------------------- */
 
   //UPDATE FILE
   useEffect(() => {
@@ -603,7 +612,7 @@ const DirItem = ({
       {/* Dir Item ----------------------------------------------------------------------------------------- */}
       {file.fileType === "folder" ? (
         /*If file type is folder -> style as folder*/
-        <div>
+        <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           {file.files.length !== 0 ? (
             /*If file has children -> style as expendable folder*/
             <div>
@@ -670,7 +679,7 @@ const DirItem = ({
         </div>
       ) : (
         /*If file type is not folder -> style as file*/
-        <div>
+        <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           {onCommand === "rename" ? (
             <input
               type="text"
@@ -716,7 +725,7 @@ const DirItem = ({
       {file.files.length !== 0 && expanded ? (
         /*If file has children -> Including the children file list*/
         <div ref={DirListRef} style={{ height: "fit-content" }}>
-          <ul className={dirListClassName}>
+          <ul className={dirItemOnHover && !root ? "dir_item_component_dir_list_on_hover0304" : "dir_item_component_dir_list0725"}>
             {dir.map((item, index) => (
               <li key={item.filePath} style={expendAnimation}>
                 <DirItem
