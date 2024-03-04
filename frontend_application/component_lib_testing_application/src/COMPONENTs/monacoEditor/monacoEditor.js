@@ -209,6 +209,7 @@ const Editor = ({
         <MonacoEditor
           {...editorProps}
           value={accessVecoderEditorFileContentDataByPath(editor_filePath)}
+          loading={<></>}
         />
       )}
     </div>
