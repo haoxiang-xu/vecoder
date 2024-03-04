@@ -4,9 +4,9 @@
   /*POSITION*/
   display: flex;
   position: absolute;
-  top: 8px;
-  left: 8px;
-  bottom: 4px;
+  top: 16px;
+  left: 16px;
+  bottom: 12px;
 
   /* top: 200px;
   left: 0px;
