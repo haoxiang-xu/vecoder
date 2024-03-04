@@ -36,6 +36,7 @@ try {
 } catch (e) {
   console.log(e);
 }
+const GHOST_IMAGE = ICON_MANAGER().GHOST_IMAGE;
 /* Load ICON manager --------------------------------------------------------------------------------- */
 
 /* CONSTANT VARIABLES ================================================================================================================================== */
@@ -727,25 +728,7 @@ const StackStructure = () => {
 
   const onStackItemDragStart = (e, index) => {
     handleLeftClick(e);
-    const cloneNode = stackRefs.current[index].cloneNode(true);
-    cloneNode.style.position = "absolute";
-    cloneNode.style.top = "-10000px";
-    cloneNode.style.left = "-10000px";
-    cloneNode.style.opacity = "1";
-    cloneNode.style.overflow = "hidden";
-    cloneNode.style.backgroundColor = "#323232";
-
-    cloneNode.style.width = "128px";
-    cloneNode.style.height = "128px";
-
-    document.body.appendChild(cloneNode);
-
-    e.dataTransfer.setDragImage(
-      new Image(FILE_TYPE_ICON_MANAGER.java.ICON512),
-      128,
-      128
-    );
-    setTimeout(() => document.body.removeChild(cloneNode), 0);
+    e.dataTransfer.setDragImage(GHOST_IMAGE, 0, 0);
 
     setOnDragIndex(index);
   };

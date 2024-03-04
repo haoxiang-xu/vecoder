@@ -30,6 +30,7 @@ try {
 } catch (e) {
   console.log(e);
 }
+const GHOST_IMAGE = ICON_MANAGER().GHOST_IMAGE;
 /* Load ICON manager --------------------------------------------------------------------------------- */
 
 const GhostDragImage = ({ draggedItem }) => {
@@ -238,7 +239,7 @@ const FileSelectionBar = ({
   };
   const onFileDragStart = (e, index) => {
     e.stopPropagation();
-    e.dataTransfer.setDragImage(new Image(), 0, 0);
+    e.dataTransfer.setDragImage(GHOST_IMAGE, 0, 0);
 
     setOnSelectedIndex(index);
     setOnDragIndex(index);
