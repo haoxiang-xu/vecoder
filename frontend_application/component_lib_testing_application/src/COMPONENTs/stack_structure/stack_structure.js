@@ -754,14 +754,15 @@ const StackStructure = () => {
         toIndex = onDropIndex + 1;
       }
     }
-    updateStackStructureContainerIndex(
-      parseInt(fromIndex / 2),
-      parseInt(toIndex / 2)
-    );
 
-    editedStacks.splice(toIndex, 0, ...dragedItems);
-    setStacks(editedStacks);
-
+    if (onDropIndex !== -1) {
+      updateStackStructureContainerIndex(
+        parseInt(fromIndex / 2),
+        parseInt(toIndex / 2)
+      );
+      editedStacks.splice(toIndex, 0, ...dragedItems);
+      setStacks(editedStacks);
+    }
     setOnDragIndex(-1);
     setOnDropIndex(-1);
   };
