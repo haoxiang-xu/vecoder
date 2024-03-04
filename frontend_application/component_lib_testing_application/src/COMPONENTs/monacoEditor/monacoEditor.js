@@ -42,7 +42,7 @@ const Editor = ({
       smoothScrolling: true,
       minimap: { enabled: false },
       roundedSelection: true,
-      fontSize: 12,
+      fontSize: 13,
       lineNumbers: "off",
       scrollbar: {
         vertical: "visible",
