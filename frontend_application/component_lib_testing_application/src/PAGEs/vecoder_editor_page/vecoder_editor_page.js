@@ -426,7 +426,219 @@ const DEFAULT_STACK_STRUCTURE_OPTIONS_DATA = [
     code_editor_container_ref_index: 2,
   },
 ];
-
+const DEFAULT_EXPLORE_OPTIONS_AND_CONTENT_DATA = {
+  fileName: "vecoder",
+  fileType: "folder",
+  filePath: "vecoder",
+  fileExpend: true,
+  files: [
+    {
+      fileName: "vecoder_sample",
+      fileType: "folder",
+      filePath: "vecoder/vecoder_sample",
+      fileExpend: true,
+      files: [
+        {
+          fileName: "public",
+          fileType: "folder",
+          filePath: "vecoder/vecoder_sample/public",
+          fileExpend: true,
+          files: [
+            {
+              fileName: "favicon.icon",
+              fileType: "file",
+              filePath: "vecoder/vecoder_sample/public/favicon.icon",
+              fileExpend: false,
+              files: [],
+            },
+            {
+              fileName: "index.html",
+              fileType: "file",
+              filePath: "vecoder/vecoder_sample/public/index.html",
+              fileExpend: false,
+              files: [],
+            },
+            {
+              fileName: "index.php",
+              fileType: "file",
+              filePath: "vecoder/vecoder_sample/public/index.php",
+              fileExpend: false,
+              files: [],
+            },
+            {
+              fileName: "logo192.png",
+              fileType: "file",
+              filePath: "vecoder/vecoder_sample/public/logo192.png",
+              fileExpend: false,
+              files: [],
+            },
+            {
+              fileName: "resume.pdf",
+              fileType: "file",
+              filePath: "vecoder/vecoder_sample/public/resume.pdf",
+              fileExpend: false,
+              files: [],
+            },
+            {
+              fileName: "manifest.json",
+              fileType: "file",
+              filePath: "vecoder/vecoder_sample/public/manifest.json",
+              fileExpend: false,
+              files: [],
+            },
+            {
+              fileName: "robots.txt",
+              fileType: "file",
+              filePath: "vecoder/vecoder_sample/public/robots.txt",
+              fileExpend: false,
+              files: [],
+            },
+            {
+              fileName: "test.py",
+              fileType: "file",
+              filePath: "vecoder/vecoder_sample/public/test.py",
+              fileExpend: false,
+              files: [],
+            },
+            {
+              fileName: "test.java",
+              fileType: "file",
+              filePath: "vecoder/vecoder_sample/public/test.java",
+              fileExpend: false,
+              files: [],
+            },
+            {
+              fileName: "test.xls",
+              fileType: "file",
+              filePath: "vecoder/vecoder_sample/public/test.xls",
+              fileExpend: false,
+              files: [],
+            },
+            {
+              fileName: "test.doc",
+              fileType: "file",
+              filePath: "vecoder/vecoder_sample/public/test.doc",
+              fileExpend: false,
+              files: [],
+            },
+            {
+              fileName: "test.ppt",
+              fileType: "file",
+              filePath: "vecoder/vecoder_sample/public/test.ppt",
+              fileExpend: false,
+              files: [],
+            },
+          ],
+        },
+        {
+          fileName: "src",
+          fileType: "folder",
+          filePath: "vecoder/vecoder_sample/src",
+          fileExpend: true,
+          files: [
+            {
+              fileName: "COMPONENTs",
+              fileType: "folder",
+              filePath: "vecoder/vecoder_sample/src/COMPONENTs",
+              fileExpend: false,
+              files: [
+                {
+                  fileName: "explorer",
+                  fileType: "folder",
+                  filePath: "vecoder/vecoder_sample/src/COMPONENTs/explorer",
+                  fileExpend: false,
+                  files: [
+                    {
+                      fileName: "dirItem",
+                      fileType: "folder",
+                      filePath:
+                        "vecoder/vecoder_sample/src/COMPONENTs/explorer/dirItem",
+                      fileExpend: false,
+                      files: [
+                        {
+                          fileName: "dirItem.css",
+                          fileType: "file",
+                          filePath:
+                            "vecoder/vecoder_sample/src/COMPONENTs/explorer/dirItem/dirItem.css",
+                          fileExpend: false,
+                          files: [],
+                        },
+                        {
+                          fileName: "dirItem.js",
+                          fileType: "file",
+                          filePath:
+                            "vecoder/vecoder_sample/src/COMPONENTs/explorer/dirItem/dirItem.js",
+                          fileExpend: false,
+                          files: [],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              fileName: "App.css",
+              fileType: "file",
+              filePath: "vecoder/vecoder_sample/src/App.css",
+              fileExpend: false,
+              files: [],
+            },
+            {
+              fileName: "App.js",
+              fileType: "file",
+              filePath: "vecoder/vecoder_sample/src/App.js",
+              fileExpend: false,
+              files: [],
+            },
+            {
+              fileName: "App.test.js",
+              fileType: "file",
+              filePath: "vecoder/vecoder_sample/src/App.test.js",
+              fileExpend: false,
+              files: [],
+            },
+          ],
+        },
+        {
+          fileName: ".gitignore",
+          fileType: "file",
+          filePath: "vecoder/vecoder_sample/.gitignore",
+          fileExpend: false,
+          files: [],
+        },
+        {
+          fileName: "package.json",
+          fileType: "file",
+          filePath: "vecoder/vecoder_sample/package.json",
+          fileExpend: false,
+          files: [],
+        },
+        {
+          fileName: "package-lock.json",
+          fileType: "file",
+          filePath: "vecoder/vecoder_sample/package-lock.json",
+          fileExpend: false,
+          files: [],
+        },
+        {
+          fileName: "README.md",
+          fileType: "file",
+          filePath: "vecoder/vecoder_sample/README.md",
+          fileExpend: false,
+          files: [],
+        },
+        {
+          fileName: ".env",
+          fileType: "file",
+          filePath: "vecoder/vecoder_sample/.env",
+          fileExpend: false,
+          files: [],
+        },
+      ],
+    },
+  ],
+};
 const VecoderEditorPage = () => {
   /* Monaco Editor Data and Functions ------------------------------------ */
   const [
@@ -565,6 +777,101 @@ const VecoderEditorPage = () => {
   };
   /* Vecoder Editor Data and Functions ============================================================== */
 
+  /* Explorer Data and Functions ------------------------------------------ */
+  const [exploreOptionsAndContentData, setExploreOptionsAndContentData] = useState(
+    DEFAULT_EXPLORE_OPTIONS_AND_CONTENT_DATA
+  );
+  const deleteFileOnExploreOptionsAndContentData = (path) => {
+    setExploreOptionsAndContentData((prevData) => {
+      const newExploreOptionsAndContentData = { ...prevData };
+      const pathArray = path.split("/");
+      let currentData = newExploreOptionsAndContentData;
+      for (let i = 0; i < pathArray.length; i++) {
+        if (i === pathArray.length - 1) {
+          delete currentData[pathArray[i]];
+        } else {
+          currentData = currentData[pathArray[i]].files;
+        }
+      }
+      return newExploreOptionsAndContentData;
+    });
+  };
+  const addFileOnExploreOptionsAndContentData = (path, data) => {
+    setExploreOptionsAndContentData((prevData) => {
+      const newExploreOptionsAndContentData = { ...prevData };
+      const pathArray = path.split("/");
+      let currentData = newExploreOptionsAndContentData;
+      for (let i = 0; i < pathArray.length; i++) {
+        if (i === pathArray.length - 1) {
+          currentData[pathArray[i]] = data;
+        } else {
+          currentData = currentData[pathArray[i]].files;
+        }
+      }
+      return newExploreOptionsAndContentData;
+    });
+  };
+  const updateFileOnExploreOptionsAndContentData = (path, data) => {
+    setExploreOptionsAndContentData((prevData) => {
+      const newExploreOptionsAndContentData = { ...prevData };
+      const pathArray = path.split("/");
+      let currentData = newExploreOptionsAndContentData;
+      for (let i = 0; i < pathArray.length; i++) {
+        if (i === pathArray.length - 1) {
+          currentData[pathArray[i]] = data;
+        } else {
+          currentData = currentData[pathArray[i]].files;
+        }
+      }
+      return newExploreOptionsAndContentData;
+    });
+  };
+  const accessFileNameByPath = (path) => {
+    const pathArray = path.split("/");
+    let currentData = exploreOptionsAndContentData;
+    for (let i = 0; i < pathArray.length; i++) {
+      if (i === pathArray.length - 1) {
+        return currentData[pathArray[i]].fileName;
+      } else {
+        currentData = currentData[pathArray[i]].files;
+      }
+    }
+  };
+  const accessFileTypeByPath = (path) => {
+    const pathArray = path.split("/");
+    let currentData = exploreOptionsAndContentData;
+    for (let i = 0; i < pathArray.length; i++) {
+      if (i === pathArray.length - 1) {
+        return currentData[pathArray[i]].fileType;
+      } else {
+        currentData = currentData[pathArray[i]].files;
+      }
+    }
+  };
+  const accessFileExpendByPath = (path) => {
+    const pathArray = path.split("/");
+    let currentData = exploreOptionsAndContentData;
+    for (let i = 0; i < pathArray.length; i++) {
+      if (i === pathArray.length - 1) {
+        return currentData[pathArray[i]].fileExpend;
+      } else {
+        currentData = currentData[pathArray[i]].files;
+      }
+    }
+  };
+  const accessFilesByPath = (path) => {
+    const pathArray = path.split("/");
+    let currentData = exploreOptionsAndContentData;
+    for (let i = 0; i < pathArray.length; i++) {
+      if (i === pathArray.length - 1) {
+        return currentData[pathArray[i]].files;
+      } else {
+        currentData = currentData[pathArray[i]].files;
+      }
+    }
+  };
+  /* Explorer Data and Functions ------------------------------------------ */
+
   /* Stack Structure Data and Functions ============================================================== */
   const [stackStructureOptionsData, setStackStructureOptionsData] = useState(
     DEFAULT_STACK_STRUCTURE_OPTIONS_DATA
@@ -606,6 +913,16 @@ const VecoderEditorPage = () => {
         accessVecoderEditorFileContentDataByPath,
         accessVecoderEditorFileLanguageDataByPath,
         accessVecoderEditorFileNameDataByPath,
+
+        exploreOptionsAndContentData,
+        setExploreOptionsAndContentData,
+        deleteFileOnExploreOptionsAndContentData,
+        addFileOnExploreOptionsAndContentData,
+        updateFileOnExploreOptionsAndContentData,
+        accessFileNameByPath,
+        accessFileTypeByPath,
+        accessFileExpendByPath,
+        accessFilesByPath,
 
         stackStructureOptionsData,
         setStackStructureOptionsData,
