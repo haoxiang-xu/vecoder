@@ -635,6 +635,7 @@ const DirItem = ({
                   className={fileNameClassName}
                   onClick={handleExpandIconOnClick}
                   onContextMenu={handleFolderOnRightClick}
+                  style={expanded && fileNameClassName !== "dir_item_component_file_name_on_selected0827"? { borderRadius: "5pt 5pt 0pt 0pt" } : {borderRadius: "5pt"}}
                 >
                   <img
                     src={SYSTEM_ICON_MANAGER.arrow.ICON512}
@@ -663,6 +664,9 @@ const DirItem = ({
                 /* SPAN If file not on command -> diplay folder name and expand arrow button>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
                 <span
                   className={fileNameClassName}
+                  style={{
+                    borderRadius: "5pt",
+                  }}
                   onClick={(e) => handleOnLeftClick(e)}
                   onContextMenu={handleFolderOnRightClick}
                 >
@@ -701,12 +705,13 @@ const DirItem = ({
                 fileIcon !== undefined
                   ? {
                       color: fileTextColor,
+                      borderRadius: "5pt",
                       animation:
                         "dir_item_component_container_expand_animation " +
                         expandingTime +
                         "s",
                     }
-                  : {}
+                  : {borderRadius: "5pt"}
               }
               onContextMenu={handleFileOnRightClick}
             >
@@ -725,7 +730,7 @@ const DirItem = ({
       {file.files.length !== 0 && expanded ? (
         /*If file has children -> Including the children file list*/
         <div ref={DirListRef} style={{ height: "fit-content" }}>
-          <ul className={dirItemOnHover && !root ? "dir_item_component_dir_list_on_hover0304" : "dir_item_component_dir_list0725"}>
+          <ul className={dirItemOnHover ? "dir_item_component_dir_list_on_hover0304" : "dir_item_component_dir_list0725"}>
             {dir.map((item, index) => (
               <li key={item.filePath} style={expendAnimation}>
                 <DirItem
