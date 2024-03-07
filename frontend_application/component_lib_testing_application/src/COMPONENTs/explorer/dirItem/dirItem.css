@@ -57,7 +57,9 @@
   user-select: none;
 }
 .dir_item_component_file_name0725:hover {
-  background-color: #292929;
+  transition: all 0.24s ease;
+
+  background-color: #323232;
   border-radius: 5px 5px 0px 0px;
 }
 .dir_item_component_script_icon0725 {
@@ -166,7 +168,7 @@
   border-left: #4d4d4d solid 1px;
 }
 .dir_item_component_dir_list_on_hover0304 {
-  transition: background-color 0.32s ease, border-left 0.32s ease;
+  transition: background-color 0.24s ease, border-left 0.24s ease;
   /*POSITION*/
   position: relative;
   right: 0px;
@@ -177,8 +179,8 @@
 
   /*STYLE*/
   list-style: none;
-  background-color: #292929;
-  border-left: #292929 solid 1px;
+  background-color: #262626;
+  border-left: #262626 solid 1px;
   border-radius: 0px 0px 5px 5px;
 }
 .dir_item_component_dir_list0725 li {
