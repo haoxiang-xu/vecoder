@@ -10,7 +10,7 @@
 
 <span style="opacity: 0.64">This is a specialized UI designed specifically for AI supported application. While most AI applications focus primarily on functionality, they often overlook the importance of a better user experience. We possess incredibly powerful LLMs, but our interactions with them still resemble the command-line interface era. I believe that instead of merely providing code editors or IDE extensions for LLMs, we need a comprehensive overhaul of the entire code editor UI to align with the new paradigm of AI interaction in this era.</span>
 
-![UI](https://github.com/haoxiang-xu/vecoder/assets/59581718/99afb87b-610f-48f2-b547-00e5e4605e55)
+![FireShot Capture 001 - React App - localhost](https://github.com/haoxiang-xu/vecoder/assets/59581718/9d0671aa-b25c-4a0f-8182-3ef77814384e)
 
 ### Built with
 
