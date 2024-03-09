@@ -60,6 +60,81 @@ const FileTypeIconLoader = ({ fileIcon, fileIconBackground }) => {
     </div>
   );
 };
+const RenameInputBox = ({
+  filePath,
+  dirItemOnHover,
+  onCommand,
+  setOnCommand,
+  parentCheckNameExist,
+}) => {
+  const {
+    renameAndRepathAllSubFiles,
+    accessFileNameByPath,
+    accessFileTypeByPath,
+    accessFileExpendByPath,
+  } = useContext(vecoderEditorContexts);
+  const inputRef = useRef();
+  useEffect(() => {
+    if (onCommand === "rename" && inputRef.current) {
+      inputRef.current.select();
+    }
+  }, [onCommand]);
+  const [renameInput, setRenameInput] = useState(
+    accessFileNameByPath(filePath)
+  );
+  const [inputBoxClassName, setInputBoxClassName] = useState(
+    "dir_item_component_input_box0803"
+  );
+  const handleRenameInputOnChange = (event) => {
+    setRenameInput(event.target.value);
+  };
+  const handleRenameInputOnKeyDown = async (event) => {
+    if (event.key === "Enter") {
+      if (renameInput === accessFileNameByPath(filePath)) {
+        setOnCommand("false");
+        return;
+      }
+      if (!parentCheckNameExist(renameInput)) {
+        if (renameInput !== "") {
+          renameAndRepathAllSubFiles(filePath, renameInput);
+        }
+        setOnCommand("false");
+      } else {
+        setInputBoxClassName("dir_item_component_input_box_shake0826");
+        setTimeout(() => {
+          setInputBoxClassName("dir_item_component_input_box0803");
+        }, 160);
+      }
+    }
+    // if (event.key === "Escape") {
+    //   setOnCommand("delete");
+    // }
+  };
+
+  return (
+    <input
+      type="text"
+      value={renameInput}
+      className={inputBoxClassName}
+      onChange={handleRenameInputOnChange}
+      onKeyDown={handleRenameInputOnKeyDown}
+      ref={inputRef}
+      style={{
+        width: `calc(100% - ${22}px)`,
+        borderRadius:
+          dirItemOnHover && accessFileExpendByPath(filePath)
+            ? "6px 6px 0px 0px"
+            : "6px",
+        padding:
+          accessFileTypeByPath(filePath) === "folder"
+            ? "1px 0px 1px 22px"
+            : "1px 0px 1px 21px",
+        margin: "0px 0px 0px 0px",
+      }}
+    />
+  );
+};
+
 const DirItem = ({
   file,
   filePath,
@@ -324,45 +399,6 @@ const DirItem = ({
 
   //ON COMMAND
   //RENAME
-  const inputRef = useRef();
-  const [inputBoxClassName, setInputBoxClassName] = useState(
-    "dir_item_component_input_box0803"
-  );
-  useEffect(() => {
-    if (onCommand === "rename" && inputRef.current) {
-      inputRef.current.select();
-    }
-  }, [onCommand]);
-  const handleRenameInputOnChange = (event) => {
-    setRenameInput(event.target.value);
-  };
-  const handleRenameInputOnKeyDown = async (event) => {
-    if (event.key === "Enter") {
-      if (renameInput === accessFileNameByPath(file.filePath)) {
-        setOnCommand("false");
-        return;
-      }
-      if (!parentCheckNameExist(renameInput)) {
-        if (renameInput !== "") {
-          renameAndRepathAllSubFiles(file.filePath, renameInput);
-        }
-        parentSortFiles();
-
-        setOnSingleClickFile(JSON.parse(JSON.stringify(file)));
-        parentForceRefresh();
-
-        setOnCommand("false");
-      } else {
-        setInputBoxClassName("dir_item_component_input_box_shake0826");
-        setTimeout(() => {
-          setInputBoxClassName("dir_item_component_input_box0803");
-        }, 160);
-      }
-    }
-    // if (event.key === "Escape") {
-    //   setOnCommand("delete");
-    // }
-  };
   const checkNameExist = (name) => {
     for (let i = 0; i < file.files.length; i++) {
       if (file.files[i].fileName === name) {
@@ -370,15 +406,6 @@ const DirItem = ({
       }
     }
     return false;
-  };
-  const renameAllChildren = (file, pathIndex, renameInput) => {
-    for (let i = 0; i < file.files.length; i++) {
-      const path = file.files[i].filePath.split("/");
-      path[pathIndex] = renameInput;
-      file.files[i].filePath = path.join("/");
-
-      renameAllChildren(file.files[i], pathIndex, renameInput);
-    }
   };
   const sortFiles = () => {
     file.files.sort((a, b) => {
@@ -620,16 +647,12 @@ const DirItem = ({
             <div>
               {onCommand === "rename" ? (
                 /*If file on command is rename -> display rename input box*/
-                <input
-                  type="text"
-                  value={renameInput}
-                  className={inputBoxClassName}
-                  onChange={handleRenameInputOnChange}
-                  onKeyDown={handleRenameInputOnKeyDown}
-                  ref={inputRef}
-                  style={{
-                    width: `calc(100% - ${10}pt)`,
-                  }}
+                <RenameInputBox
+                  filePath={filePath}
+                  dirItemOnHover={dirItemOnHover}
+                  onCommand={onCommand}
+                  setOnCommand={setOnCommand}
+                  parentCheckNameExist={parentCheckNameExist}
                 />
               ) : (
                 /* SPAN If file not on command -> diplay folder name and expand arrow button>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
@@ -638,11 +661,9 @@ const DirItem = ({
                   onClick={handleExpandIconOnClick}
                   onContextMenu={handleFolderOnRightClick}
                   style={
-                    expanded &&
-                    fileNameClassName !==
-                      "dir_item_component_file_name_on_selected0827"
-                      ? { borderRadius: "5pt 5pt 0pt 0pt" }
-                      : { borderRadius: "5pt" }
+                    expanded && dirItemOnHover
+                      ? { borderRadius: "6px 6px 0pt 0pt" }
+                      : { borderRadius: "6px" }
                   }
                 >
                   <img
@@ -660,20 +681,19 @@ const DirItem = ({
             <div>
               {onCommand === "rename" ? (
                 /*If file on command is rename -> display rename input box*/
-                <input
-                  type="text"
-                  value={renameInput}
-                  className={inputBoxClassName}
-                  onChange={handleRenameInputOnChange}
-                  onKeyDown={handleRenameInputOnKeyDown}
-                  ref={inputRef}
+                <RenameInputBox
+                  filePath={filePath}
+                  dirItemOnHover={dirItemOnHover}
+                  onCommand={onCommand}
+                  setOnCommand={setOnCommand}
+                  parentCheckNameExist={parentCheckNameExist}
                 />
               ) : (
                 /* SPAN If file not on command -> diplay folder name and expand arrow button>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
                 <span
                   className={fileNameClassName}
                   style={{
-                    borderRadius: "5pt",
+                    borderRadius: "6px",
                   }}
                   onClick={(e) => handleOnLeftClick(e)}
                   onContextMenu={handleFolderOnRightClick}
@@ -693,16 +713,12 @@ const DirItem = ({
         /*If file type is not folder -> style as file*/
         <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           {onCommand === "rename" ? (
-            <input
-              type="text"
-              value={renameInput}
-              className={inputBoxClassName}
-              onChange={handleRenameInputOnChange}
-              onKeyDown={handleRenameInputOnKeyDown}
-              ref={inputRef}
-              style={{
-                width: `calc(100% - ${10}pt)`,
-              }}
+            <RenameInputBox
+              filePath={filePath}
+              dirItemOnHover={dirItemOnHover}
+              onCommand={onCommand}
+              setOnCommand={setOnCommand}
+              parentCheckNameExist={parentCheckNameExist}
             />
           ) : (
             /* SPAN file>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
@@ -713,13 +729,13 @@ const DirItem = ({
                 fileIcon !== undefined
                   ? {
                       color: fileTextColor,
-                      borderRadius: "5pt",
+                      borderRadius: "6px",
                       animation:
                         "dir_item_component_container_expand_animation " +
                         expandingTime +
                         "s",
                     }
-                  : { borderRadius: "5pt" }
+                  : { borderRadius: "6px" }
               }
               onContextMenu={handleFileOnRightClick}
             >

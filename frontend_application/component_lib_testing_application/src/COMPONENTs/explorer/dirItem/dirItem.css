@@ -181,7 +181,7 @@
   list-style: none;
   background-color: #262626;
   border-left: #262626 solid 1px;
-  border-radius: 0px 0px 5px 5px;
+  border-radius: 0px 0px 6px 6px;
 }
 .dir_item_component_dir_list0725 li {
   /*POSITION*/
@@ -211,14 +211,15 @@
   color: #cccccc;
 
   /*SIZE*/
-  /*padding: 2pt 5pt 2pt 5pt;*/
-  /*margin: 2pt 0pt 2pt 0pt;*/
+  /* padding: 0pt 0pt 0pt 4pt;
+  margin: 0pt 0pt 0pt 2pt; */
 
   /*STYLE*/
   background-color: #2a2d2e;
-  border-radius: 2px;
+  border-radius: 6px;
   border: none;
   outline: none;
+  overflow: hidden;
 
   box-shadow: inset 0 0 0 1px #0d66ac;
 
@@ -245,7 +246,7 @@
 
   /*STYLE*/
   background-color: #2a2d2e;
-  border-radius: 2px;
+  border-radius: 6px;
   border: none;
   outline: none;
 
