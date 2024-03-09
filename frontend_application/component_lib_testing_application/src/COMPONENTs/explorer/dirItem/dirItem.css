@@ -13,6 +13,7 @@
   color: #cccccc;
 
   /*SIZE*/
+  margin: 1px 0px 1px 0px;
   padding: 1px 0px 1px 6px;
   right: 0px;
   left: 0px;
@@ -40,6 +41,7 @@
   color: #cccccc;
 
   /*SIZE*/
+  margin: 1px 0px 1px 0px;
   padding: 1px 0px 1px 6px;
   right: 0px;
   left: 0px;
@@ -168,7 +170,7 @@
   border-left: #4d4d4d solid 1px;
 }
 .dir_item_component_dir_list_on_hover0304 {
-  transition: background-color 0.24s ease, border-left 0.24s ease;
+  transition: background-color 0.32s ease, border-left 0.32s ease;
   /*POSITION*/
   position: relative;
   right: 0px;
@@ -190,7 +192,7 @@
   left: 0px;
 
   /*SIZE*/
-  padding: 2px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
 
   /*STYLE*/
   list-style: none;
