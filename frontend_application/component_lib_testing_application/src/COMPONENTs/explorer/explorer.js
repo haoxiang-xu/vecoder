@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { ICON_MANAGER } from "../../ICONs/icon_manager";
+import { vecoderEditorContexts } from "../../CONTEXTs/vecoderEditorContexts";
 import DirItem from "./dirItem/dirItem.js";
 import "./explorer.css";
 
@@ -180,6 +181,9 @@ const DirList = ({
   rightClickCommand,
   setRightClickCommand,
 }) => {
+  const {
+    exploreOptionsAndContentData,
+  } = useContext(vecoderEditorContexts);
   const [explorerExpand, setExplorerExpand] = useState(false);
   const [childrenOnClicked, setChildrenOnClicked] = useState(null);
   const [onSingleClickFile, setOnSingleClickFile] = useState(null);
@@ -208,6 +212,7 @@ const DirList = ({
     >
       <DirItem
         file={files}
+        filePath={exploreOptionsAndContentData.filePath}
         root={true}
         explorerExpand={explorerExpand}
         setExplorerExpand={setExplorerExpand}
@@ -266,18 +271,6 @@ const Explorer = ({
       <CloseIcon />
     </div>
   );
-};
-const searchFiles = (files_structure, search_keyword) => {
-  return;
-};
-const editFiles = (files_structure, edited_file_path, new_file) => {
-  return;
-};
-const editFilePaths = (files_structure, append_file_path) => {
-  return;
-};
-const deleteFiles = (files_structure, deleted_file_path) => {
-  return;
 };
 
 export default Explorer;

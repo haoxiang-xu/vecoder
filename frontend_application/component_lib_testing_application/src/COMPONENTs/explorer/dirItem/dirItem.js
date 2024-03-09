@@ -1,6 +1,32 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { ICON_MANAGER, ICON_LOADER } from "../../../ICONs/icon_manager";
+import { vecoderEditorContexts } from "../../../CONTEXTs/vecoderEditorContexts";
 import "./dirItem.css";
+
+/* Load ICON manager -------------------------------- */
+let FILE_TYPE_ICON_MANAGER = {
+  default: {
+    ICON: null,
+    LABEL_COLOR: "#C8C8C8",
+  },
+};
+try {
+  FILE_TYPE_ICON_MANAGER = ICON_MANAGER().FILE_TYPE_ICON_MANAGER;
+} catch (e) {
+  console.log(e);
+}
+let SYSTEM_ICON_MANAGER = {
+  default: {
+    ICON: null,
+    LABEL_COLOR: "#C8C8C8",
+  },
+};
+try {
+  SYSTEM_ICON_MANAGER = ICON_MANAGER().SYSTEM_ICON_MANAGER;
+} catch (e) {
+  console.log(e);
+}
+/* Load ICON manager -------------------------------- */
 
 const FileTypeIconLoader = ({ fileIcon, fileIconBackground }) => {
   /* ICON Loader ----------------------------------------------------------------- */
@@ -36,6 +62,7 @@ const FileTypeIconLoader = ({ fileIcon, fileIconBackground }) => {
 };
 const DirItem = ({
   file,
+  filePath,
   root,
   explorerExpand,
   setExplorerExpand,
@@ -53,37 +80,18 @@ const DirItem = ({
   onCopyFile,
   setOnCopyFile,
 }) => {
-  /* Load ICON manager -------------------------------- */
-  let FILE_TYPE_ICON_MANAGER = {
-    default: {
-      ICON: null,
-      LABEL_COLOR: "#C8C8C8",
-    },
-  };
-  try {
-    FILE_TYPE_ICON_MANAGER = ICON_MANAGER().FILE_TYPE_ICON_MANAGER;
-  } catch (e) {
-    console.log(e);
-  }
-  let SYSTEM_ICON_MANAGER = {
-    default: {
-      ICON: null,
-      LABEL_COLOR: "#C8C8C8",
-    },
-  };
-  try {
-    SYSTEM_ICON_MANAGER = ICON_MANAGER().SYSTEM_ICON_MANAGER;
-  } catch (e) {
-    console.log(e);
-  }
-  /* Load ICON manager -------------------------------- */
-
-  /* ICON Loader ----------------------------------------------------------------- */
-  const [isFileTypeIconLoad, setIsFileTypeIconLoad] = useState(false);
-  const handleFileTypeIconLoad = () => {
-    setIsFileTypeIconLoad(true);
-  };
-  /* ICON Loader ----------------------------------------------------------------- */
+  const {
+    exploreOptionsAndContentData,
+    setExploreOptionsAndContentData,
+    deleteFileOnExploreOptionsAndContentData,
+    addFileOnExploreOptionsAndContentData,
+    updateFileOnExploreOptionsAndContentData,
+    renameAndRepathAllSubFiles,
+    accessFileNameByPath,
+    accessFileTypeByPath,
+    accessFileExpendByPath,
+    accessFilesByPath,
+  } = useContext(vecoderEditorContexts);
 
   const [refresh, setRefresh] = useState(false);
   const forceRefresh = () => {
@@ -330,20 +338,14 @@ const DirItem = ({
   };
   const handleRenameInputOnKeyDown = async (event) => {
     if (event.key === "Enter") {
-      if (renameInput === file.fileName) {
+      if (renameInput === accessFileNameByPath(file.filePath)) {
         setOnCommand("false");
         return;
       }
       if (!parentCheckNameExist(renameInput)) {
         if (renameInput !== "") {
-          file.filePath = file.filePath.replace(file.fileName, renameInput);
-          file.fileName = renameInput;
+          renameAndRepathAllSubFiles(file.filePath, renameInput);
         }
-        renameAllChildren(
-          file,
-          file.filePath.split("/").length - 1,
-          renameInput
-        );
         parentSortFiles();
 
         setOnSingleClickFile(JSON.parse(JSON.stringify(file)));
@@ -575,7 +577,7 @@ const DirItem = ({
   useEffect(() => {
     if (
       rightClickCommand &&
-      rightClickCommand.target === "vecoder_explorer/" + file.filePath
+      rightClickCommand.target === "vecoder_explorer/" + filePath
     ) {
       switch (rightClickCommand.command) {
         case "rename":
@@ -610,10 +612,10 @@ const DirItem = ({
         rel="stylesheet"
       ></link>
       {/* Dir Item ----------------------------------------------------------------------------------------- */}
-      {file.fileType === "folder" ? (
+      {accessFileTypeByPath(filePath) === "folder" ? (
         /*If file type is folder -> style as folder*/
         <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-          {file.files.length !== 0 ? (
+          {accessFilesByPath(filePath).length !== 0 ? (
             /*If file has children -> style as expendable folder*/
             <div>
               {onCommand === "rename" ? (
@@ -635,7 +637,13 @@ const DirItem = ({
                   className={fileNameClassName}
                   onClick={handleExpandIconOnClick}
                   onContextMenu={handleFolderOnRightClick}
-                  style={expanded && fileNameClassName !== "dir_item_component_file_name_on_selected0827"? { borderRadius: "5pt 5pt 0pt 0pt" } : {borderRadius: "5pt"}}
+                  style={
+                    expanded &&
+                    fileNameClassName !==
+                      "dir_item_component_file_name_on_selected0827"
+                      ? { borderRadius: "5pt 5pt 0pt 0pt" }
+                      : { borderRadius: "5pt" }
+                  }
                 >
                   <img
                     src={SYSTEM_ICON_MANAGER.arrow.ICON512}
@@ -643,7 +651,7 @@ const DirItem = ({
                     onClick={handleExpandIconOnClick}
                     loading="lazy"
                   />
-                  {filename}
+                  {accessFileNameByPath(filePath)}
                 </span>
               )}
             </div>
@@ -675,7 +683,7 @@ const DirItem = ({
                     className="dir_item_component_unexpendable_arrow_icon_right0826"
                     loading="lazy"
                   />
-                  {filename}
+                  {accessFileNameByPath(filePath)}
                 </span>
               )}
             </div>
@@ -711,7 +719,7 @@ const DirItem = ({
                         expandingTime +
                         "s",
                     }
-                  : {borderRadius: "5pt"}
+                  : { borderRadius: "5pt" }
               }
               onContextMenu={handleFileOnRightClick}
             >
@@ -719,7 +727,7 @@ const DirItem = ({
                 fileIcon={fileIcon}
                 fileIconBackground={fileIconBackground}
               />
-              {filename}
+              {accessFileNameByPath(filePath)}
             </span>
           )}
         </div>
@@ -727,14 +735,21 @@ const DirItem = ({
       {/* Dir Item ----------------------------------------------------------------------------------------- */}
 
       {/* SubFile List -------------------------------------------------------------------------------------------- */}
-      {file.files.length !== 0 && expanded ? (
+      {accessFilesByPath(filePath).length !== 0 && expanded ? (
         /*If file has children -> Including the children file list*/
         <div ref={DirListRef} style={{ height: "fit-content" }}>
-          <ul className={dirItemOnHover ? "dir_item_component_dir_list_on_hover0304" : "dir_item_component_dir_list0725"}>
-            {dir.map((item, index) => (
+          <ul
+            className={
+              dirItemOnHover
+                ? "dir_item_component_dir_list_on_hover0304"
+                : "dir_item_component_dir_list0725"
+            }
+          >
+            {accessFilesByPath(filePath).map((item, index) => (
               <li key={item.filePath} style={expendAnimation}>
                 <DirItem
                   file={item}
+                  filePath={item.filePath}
                   root={false}
                   setChildrenOnClicked={setChildrenOnClicked}
                   onRightClickItem={onRightClickItem}
