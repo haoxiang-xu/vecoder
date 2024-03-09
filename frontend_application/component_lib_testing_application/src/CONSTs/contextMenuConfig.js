@@ -28,9 +28,6 @@ const COMPONENT_ITEM_FUNCTION_CONFIG = {
     "newFolder",
     "insertFile",
     "hr",
-    "fold",
-    "unfold",
-    "hr",
     "paste_or_unpaste",
   ],
   vecoder_explorer_folder: [
@@ -41,8 +38,6 @@ const COMPONENT_ITEM_FUNCTION_CONFIG = {
     "copy",
     "paste_or_unpaste",
     "hr",
-    "fold",
-    "unfold",
     "rename",
     "delete",
   ],
