@@ -36,6 +36,9 @@
   background-color: #1f1f1f;
   box-shadow: 0px 4px 16px 8px rgba(0, 0, 0, 0.2);
 
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
 #web_logo_section_component_logo_icon_centered0725 {
@@ -66,7 +69,10 @@
 
   animation-timing-function: linear;
   animation: web_logo_section_component_logo_icon_centered_animation 1.6s;
-
+  
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
 @keyframes web_logo_section_component_logo_icon_centered_animation {
@@ -294,6 +300,9 @@
   min-width: 0pt;
   max-width: 98%;
 
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
 #web_logo_section_component_logo_subtitle_hided0725 {

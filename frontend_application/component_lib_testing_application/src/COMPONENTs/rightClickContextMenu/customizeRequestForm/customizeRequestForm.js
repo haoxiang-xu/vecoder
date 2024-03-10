@@ -1,7 +1,31 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
+import { ICON_MANAGER } from "../../../ICONs/icon_manager";
+import {
+  rightClickContextMenuCommandContexts,
+  rightClickContextMenuInsideContexts,
+} from "../../../CONTEXTs/rightClickContextMenuContexts";
 import "./customizeRequestForm.css";
+import { CUSTOMIZE_REQUEST_FORM_HEIGHT } from "../../../CONSTs/contextMenuConfig";
 
-const Form = ({ progressCustomizeRequest, onRightClickItem }) => {
+/* Load ICON manager -------------------------------- */
+let SYSTEM_ICON_MANAGER = {
+  default: {
+    ICON: null,
+    LABEL_COLOR: "#C8C8C8",
+  },
+};
+try {
+  SYSTEM_ICON_MANAGER = ICON_MANAGER().SYSTEM_ICON_MANAGER;
+} catch (e) {
+  console.log(e);
+}
+/* Load ICON manager -------------------------------- */
+
+const Form = () => {
+  const { progressCustomizeRequest } = useContext(
+    rightClickContextMenuInsideContexts
+  );
+  const { onRightClickItem } = useContext(rightClickContextMenuCommandContexts);
   const [requestURL, setRequestURL] = useState(
     onRightClickItem?.content?.customizeRequest?.requestURL
       ? onRightClickItem?.content?.customizeRequest?.requestURL
@@ -33,12 +57,23 @@ const Form = ({ progressCustomizeRequest, onRightClickItem }) => {
   };
 
   return (
-    <div className="customizeRequestForm_component_container1120">
+    <div
+      className="customizeRequestForm_component_container1120"
+      style={{ height: CUSTOMIZE_REQUEST_FORM_HEIGHT }}
+    >
       <link
         href="https://fonts.googleapis.com/css?family=Roboto"
         rel="stylesheet"
       ></link>
-      <span id="ustomizeRequestForm_component_title1120">
+      <link
+        href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;700&display=swap"
+        rel="stylesheet"
+      ></link>
+      <img
+        className="customizeRequestForm_component_title_icon0129"
+        src={SYSTEM_ICON_MANAGER.customize.ICON512}
+      />
+      <span className="customizeRequestForm_component_title1120">
         Customize Request
       </span>
       <div>

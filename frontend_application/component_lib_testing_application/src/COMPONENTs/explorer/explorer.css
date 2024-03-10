@@ -1,91 +1,164 @@
+.explorer_component_container0126 {
+  transition: all 0.04s ease;
+
+  /*POSITION*/
+  position: relative;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+
+  /*STYLE*/
+  overflow: hidden;
+  border-radius: 11px;
+  background-color: #1e1e1e;
+}
 #dir_list_component_container0725 {
   transition: all 0.04s ease;
 
   /*POSITION*/
   position: absolute;
-  top: 0%;
-  left: 0%;
-  right: 0pt;
+  top: 42px;
+  left: 0px;
+  right: 2px;
+  bottom: 4px;
   transform: translate(0%, 0%);
-  margin: 0pt 0pt 0pt 0pt;
-  padding: 0pt 0pt 0pt 0pt;
+  margin: 0px 3px 4px 3px;
+  padding: 0px 4px 0px 7px;
 
   /*SIZE*/
-  height: wrap-content;
-  max-height: 100%;
   box-sizing: border-box;
 
   /*STYLE*/
+  box-sizing: border-box;
   overflow-y: scroll;
   overflow-x: hidden;
 
   animation-timing-function: linear;
   animation: dir_list_component_container_appear_animation 1.6s;
 }
-#dir_list_component_container_hided0725 {
-  /*POSITION*/
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  right: 0pt;
-  transform: translate(0%, -50%);
-  margin: 0pt 0pt 0pt 32pt;
-
-  /*SIZE*/
-  height: wrap-content;
-  max-height: 100%;
-  box-sizing: border-box;
-
-  /*STYLE*/
-  overflow-y: scroll;
-  overflow-x: hidden;
-  opacity: 0;
-}
-#dir_list_component_container_resizer0725 {
-  /*POSITION*/
-  position: absolute;
-  right: 0pt;
-  bottom: 0pt;
-
-  /*SIZE*/
-  width: 24pt;
-
-  /*STYLE*/
-  cursor: col-resize;
-  background-color: rgb(212, 212, 212);
-}
 #dir_list_component_container0725::-webkit-scrollbar {
-  width: 6pt;
+  width: 6px;
 }
 #dir_list_component_container0725::-webkit-scrollbar-track {
   background: transparent;
-  border-radius: 4pt;
+  border-radius: 4px;
 }
 #dir_list_component_container0725::-webkit-scrollbar-thumb {
   background: #2f3133;
-  border-radius: 4pt;
+  border-radius: 4px;
 }
 #dir_list_component_container0725::-webkit-scrollbar-thumb:hover {
   background: #494d53;
-  box-shadow: 0px 2px 16px 2px rgba(0, 0, 0, 0.16);
-  border-radius: 4pt;
-}
-#dir_list_component_container_expanded0725::-webkit-scrollbar {
-  width: 4pt;
-}
-#dir_list_component_container_expanded0725::-webkit-scrollbar-track {
-  background: transparent;
-  border-radius: 2pt;
-}
-#dir_list_component_container_expanded0725::-webkit-scrollbar-thumb {
-  background: #2f3133;
-  border-radius: 2pt;
-}
-#dir_list_component_container_expanded0725::-webkit-scrollbar-thumb:hover {
-  background: #494d53;
-  box-shadow: 0px 2px 16px 2px rgba(0, 0, 0, 0.16);
-  border-radius: 4pt;
+  border-radius: 4px;
 }
 #dir_list_component_container0725::-webkit-scrollbar-corner {
   background: transparent;
+}
+
+/* Close icon */
+.dir_list_component_close_icon_container0125 {
+  position: absolute;
+
+  top: 0px;
+  left: 0px;
+}
+.dir_list_component_close_icon0125 {
+  transition: all 0.2s ease;
+
+  /*POSITION*/
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+
+  /*STYLE*/
+  border-radius: 6px;
+  padding: 9px;
+}
+.dir_list_component_close_icon0125:hover {
+  transition: all 0.2s ease;
+
+  /*STYLE*/
+  background-color: #2e2e2e;
+  box-shadow: 0px 4px 12px 4px rgba(0, 0, 0, 0.16);
+}
+.dir_list_component_close_icon0125:active {
+  transition: all 0.1s ease;
+
+  /*STYLE*/
+  background-color: #444444;
+}
+
+/* Search Bar */
+.dir_list_component_search_bar_container0125 {
+  transition: all 0.32s ease;
+  /*POSITION*/
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  left: 90px;
+  right: 5px;
+
+  /*SIZE*/
+  overflow-y: hidden;
+  overflow-x: hidden;
+  height: 30px;
+  max-width: 512px;
+
+  /*STYLE*/
+  background-color: #323232;
+  border-radius: 6px;
+}
+.dir_list_component_search_bar_container0125:hover {
+  transition: all 0.32s ease;
+  box-shadow: 0px 4px 12px 4px rgba(0, 0, 0, 0.16);
+}
+.dir_list_component_search_bar_input0125 {
+  transition: all 0.12s ease;
+
+  /*POSITION*/
+  position: absolute;
+
+  /*SIZE*/
+  height: 30px;
+  left: 4px;
+  right: 32px;
+  outline: 0px;
+
+  /*STYLE*/
+  box-sizing: border-box;
+  background-color: #323232;
+  border: 0px;
+  padding: 0px 0px 0px 8px;
+  color: #cccccc;
+  font-size: 13px;
+  font-family: "Roboto";
+}
+.dir_list_component_search_bar_icon0125 {
+  transition: all 0.2s ease;
+
+  /*POSITION*/
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  top: 3px;
+  right: 3px;
+
+  /*STYLE*/
+  border-radius: 4px;
+  padding: 5px;
+}
+.dir_list_component_search_bar_icon0125:hover {
+  transition: all 0.2s ease;
+
+  /*STYLE*/
+  background-color: #5c5c5c;
+}
+.dir_list_component_search_bar_icon0125:active {
+  transition: all 0.1s ease;
+
+  /*STYLE*/
+  background-color: #838383;
 }

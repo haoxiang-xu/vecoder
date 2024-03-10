@@ -1,33 +1,49 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import MonacoEditor from "@monaco-editor/react";
-import { MonacoDiffEditor } from "react-monaco-editor";
+import { MonacoDiffEditor, monaco } from "react-monaco-editor";
+import { vecoderEditorContexts } from "../../CONTEXTs/vecoderEditorContexts";
+import { globalDragAndDropContexts } from "../../CONTEXTs/globalDragAndDropContexts";
+import { stackStructureDragAndDropContexts } from "../../CONTEXTs/stackStructureDragAndDropContexts";
 
 const Editor = ({
   //Editor required parameters
-  editor_content,
-  editor_setContent,
-  editor_language,
+  editor_filePath,
   //Editor function parameters
   onAppendContent,
   setOnAppendContent,
-  setOnSelected,
+  setOnSelectedContent,
   onContextMenu,
+  mode,
   display,
-
   //Diff Editor optional parameters
   editor_diffContent,
   editor_setDiffContent,
 }) => {
+  const {
+    monacoEditorsOptionsAndContentData,
+    accessMonacoEditorsDataByPath,
+    updateMonacoEditorViewStateByPath,
+    updateMonacoEditorModelByPath,
+
+    updateVecoderEditorFileContentDataByPath,
+    accessVecoderEditorFileContentDataByPath,
+    accessVecoderEditorFileLanguageDataByPath,
+  } = useContext(vecoderEditorContexts);
+  const { draggedItem, dragCommand, setDragCommand } = useContext(
+    globalDragAndDropContexts
+  );
+  const { onDragIndex } = useContext(stackStructureDragAndDropContexts);
+
   /*MONACO EDITOR OPTIONS-----------------------------------------------------------------------*/
-  const monacoRef = useRef(null);
+  const monacoRef = useRef();
   const baseEditorOptions = React.useMemo(
     () => ({
       contextmenu: false,
       smoothScrolling: true,
       minimap: { enabled: false },
       roundedSelection: true,
-      fontSize: 14,
-      lineNumbers: "on",
+      fontSize: 13,
+      lineNumbers: "off",
       scrollbar: {
         vertical: "visible",
         horizontal: "visible",
@@ -42,32 +58,40 @@ const Editor = ({
     }),
     []
   );
-  const diffEditorOptions = React.useMemo(
-    () => ({
-      ...baseEditorOptions,
-      readOnly: true,
-      enableSplitViewResizing: false,
-      renderSideBySide: true,
-    }),
-    [baseEditorOptions]
-  );
-  const editorProps = {
-    language: editor_language,
-    theme: "vs-dark",
-    options: editor_diffContent ? diffEditorOptions : baseEditorOptions,
-    onChange: editor_setContent,
-    onMount: onEditorMount,
-  };
+  const [monacoModel, setMonacoModel] = useState(null);
+  const [monacoViewState, setMonacoViewState] = useState(null);
   /*MONACO EDITOR OPTIONS-----------------------------------------------------------------------*/
 
-  /*MONACO EDITOR FUNCTIONs-----------------------------------------------------------------------*/
+  /*MONACO EDITOR FUNCTIONs======================================================================*/
   ////On editor mount
-  function onEditorMount(editor, monaco) {
+  const onEditorMount = (editor, monaco) => {
     monacoRef.current = editor;
+
+    applyEditorOptionsInMemory(
+      editor,
+      monaco,
+      monacoRef,
+      editor_filePath,
+      accessVecoderEditorFileLanguageDataByPath(editor_filePath),
+      monacoEditorsOptionsAndContentData,
+      accessMonacoEditorsDataByPath,
+      draggedItem,
+      dragCommand,
+      setDragCommand
+    );
     defineTheme(monaco);
     registerCompletionProvider(monaco);
     registerInlineCompletionProvider(monaco);
-  }
+    registerStateChangeListeners(
+      monaco,
+      editor,
+      editor_filePath,
+      monacoEditorsOptionsAndContentData,
+      updateMonacoEditorViewStateByPath,
+      updateMonacoEditorModelByPath
+    );
+    //console.log(editor.getModel()._isDisposed);
+  };
   ////Get monaco editor on selected content
   const getEditorOnSelected = (monacoRef) => {
     const select_range = monacoRef.current.getSelection();
@@ -75,15 +99,20 @@ const Editor = ({
       .getModel()
       .getValueInRange(select_range);
 
-    setOnSelected({ selectedText: selectedText, select_range: select_range });
+    setOnSelectedContent({
+      selectedText: selectedText,
+      select_range: select_range,
+    });
   };
   useEffect(() => {
     if (onAppendContent && monacoRef.current && display) {
       const editor = monacoRef.current.editor || monacoRef.current;
       const selection = editor.getSelection();
       const range = new monaco.Range(
-        selection.startLineNumber,
-        selection.startColumn,
+        // selection.startLineNumber,
+        // selection.startColumn,
+        selection.endLineNumber,
+        selection.endColumn,
         selection.endLineNumber,
         selection.endColumn
       );
@@ -101,12 +130,70 @@ const Editor = ({
       setOnAppendContent(null);
     }
   }, [onAppendContent, monacoRef]);
-  /*MONACO EDITOR FUNCTIONs-----------------------------------------------------------------------*/
+  /*MONACO EDITOR FUNCTIONs======================================================================*/
 
-  return display ? (
+  /*MONACO EDITOR OPTIONS-----------------------------------------------------------------------*/
+  const diffEditorOptions = React.useMemo(
+    () => ({
+      ...baseEditorOptions,
+      readOnly: true,
+      enableSplitViewResizing: false,
+      renderSideBySide: true,
+    }),
+    [baseEditorOptions]
+  );
+  const editorProps = {
+    language: accessVecoderEditorFileLanguageDataByPath(editor_filePath),
+    theme: "vs-dark",
+    options: editor_diffContent ? diffEditorOptions : baseEditorOptions,
+    onChange: (newValue, e) => {
+      updateVecoderEditorFileContentDataByPath(editor_filePath, newValue);
+    },
+    onMount: onEditorMount,
+  };
+  /*MONACO EDITOR OPTIONS-----------------------------------------------------------------------*/
+
+  /*Drag and Drop Save and Reload Model=================================*/
+  useEffect(() => {
+    if (draggedItem && draggedItem === editor_filePath) {
+      setMonacoModel(monacoRef.current.getModel());
+      setMonacoViewState(monacoRef.current.saveViewState());
+
+      monacoRef.current.setModel(null);
+    } else if (
+      draggedItem === null &&
+      dragCommand === null &&
+      monacoModel &&
+      monacoViewState
+    ) {
+      monacoRef.current.setModel(monacoModel);
+      monacoRef.current.restoreViewState(monacoViewState);
+      setMonacoModel(null);
+      setMonacoViewState(null);
+    }
+  }, [draggedItem]);
+  useEffect(() => {
+    if (onDragIndex !== -1) {
+      setMonacoModel(monacoRef.current.getModel());
+      setMonacoViewState(monacoRef.current.saveViewState());
+      monacoRef.current.setModel(null);
+    } else if (onDragIndex === -1 && monacoModel && monacoViewState) {
+      monacoRef.current.setModel(monacoModel);
+      monacoRef.current.restoreViewState(monacoViewState);
+      setMonacoModel(null);
+      setMonacoViewState(null);
+    }
+  }, [onDragIndex]);
+  /*Drag and Drop Save and Reload Model=================================*/
+
+  return (
     <div
       className="MONACO_EDITOR_CONTAINER"
-      style={{ height: "100%", width: "100%" }}
+      style={{
+        height: "100%",
+        width: "100%",
+        display: display && mode === "HORIZONTAL" ? "block" : "none",
+      }}
       onContextMenu={(e) => {
         getEditorOnSelected(monacoRef);
         onContextMenu(e);
@@ -115,26 +202,15 @@ const Editor = ({
       {editor_diffContent ? (
         <MonacoDiffEditor
           {...editorProps}
-          original={editor_content}
+          original={accessVecoderEditorFileContentDataByPath(editor_filePath)}
           value={editor_diffContent}
         />
       ) : (
-        <MonacoEditor {...editorProps} value={editor_content} />
-      )}
-    </div>
-  ) : (
-    <div
-      className="MONACO_EDITOR_CONTAINER"
-      style={{ height: "100%", width: "100%", display: "none" }}
-    >
-      {editor_diffContent ? (
-        <MonacoDiffEditor
+        <MonacoEditor
           {...editorProps}
-          original={editor_content}
-          value={editor_diffContent}
+          value={accessVecoderEditorFileContentDataByPath(editor_filePath)}
+          loading={<></>}
         />
-      ) : (
-        <MonacoEditor {...editorProps} value={editor_content} />
       )}
     </div>
   );
@@ -225,5 +301,90 @@ const getSuggestionsBasedOnPrefix = (model, position) => {
   }
 
   return [];
+};
+////Register state change listeners for monaco editor
+const registerStateChangeListeners = (
+  monaco,
+  editor,
+  editor_filePath,
+  monacoEditorsOptionsAndContentData,
+  updateMonacoEditorViewStateByPath,
+  updateMonacoEditorModelByPath
+) => {
+  editor.onDidScrollChange((e) => {
+    const viewState = editor.saveViewState();
+    updateMonacoEditorViewStateByPath(editor_filePath, viewState);
+    const Model = editor.getModel();
+    updateMonacoEditorModelByPath(editor_filePath, Model);
+  });
+  editor.onDidChangeModelContent((e) => {
+    const viewState = editor.saveViewState();
+    updateMonacoEditorViewStateByPath(editor_filePath, viewState);
+    const Model = editor.getModel();
+    updateMonacoEditorModelByPath(editor_filePath, Model);
+  });
+  editor.onMouseDown((e) => {
+    const { position } = e.target;
+    if (position) {
+      // console.log(
+      //   `Clicked at line ${position.lineNumber}, column ${position.column}`
+      // );
+    }
+  });
+};
+////Apply editor options for monaco editor
+const applyEditorOptionsInMemory = (
+  editor,
+  monaco,
+  monacoRef,
+  editor_filePath,
+  editor_language,
+  monacoEditorsOptionsAndContentData,
+  accessMonacoEditorsDataByPath,
+  draggedItem,
+  dragCommand,
+  setDragCommand
+) => {
+  if (monacoEditorsOptionsAndContentData[editor_filePath].model) {
+    monacoRef.current.setModel(
+      monacoEditorsOptionsAndContentData[editor_filePath].model
+    );
+  }
+  if (monacoEditorsOptionsAndContentData[editor_filePath].viewState) {
+    editor.restoreViewState(
+      monacoEditorsOptionsAndContentData[editor_filePath].viewState
+    );
+  } else {
+    editor.getAction("editor.foldAll").run();
+  }
+  if (dragCommand === "WAITING FOR MODE APPEND") {
+    setDragCommand("DELETE FROM SOURCE");
+  }
+};
+////Append Content Widget for monaco editor
+const appendContentWidget = (monaco, editor) => {
+  editor.addContentWidget({
+    getId: function () {
+      return "my.content.widget";
+    },
+    getDomNode: function () {
+      if (!this.domNode) {
+        this.domNode = document.createElement("div");
+        this.domNode.innerHTML = "Custom Content";
+        this.domNode.style.background = "lightgrey";
+        this.domNode.style.color = "black";
+      }
+      return this.domNode;
+    },
+    getPosition: function () {
+      return {
+        position: {
+          lineNumber: 5,
+          column: 1,
+        },
+        preference: ["above", "below"],
+      };
+    },
+  });
 };
 /*INITIALIZE MONACO EDITOR FUNCTION GROUP----------------------------------------------------*/
