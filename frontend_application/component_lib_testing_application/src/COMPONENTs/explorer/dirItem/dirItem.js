@@ -143,11 +143,9 @@ const DirItem = ({
   explorerExpand,
   setExplorerExpand,
   setChildrenOnClicked,
-  parentSortFiles,
   parentCheckNameExist,
   onSingleClickFile,
   setOnSingleClickFile,
-  parentForceRefresh,
   onCopyFile,
   setOnCopyFile,
 }) => {
@@ -170,10 +168,6 @@ const DirItem = ({
     setRightClickCommand,
   } = useContext(rightClickContextMenuCommandContexts);
 
-  const [refresh, setRefresh] = useState(false);
-  const forceRefresh = () => {
-    setRefresh(!refresh);
-  };
   //EXPAND
   const [expanded, setExpanded] = useState(false);
   const [expandIconClassName, setExpandIconClassName] = useState(
@@ -187,7 +181,6 @@ const DirItem = ({
   const [fileIconBackground, setFileIconBackground] = useState();
   const [fileTextColor, setFileTextColor] = useState("#C8C8C8");
 
-  const [dir, setDir] = useState(file.files);
   const [isRightClicked, setIsRightClicked] = useState(false);
   const [onCommand, setOnCommand] = useState("false");
 
@@ -217,7 +210,6 @@ const DirItem = ({
     setFileTextColor(
       FILE_TYPE_ICON_MANAGER[file.fileName.split(".").pop()]?.LABEL_COLOR
     );
-    setDir(file.files);
     setExpanded(file.fileExpend);
   }, [file, file.fileName]);
 
@@ -225,12 +217,12 @@ const DirItem = ({
 
   //EXPAND RELATED
   const expandingTime = Math.min(
-    Math.max(file.files.length * 0.015, 0.08),
+    Math.max(accessFilesByPath(filePath).length * 0.015, 0.08),
     0.16
   );
   const unexpandingTime = Math.min(
-    Math.max(file.files.length * 0.015, 0.32),
-    0.64
+    Math.max(accessFilesByPath(filePath).length * 0.015, 0.08),
+    0.16
   );
   let dirListUnexpendKeyframes = {
     "0%": {
@@ -248,14 +240,14 @@ const DirItem = ({
   };
   const [dirListExpendKeyframes, setDirListExpendKeyframes] = useState({
     "0%": {
-      top: "-13pt",
+      top: "-6px",
       opacity: 0,
     },
     "20%": {
       opacity: 0,
     },
     "100%": {
-      top: "0pt",
+      top: "0px",
       opacity: 1,
     },
   });
@@ -320,8 +312,6 @@ const DirItem = ({
         setUnexpendAnimation({});
       }, unexpandingTime * 1000);
     }
-
-    forceRefresh();
   };
   const handleFolderOnRightClick = () => {
     if (onCopyFile !== null) {
@@ -407,24 +397,6 @@ const DirItem = ({
     }
     return false;
   };
-  const sortFiles = () => {
-    file.files.sort((a, b) => {
-      if (a.fileType === "folder" && b.fileType === "file") {
-        return -1;
-      }
-      if (a.fileType === "file" && b.fileType === "folder") {
-        return 1;
-      }
-      if (a.fileName < b.fileName) {
-        return -1;
-      }
-      if (a.fileName > b.fileName) {
-        return 1;
-      }
-      return 0;
-    });
-    setRefresh(!refresh);
-  };
   //NEW FILE
   useEffect(() => {
     if (onCommand === "newFile") {
@@ -437,7 +409,10 @@ const DirItem = ({
         files: [],
       };
 
-      file.files.push(newFile);
+      let editedFile = accessFileByPath(filePath);
+      editedFile.files.push(newFile);
+      updateFileOnExploreOptionsAndContentData(filePath, editedFile);
+
       setOnCommand("false");
       setRightClickCommand({
         command: "rename",
@@ -452,7 +427,6 @@ const DirItem = ({
         setExplorerExpand(true);
       }
       setExpandIconClassName("dir_item_component_arrow_icon_down0725");
-      sortFiles();
     }
   }, [onCommand]);
   const getNewFileDefaultName = () => {
@@ -461,8 +435,9 @@ const DirItem = ({
     let newFileDefaultNameExist = true;
     while (newFileDefaultNameExist) {
       newFileDefaultNameExist = false;
-      for (let i = 0; i < file.files.length; i++) {
-        if (file.files[i].fileName === newFileDefaultName) {
+      const file_list = accessFilesByPath(filePath);
+      for (let i = 0; i < file_list.length; i++) {
+        if (file_list[i].fileName === newFileDefaultName) {
           newFileDefaultNameExist = true;
           break;
         }
@@ -481,11 +456,14 @@ const DirItem = ({
       const newFolder = {
         fileName: newFolderDefaultName,
         fileType: "folder",
-        filePath: file.filePath + "/" + newFolderDefaultName,
+        filePath: filePath + "/" + newFolderDefaultName,
         files: [],
       };
 
-      file.files.push(newFolder);
+      let editedFile = accessFileByPath(filePath);
+      editedFile.files.push(newFolder);
+      updateFileOnExploreOptionsAndContentData(filePath, editedFile);
+
       setOnCommand("false");
       setRightClickCommand({
         command: "rename",
@@ -498,7 +476,6 @@ const DirItem = ({
         setExplorerExpand(true);
       }
       setExpandIconClassName("dir_item_component_arrow_icon_down0725");
-      sortFiles();
     }
   }, [onCommand]);
   const getNewFolderDefaultName = () => {
@@ -507,8 +484,9 @@ const DirItem = ({
     let newFolderDefaultNameExist = true;
     while (newFolderDefaultNameExist) {
       newFolderDefaultNameExist = false;
-      for (let i = 0; i < file.files.length; i++) {
-        if (file.files[i].fileName === newFolderDefaultName) {
+      const file_list = accessFilesByPath(filePath);
+      for (let i = 0; i < file_list.length; i++) {
+        if (file_list[i].fileName === newFolderDefaultName) {
           newFolderDefaultNameExist = true;
           break;
         }
@@ -708,18 +686,18 @@ const DirItem = ({
             <span
               className={fileNameClassName}
               onClick={(e) => handleOnLeftClick(e)}
-              style={
-                fileIcon !== undefined
-                  ? {
-                      color: fileTextColor,
-                      borderRadius: "6px",
-                      animation:
-                        "dir_item_component_container_expand_animation " +
-                        expandingTime +
-                        "s",
-                    }
-                  : { borderRadius: "6px" }
-              }
+              style={{
+                color: fileTextColor,
+                borderRadius: "6px",
+                animation:
+                  "dir_item_component_container_expand_animation " +
+                  expandingTime +
+                  "s",
+                padding:
+                  fileIcon !== undefined
+                    ? "1px 0px 1px 6px"
+                    : "1px 0px 1px 21px",
+              }}
               onContextMenu={handleFileOnRightClick}
             >
               <FileTypeIconLoader
@@ -751,11 +729,9 @@ const DirItem = ({
                   filePath={item.filePath}
                   root={false}
                   setChildrenOnClicked={setChildrenOnClicked}
-                  parentSortFiles={sortFiles}
                   parentCheckNameExist={checkNameExist}
                   onSingleClickFile={onSingleClickFile}
                   setOnSingleClickFile={setOnSingleClickFile}
-                  parentForceRefresh={forceRefresh}
                   onCopyFile={onCopyFile}
                   setOnCopyFile={setOnCopyFile}
                 />

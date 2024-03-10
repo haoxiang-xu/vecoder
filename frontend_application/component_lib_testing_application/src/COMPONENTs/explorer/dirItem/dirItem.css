@@ -1,5 +1,4 @@
 .dir_item_component_file_name0725 {
-  transition: all 0.12s ease;
 
   /*POSITION*/
   display: flex;
@@ -150,8 +149,8 @@
 
   left: -3.5px;
   top: 0px;
-  height: 18px;
-  width: 18px;
+  height: 16px;
+  width: 16px;
 
   opacity: 0.32;
 }
