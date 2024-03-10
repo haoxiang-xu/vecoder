@@ -780,39 +780,9 @@ const VecoderEditorPage = () => {
   /* Explorer Data and Functions ------------------------------------------ */
   const [exploreOptionsAndContentData, setExploreOptionsAndContentData] =
     useState(DEFAULT_EXPLORE_OPTIONS_AND_CONTENT_DATA);
-  useEffect(() => {
-    console.log(exploreOptionsAndContentData);
-  }, [exploreOptionsAndContentData]);
-  const deleteFileOnExploreOptionsAndContentData = (path) => {
-    setExploreOptionsAndContentData((prevData) => {
-      const newExploreOptionsAndContentData = { ...prevData };
-      const pathArray = path.split("/");
-      let currentData = newExploreOptionsAndContentData;
-      for (let i = 0; i < pathArray.length; i++) {
-        if (i === pathArray.length - 1) {
-          delete currentData[pathArray[i]];
-        } else {
-          currentData = currentData[pathArray[i]].files;
-        }
-      }
-      return newExploreOptionsAndContentData;
-    });
-  };
-  const addFileOnExploreOptionsAndContentData = (path, data) => {
-    setExploreOptionsAndContentData((prevData) => {
-      const newExploreOptionsAndContentData = { ...prevData };
-      const pathArray = path.split("/");
-      let currentData = newExploreOptionsAndContentData;
-      for (let i = 0; i < pathArray.length; i++) {
-        if (i === pathArray.length - 1) {
-          currentData[pathArray[i]] = data;
-        } else {
-          currentData = currentData[pathArray[i]].files;
-        }
-      }
-      return newExploreOptionsAndContentData;
-    });
-  };
+  // useEffect(() => {
+  //   console.log(exploreOptionsAndContentData);
+  // }, [exploreOptionsAndContentData]);
   const updateFileOnExploreOptionsAndContentData = (path, data) => {
     setExploreOptionsAndContentData((prevData) => {
       const newExploreOptionsAndContentData = { ...prevData };
@@ -821,6 +791,34 @@ const VecoderEditorPage = () => {
       for (let i = 0; i < pathArray.length; i++) {
         if (i === pathArray.length - 1) {
           currentData = data;
+          sortDirFiles(path);
+        } else {
+          currentData = currentData.files;
+          for (let j = 0; j < currentData.length; j++) {
+            if (currentData[j].fileName === pathArray[i + 1]) {
+              currentData = currentData[j];
+              break;
+            }
+          }
+        }
+      }
+      return newExploreOptionsAndContentData;
+    });
+  };
+  const removeFileOnExploreOptionsAndContentData = (path) => {
+    setExploreOptionsAndContentData((prevData) => {
+      const newExploreOptionsAndContentData = { ...prevData };
+      const pathArray = path.split("/");
+      let currentData = exploreOptionsAndContentData;
+      for (let i = 0; i < pathArray.length; i++) {
+        if (i === pathArray.length - 2) {
+          let subDirList = currentData.files;
+          for (let j = 0; j < subDirList.length; j++) {
+            if (subDirList[j].fileName === pathArray[i + 1]) {
+              subDirList.splice(j, 1);
+              break;
+            }
+          }
         } else {
           currentData = currentData.files;
           for (let j = 0; j < currentData.length; j++) {
@@ -854,6 +852,61 @@ const VecoderEditorPage = () => {
     renameAllSubFiles(target_file, Path.length - 1, new_name);
 
     updateFileOnExploreOptionsAndContentData(original_path, target_file);
+  };
+  const checkDirNameExist = (path, pending_file) => {
+    const pathArray = path.split("/");
+    let currentData = exploreOptionsAndContentData;
+    for (let i = 0; i < pathArray.length; i++) {
+      if (i === pathArray.length - 1) {
+        currentData = currentData.files;
+        for (let j = 0; j < currentData.length; j++) {
+          if (currentData[j].fileName === pending_file.fileName) {
+            return true;
+          }
+        }
+        return false;
+      } else {
+        currentData = currentData.files;
+        for (let j = 0; j < currentData.length; j++) {
+          if (currentData[j].fileName === pathArray[i + 1]) {
+            currentData = currentData[j];
+            break;
+          }
+        }
+      }
+    }
+  };
+  const sortDirFiles = (path) => {
+    const pathArray = path.split("/");
+    let currentData = exploreOptionsAndContentData;
+    for (let i = 0; i < pathArray.length; i++) {
+      if (i === pathArray.length - 2) {
+        currentData.files.sort((a, b) => {
+          if (a.fileType === "folder" && b.fileType === "file") {
+            return -1;
+          }
+          if (a.fileType === "file" && b.fileType === "folder") {
+            return 1;
+          }
+          if (a.fileName < b.fileName) {
+            return -1;
+          }
+          if (a.fileName > b.fileName) {
+            return 1;
+          }
+          return 0;
+        });
+        return currentData;
+      } else {
+        currentData = currentData.files;
+        for (let j = 0; j < currentData.length; j++) {
+          if (currentData[j].fileName === pathArray[i + 1]) {
+            currentData = currentData[j];
+            break;
+          }
+        }
+      }
+    }
   };
   const accessFileByPath = (path) => {
     const pathArray = path.split("/");
@@ -986,10 +1039,10 @@ const VecoderEditorPage = () => {
 
         exploreOptionsAndContentData,
         setExploreOptionsAndContentData,
-        deleteFileOnExploreOptionsAndContentData,
-        addFileOnExploreOptionsAndContentData,
         updateFileOnExploreOptionsAndContentData,
+        removeFileOnExploreOptionsAndContentData,
         renameAndRepathAllSubFiles,
+        checkDirNameExist,
         accessFileByPath,
         accessFileNameByPath,
         accessFileTypeByPath,

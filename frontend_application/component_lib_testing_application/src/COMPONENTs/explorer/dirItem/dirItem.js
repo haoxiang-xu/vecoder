@@ -147,7 +147,6 @@ const DirItem = ({
   rightClickCommand,
   setRightClickCommand,
   parentSortFiles,
-  parentDeleteFile,
   parentCheckNameExist,
   onSingleClickFile,
   setOnSingleClickFile,
@@ -158,10 +157,10 @@ const DirItem = ({
   const {
     exploreOptionsAndContentData,
     setExploreOptionsAndContentData,
-    deleteFileOnExploreOptionsAndContentData,
-    addFileOnExploreOptionsAndContentData,
     updateFileOnExploreOptionsAndContentData,
-    renameAndRepathAllSubFiles,
+    removeFileOnExploreOptionsAndContentData,
+    checkDirNameExist,
+    accessFileByPath,
     accessFileNameByPath,
     accessFileTypeByPath,
     accessFileExpendByPath,
@@ -524,48 +523,32 @@ const DirItem = ({
   useEffect(() => {
     if (onCommand === "delete") {
       if (!root) {
-        parentDeleteFile(file);
+        removeFileOnExploreOptionsAndContentData(filePath);
       }
-
-      setTimeout(() => {
-        setChildrenOnClicked(true);
-      }, 20);
-      setTimeout(() => {
-        setChildrenOnClicked(false);
-      }, 40);
-
       setOnSingleClickFile(null);
       setOnCommand("false");
     }
   }, [onCommand]);
-  const deleteFile = (delete_file) => {
-    for (let i = 0; i < file.files.length; i++) {
-      if (file.files[i].filePath === delete_file.filePath) {
-        file.files.splice(i, 1);
-        break;
-      }
-    }
-    setOnSingleClickFile(null);
-    setRefresh(!refresh);
-  };
   //PASTE
   useEffect(() => {
     if (onCommand === "paste") {
-      const pasteFile = JSON.parse(JSON.stringify(onCopyFile));
+      let pasteFile = JSON.parse(JSON.stringify(onCopyFile));
 
-      if (!checkNameExist(pasteFile.fileName)) {
+      if (!checkDirNameExist(filePath, pasteFile)) {
         pasteFile.expanded = false;
         setOnSingleClickFile(pasteFile);
 
         const pasteFileIndex = pasteFile.filePath.split("/").length - 1;
-        addPathNameAllChildren(pasteFile, file.filePath, pasteFileIndex);
+        addPathNameAllChildren(pasteFile, filePath, pasteFileIndex);
 
         const path = pasteFile.filePath.split("/");
         const add_path = file.filePath.split("/");
-        let combinedPath = add_path.concat(path.slice(pasteFileIndex));
+        const combinedPath = add_path.concat(path.slice(pasteFileIndex));
         pasteFile.filePath = combinedPath.join("/");
 
-        file.files.push(pasteFile);
+        let editedFile = accessFileByPath(filePath);
+        editedFile.files.push(pasteFile);
+        updateFileOnExploreOptionsAndContentData(filePath, editedFile);
 
         //EXPAND FOLDER
         setExpanded(true);
@@ -574,7 +557,6 @@ const DirItem = ({
           setExplorerExpand(true);
         }
         setExpandIconClassName("dir_item_component_arrow_icon_down0725");
-        sortFiles();
       } else {
         alert("File name already exist");
       }
@@ -595,7 +577,7 @@ const DirItem = ({
   //COPY
   useEffect(() => {
     if (onCommand === "copy") {
-      setOnCopyFile(JSON.parse(JSON.stringify(file)));
+      setOnCopyFile(JSON.parse(JSON.stringify(accessFileByPath(filePath))));
       setOnCommand("false");
     }
   }, [onCommand]);
@@ -773,7 +755,6 @@ const DirItem = ({
                   rightClickCommand={rightClickCommand}
                   setRightClickCommand={setRightClickCommand}
                   parentSortFiles={sortFiles}
-                  parentDeleteFile={deleteFile}
                   parentCheckNameExist={checkNameExist}
                   onSingleClickFile={onSingleClickFile}
                   setOnSingleClickFile={setOnSingleClickFile}
