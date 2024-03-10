@@ -8,8 +8,8 @@
   top: 0px;
 
   /*STYLE*/
-  border-radius: 8px;
-  padding: 44px 6px 6px 6px;
+  border-radius: 11px;
+  padding: 44px 8px 8px 4px;
 
   box-sizing: border-box;
   overflow: hidden;
@@ -46,7 +46,7 @@
   left: 5px;
 
   /*STYLE*/
-  border-radius: 5px;
+  border-radius: 6px;
   padding: 9px;
 }
 .code_editor_close_icon1113:hover {
@@ -73,7 +73,7 @@
   left: 55px;
 
   /*STYLE*/
-  border-radius: 5px;
+  border-radius: 6px;
   padding: 9px 3px 9px 0px;
 }
 .code_editor_maximize_icon0129:hover {
@@ -100,7 +100,7 @@
   left: 40px;
 
   /*STYLE*/
-  border-radius: 5px;
+  border-radius: 6px;
   padding: 9px 0px 9px 3px;
 }
 .code_editor_minimize_icon0129:hover {
@@ -140,7 +140,7 @@
   left: 5px;
 
   /*STYLE*/
-  border-radius: 5px;
+  border-radius: 6px;
   padding: 9px;
 }
 .code_editor_maximize_icon_vertical0129:hover {
@@ -167,14 +167,14 @@
   /*POSITION*/
   display: flex;
   position: absolute;
-  left: 75px;
+  left: 90px;
   right: 5px;
   top: 5px;
   height: 38px;
   scroll-behavior: smooth;
 
   /*STYLE*/
-  border-radius: 0px 5px 0px 0px;
+  border-radius: 0px 6px 0px 0px;
   overflow-y: hidden;
 }
 .file_selection_bar_container1114::-webkit-scrollbar {
@@ -196,9 +196,9 @@
   /*POSITION*/
   position: absolute;
   left: 5px;
-  top: 75px;
+  top: 90px;
   right: 0px;
-  bottom: 5px;
+  bottom: 0px;
 
   display: flex;
   flex-direction: column;
@@ -226,6 +226,7 @@
 /*File Selection Bar Item ---------------------------------------------------------------- */
 /*Horizontal Mode*/
 .file_selection_bar_item1114 {
+  transition: width 0.32s ease;
   /*POSITION*/
   height: 30px;
   position: relative;
@@ -235,8 +236,7 @@
 
   /*STYLE*/
   background-color: #252525;
-  color: white;
-  border-radius: 5px;
+  border-radius: 6px;
   margin: 0px 6px 4px 0px;
 }
 .file_selection_bar_item1114:hover {
@@ -244,7 +244,8 @@
   background-color: #2e2e2e;
 }
 .file_selection_bar_item_selected1114 {
-  transition: all 0.16s ease;
+  transition: opacity 0.16s ease, background-color 0.16s ease,
+    position 0.16s ease, width 0.32s ease;
 
   /*POSITION*/
   height: 30px;
@@ -256,19 +257,22 @@
   /*STYLE*/
   background-color: #323232;
   color: white;
+  overflow: hidden;
 
-  border-radius: 5px;
+  border-radius: 6px;
   margin: 0px 6px 4px 0px;
 }
 .file_selection_bar_file_text1114 {
   /*POSITION*/
   position: absolute;
-  top: 5px;
+  transform: translate(0%, -50%);
+  top: 50%;
   left: 30px;
   padding: 0px 0px 0px 0px;
 
   /*SIZE*/
-  font-size: 14px;
+  font-family: "Roboto";
+  font-size: 13px;
   color: #cccccc;
 
   pointer-events: none;
@@ -276,7 +280,6 @@
 .file_selection_bar_item_filetype_icon1114 {
   /*POSITION*/
   position: absolute;
-  padding: 7px 0px 0px 7px;
 
   /*SIZE*/
   top: 0px;
@@ -314,16 +317,16 @@
 }
 /*Vertical Mode*/
 .file_selection_bar_item_vertical0123 {
+  transition: height 0.32s ease;
   /*POSITION*/
   width: 30px;
   position: relative;
 
   /*STYLE*/
   background-color: #252525;
-  color: white;
   overflow: hidden;
 
-  border-radius: 5px;
+  border-radius: 6px;
   margin: 0px 0px 5px 0px;
 }
 .file_selection_bar_item_vertical0123:hover {
@@ -331,7 +334,8 @@
   background-color: #2e2e2e;
 }
 .file_selection_bar_item_selected_vertical0123 {
-  transition: all 0.16s ease;
+  transition: opacity 0.16s ease, background-color 0.16s ease,
+    position 0.16s ease, height 0.32s ease;
 
   /*POSITION*/
   width: 30px;
@@ -342,7 +346,7 @@
   color: white;
   overflow: hidden;
 
-  border-radius: 5px;
+  border-radius: 6px;
   margin: 0px 0px 5px 0px;
 }
 .file_selection_bar_item_filetype_icon_vertical0123 {
@@ -356,15 +360,16 @@
 }
 .file_selection_bar_file_text_vertical0123 {
   /*POSITION*/
-  transform: rotate(90deg);
+  transform: rotate(90deg) translate(0%, -50%);
   transform-origin: top left;
   position: absolute;
   top: 30px;
-  left: 25px;
+  left: 50%;
 
   /*SIZE*/
   max-width: 128px;
-  font-size: 14px;
+  font-family: "Roboto";
+  font-size: 13px;
   color: #cccccc;
   overflow: hidden;
 
@@ -446,13 +451,13 @@
   /*POSITION*/
   transform: translate(-50%, -16%);
   position: fixed;
-  height: 32px;
+  height: 24px;
 
   /*STYLE*/
   background-color: #323232;
   color: white;
 
-  border-radius: 5px;
+  border-radius: 6px;
   margin: 0px 0px 5px 0px;
   pointer-events: none;
   z-index: 12;
@@ -460,7 +465,8 @@
 .ghost_drag_image_filetype_label0207 {
   /*POSITION*/
   position: absolute;
-  top: 6px;
+  transform: translate(0%, -50%);
+  top: 47%;
   left: 12px;
   padding: 0px 0px 0px 0px;
 

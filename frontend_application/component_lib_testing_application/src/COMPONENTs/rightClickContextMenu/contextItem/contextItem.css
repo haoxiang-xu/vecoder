@@ -87,10 +87,10 @@
   /*POSITION*/
   display: flex;
   position: relative;
-  top: 3px;
+  top: 1px;
 
   /*FONT*/
-  font-size: 12px;
+  font-size: 13px;
   font-family: "Roboto";
   letter-spacing: 0pt;
   white-space: nowrap;

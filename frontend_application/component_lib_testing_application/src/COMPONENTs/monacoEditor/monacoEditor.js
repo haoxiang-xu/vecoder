@@ -8,9 +8,6 @@ import { stackStructureDragAndDropContexts } from "../../CONTEXTs/stackStructure
 const Editor = ({
   //Editor required parameters
   editor_filePath,
-  editor_content,
-  editor_setContent,
-  editor_language,
   //Editor function parameters
   onAppendContent,
   setOnAppendContent,
@@ -24,13 +21,13 @@ const Editor = ({
 }) => {
   const {
     monacoEditorsOptionsAndContentData,
-    setMonacoEditorsOptionsAndContentData,
     accessMonacoEditorsDataByPath,
-    updateMonacoEditorsDataByPath,
-    appendMonacoEditorsDataByPath,
-    removeMonacoEditorsDataByPath,
     updateMonacoEditorViewStateByPath,
     updateMonacoEditorModelByPath,
+
+    updateVecoderEditorFileContentDataByPath,
+    accessVecoderEditorFileContentDataByPath,
+    accessVecoderEditorFileLanguageDataByPath,
   } = useContext(vecoderEditorContexts);
   const { draggedItem, dragCommand, setDragCommand } = useContext(
     globalDragAndDropContexts
@@ -75,7 +72,7 @@ const Editor = ({
       monaco,
       monacoRef,
       editor_filePath,
-      editor_language,
+      accessVecoderEditorFileLanguageDataByPath(editor_filePath),
       monacoEditorsOptionsAndContentData,
       accessMonacoEditorsDataByPath,
       draggedItem,
@@ -146,17 +143,19 @@ const Editor = ({
     [baseEditorOptions]
   );
   const editorProps = {
-    language: editor_language,
+    language: accessVecoderEditorFileLanguageDataByPath(editor_filePath),
     theme: "vs-dark",
     options: editor_diffContent ? diffEditorOptions : baseEditorOptions,
-    onChange: editor_setContent,
+    onChange: (newValue, e) => {
+      updateVecoderEditorFileContentDataByPath(editor_filePath, newValue);
+    },
     onMount: onEditorMount,
   };
   /*MONACO EDITOR OPTIONS-----------------------------------------------------------------------*/
 
   /*Drag and Drop Save and Reload Model=================================*/
   useEffect(() => {
-    if (draggedItem && draggedItem.filePath === editor_filePath) {
+    if (draggedItem && draggedItem === editor_filePath) {
       setMonacoModel(monacoRef.current.getModel());
       setMonacoViewState(monacoRef.current.saveViewState());
 
@@ -203,11 +202,15 @@ const Editor = ({
       {editor_diffContent ? (
         <MonacoDiffEditor
           {...editorProps}
-          original={editor_content}
+          original={accessVecoderEditorFileContentDataByPath(editor_filePath)}
           value={editor_diffContent}
         />
       ) : (
-        <MonacoEditor {...editorProps} value={editor_content} />
+        <MonacoEditor
+          {...editorProps}
+          value={accessVecoderEditorFileContentDataByPath(editor_filePath)}
+          loading={<></>}
+        />
       )}
     </div>
   );

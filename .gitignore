@@ -2,13 +2,13 @@ frontend_application/component_lib_testing_application/node_modules
 frontend_application/component_lib_testing_application/node_modules/*
 frontend_application/component_lib_testing_application/node_modules/**/*
 
-backend_service/file_service/node_modules
-backend_service/file_service/node_modules/*
-backend_service/file_service/node_modules/**/*
+backend_services/file_services/node_modules
+backend_services/file_services/node_modules/*
+backend_services/file_services/node_modules/**/*
 
-backend_service/code_service/node_modules
-backend_service/code_service/node_modules/*
-backend_service/code_service/node_modules/**/*
+backend_services/code_services/node_modules
+backend_services/code_services/node_modules/*
+backend_services/code_services/node_modules/**/*
 
 */node_modules/*
 **/node_modules/*
@@ -16,6 +16,8 @@ backend_service/code_service/node_modules/**/*
 backend_services/code_services/.env
 
 backend_services/code_services/models
+backend_services/code_services/training_data
+backend_services/code_services/saved_weight
 
 .venv
 

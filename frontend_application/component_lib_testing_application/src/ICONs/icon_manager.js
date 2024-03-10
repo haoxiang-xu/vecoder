@@ -493,8 +493,14 @@ export const ICON_MANAGER = () => {
   }
   /*FILE_TYPE_STYLING_MANAGER ---------------------------------------------------------------- */
 
+  /* GHOST_IMAGE_ONLY_FOR_DRAG_AND_DROP ====================================================== */
+  const GHOST_IMAGE = new Image();
+  GHOST_IMAGE.src = SYSTEM_ICON_MANAGER.invisible.ICON16;
+  /* GHOST_IMAGE_ONLY_FOR_DRAG_AND_DROP ====================================================== */
+
   return {
     FILE_TYPE_ICON_MANAGER: FILE_TYPE_ICON_MANAGER,
     SYSTEM_ICON_MANAGER: SYSTEM_ICON_MANAGER,
+    GHOST_IMAGE: GHOST_IMAGE,
   };
 };
