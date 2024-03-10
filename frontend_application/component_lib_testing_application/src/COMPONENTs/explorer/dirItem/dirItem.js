@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { ICON_MANAGER, ICON_LOADER } from "../../../ICONs/icon_manager";
 import { vecoderEditorContexts } from "../../../CONTEXTs/vecoderEditorContexts";
+import { rightClickContextMenuCommandContexts } from "../../../CONTEXTs/rightClickContextMenuContexts";
 import "./dirItem.css";
 
 /* Load ICON manager -------------------------------- */
@@ -142,10 +143,6 @@ const DirItem = ({
   explorerExpand,
   setExplorerExpand,
   setChildrenOnClicked,
-  onRightClickItem,
-  setOnRightClickItem,
-  rightClickCommand,
-  setRightClickCommand,
   parentSortFiles,
   parentCheckNameExist,
   onSingleClickFile,
@@ -166,6 +163,12 @@ const DirItem = ({
     accessFileExpendByPath,
     accessFilesByPath,
   } = useContext(vecoderEditorContexts);
+  const {
+    onRightClickItem,
+    setOnRightClickItem,
+    rightClickCommand,
+    setRightClickCommand,
+  } = useContext(rightClickContextMenuCommandContexts);
 
   const [refresh, setRefresh] = useState(false);
   const forceRefresh = () => {
@@ -180,7 +183,6 @@ const DirItem = ({
   );
   //Generate File name, File Icon and Text Color
   const [filename, setFilename] = useState(file.fileName);
-  const [renameInput, setRenameInput] = useState(filename);
   const [fileIcon, setFileIcon] = useState();
   const [fileIconBackground, setFileIconBackground] = useState();
   const [fileTextColor, setFileTextColor] = useState("#C8C8C8");
@@ -206,7 +208,6 @@ const DirItem = ({
   //UPDATE FILE
   useEffect(() => {
     setFilename(file.fileName);
-    setRenameInput(file.fileName);
     setFileIcon(
       FILE_TYPE_ICON_MANAGER[file.fileName.split(".").pop()]?.ICON512
     );
@@ -750,10 +751,6 @@ const DirItem = ({
                   filePath={item.filePath}
                   root={false}
                   setChildrenOnClicked={setChildrenOnClicked}
-                  onRightClickItem={onRightClickItem}
-                  setOnRightClickItem={setOnRightClickItem}
-                  rightClickCommand={rightClickCommand}
-                  setRightClickCommand={setRightClickCommand}
                   parentSortFiles={sortFiles}
                   parentCheckNameExist={checkNameExist}
                   onSingleClickFile={onSingleClickFile}
