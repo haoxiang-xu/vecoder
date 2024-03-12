@@ -853,14 +853,14 @@ const VecoderEditorPage = () => {
 
     updateFileOnExploreOptionsAndContentData(original_path, target_file);
   };
-  const checkDirNameExist = (path, pending_file) => {
+  const checkDirNameExist = (path, pending_file_name) => {
     const pathArray = path.split("/");
     let currentData = exploreOptionsAndContentData;
     for (let i = 0; i < pathArray.length; i++) {
       if (i === pathArray.length - 1) {
         currentData = currentData.files;
         for (let j = 0; j < currentData.length; j++) {
-          if (currentData[j].fileName === pending_file.fileName) {
+          if (currentData[j].fileName === pending_file_name) {
             return true;
           }
         }
