@@ -780,6 +780,12 @@ const VecoderEditorPage = () => {
   /* Explorer Data and Functions ------------------------------------------ */
   const [exploreOptionsAndContentData, setExploreOptionsAndContentData] =
     useState(DEFAULT_EXPLORE_OPTIONS_AND_CONTENT_DATA);
+  useEffect(() => {
+    // Listen for directory data
+    window.electron.receive("directory-data", (data) => {
+      setExploreOptionsAndContentData(data);
+    });
+  }, []);
   // useEffect(() => {
   //   console.log(exploreOptionsAndContentData);
   // }, [exploreOptionsAndContentData]);
