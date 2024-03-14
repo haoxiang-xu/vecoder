@@ -1,5 +1,6 @@
 const { app, BrowserWindow, Menu, ipcMain, dialog } = require("electron");
 const path = require("path");
+const axios = require('axios');
 const fs = require("fs/promises");
 
 let mainWindow;
@@ -24,18 +25,16 @@ const createWindow = () => {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 800,
+    webSecurity: true,
     webPreferences: {
-      preload:
-        "K:\\GIT\\vecoder\\frontend_application\\component_lib_testing_application\\preload.js",
+      preload: path.join(__dirname, "preload.js"),
       contextIsolation: true,
       nodeIntegration: false,
     },
   });
 
-  console.log(path.join(__dirname, "preload.js"));
-
   // Load the index.html of the app.
-  mainWindow.loadURL("http://localhost:3000");
+  checkServerAndLoadURL('http://localhost:3000');
 
   // Set up the application menu
   const menu = Menu.buildFromTemplate(menuTemplate);
@@ -43,6 +42,18 @@ const createWindow = () => {
 
   // Optionally open the DevTools.
   mainWindow.webContents.openDevTools();
+};
+const checkServerAndLoadURL = (url) => {
+  axios.get(url)
+    .then(() => {
+      // Server is up and running, load the URL
+      mainWindow.loadURL(url);
+    })
+    .catch((error) => {
+      console.error('Server not ready, retrying...', error);
+      // Wait for a bit before trying again
+      setTimeout(() => checkServerAndLoadURL(url), 2000); // Adjust the delay as needed
+    });
 };
 
 const openFolderDialog = () => {
@@ -125,7 +136,7 @@ const readDir = async (dirPath, rootPath = dirPath) => {
     throw e; // Rethrow the error to be caught by the caller
   }
 };
-
+app.whenReady().then(createWindow);
 app.on("ready", createWindow);
 app.on("activate", () => {
   if (BrowserWindow.getAllWindows().length === 0) {
