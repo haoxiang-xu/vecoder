@@ -319,7 +319,6 @@ const ExplorerTypeContainer = ({
         onStackItemDragEnd(e);
       }}
       style={{
-        border: onDragIndex === index ? "0px" : "1px solid #3a3a3a",
         transition: onDragIndex !== -1 ? "width 0.32s" : "width 0s",
         width: onDragIndex === index ? "0px" : item.width,
       }}
@@ -383,7 +382,6 @@ const VecoderEditorTypeContainer = ({
         onStackItemDragEnd(e);
       }}
       style={{
-        border: onDragIndex === index ? "0px" : "1px solid #3a3a3a",
         transition: onDragIndex !== -1 ? "width 0.32s" : "width 0s",
         width: onDragIndex === index ? "0px" : item.width,
       }}

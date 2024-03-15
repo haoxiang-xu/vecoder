@@ -3,25 +3,12 @@ body {
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   background-color: #181818;
+  border-radius: 12px;
   overflow-y: hidden;
   overflow-x: scroll;
 }
 body::-webkit-scrollbar {
   height: 0px;
-}
-body::-webkit-scrollbar-track {
-  border-radius: 0px;
-  background: transparent;
-}
-body::-webkit-scrollbar-thumb {
-  border-radius: 0px;
-  background: #3a3a3a;
-  background: transparent;
-}
-body::-webkit-scrollbar-thumb:hover {
-  border-radius: 0px;
-  background: #4d4d4d;
-  background: transparent;
 }
 
 code {

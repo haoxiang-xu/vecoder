@@ -9,6 +9,8 @@
   width: 100%;
 
   /*STYLE*/
+  border: 1px solid #3a3a3a;
+  box-sizing: border-box;
   overflow: hidden;
   border-radius: 11px;
   background-color: #1e1e1e;
@@ -27,7 +29,6 @@
   padding: 0px 4px 0px 0px;
 
   /*SIZE*/
-  box-sizing: border-box;
 
   /*STYLE*/
   border-radius: 0px 0px 5px 5px;

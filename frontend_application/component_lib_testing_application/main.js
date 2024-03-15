@@ -47,7 +47,7 @@ const createWindow = () => {
   });
 
   // Load the index.html of the app.
-  checkServerAndLoadURL("http://localhost:3000");
+  checkServerAndLoadURL("http://127.0.0.1:3000");
 
   // Set up the application menu
   const menu = Menu.buildFromTemplate(menuTemplate);
