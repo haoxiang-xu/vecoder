@@ -136,14 +136,14 @@ const ResizerTypeContainer = ({
       const moveX = e.clientX - startX;
       const left_width = left_start_width + moveX;
       const right_width = right_start_width - moveX;
-      if (e.clientX > window.innerWidth - RESIZER_CONTAINER.width / 2) {
+      if (e.clientX > window.innerWidth - RESIZER_CONTAINER.width) {
         // IF RIGHT ITEM OUTSIDE OF WINDOW
         const editedStacks = [...stacks];
         editedStacks[index - 1].width = Math.min(
           editedStacks[index - 1].max_width,
           window.innerWidth -
             stackRefs.current[index - 1]?.getBoundingClientRect().x -
-            RESIZER_CONTAINER.width / 2
+            RESIZER_CONTAINER.width
         );
         setStacks(editedStacks);
       } else if (
@@ -830,7 +830,7 @@ const StackStructure = () => {
       next_index < editedStacks.length - 1 &&
       stackRefs.current[next_index]?.getBoundingClientRect().x +
         editedStacks[next_index].width +
-        RESIZER_CONTAINER.width / 2 <
+        RESIZER_CONTAINER.width <
         window.innerWidth
     ) {
       current_index = next_index;
@@ -841,7 +841,7 @@ const StackStructure = () => {
       window.innerWidth -
       (stackRefs.current[current_index]?.getBoundingClientRect().x +
         editedStacks[current_index].width +
-        RESIZER_CONTAINER.width / 2);
+        RESIZER_CONTAINER.width);
 
     editedStacks[index].width = Math.min(
       editedStacks[index].max_width,
@@ -858,7 +858,7 @@ const StackStructure = () => {
       next_index < editedStacks.length &&
       stackRefs.current[next_index]?.getBoundingClientRect().x +
         editedStacks[next_index].width +
-        RESIZER_CONTAINER.width / 2 <=
+        RESIZER_CONTAINER.width <=
         window.innerWidth
     ) {
       current_index = next_index;
@@ -868,7 +868,7 @@ const StackStructure = () => {
     if (
       stackRefs.current[current_index]?.getBoundingClientRect().x +
         editedStacks[current_index].width +
-        RESIZER_CONTAINER.width / 2 >
+        RESIZER_CONTAINER.width >
       window.innerWidth
     ) {
       editedStacks[index].width = Math.max(
@@ -876,7 +876,7 @@ const StackStructure = () => {
         editedStacks[index].width -
           (stackRefs.current[current_index]?.getBoundingClientRect().x +
             editedStacks[current_index].width +
-            RESIZER_CONTAINER.width / 2 -
+            RESIZER_CONTAINER.width -
             window.innerWidth)
       );
       setStacks(editedStacks);
@@ -887,7 +887,7 @@ const StackStructure = () => {
           (stackRefs.current[next_index]?.getBoundingClientRect().x +
             editedStacks[next_index].width -
             window.innerWidth) -
-          RESIZER_CONTAINER.width / 2
+          RESIZER_CONTAINER.width
       );
     } else {
       //Else set current container to min width
