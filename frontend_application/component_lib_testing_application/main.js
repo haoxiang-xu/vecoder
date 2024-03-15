@@ -145,6 +145,19 @@ const readDir = async (dirPath, rootPath = dirPath) => {
         }
       })
     );
+
+    // First, sort by type (folders first)
+    files.sort((a, b) => {
+      if (a.fileType === b.fileType) return 0; // If both are files or both are folders, don't change order
+      return a.fileType === "folder" ? -1 : 1; // If a is a folder and b is a file, a comes first, and vice versa
+    });
+
+    // Then, sort alphabetically within each type
+    files.sort((a, b) => {
+      if (a.fileType !== b.fileType) return 0; // Don't sort across types
+      return a.fileName.localeCompare(b.fileName); // Sort alphabetically by fileName
+    });
+
     return files.flat();
   } catch (e) {
     throw e; // Rethrow the error to be caught by the caller
