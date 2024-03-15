@@ -61,7 +61,7 @@
   position: relative;
 
   /*STYLE*/
-  border-radius: 11px;
+  border-radius: 10px;
   border: 1px solid #303030;
 
   box-sizing: border-box;
@@ -77,7 +77,7 @@
   display: inline-block;
   overflow: hidden;
 
-  border-radius: 11px;
+  border-radius: 10px;
   border: 1px solid #303030;
 }
 .stack_structure_item_overlay0122 {

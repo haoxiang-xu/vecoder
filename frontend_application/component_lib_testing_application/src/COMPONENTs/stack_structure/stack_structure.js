@@ -56,7 +56,7 @@ const ENDING_CONTAINER = {
 };
 const TEST_CONTAINER = {
   type: "TESTING_CONTAINER",
-  min_width: 40,
+  min_width:42,
   width: 600,
   max_width: 2048,
   content: "TEST",
@@ -690,7 +690,7 @@ const StackStructure = () => {
       case "EXPLORER":
         const EXPLORER_CONTAINER = {
           type: "EXPLORER",
-          min_width: 40,
+          min_width: 42,
           width: 256,
           max_width: 2048,
           explorer_container_ref_index:
@@ -702,7 +702,7 @@ const StackStructure = () => {
       case "CODE_EDITOR":
         const CODE_EDITOR = {
           type: "CODE_EDITOR",
-          min_width: 40,
+          min_width: 42,
           width: 600,
           max_width: 2048,
           code_editor_container_ref_index:
