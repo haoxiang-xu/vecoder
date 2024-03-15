@@ -1,6 +1,6 @@
 const { app, BrowserWindow, Menu, ipcMain, dialog } = require("electron");
 const path = require("path");
-const axios = require('axios');
+const axios = require("axios");
 const fs = require("fs/promises");
 
 let mainWindow;
@@ -9,7 +9,7 @@ const menuTemplate = [
     label: "File",
     submenu: [
       {
-        label: "Open Folder",
+        label: "Open Folder...",
         click: () => {
           openFolderDialog(); // This function now has access to `mainWindow`
         },
@@ -18,6 +18,17 @@ const menuTemplate = [
       { role: "quit" },
     ],
   },
+  // {
+  //   label: "Edit",
+  //   submenu: [
+  //     { label: "Undo", accelerator: "CmdOrCtrl+Z", role: "undo" },
+  //     { label: "Redo", accelerator: "Shift+CmdOrCtrl+Z", role: "redo" },
+  //     { type: "separator" },
+  //     { label: "Cut", accelerator: "CmdOrCtrl+X", role: "cut" },
+  //     { label: "Copy", accelerator: "CmdOrCtrl+C", role: "copy" },
+  //     { label: "Paste", accelerator: "CmdOrCtrl+V", role: "paste" },
+  //   ],
+  // },
   // Other menu items...
 ];
 const createWindow = () => {
@@ -26,15 +37,17 @@ const createWindow = () => {
     width: 800,
     height: 800,
     webSecurity: true,
+    transparent: true,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
       contextIsolation: true,
       nodeIntegration: false,
     },
+    frame: false,
   });
 
   // Load the index.html of the app.
-  checkServerAndLoadURL('http://localhost:3000');
+  checkServerAndLoadURL("http://localhost:3000");
 
   // Set up the application menu
   const menu = Menu.buildFromTemplate(menuTemplate);
@@ -44,13 +57,14 @@ const createWindow = () => {
   mainWindow.webContents.openDevTools();
 };
 const checkServerAndLoadURL = (url) => {
-  axios.get(url)
+  axios
+    .get(url)
     .then(() => {
       // Server is up and running, load the URL
       mainWindow.loadURL(url);
     })
     .catch((error) => {
-      console.error('Server not ready, retrying...', error);
+      console.error("Server not ready, retrying...", error);
       // Wait for a bit before trying again
       setTimeout(() => checkServerAndLoadURL(url), 2000); // Adjust the delay as needed
     });
