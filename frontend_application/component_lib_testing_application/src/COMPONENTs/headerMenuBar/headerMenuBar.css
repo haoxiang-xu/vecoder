@@ -37,7 +37,7 @@
   right: 5px;
 
   /*STYLE*/
-  border-radius: 5px;
+  border-radius: 5px 10px 5px 5px;
   padding: 9px;
 }
 .header_menu_bar_close_icon0316:hover {

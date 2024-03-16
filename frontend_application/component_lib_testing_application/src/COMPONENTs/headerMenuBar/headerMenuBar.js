@@ -45,7 +45,7 @@ const HeaderMenuBar = ({
     window.electron.send("window-control", "maximize");
   };
   useEffect(() => {
-    if (cursorPosition.y > 0) {
+    if (cursorPosition.y > 50) {
       setIsMenuBarHovered(false);
     }
     if (cursorPosition.y < 20) {
