@@ -50,7 +50,7 @@ const HeaderMenuBar = ({
     if (cursorPosition.y > 50) {
       setIsMenuBarHovered(false);
     }
-    if (cursorPosition.y < 20) {
+    if (cursorPosition.y < 16) {
       setIsMenuBarHovered(true);
     }
   }, [cursorPosition]);
