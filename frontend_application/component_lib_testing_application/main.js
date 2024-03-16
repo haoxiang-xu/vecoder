@@ -45,7 +45,7 @@ const createWindow = () => {
     },
     frame: false,
   });
-
+  console.log(__dirname);
   // Load the index.html of the app.
   checkServerAndLoadURL("http://127.0.0.1:3000");
 
@@ -54,7 +54,7 @@ const createWindow = () => {
   Menu.setApplicationMenu(menu);
 
   // Optionally open the DevTools.
-  mainWindow.webContents.openDevTools();
+  //mainWindow.webContents.openDevTools();
 };
 const checkServerAndLoadURL = (url) => {
   axios
@@ -172,5 +172,20 @@ app.on("activate", () => {
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
+  }
+});
+ipcMain.on("window-control", (event, action) => {
+  switch (action) {
+    case "close":
+      mainWindow.close();
+      break;
+    case "minimize":
+      mainWindow.minimize();
+      break;
+    case "maximize":
+      mainWindow.maximize();
+      break;
+    default:
+      break;
   }
 });

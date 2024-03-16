@@ -1,10 +1,15 @@
 const { contextBridge, ipcRenderer } = require("electron");
 
 contextBridge.exposeInMainWorld("electron", {
-  receive: (channel, func) => {
-    let validChannels = ["directory-data"]; // Array of valid IPC channels
+  send: (channel, data) => {
+    const validChannels = ["window-control"];
     if (validChannels.includes(channel)) {
-      // Deliberately strip event as it includes `sender`
+      ipcRenderer.send(channel, data);
+    }
+  },
+  receive: (channel, func) => {
+    let validChannels = ["directory-data"];
+    if (validChannels.includes(channel)) {
       ipcRenderer.on(channel, (event, ...args) => func(...args));
     }
   },

@@ -786,9 +786,6 @@ const VecoderEditorPage = () => {
       setExploreOptionsAndContentData(data);
     });
   }, []);
-  // useEffect(() => {
-  //   console.log(exploreOptionsAndContentData);
-  // }, [exploreOptionsAndContentData]);
   const updateFileOnExploreOptionsAndContentData = (path, data) => {
     setExploreOptionsAndContentData((prevData) => {
       const newExploreOptionsAndContentData = { ...prevData };

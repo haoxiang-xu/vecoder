@@ -292,6 +292,8 @@ export const ICON_MANAGER = () => {
     const MORE_OPTIONS16 = require("./SYSTEM_ICONs/16X16/more_options.png");
 
     const INVISIBLE16 = require("./SYSTEM_ICONs/16X16/invisible.png");
+    const MAXIMIZE16 = require("./SYSTEM_ICONs/16X16/maximize.png");
+    const MINIMIZE16 = require("./SYSTEM_ICONs/16X16/minimize.png");
     /* 16X16 ICONs ---------------------------------------------------------------------- */
 
     /* 512X512 ICONs ---------------------------------------------------------------------- */
@@ -329,6 +331,8 @@ export const ICON_MANAGER = () => {
     const MORE_OPTIONS512 = require("./SYSTEM_ICONs/512X512/more_options.png");
 
     const INVISIBLE512 = require("./SYSTEM_ICONs/512X512/invisible.png");
+    const MAXIMIZE512 = require("./SYSTEM_ICONs/512X512/maximize.png");
+    const MINIMIZE512 = require("./SYSTEM_ICONs/512X512/minimize.png");
     /* 512X512 ICONs ---------------------------------------------------------------------- */
 
     SYSTEM_ICON_MANAGER = {
@@ -485,6 +489,16 @@ export const ICON_MANAGER = () => {
       invisible: {
         ICON16: INVISIBLE16,
         ICON512: INVISIBLE512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      maximize: {
+        ICON16: MAXIMIZE16,
+        ICON512: MAXIMIZE512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      minimize: {
+        ICON16: MINIMIZE16,
+        ICON512: MINIMIZE512,
         LABEL_COLOR: "#CCCCCC",
       },
     };

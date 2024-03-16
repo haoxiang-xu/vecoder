@@ -17,3 +17,10 @@
 .main_container0315::-webkit-scrollbar {
   height: 0px;
 }
+.major_content_container0316 {
+  transition: top 0.32s;
+  /* POSITION */
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+}
