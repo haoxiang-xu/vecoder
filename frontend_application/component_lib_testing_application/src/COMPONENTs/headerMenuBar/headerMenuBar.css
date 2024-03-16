@@ -141,17 +141,11 @@
   user-select: none;
 }
 .header_menu_bar_file_button0316:hover {
-  transition: all 0.2s ease;
+  transition: all 0.16s ease;
   /*STYLE*/
   color: #cccccc;
   background-color: #2e2e2e;
   box-shadow: 0px 4px 12px 4px rgba(0, 0, 0, 0.16);
-}
-.header_menu_bar_file_button0316:active {
-  transition: all 0.1s ease;
-
-  /*STYLE*/
-  background-color: #444444;
 }
 
 /* MacOS ------------------------------------------------------------------------ */

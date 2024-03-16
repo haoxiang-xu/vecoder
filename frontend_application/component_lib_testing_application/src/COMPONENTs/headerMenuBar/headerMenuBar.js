@@ -28,7 +28,6 @@ try {
 /* Load ICON manager --------------------------------------------------------------------------------- */
 
 const HeaderMenuBar = ({
-  platform,
   isMenuBarHovered,
   setIsMenuBarHovered,
   cursorPosition,
@@ -56,7 +55,7 @@ const HeaderMenuBar = ({
   }, [cursorPosition]);
 
   const renderMenuBar = () => {
-    switch (platform) {
+    switch (window.osInfo.platform) {
       case "darwin":
         return (
           <div className="header_menu_bar_container0316">
