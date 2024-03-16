@@ -45,6 +45,7 @@ const HeaderMenuBar = ({
   const handleMaximize = () => {
     window.electron.send("window-control", "maximize");
   };
+  const [isDarwinIconOnHover, setIsDarwinIconOnHover] = useState(false);
   useEffect(() => {
     if (cursorPosition.y > 50) {
       setIsMenuBarHovered(false);
@@ -53,13 +54,18 @@ const HeaderMenuBar = ({
       setIsMenuBarHovered(true);
     }
   }, [cursorPosition]);
+
   const renderMenuBar = () => {
     switch (platform) {
       case "darwin":
         return (
           <div className="header_menu_bar_container0316">
             <img
-              src={SYSTEM_ICON_MANAGER.macosMinimize.ICON512}
+              src={
+                isDarwinIconOnHover
+                  ? SYSTEM_ICON_MANAGER.macosMinimize.ICON512
+                  : SYSTEM_ICON_MANAGER.macosYellow.ICON512
+              }
               className="header_menu_bar_darwin_minimize_icon0316"
               style={{ opacity: isMenuBarHovered ? 1 : 0 }}
               onClick={handleMinimize}
@@ -67,7 +73,11 @@ const HeaderMenuBar = ({
               alt="close"
             />
             <img
-              src={SYSTEM_ICON_MANAGER.macosMaximize.ICON512}
+              src={
+                isDarwinIconOnHover
+                  ? SYSTEM_ICON_MANAGER.macosMaximize.ICON512
+                  : SYSTEM_ICON_MANAGER.macosGreen.ICON512
+              }
               className="header_menu_bar_darwin_maximize_icon0316"
               style={{ opacity: isMenuBarHovered ? 1 : 0 }}
               onClick={handleMaximize}
@@ -75,21 +85,26 @@ const HeaderMenuBar = ({
               alt="close"
             />
             <img
-              src={SYSTEM_ICON_MANAGER.macosClose.ICON512}
+              src={
+                isDarwinIconOnHover
+                  ? SYSTEM_ICON_MANAGER.macosClose.ICON512
+                  : SYSTEM_ICON_MANAGER.macosRed.ICON512
+              }
               className="header_menu_bar_darwin_close_icon0316"
               style={{ opacity: isMenuBarHovered ? 1 : 0 }}
               onClick={handleClose}
               draggable="false"
               alt="close"
             />
-            <div>
-              <div
-                className="header_menu_bar_darwin_file_button0316"
-                style={{ opacity: isMenuBarHovered ? 1 : 0 }}
-              >
-                File
-              </div>
-            </div>
+            <div
+              className="header_menu_bar_darwin_overlay0316"
+              onMouseEnter={() => {
+                setIsDarwinIconOnHover(true);
+              }}
+              onMouseLeave={() => {
+                setIsDarwinIconOnHover(false);
+              }}
+            ></div>
             <div
               className="header_menu_bar_darwin_container_dragging_area0316"
               style={{ height: isMenuBarHovered ? "40px" : "12px" }}
@@ -124,13 +139,11 @@ const HeaderMenuBar = ({
               draggable="false"
               alt="close"
             />
-            <div>
-              <div
-                className="header_menu_bar_file_button0316"
-                style={{ opacity: isMenuBarHovered ? 1 : 0 }}
-              >
-                File
-              </div>
+            <div
+              className="header_menu_bar_file_button0316"
+              style={{ opacity: isMenuBarHovered ? 1 : 0 }}
+            >
+              File
             </div>
             <div
               className="header_menu_bar_container_dragging_area0316"

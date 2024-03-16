@@ -18,7 +18,6 @@
   height: 40px;
 
   /* STYLE */
-  border-radius: 10px;
   box-sizing: border-box;
   display: flex;
   overflow: hidden;
@@ -161,18 +160,27 @@
   position: absolute;
   top: 0px;
   left: 70px;
-  right: 120px;
+  right: 0px;
   height: 40px;
 
   /* STYLE */
-  border-radius: 10px;
   box-sizing: border-box;
   display: flex;
   overflow: hidden;
 
-  background-color: #e27373;
-
   -webkit-app-region: drag;
+}
+.header_menu_bar_darwin_overlay0316 {
+  /* POSITION */
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  height: 40px;
+
+  /* STYLE */
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .header_menu_bar_darwin_close_icon0316 {
@@ -196,11 +204,11 @@
   transition: all 0.2s ease;
 
   /*POSITION*/
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   position: absolute;
   top: 15px;
-  left: 55px;
+  left: 53px;
 
   /*STYLE*/
   -webkit-user-select: none;

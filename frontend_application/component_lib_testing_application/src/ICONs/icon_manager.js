@@ -295,9 +295,13 @@ export const ICON_MANAGER = () => {
     const MAXIMIZE16 = require("./SYSTEM_ICONs/16X16/maximize.png");
     const MINIMIZE16 = require("./SYSTEM_ICONs/16X16/minimize.png");
     const RESTORE16 = require("./SYSTEM_ICONs/16X16/window_restore.png");
+    
     const MACOS_CLOSE16 = require("./SYSTEM_ICONs/16X16/macos_close.png");
     const MACOS_MINIMIZE16 = require("./SYSTEM_ICONs/16X16/macos_minus.png");
     const MACOS_MAXIMIZE16 = require("./SYSTEM_ICONs/16X16/macos_expand.png");
+    const MACOS_RED16 = require("./SYSTEM_ICONs/16X16/macos_red.png");
+    const MACOS_YELLOW16 = require("./SYSTEM_ICONs/16X16/macos_yellow.png");
+    const MACOS_GREEN16 = require("./SYSTEM_ICONs/16X16/macos_green.png");
     /* 16X16 ICONs ---------------------------------------------------------------------- */
 
     /* 512X512 ICONs ---------------------------------------------------------------------- */
@@ -341,6 +345,9 @@ export const ICON_MANAGER = () => {
     const MACOS_CLOSE512 = require("./SYSTEM_ICONs/512X512/macos_close.png");
     const MACOS_MINIMIZE512 = require("./SYSTEM_ICONs/512X512/macos_minus.png");
     const MACOS_MAXIMIZE512 = require("./SYSTEM_ICONs/512X512/macos_expand.png");
+    const MACOS_RED512 = require("./SYSTEM_ICONs/512X512/macos_red.png");
+    const MACOS_YELLOW512 = require("./SYSTEM_ICONs/512X512/macos_yellow.png");
+    const MACOS_GREEN512 = require("./SYSTEM_ICONs/512X512/macos_green.png");
     /* 512X512 ICONs ---------------------------------------------------------------------- */
 
     SYSTEM_ICON_MANAGER = {
@@ -527,6 +534,21 @@ export const ICON_MANAGER = () => {
       macosMaximize: {
         ICON16: MACOS_MAXIMIZE16,
         ICON512: MACOS_MAXIMIZE512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      macosRed: {
+        ICON16: MACOS_RED16,
+        ICON512: MACOS_RED512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      macosYellow: {
+        ICON16: MACOS_YELLOW16,
+        ICON512: MACOS_YELLOW512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      macosGreen: {
+        ICON16: MACOS_GREEN16,
+        ICON512: MACOS_GREEN512,
         LABEL_COLOR: "#CCCCCC",
       },
     };
