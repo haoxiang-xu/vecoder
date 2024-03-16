@@ -12,9 +12,14 @@ const Main = () => {
       y: event.clientY,
     });
   };
+  const [platform, setPlatform] = useState("");
+  useEffect(() => {
+    setPlatform(window.osInfo.platform);
+  }, []);
   return (
     <div className="main_container0315" onMouseMove={handleMouseMove}>
       <HeaderMenuBar
+        platform={platform}
         isMenuBarHovered={isMenuBarHovered}
         setIsMenuBarHovered={setIsMenuBarHovered}
         cursorPosition={cursorPosition}

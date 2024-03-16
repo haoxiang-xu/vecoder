@@ -295,6 +295,9 @@ export const ICON_MANAGER = () => {
     const MAXIMIZE16 = require("./SYSTEM_ICONs/16X16/maximize.png");
     const MINIMIZE16 = require("./SYSTEM_ICONs/16X16/minimize.png");
     const RESTORE16 = require("./SYSTEM_ICONs/16X16/window_restore.png");
+    const MACOS_CLOSE16 = require("./SYSTEM_ICONs/16X16/macos_close.png");
+    const MACOS_MINIMIZE16 = require("./SYSTEM_ICONs/16X16/macos_minus.png");
+    const MACOS_MAXIMIZE16 = require("./SYSTEM_ICONs/16X16/macos_expand.png");
     /* 16X16 ICONs ---------------------------------------------------------------------- */
 
     /* 512X512 ICONs ---------------------------------------------------------------------- */
@@ -335,6 +338,9 @@ export const ICON_MANAGER = () => {
     const MAXIMIZE512 = require("./SYSTEM_ICONs/512X512/maximize.png");
     const MINIMIZE512 = require("./SYSTEM_ICONs/512X512/minimize.png");
     const RESTORE512 = require("./SYSTEM_ICONs/512X512/window_restore.png");
+    const MACOS_CLOSE512 = require("./SYSTEM_ICONs/512X512/macos_close.png");
+    const MACOS_MINIMIZE512 = require("./SYSTEM_ICONs/512X512/macos_minus.png");
+    const MACOS_MAXIMIZE512 = require("./SYSTEM_ICONs/512X512/macos_expand.png");
     /* 512X512 ICONs ---------------------------------------------------------------------- */
 
     SYSTEM_ICON_MANAGER = {
@@ -506,6 +512,21 @@ export const ICON_MANAGER = () => {
       restore: {
         ICON16: RESTORE16,
         ICON512: RESTORE512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      macosClose: {
+        ICON16: MACOS_CLOSE16,
+        ICON512: MACOS_CLOSE512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      macosMinimize: {
+        ICON16: MACOS_MINIMIZE16,
+        ICON512: MACOS_MINIMIZE512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      macosMaximize: {
+        ICON16: MACOS_MAXIMIZE16,
+        ICON512: MACOS_MAXIMIZE512,
         LABEL_COLOR: "#CCCCCC",
       },
     };

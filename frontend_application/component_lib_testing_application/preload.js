@@ -14,3 +14,7 @@ contextBridge.exposeInMainWorld("electron", {
     }
   },
 });
+
+contextBridge.exposeInMainWorld('osInfo', {
+  platform: process.platform,
+});

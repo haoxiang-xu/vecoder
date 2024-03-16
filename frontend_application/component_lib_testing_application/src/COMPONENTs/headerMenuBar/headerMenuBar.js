@@ -28,6 +28,7 @@ try {
 /* Load ICON manager --------------------------------------------------------------------------------- */
 
 const HeaderMenuBar = ({
+  platform,
   isMenuBarHovered,
   setIsMenuBarHovered,
   cursorPosition,
@@ -51,49 +52,98 @@ const HeaderMenuBar = ({
     if (cursorPosition.y < 20) {
       setIsMenuBarHovered(true);
     }
-    console.log(cursorPosition);
   }, [cursorPosition]);
-  return (
-    <div className="header_menu_bar_container0316">
-      <img
-        src={SYSTEM_ICON_MANAGER.minimize.ICON512}
-        className="header_menu_bar_minimize_icon0316"
-        style={{ opacity: isMenuBarHovered ? 0.72 : 0.16 }}
-        onClick={handleMinimize}
-        draggable="false"
-        alt="close"
-      />
-      <img
-        src={SYSTEM_ICON_MANAGER.maximize.ICON512}
-        className="header_menu_bar_maximize_icon0316"
-        style={{ opacity: isMenuBarHovered ? 0.72 : 0.16 }}
-        onClick={handleMaximize}
-        draggable="false"
-        alt="close"
-      />
-      <img
-        src={SYSTEM_ICON_MANAGER.close.ICON512}
-        className="header_menu_bar_close_icon0316"
-        style={{ opacity: isMenuBarHovered ? 0.72 : 0.16 }}
-        onClick={handleClose}
-        draggable="false"
-        alt="close"
-      />
-      <div>
-        <div
-          className="header_menu_bar_file_button0316"
-          style={{ opacity: isMenuBarHovered ? 1 : 0.16 }}
-        >
-          File
-        </div>
-      </div>
-      <div
-        className="header_menu_bar_container_dragging_area0316"
-        style={{ height: isMenuBarHovered ? "40px" : "12px" }}
-        onMouseOver={handleMenuBarOnHover}
-      ></div>
-    </div>
-  );
+  const renderMenuBar = () => {
+    switch (platform) {
+      case "darwin":
+        return (
+          <div className="header_menu_bar_container0316">
+            <img
+              src={SYSTEM_ICON_MANAGER.macosMinimize.ICON512}
+              className="header_menu_bar_darwin_minimize_icon0316"
+              style={{ opacity: isMenuBarHovered ? 1 : 0 }}
+              onClick={handleMinimize}
+              draggable="false"
+              alt="close"
+            />
+            <img
+              src={SYSTEM_ICON_MANAGER.macosMaximize.ICON512}
+              className="header_menu_bar_darwin_maximize_icon0316"
+              style={{ opacity: isMenuBarHovered ? 1 : 0 }}
+              onClick={handleMaximize}
+              draggable="false"
+              alt="close"
+            />
+            <img
+              src={SYSTEM_ICON_MANAGER.macosClose.ICON512}
+              className="header_menu_bar_darwin_close_icon0316"
+              style={{ opacity: isMenuBarHovered ? 1 : 0 }}
+              onClick={handleClose}
+              draggable="false"
+              alt="close"
+            />
+            <div>
+              <div
+                className="header_menu_bar_darwin_file_button0316"
+                style={{ opacity: isMenuBarHovered ? 1 : 0 }}
+              >
+                File
+              </div>
+            </div>
+            <div
+              className="header_menu_bar_darwin_container_dragging_area0316"
+              style={{ height: isMenuBarHovered ? "40px" : "12px" }}
+              onMouseOver={handleMenuBarOnHover}
+            ></div>
+          </div>
+        );
+      case "win32":
+        return (
+          <div className="header_menu_bar_container0316">
+            <img
+              src={SYSTEM_ICON_MANAGER.minimize.ICON512}
+              className="header_menu_bar_minimize_icon0316"
+              style={{ opacity: isMenuBarHovered ? 0.72 : 0 }}
+              onClick={handleMinimize}
+              draggable="false"
+              alt="close"
+            />
+            <img
+              src={SYSTEM_ICON_MANAGER.maximize.ICON512}
+              className="header_menu_bar_maximize_icon0316"
+              style={{ opacity: isMenuBarHovered ? 0.72 : 0 }}
+              onClick={handleMaximize}
+              draggable="false"
+              alt="close"
+            />
+            <img
+              src={SYSTEM_ICON_MANAGER.close.ICON512}
+              className="header_menu_bar_close_icon0316"
+              style={{ opacity: isMenuBarHovered ? 0.72 : 0 }}
+              onClick={handleClose}
+              draggable="false"
+              alt="close"
+            />
+            <div>
+              <div
+                className="header_menu_bar_file_button0316"
+                style={{ opacity: isMenuBarHovered ? 1 : 0 }}
+              >
+                File
+              </div>
+            </div>
+            <div
+              className="header_menu_bar_container_dragging_area0316"
+              style={{ height: isMenuBarHovered ? "40px" : "12px" }}
+              onMouseOver={handleMenuBarOnHover}
+            ></div>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+  return renderMenuBar();
 };
 
 export default HeaderMenuBar;

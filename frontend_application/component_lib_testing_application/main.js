@@ -45,7 +45,7 @@ const createWindow = () => {
     },
     frame: false,
   });
-  console.log(__dirname);
+
   // Load the index.html of the app.
   checkServerAndLoadURL("http://127.0.0.1:3000");
 
