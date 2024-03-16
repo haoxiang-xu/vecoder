@@ -58,7 +58,7 @@ const HeaderMenuBar = ({
       <img
         src={SYSTEM_ICON_MANAGER.minimize.ICON512}
         className="header_menu_bar_minimize_icon0316"
-        style={{ opacity: isMenuBarHovered ? 1 : 0 }}
+        style={{ opacity: isMenuBarHovered ? 0.72 : 0.16 }}
         onClick={handleMinimize}
         draggable="false"
         alt="close"
@@ -66,7 +66,7 @@ const HeaderMenuBar = ({
       <img
         src={SYSTEM_ICON_MANAGER.maximize.ICON512}
         className="header_menu_bar_maximize_icon0316"
-        style={{ opacity: isMenuBarHovered ? 1 : 0 }}
+        style={{ opacity: isMenuBarHovered ? 0.72 : 0.16 }}
         onClick={handleMaximize}
         draggable="false"
         alt="close"
@@ -74,11 +74,19 @@ const HeaderMenuBar = ({
       <img
         src={SYSTEM_ICON_MANAGER.close.ICON512}
         className="header_menu_bar_close_icon0316"
-        style={{ opacity: isMenuBarHovered ? 1 : 0 }}
+        style={{ opacity: isMenuBarHovered ? 0.72 : 0.16 }}
         onClick={handleClose}
         draggable="false"
         alt="close"
       />
+      <div>
+        <div
+          className="header_menu_bar_file_button0316"
+          style={{ opacity: isMenuBarHovered ? 1 : 0.16 }}
+        >
+          File
+        </div>
+      </div>
       <div
         className="header_menu_bar_container_dragging_area0316"
         style={{ height: isMenuBarHovered ? "40px" : "12px" }}
