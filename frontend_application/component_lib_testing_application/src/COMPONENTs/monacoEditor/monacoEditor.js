@@ -22,13 +22,13 @@ const Editor = ({
   let EDITOR_FONT_SIZE;
   switch (window.osInfo.platform) {
     case "darwin": // macOS
-      EDITOR_FONT_SIZE = 12;
+      EDITOR_FONT_SIZE = 13;
       break;
     case "win32": // Windows
       EDITOR_FONT_SIZE = 14;
       break;
     default:
-      EDITOR_FONT_SIZE = 12;
+      EDITOR_FONT_SIZE = 13;
   }
   const {
     monacoEditorsOptionsAndContentData,
