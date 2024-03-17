@@ -183,7 +183,11 @@ ipcMain.on("window-control", (event, action) => {
       mainWindow.minimize();
       break;
     case "maximize":
-      mainWindow.maximize();
+      if (mainWindow.isMaximized()) {
+        mainWindow.unmaximize();
+      } else {
+        mainWindow.maximize();
+      }
       break;
     default:
       break;

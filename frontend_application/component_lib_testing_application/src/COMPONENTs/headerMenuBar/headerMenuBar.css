@@ -32,12 +32,12 @@
   width: 12px;
   height: 12px;
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 3px;
+  right: 3px;
 
   /*STYLE*/
-  border-radius: 5px 10px 5px 5px;
-  padding: 9px;
+  border-radius: 0px 11px 0px 0px;
+  padding: 10px 16px 10px 16px;
 
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -47,14 +47,14 @@
 .header_menu_bar_close_icon0316:hover {
   transition: all 0.2s ease;
   /*STYLE*/
-  background-color: #2e2e2e;
+  background-color: #e81123;
   box-shadow: 0px 4px 12px 4px rgba(0, 0, 0, 0.16);
 }
 .header_menu_bar_close_icon0316:active {
   transition: all 0.1s ease;
 
   /*STYLE*/
-  background-color: #444444;
+  background-color: #94141e;
 }
 
 .header_menu_bar_maximize_icon0316 {
@@ -64,12 +64,11 @@
   width: 12px;
   height: 12px;
   position: absolute;
-  top: 5px;
-  right: 45px;
+  top: 3px;
+  right: 47px;
 
   /*STYLE*/
-  border-radius: 5px;
-  padding: 9px;
+  padding: 10px 16px 10px 16px;
 
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -96,12 +95,11 @@
   width: 12px;
   height: 12px;
   position: absolute;
-  top: 5px;
-  right: 85px;
+  top: 3px;
+  right: 91px;
 
   /*STYLE*/
-  border-radius: 5px;
-  padding: 9px;
+  padding: 10px 16px 10px 16px;
 
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -148,7 +146,7 @@
   box-shadow: 0px 4px 12px 4px rgba(0, 0, 0, 0.16);
 }
 
-/* MacOS ------------------------------------------------------------------------ */
+/* Darwin ------------------------------------------------------------------------ */
 .header_menu_bar_darwin_container_dragging_area0316 {
   /* POSITION */
   position: absolute;

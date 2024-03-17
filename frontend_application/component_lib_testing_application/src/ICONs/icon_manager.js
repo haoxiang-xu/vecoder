@@ -295,13 +295,15 @@ export const ICON_MANAGER = () => {
     const MAXIMIZE16 = require("./SYSTEM_ICONs/16X16/maximize.png");
     const MINIMIZE16 = require("./SYSTEM_ICONs/16X16/minimize.png");
     const RESTORE16 = require("./SYSTEM_ICONs/16X16/window_restore.png");
-    
+
     const MACOS_CLOSE16 = require("./SYSTEM_ICONs/16X16/macos_close.png");
     const MACOS_MINIMIZE16 = require("./SYSTEM_ICONs/16X16/macos_minus.png");
     const MACOS_MAXIMIZE16 = require("./SYSTEM_ICONs/16X16/macos_expand.png");
     const MACOS_RED16 = require("./SYSTEM_ICONs/16X16/macos_red.png");
     const MACOS_YELLOW16 = require("./SYSTEM_ICONs/16X16/macos_yellow.png");
     const MACOS_GREEN16 = require("./SYSTEM_ICONs/16X16/macos_green.png");
+    const WIN32_CLOSE16 = require("./SYSTEM_ICONs/16X16/win32_close.png");
+    const WIN32_UNMAXIMIZE16 = require("./SYSTEM_ICONs/16X16/win32_unmaximize.png");
     /* 16X16 ICONs ---------------------------------------------------------------------- */
 
     /* 512X512 ICONs ---------------------------------------------------------------------- */
@@ -348,6 +350,8 @@ export const ICON_MANAGER = () => {
     const MACOS_RED512 = require("./SYSTEM_ICONs/512X512/macos_red.png");
     const MACOS_YELLOW512 = require("./SYSTEM_ICONs/512X512/macos_yellow.png");
     const MACOS_GREEN512 = require("./SYSTEM_ICONs/512X512/macos_green.png");
+    const WIN32_CLOSE512 = require("./SYSTEM_ICONs/512X512/win32_close.png");
+    const WIN32_UNMAXIMIZE512 = require("./SYSTEM_ICONs/512X512/win32_unmaximize.png");
     /* 512X512 ICONs ---------------------------------------------------------------------- */
 
     SYSTEM_ICON_MANAGER = {
@@ -549,6 +553,16 @@ export const ICON_MANAGER = () => {
       macosGreen: {
         ICON16: MACOS_GREEN16,
         ICON512: MACOS_GREEN512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      win32Close: {
+        ICON16: WIN32_CLOSE16,
+        ICON512: WIN32_CLOSE512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      win32Unmaximize: {
+        ICON16: WIN32_UNMAXIMIZE16,
+        ICON512: WIN32_UNMAXIMIZE512,
         LABEL_COLOR: "#CCCCCC",
       },
     };

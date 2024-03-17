@@ -28,6 +28,8 @@ try {
 /* Load ICON manager --------------------------------------------------------------------------------- */
 
 const HeaderMenuBar = ({
+  isWindowMaximized,
+  setIsWindowMaximized,
   isMenuBarHovered,
   setIsMenuBarHovered,
   cursorPosition,
@@ -44,7 +46,12 @@ const HeaderMenuBar = ({
   const handleMaximize = () => {
     window.electron.send("window-control", "maximize");
   };
+  /* Darwin --------------------------------------------------------------------------------- */
   const [isDarwinIconOnHover, setIsDarwinIconOnHover] = useState(false);
+  /* Darwin --------------------------------------------------------------------------------- */
+  /* Win32 --------------------------------------------------------------------------------- */
+  const [isWin32CloseIconOnHover, setIsWin32CloseIconOnHover] = useState(false);
+  /* Win32 --------------------------------------------------------------------------------- */
   useEffect(() => {
     if (cursorPosition.y > 50) {
       setIsMenuBarHovered(false);
@@ -94,7 +101,10 @@ const HeaderMenuBar = ({
               }}
               className="header_menu_bar_darwin_maximize_icon0316"
               style={{ opacity: isMenuBarHovered ? 1 : 0 }}
-              onClick={handleMaximize}
+              onClick={() => {
+                handleMaximize;
+                setIsWindowMaximized(!isWindowMaximized);
+              }}
               draggable="false"
               alt="close"
             />
@@ -126,24 +136,44 @@ const HeaderMenuBar = ({
             <img
               src={SYSTEM_ICON_MANAGER.minimize.ICON512}
               className="header_menu_bar_minimize_icon0316"
-              style={{ opacity: isMenuBarHovered ? 0.72 : 0 }}
+              style={{ opacity: isMenuBarHovered ? 1 : 0 }}
               onClick={handleMinimize}
               draggable="false"
               alt="close"
             />
             <img
-              src={SYSTEM_ICON_MANAGER.maximize.ICON512}
+              src={
+                isWindowMaximized
+                  ? SYSTEM_ICON_MANAGER.win32Unmaximize.ICON512
+                  : SYSTEM_ICON_MANAGER.maximize.ICON512
+              }
               className="header_menu_bar_maximize_icon0316"
               style={{ opacity: isMenuBarHovered ? 0.72 : 0 }}
-              onClick={handleMaximize}
+              onClick={() => {
+                handleMaximize();
+                setIsWindowMaximized(!isWindowMaximized);
+              }}
               draggable="false"
               alt="close"
             />
             <img
-              src={SYSTEM_ICON_MANAGER.close.ICON512}
+              src={
+                isWin32CloseIconOnHover
+                  ? SYSTEM_ICON_MANAGER.win32Close.ICON512
+                  : SYSTEM_ICON_MANAGER.close.ICON512
+              }
               className="header_menu_bar_close_icon0316"
-              style={{ opacity: isMenuBarHovered ? 0.72 : 0 }}
+              style={{
+                opacity: isMenuBarHovered ? 1 : 0,
+                borderRadius: isWindowMaximized ? "0px" : "0px 11px 0px 0px",
+              }}
               onClick={handleClose}
+              onMouseEnter={() => {
+                setIsWin32CloseIconOnHover(true);
+              }}
+              onMouseLeave={() => {
+                setIsWin32CloseIconOnHover(false);
+              }}
               draggable="false"
               alt="close"
             />
