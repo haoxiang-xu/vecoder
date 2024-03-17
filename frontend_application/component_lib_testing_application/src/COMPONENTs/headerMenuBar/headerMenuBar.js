@@ -128,7 +128,7 @@ const HeaderMenuBar = ({
             <img
               src={SYSTEM_ICON_MANAGER.minimize.ICON512}
               className="header_menu_bar_minimize_icon0316"
-              style={{ opacity: isMenuBarHovered ? 1 : 0.32 }}
+              style={{ opacity: isMenuBarHovered ? 1 : 0.16 }}
               onClick={handleMinimize}
               draggable="false"
               alt="close"
@@ -140,7 +140,7 @@ const HeaderMenuBar = ({
                   : SYSTEM_ICON_MANAGER.maximize.ICON512
               }
               className="header_menu_bar_maximize_icon0316"
-              style={{ opacity: isMenuBarHovered ? 0.72 : 0.32 }}
+              style={{ opacity: isMenuBarHovered ? 0.72 : 0.12 }}
               onClick={() => {
                 handleMaximize();
                 setIsWindowMaximized(!isWindowMaximized);
@@ -156,7 +156,7 @@ const HeaderMenuBar = ({
               }
               className="header_menu_bar_close_icon0316"
               style={{
-                opacity: isMenuBarHovered ? 1 : 0.32,
+                opacity: isMenuBarHovered ? 1 : 0.16,
                 borderRadius: isWindowMaximized ? "0px" : "0px 11px 0px 0px",
               }}
               onClick={handleClose}

@@ -34,10 +34,12 @@ const createWindow = () => {
   // Initialize the browser window.
   mainWindow = new BrowserWindow({
     title: "Vecoder",
-    width: 800,
+    width: 1200,
     height: 800,
     webSecurity: true,
     transparent: true,
+    resizable: true,
+    maximizable: true,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
       contextIsolation: true,
