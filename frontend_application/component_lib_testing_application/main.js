@@ -6,16 +6,15 @@ const fs = require("fs/promises");
 let mainWindow;
 const menuTemplate = [
   {
+    label: "Vecoder",
+    submenu: [{ role: "about" }, { role: "quit" }, { type: "separator" }],
+  },
+  {
     label: "File",
     submenu: [
-      {
-        label: "Open Folder...",
-        click: () => {
-          openFolderDialog(); // This function now has access to `mainWindow`
-        },
-      },
+      { label: "Open Folder...", click: () => openFolderDialog() },
+
       { type: "separator" },
-      { role: "quit" },
     ],
   },
   // {
@@ -34,6 +33,7 @@ const menuTemplate = [
 const createWindow = () => {
   // Initialize the browser window.
   mainWindow = new BrowserWindow({
+    title: "Vecoder",
     width: 800,
     height: 800,
     webSecurity: true,
@@ -45,6 +45,7 @@ const createWindow = () => {
     },
     frame: false,
   });
+  mainWindow.setTitle("Vecoder");
 
   // Load the index.html of the app.
   checkServerAndLoadURL("http://127.0.0.1:3000");
