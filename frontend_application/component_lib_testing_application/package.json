@@ -1,5 +1,6 @@
 {
-  "name": "component_lib_testing_application",
+  "name": "vecoder",
+  "productName": "Vecoder",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
