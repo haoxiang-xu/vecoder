@@ -175,6 +175,7 @@ app.on("window-all-closed", () => {
     app.quit();
   }
 });
+
 ipcMain.on("window-control", (event, action) => {
   switch (action) {
     case "close":
@@ -184,10 +185,18 @@ ipcMain.on("window-control", (event, action) => {
       mainWindow.minimize();
       break;
     case "maximize":
-      if (mainWindow.isMaximized()) {
-        mainWindow.unmaximize();
-      } else {
-        mainWindow.maximize();
+      if (process.platform === "win32") {
+        if (mainWindow.isMaximized()) {
+          mainWindow.unmaximize();
+        } else {
+          mainWindow.maximize();
+        }
+      } else if (process.platform === "darwin") {
+        if (mainWindow.isFullScreen()) {
+          mainWindow.setFullScreen(false);
+        } else {
+          mainWindow.setFullScreen(true);
+        }
       }
       break;
     default:
