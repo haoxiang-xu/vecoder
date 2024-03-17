@@ -3,23 +3,23 @@ import { vecoderEditorContexts } from "../../CONTEXTs/vecoderEditorContexts";
 import StackStructure from "../../COMPONENTs/stack_structure/stack_structure";
 
 const DEFAULT_MONACO_EDITORS_OPTIONS_AND_CONTENT_DATA = {
-  "./code_editor.js": {
+  "demo/code_editor.js": {
     viewState: null,
     model: null,
   },
-  "./code_editor.css": {
+  "demo/code_editor.css": {
     viewState: null,
     model: null,
   },
-  "./main.py": {
+  "demo/main.py": {
     viewState: null,
     model: null,
   },
-  "./index.html": {
+  "demo/index.html": {
     viewState: null,
     model: null,
   },
-  "./main.java": {
+  "demo/main.java": {
     viewState: null,
     model: null,
   },
@@ -28,16 +28,20 @@ const DEFAULT_VECODER_EDITORS_OPTIONS_DATA = {
   1: {
     code_editor_container_ref_index: 1,
     onSelectedMonacoIndex: -1,
-    monacoEditorPaths: ["./code_editor.js", "./code_editor.css", "./main.py"],
+    monacoEditorPaths: [
+      "demo/code_editor.js",
+      "demo/code_editor.css",
+      "demo/main.py",
+    ],
   },
   2: {
     code_editor_container_ref_index: 2,
     onSelectedMonacoIndex: -1,
-    monacoEditorPaths: ["./index.html", "./main.java"],
+    monacoEditorPaths: ["demo/index.html", "demo/main.java"],
   },
 };
 const DEFAULT_VECODER_EDITORS_CONTENT_DATA = {
-  "./code_editor.js": {
+  "demo/code_editor.js": {
     fileName: "code_editor.js",
     fileLanguage: "javascript",
     filePath: "./code_editor.js",
@@ -216,10 +220,10 @@ export default CodeEditor;
 
 `,
   },
-  "./code_editor.css": {
+  "demo/code_editor.css": {
     fileName: "code_editor.css",
     fileLanguage: "css",
-    filePath: "./code_editor.css",
+    filePath: "demo/code_editor.css",
     fileContent: `#code_editor_container0829 {
   /*POSITION*/
   width: 500pt;
@@ -277,10 +281,10 @@ export default CodeEditor;
 
 `,
   },
-  "./main.py": {
+  "demo/main.py": {
     fileName: "main.py",
     fileLanguage: "python",
-    filePath: "./main.py",
+    filePath: "demo/main.py",
     fileContent: `import random
 
 def get_compliment(color):
@@ -312,10 +316,10 @@ if __name__ == "__main__":
   main()
 `,
   },
-  "./index.html": {
+  "demo/index.html": {
     fileName: "index.html",
     fileLanguage: "html",
-    filePath: "./index.html",
+    filePath: "demo/index.html",
     fileContent: `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -377,7 +381,7 @@ renderFileContents();
   
   `,
   },
-  "./main.java": {
+  "demo/main.java": {
     fileName: "main.java",
     fileLanguage: "java",
     filePath: "./main.java",
@@ -427,215 +431,45 @@ const DEFAULT_STACK_STRUCTURE_OPTIONS_DATA = [
   },
 ];
 const DEFAULT_EXPLORE_OPTIONS_AND_CONTENT_DATA = {
-  fileName: "vecoder",
+  fileName: "demo",
   fileType: "folder",
-  filePath: "vecoder",
+  filePath: "demo",
   fileExpend: true,
   files: [
     {
-      fileName: "vecoder_sample",
-      fileType: "folder",
-      filePath: "vecoder/vecoder_sample",
-      fileExpend: true,
-      files: [
-        {
-          fileName: "public",
-          fileType: "folder",
-          filePath: "vecoder/vecoder_sample/public",
-          fileExpend: true,
-          files: [
-            {
-              fileName: "favicon.icon",
-              fileType: "file",
-              filePath: "vecoder/vecoder_sample/public/favicon.icon",
-              fileExpend: false,
-              files: [],
-            },
-            {
-              fileName: "index.html",
-              fileType: "file",
-              filePath: "vecoder/vecoder_sample/public/index.html",
-              fileExpend: false,
-              files: [],
-            },
-            {
-              fileName: "index.php",
-              fileType: "file",
-              filePath: "vecoder/vecoder_sample/public/index.php",
-              fileExpend: false,
-              files: [],
-            },
-            {
-              fileName: "logo192.png",
-              fileType: "file",
-              filePath: "vecoder/vecoder_sample/public/logo192.png",
-              fileExpend: false,
-              files: [],
-            },
-            {
-              fileName: "resume.pdf",
-              fileType: "file",
-              filePath: "vecoder/vecoder_sample/public/resume.pdf",
-              fileExpend: false,
-              files: [],
-            },
-            {
-              fileName: "manifest.json",
-              fileType: "file",
-              filePath: "vecoder/vecoder_sample/public/manifest.json",
-              fileExpend: false,
-              files: [],
-            },
-            {
-              fileName: "robots.txt",
-              fileType: "file",
-              filePath: "vecoder/vecoder_sample/public/robots.txt",
-              fileExpend: false,
-              files: [],
-            },
-            {
-              fileName: "test.py",
-              fileType: "file",
-              filePath: "vecoder/vecoder_sample/public/test.py",
-              fileExpend: false,
-              files: [],
-            },
-            {
-              fileName: "test.java",
-              fileType: "file",
-              filePath: "vecoder/vecoder_sample/public/test.java",
-              fileExpend: false,
-              files: [],
-            },
-            {
-              fileName: "test.xls",
-              fileType: "file",
-              filePath: "vecoder/vecoder_sample/public/test.xls",
-              fileExpend: false,
-              files: [],
-            },
-            {
-              fileName: "test.doc",
-              fileType: "file",
-              filePath: "vecoder/vecoder_sample/public/test.doc",
-              fileExpend: false,
-              files: [],
-            },
-            {
-              fileName: "test.ppt",
-              fileType: "file",
-              filePath: "vecoder/vecoder_sample/public/test.ppt",
-              fileExpend: false,
-              files: [],
-            },
-          ],
-        },
-        {
-          fileName: "src",
-          fileType: "folder",
-          filePath: "vecoder/vecoder_sample/src",
-          fileExpend: true,
-          files: [
-            {
-              fileName: "COMPONENTs",
-              fileType: "folder",
-              filePath: "vecoder/vecoder_sample/src/COMPONENTs",
-              fileExpend: false,
-              files: [
-                {
-                  fileName: "explorer",
-                  fileType: "folder",
-                  filePath: "vecoder/vecoder_sample/src/COMPONENTs/explorer",
-                  fileExpend: false,
-                  files: [
-                    {
-                      fileName: "dirItem",
-                      fileType: "folder",
-                      filePath:
-                        "vecoder/vecoder_sample/src/COMPONENTs/explorer/dirItem",
-                      fileExpend: false,
-                      files: [
-                        {
-                          fileName: "dirItem.css",
-                          fileType: "file",
-                          filePath:
-                            "vecoder/vecoder_sample/src/COMPONENTs/explorer/dirItem/dirItem.css",
-                          fileExpend: false,
-                          files: [],
-                        },
-                        {
-                          fileName: "dirItem.js",
-                          fileType: "file",
-                          filePath:
-                            "vecoder/vecoder_sample/src/COMPONENTs/explorer/dirItem/dirItem.js",
-                          fileExpend: false,
-                          files: [],
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            },
-            {
-              fileName: "App.css",
-              fileType: "file",
-              filePath: "vecoder/vecoder_sample/src/App.css",
-              fileExpend: false,
-              files: [],
-            },
-            {
-              fileName: "App.js",
-              fileType: "file",
-              filePath: "vecoder/vecoder_sample/src/App.js",
-              fileExpend: false,
-              files: [],
-            },
-            {
-              fileName: "App.test.js",
-              fileType: "file",
-              filePath: "vecoder/vecoder_sample/src/App.test.js",
-              fileExpend: false,
-              files: [],
-            },
-          ],
-        },
-        {
-          fileName: ".gitignore",
-          fileType: "file",
-          filePath: "vecoder/vecoder_sample/.gitignore",
-          fileExpend: false,
-          files: [],
-        },
-        {
-          fileName: "package.json",
-          fileType: "file",
-          filePath: "vecoder/vecoder_sample/package.json",
-          fileExpend: false,
-          files: [],
-        },
-        {
-          fileName: "package-lock.json",
-          fileType: "file",
-          filePath: "vecoder/vecoder_sample/package-lock.json",
-          fileExpend: false,
-          files: [],
-        },
-        {
-          fileName: "README.md",
-          fileType: "file",
-          filePath: "vecoder/vecoder_sample/README.md",
-          fileExpend: false,
-          files: [],
-        },
-        {
-          fileName: ".env",
-          fileType: "file",
-          filePath: "vecoder/vecoder_sample/.env",
-          fileExpend: false,
-          files: [],
-        },
-      ],
+      fileName: "code_editor.js",
+      fileType: "file",
+      filePath: "demo/code_editor.js",
+      fileExpend: false,
+      files: [],
+    },
+    {
+      fileName: "code_editor.css",
+      fileType: "file",
+      filePath: "demo/code_editor.css",
+      fileExpend: false,
+      files: [],
+    },
+    {
+      fileName: "main.py",
+      fileType: "file",
+      filePath: "demo/main.py",
+      fileExpend: false,
+      files: [],
+    },
+    {
+      fileName: "index.html",
+      fileType: "file",
+      filePath: "demo/index.html",
+      fileExpend: false,
+      files: [],
+    },
+    {
+      fileName: "main.java",
+      fileType: "file",
+      filePath: "demo/main.java",
+      fileExpend: false,
+      files: [],
     },
   ],
 };
@@ -780,9 +614,12 @@ const VecoderEditorPage = () => {
   /* Explorer Data and Functions ------------------------------------------ */
   const [exploreOptionsAndContentData, setExploreOptionsAndContentData] =
     useState(DEFAULT_EXPLORE_OPTIONS_AND_CONTENT_DATA);
-  // useEffect(() => {
-  //   console.log(exploreOptionsAndContentData);
-  // }, [exploreOptionsAndContentData]);
+  useEffect(() => {
+    // Listen for directory data
+    window.electron.receive("directory-data", (data) => {
+      setExploreOptionsAndContentData(data);
+    });
+  }, []);
   const updateFileOnExploreOptionsAndContentData = (path, data) => {
     setExploreOptionsAndContentData((prevData) => {
       const newExploreOptionsAndContentData = { ...prevData };
@@ -853,14 +690,14 @@ const VecoderEditorPage = () => {
 
     updateFileOnExploreOptionsAndContentData(original_path, target_file);
   };
-  const checkDirNameExist = (path, pending_file) => {
+  const checkDirNameExist = (path, pending_file_name) => {
     const pathArray = path.split("/");
     let currentData = exploreOptionsAndContentData;
     for (let i = 0; i < pathArray.length; i++) {
       if (i === pathArray.length - 1) {
         currentData = currentData.files;
         for (let j = 0; j < currentData.length; j++) {
-          if (currentData[j].fileName === pending_file.fileName) {
+          if (currentData[j].fileName === pending_file_name) {
             return true;
           }
         }

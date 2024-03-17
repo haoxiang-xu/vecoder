@@ -292,6 +292,18 @@ export const ICON_MANAGER = () => {
     const MORE_OPTIONS16 = require("./SYSTEM_ICONs/16X16/more_options.png");
 
     const INVISIBLE16 = require("./SYSTEM_ICONs/16X16/invisible.png");
+    const MAXIMIZE16 = require("./SYSTEM_ICONs/16X16/maximize.png");
+    const MINIMIZE16 = require("./SYSTEM_ICONs/16X16/minimize.png");
+    const RESTORE16 = require("./SYSTEM_ICONs/16X16/window_restore.png");
+
+    const MACOS_CLOSE16 = require("./SYSTEM_ICONs/16X16/macos_close.png");
+    const MACOS_MINIMIZE16 = require("./SYSTEM_ICONs/16X16/macos_minus.png");
+    const MACOS_MAXIMIZE16 = require("./SYSTEM_ICONs/16X16/macos_expand.png");
+    const MACOS_RED16 = require("./SYSTEM_ICONs/16X16/macos_red.png");
+    const MACOS_YELLOW16 = require("./SYSTEM_ICONs/16X16/macos_yellow.png");
+    const MACOS_GREEN16 = require("./SYSTEM_ICONs/16X16/macos_green.png");
+    const WIN32_CLOSE16 = require("./SYSTEM_ICONs/16X16/win32_close.png");
+    const WIN32_UNMAXIMIZE16 = require("./SYSTEM_ICONs/16X16/win32_unmaximize.png");
     /* 16X16 ICONs ---------------------------------------------------------------------- */
 
     /* 512X512 ICONs ---------------------------------------------------------------------- */
@@ -329,6 +341,17 @@ export const ICON_MANAGER = () => {
     const MORE_OPTIONS512 = require("./SYSTEM_ICONs/512X512/more_options.png");
 
     const INVISIBLE512 = require("./SYSTEM_ICONs/512X512/invisible.png");
+    const MAXIMIZE512 = require("./SYSTEM_ICONs/512X512/maximize.png");
+    const MINIMIZE512 = require("./SYSTEM_ICONs/512X512/minimize.png");
+    const RESTORE512 = require("./SYSTEM_ICONs/512X512/window_restore.png");
+    const MACOS_CLOSE512 = require("./SYSTEM_ICONs/512X512/macos_close.png");
+    const MACOS_MINIMIZE512 = require("./SYSTEM_ICONs/512X512/macos_minus.png");
+    const MACOS_MAXIMIZE512 = require("./SYSTEM_ICONs/512X512/macos_expand.png");
+    const MACOS_RED512 = require("./SYSTEM_ICONs/512X512/macos_red.png");
+    const MACOS_YELLOW512 = require("./SYSTEM_ICONs/512X512/macos_yellow.png");
+    const MACOS_GREEN512 = require("./SYSTEM_ICONs/512X512/macos_green.png");
+    const WIN32_CLOSE512 = require("./SYSTEM_ICONs/512X512/win32_close.png");
+    const WIN32_UNMAXIMIZE512 = require("./SYSTEM_ICONs/512X512/win32_unmaximize.png");
     /* 512X512 ICONs ---------------------------------------------------------------------- */
 
     SYSTEM_ICON_MANAGER = {
@@ -485,6 +508,61 @@ export const ICON_MANAGER = () => {
       invisible: {
         ICON16: INVISIBLE16,
         ICON512: INVISIBLE512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      maximize: {
+        ICON16: MAXIMIZE16,
+        ICON512: MAXIMIZE512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      minimize: {
+        ICON16: MINIMIZE16,
+        ICON512: MINIMIZE512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      restore: {
+        ICON16: RESTORE16,
+        ICON512: RESTORE512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      macosClose: {
+        ICON16: MACOS_CLOSE16,
+        ICON512: MACOS_CLOSE512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      macosMinimize: {
+        ICON16: MACOS_MINIMIZE16,
+        ICON512: MACOS_MINIMIZE512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      macosMaximize: {
+        ICON16: MACOS_MAXIMIZE16,
+        ICON512: MACOS_MAXIMIZE512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      macosRed: {
+        ICON16: MACOS_RED16,
+        ICON512: MACOS_RED512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      macosYellow: {
+        ICON16: MACOS_YELLOW16,
+        ICON512: MACOS_YELLOW512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      macosGreen: {
+        ICON16: MACOS_GREEN16,
+        ICON512: MACOS_GREEN512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      win32Close: {
+        ICON16: WIN32_CLOSE16,
+        ICON512: WIN32_CLOSE512,
+        LABEL_COLOR: "#CCCCCC",
+      },
+      win32Unmaximize: {
+        ICON16: WIN32_UNMAXIMIZE16,
+        ICON512: WIN32_UNMAXIMIZE512,
         LABEL_COLOR: "#CCCCCC",
       },
     };

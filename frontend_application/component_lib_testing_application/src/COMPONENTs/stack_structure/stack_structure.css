@@ -4,8 +4,8 @@
   /*POSITION*/
   display: flex;
   position: absolute;
-  top: 16px;
-  left: 6px;
+  top: 12px;
+  left: 12px;
   bottom: 12px;
 
   /* top: 200px;
@@ -13,8 +13,6 @@
   bottom: 200px; */
 
   /*STYLE*/
-  overflow-x: hidden;
-  overflow-y: hidden;
 }
 .stack_structure_container_minimize0207 {
   transition: all 0.32s ease;
@@ -69,6 +67,10 @@
   /*POSITION*/
   position: relative;
   height: 100%;
+
+  box-sizing: border-box;
+  display: inline-block;
+  overflow: hidden;
 }
 .stack_structure_item_overlay0122 {
   /*POSITION*/
@@ -80,8 +82,12 @@
 
   /*STYLE*/
   border-radius: 11px;
+  border: 1px solid #838383;
   background-color: #838383;
   opacity: 0.16;
+
+  box-sizing: border-box;
+  display: inline-block;
 
   pointer-events: none;
   animation: stack_structure_item_overlay_animation 0.18s ease-in-out;
