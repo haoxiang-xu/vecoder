@@ -102,7 +102,7 @@ const HeaderMenuBar = ({
               className="header_menu_bar_darwin_maximize_icon0316"
               style={{ opacity: isMenuBarHovered ? 1 : 0 }}
               onClick={() => {
-                handleMaximize;
+                handleMaximize();
                 setIsWindowMaximized(!isWindowMaximized);
               }}
               draggable="false"
