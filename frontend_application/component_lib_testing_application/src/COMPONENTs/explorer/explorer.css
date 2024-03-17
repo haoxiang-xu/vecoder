@@ -9,6 +9,8 @@
   width: 100%;
 
   /*STYLE*/
+  border: 1px solid #282828;
+  box-sizing: border-box;
   overflow: hidden;
   border-radius: 11px;
   background-color: #1e1e1e;
@@ -23,13 +25,13 @@
   right: 2px;
   bottom: 4px;
   transform: translate(0%, 0%);
-  margin: 0px 3px 4px 3px;
-  padding: 0px 4px 0px 7px;
+  margin: 0px 3px 5px 9px;
+  padding: 0px 4px 0px 0px;
 
   /*SIZE*/
-  box-sizing: border-box;
 
   /*STYLE*/
+  border-radius: 0px 0px 5px 5px;
   box-sizing: border-box;
   overflow-y: scroll;
   overflow-x: hidden;

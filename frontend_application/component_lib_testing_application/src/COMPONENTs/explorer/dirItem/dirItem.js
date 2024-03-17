@@ -66,10 +66,10 @@ const RenameInputBox = ({
   dirItemOnHover,
   onCommand,
   setOnCommand,
-  parentCheckNameExist,
 }) => {
   const {
     renameAndRepathAllSubFiles,
+    checkDirNameExist,
     accessFileNameByPath,
     accessFileTypeByPath,
     accessFileExpendByPath,
@@ -95,7 +95,10 @@ const RenameInputBox = ({
         setOnCommand("false");
         return;
       }
-      if (!parentCheckNameExist(renameInput)) {
+      let parentDirPath = filePath.split("/");
+      parentDirPath.pop();
+      parentDirPath = parentDirPath.join("/");
+      if (!checkDirNameExist(parentDirPath, renameInput)) {
         if (renameInput !== "") {
           renameAndRepathAllSubFiles(filePath, renameInput);
         }
@@ -143,7 +146,6 @@ const DirItem = ({
   explorerExpand,
   setExplorerExpand,
   setChildrenOnClicked,
-  parentCheckNameExist,
   onSingleClickFile,
   setOnSingleClickFile,
   onCopyFile,
@@ -387,16 +389,7 @@ const DirItem = ({
     }
   }, [onRightClickItem]);
 
-  //ON COMMAND
-  //RENAME
-  const checkNameExist = (name) => {
-    for (let i = 0; i < file.files.length; i++) {
-      if (file.files[i].fileName === name) {
-        return true;
-      }
-    }
-    return false;
-  };
+  /* ON COMMAND -------------------------------------------------------------------------------------------------- */
   //NEW FILE
   useEffect(() => {
     if (onCommand === "newFile") {
@@ -592,6 +585,7 @@ const DirItem = ({
       setRightClickCommand(null);
     }
   }, [rightClickCommand]);
+  /* ON COMMAND -------------------------------------------------------------------------------------------------- */
 
   return (
     <div>
@@ -613,7 +607,6 @@ const DirItem = ({
                   dirItemOnHover={dirItemOnHover}
                   onCommand={onCommand}
                   setOnCommand={setOnCommand}
-                  parentCheckNameExist={parentCheckNameExist}
                 />
               ) : (
                 /* SPAN If file not on command -> diplay folder name and expand arrow button>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
@@ -647,7 +640,6 @@ const DirItem = ({
                   dirItemOnHover={dirItemOnHover}
                   onCommand={onCommand}
                   setOnCommand={setOnCommand}
-                  parentCheckNameExist={parentCheckNameExist}
                 />
               ) : (
                 /* SPAN If file not on command -> diplay folder name and expand arrow button>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
@@ -679,7 +671,6 @@ const DirItem = ({
               dirItemOnHover={dirItemOnHover}
               onCommand={onCommand}
               setOnCommand={setOnCommand}
-              parentCheckNameExist={parentCheckNameExist}
             />
           ) : (
             /* SPAN file>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
@@ -729,7 +720,6 @@ const DirItem = ({
                   filePath={item.filePath}
                   root={false}
                   setChildrenOnClicked={setChildrenOnClicked}
-                  parentCheckNameExist={checkNameExist}
                   onSingleClickFile={onSingleClickFile}
                   setOnSingleClickFile={setOnSingleClickFile}
                   onCopyFile={onCopyFile}
