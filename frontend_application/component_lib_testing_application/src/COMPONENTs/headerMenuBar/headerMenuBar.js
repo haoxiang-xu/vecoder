@@ -169,12 +169,12 @@ const HeaderMenuBar = ({
               draggable="false"
               alt="close"
             />
-            <div
+            {/* <div
               className="header_menu_bar_file_button0316"
               style={{ opacity: isMenuBarHovered ? 1 : 0 }}
             >
               File
-            </div>
+            </div> */}
             <div
               className="header_menu_bar_container_dragging_area0316"
               style={{ height: isMenuBarHovered ? "40px" : "12px" }}
