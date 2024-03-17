@@ -3,6 +3,7 @@
 ## [ About the Project ]
 
 ![MACOS MENU BAR MOCK DESIGN 318](https://github.com/haoxiang-xu/vecoder/assets/59581718/1e8eed17-ecba-41b7-9fde-8d18645d69a5)
+![WIN32 MENU BAR MOCK DESIGN 0317](https://github.com/haoxiang-xu/vecoder/assets/59581718/c518464b-0a03-4f23-8dfb-9943070b978e)
 
 ### CodeEditor+LLMs(Large Language Models):
 
