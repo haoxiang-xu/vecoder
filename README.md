@@ -2,9 +2,6 @@
 
 ## [ About the Project ]
 
-![MACOS MENU BAR MOCK DESIGN 318](https://github.com/haoxiang-xu/vecoder/assets/59581718/1e8eed17-ecba-41b7-9fde-8d18645d69a5)
-![WIN32 MENU BAR MOCK DESIGN 0317](https://github.com/haoxiang-xu/vecoder/assets/59581718/c518464b-0a03-4f23-8dfb-9943070b978e)
-
 ### CodeEditor+LLMs(Large Language Models):
 
 <span style="opacity: 0.64">CodeEditor+LLMs is a state-of-the-art Code Editor that leverages the power of large language models to assist in coding. By utilizing a vector database, it establishes intricate relationships between files and code segments. This advanced interconnectivity is designed to significantly enhance the efficiency of developers by providing context-aware insights and coding suggestions.</span>
@@ -12,6 +9,9 @@
 ### AI-Enhanced UI:
 
 <span style="opacity: 0.64">This is a specialized UI designed specifically for AI supported application. While most AI applications focus primarily on functionality, they often overlook the importance of a better user experience. We possess incredibly powerful LLMs, but our interactions with them still resemble the command-line interface era. I believe that instead of merely providing code editors or IDE extensions for LLMs, we need a comprehensive overhaul of the entire code editor UI to align with the new paradigm of AI interaction in this era.</span>
+
+![MACOS MENU BAR MOCK DESIGN 318](https://github.com/haoxiang-xu/vecoder/assets/59581718/1e8eed17-ecba-41b7-9fde-8d18645d69a5)
+![WIN32 MENU BAR MOCK DESIGN 0317](https://github.com/haoxiang-xu/vecoder/assets/59581718/c518464b-0a03-4f23-8dfb-9943070b978e)
 
 ### Built with
 
