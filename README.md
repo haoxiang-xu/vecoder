@@ -2,7 +2,7 @@
 
 ## [ About the Project ]
 
-![MENU BAR MOCK DESIGN 0317](https://github.com/haoxiang-xu/vecoder/assets/59581718/799fdb47-a36b-4518-ad52-fd4843bd2d78)
+![VECODER UI MOCK GITHUB](https://github.com/haoxiang-xu/vecoder/assets/59581718/598086b5-fa15-4f72-b199-b5687c34b8c2)
 
 ### CodeEditor+LLMs(Large Language Models):
 
