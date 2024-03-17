@@ -52,14 +52,6 @@ const HeaderMenuBar = ({
   /* Win32 --------------------------------------------------------------------------------- */
   const [isWin32CloseIconOnHover, setIsWin32CloseIconOnHover] = useState(false);
   /* Win32 --------------------------------------------------------------------------------- */
-  useEffect(() => {
-    if (cursorPosition.y > 50) {
-      setIsMenuBarHovered(false);
-    }
-    if (cursorPosition.y < 16) {
-      setIsMenuBarHovered(true);
-    }
-  }, [cursorPosition]);
 
   const renderMenuBar = () => {
     switch (window.osInfo.platform) {
@@ -136,7 +128,7 @@ const HeaderMenuBar = ({
             <img
               src={SYSTEM_ICON_MANAGER.minimize.ICON512}
               className="header_menu_bar_minimize_icon0316"
-              style={{ opacity: isMenuBarHovered ? 1 : 0 }}
+              style={{ opacity: isMenuBarHovered ? 1 : 0.32 }}
               onClick={handleMinimize}
               draggable="false"
               alt="close"
@@ -148,7 +140,7 @@ const HeaderMenuBar = ({
                   : SYSTEM_ICON_MANAGER.maximize.ICON512
               }
               className="header_menu_bar_maximize_icon0316"
-              style={{ opacity: isMenuBarHovered ? 0.72 : 0 }}
+              style={{ opacity: isMenuBarHovered ? 0.72 : 0.32 }}
               onClick={() => {
                 handleMaximize();
                 setIsWindowMaximized(!isWindowMaximized);
@@ -164,12 +156,12 @@ const HeaderMenuBar = ({
               }
               className="header_menu_bar_close_icon0316"
               style={{
-                opacity: isMenuBarHovered ? 1 : 0,
+                opacity: isMenuBarHovered ? 1 : 0.32,
                 borderRadius: isWindowMaximized ? "0px" : "0px 11px 0px 0px",
               }}
               onClick={handleClose}
               onMouseEnter={() => {
-                setIsWin32CloseIconOnHover(true);
+                setIsMenuBarHovered(true);
               }}
               onMouseLeave={() => {
                 setIsWin32CloseIconOnHover(false);

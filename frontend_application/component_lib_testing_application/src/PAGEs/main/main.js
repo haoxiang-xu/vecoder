@@ -7,6 +7,14 @@ const Main = () => {
   const [isWindowMaximized, setIsWindowMaximized] = useState(false);
   const [isMenuBarHovered, setIsMenuBarHovered] = useState(false);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  useEffect(() => {
+    if (cursorPosition.y > 48) {
+      setIsMenuBarHovered(false);
+    }
+    if (cursorPosition.y < 16) {
+      setIsMenuBarHovered(true);
+    }
+  }, [cursorPosition]);
   const handleMouseMove = (event) => {
     setCursorPosition({
       x: event.clientX,
