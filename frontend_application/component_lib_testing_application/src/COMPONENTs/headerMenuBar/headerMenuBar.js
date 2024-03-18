@@ -157,7 +157,7 @@ const HeaderMenuBar = ({
               className="header_menu_bar_close_icon0316"
               style={{
                 opacity: isMenuBarHovered ? 1 : 0.16,
-                borderRadius: isWindowMaximized ? "0px" : "0px 11px 0px 0px",
+                borderRadius: isWindowMaximized ? "0px" : "0px 12px 0px 0px",
               }}
               onClick={handleClose}
               onMouseEnter={() => {
