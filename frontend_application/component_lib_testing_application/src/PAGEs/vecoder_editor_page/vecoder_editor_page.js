@@ -434,8 +434,15 @@ const DEFAULT_EXPLORE_OPTIONS_AND_CONTENT_DATA = {
   fileName: "demo",
   fileType: "folder",
   filePath: "demo",
-  fileExpend: true,
+  fileExpend: false,
   files: [
+    {
+      fileName: "src",
+      fileType: "folder",
+      filePath: "demo/src",
+      fileExpend: false,
+      files: [],
+    },
     {
       fileName: "code_editor.js",
       fileType: "file",
@@ -451,13 +458,6 @@ const DEFAULT_EXPLORE_OPTIONS_AND_CONTENT_DATA = {
       files: [],
     },
     {
-      fileName: "main.py",
-      fileType: "file",
-      filePath: "demo/main.py",
-      fileExpend: false,
-      files: [],
-    },
-    {
       fileName: "index.html",
       fileType: "file",
       filePath: "demo/index.html",
@@ -468,6 +468,13 @@ const DEFAULT_EXPLORE_OPTIONS_AND_CONTENT_DATA = {
       fileName: "main.java",
       fileType: "file",
       filePath: "demo/main.java",
+      fileExpend: false,
+      files: [],
+    },
+    {
+      fileName: "main.py",
+      fileType: "file",
+      filePath: "demo/main.py",
       fileExpend: false,
       files: [],
     },
@@ -622,51 +629,66 @@ const VecoderEditorPage = () => {
   }, []);
   const updateFileOnExploreOptionsAndContentData = (path, data) => {
     setExploreOptionsAndContentData((prevData) => {
-      const newExploreOptionsAndContentData = { ...prevData };
-      const pathArray = path.split("/");
-      let currentData = exploreOptionsAndContentData;
-      for (let i = 0; i < pathArray.length; i++) {
-        if (i === pathArray.length - 1) {
-          currentData = data;
-          sortDirFiles(path);
-        } else {
-          currentData = currentData.files;
-          for (let j = 0; j < currentData.length; j++) {
-            if (currentData[j].fileName === pathArray[i + 1]) {
-              currentData = currentData[j];
-              break;
-            }
-          }
+      const updateNestedFiles = (currentData, pathArray, currentIndex) => {
+        if (currentIndex === pathArray.length - 1) {
+          return data;
         }
-      }
-      return newExploreOptionsAndContentData;
+        const files = currentData.files ? [...currentData.files] : [];
+        const nextIndex = files.findIndex(
+          (file) => file.fileName === pathArray[currentIndex + 1]
+        );
+        if (nextIndex !== -1) {
+          files[nextIndex] = updateNestedFiles(
+            files[nextIndex],
+            pathArray,
+            currentIndex + 1
+          );
+        }
+        if (currentIndex === pathArray.length - 2) {
+          files.sort((a, b) => {
+            if (a.fileType === b.fileType) {
+              return a.fileName.localeCompare(b.fileName);
+            }
+            return a.fileType === "folder" ? -1 : 1;
+          });
+        }
+
+        return { ...currentData, files };
+      };
+
+      const pathArray = path.split("/");
+      const updatedData = updateNestedFiles(prevData, pathArray, 0);
+
+      return updatedData;
     });
   };
   const removeFileOnExploreOptionsAndContentData = (path) => {
     setExploreOptionsAndContentData((prevData) => {
-      const newExploreOptionsAndContentData = { ...prevData };
       const pathArray = path.split("/");
-      let currentData = exploreOptionsAndContentData;
-      for (let i = 0; i < pathArray.length; i++) {
-        if (i === pathArray.length - 2) {
-          let subDirList = currentData.files;
-          for (let j = 0; j < subDirList.length; j++) {
-            if (subDirList[j].fileName === pathArray[i + 1]) {
-              subDirList.splice(j, 1);
-              break;
-            }
-          }
-        } else {
-          currentData = currentData.files;
-          for (let j = 0; j < currentData.length; j++) {
-            if (currentData[j].fileName === pathArray[i + 1]) {
-              currentData = currentData[j];
-              break;
-            }
-          }
+      const removeItemRecursively = (data, index = 0) => {
+        if (index === pathArray.length - 2) {
+          const filteredFiles = data.files.filter(
+            (item) => item.fileName !== pathArray[pathArray.length - 1]
+          );
+          return { ...data, files: filteredFiles };
         }
-      }
-      return newExploreOptionsAndContentData;
+        const nextIndex = data.files.findIndex(
+          (item) => item.fileName === pathArray[index]
+        );
+        if (nextIndex === -1) {
+          return data;
+        }
+
+        const updatedFiles = [...data.files];
+        updatedFiles[nextIndex] = removeItemRecursively(
+          updatedFiles[nextIndex],
+          index + 1
+        );
+
+        return { ...data, files: updatedFiles };
+      };
+
+      return removeItemRecursively(prevData);
     });
   };
   const renameAndRepathAllSubFiles = (original_path, new_name) => {
@@ -702,38 +724,6 @@ const VecoderEditorPage = () => {
           }
         }
         return false;
-      } else {
-        currentData = currentData.files;
-        for (let j = 0; j < currentData.length; j++) {
-          if (currentData[j].fileName === pathArray[i + 1]) {
-            currentData = currentData[j];
-            break;
-          }
-        }
-      }
-    }
-  };
-  const sortDirFiles = (path) => {
-    const pathArray = path.split("/");
-    let currentData = exploreOptionsAndContentData;
-    for (let i = 0; i < pathArray.length; i++) {
-      if (i === pathArray.length - 2) {
-        currentData.files.sort((a, b) => {
-          if (a.fileType === "folder" && b.fileType === "file") {
-            return -1;
-          }
-          if (a.fileType === "file" && b.fileType === "folder") {
-            return 1;
-          }
-          if (a.fileName < b.fileName) {
-            return -1;
-          }
-          if (a.fileName > b.fileName) {
-            return 1;
-          }
-          return 0;
-        });
-        return currentData;
       } else {
         currentData = currentData.files;
         for (let j = 0; j < currentData.length; j++) {
@@ -796,7 +786,7 @@ const VecoderEditorPage = () => {
       }
     }
   };
-  const accessFileExpendByPath = (path) => {
+  const accessFileExpandByPath = (path) => {
     const pathArray = path.split("/");
     let currentData = exploreOptionsAndContentData;
     for (let i = 0; i < pathArray.length; i++) {
@@ -812,6 +802,25 @@ const VecoderEditorPage = () => {
         }
       }
     }
+  };
+  const updateFileExpandByPath = (path, expend) => {
+    setExploreOptionsAndContentData((prevData) => {
+      const updateNestedFiles = (data, pathArray, currentIndex) => {
+        if (currentIndex === pathArray.length - 1) {
+          return { ...data, fileExpend: expend };
+        }
+        const nextIndex = currentIndex + 1;
+        const updatedFiles = data.files.map((file) => {
+          if (file.fileName === pathArray[nextIndex]) {
+            return updateNestedFiles(file, pathArray, nextIndex);
+          }
+          return file;
+        });
+        return { ...data, files: updatedFiles };
+      };
+      const pathArray = path.split("/");
+      return updateNestedFiles(prevData, pathArray, 0);
+    });
   };
   const accessFilesByPath = (path) => {
     const pathArray = path.split("/");
@@ -883,7 +892,8 @@ const VecoderEditorPage = () => {
         accessFileByPath,
         accessFileNameByPath,
         accessFileTypeByPath,
-        accessFileExpendByPath,
+        accessFileExpandByPath,
+        updateFileExpandByPath,
         accessFilesByPath,
 
         stackStructureOptionsData,

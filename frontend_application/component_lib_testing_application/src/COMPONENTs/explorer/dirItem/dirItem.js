@@ -72,7 +72,7 @@ const RenameInputBox = ({
     checkDirNameExist,
     accessFileNameByPath,
     accessFileTypeByPath,
-    accessFileExpendByPath,
+    accessFileExpandByPath,
   } = useContext(vecoderEditorContexts);
   const inputRef = useRef();
   useEffect(() => {
@@ -126,7 +126,7 @@ const RenameInputBox = ({
       style={{
         width: `calc(100% - ${22}px)`,
         borderRadius:
-          dirItemOnHover && accessFileExpendByPath(filePath)
+          dirItemOnHover && accessFileExpandByPath(filePath)
             ? "6px 6px 0px 0px"
             : "6px",
         padding:
@@ -160,7 +160,8 @@ const DirItem = ({
     accessFileByPath,
     accessFileNameByPath,
     accessFileTypeByPath,
-    accessFileExpendByPath,
+    accessFileExpandByPath,
+    updateFileExpandByPath,
     accessFilesByPath,
   } = useContext(vecoderEditorContexts);
   const {
@@ -170,19 +171,7 @@ const DirItem = ({
     setRightClickCommand,
   } = useContext(rightClickContextMenuCommandContexts);
 
-  //EXPAND
-  const [expanded, setExpanded] = useState(false);
-  const [expandIconClassName, setExpandIconClassName] = useState(
-    file.fileExpend
-      ? "dir_item_component_arrow_icon_down0725"
-      : "dir_item_component_arrow_icon_right0725"
-  );
   //Generate File name, File Icon and Text Color
-  const [filename, setFilename] = useState(file.fileName);
-  const [fileIcon, setFileIcon] = useState();
-  const [fileIconBackground, setFileIconBackground] = useState();
-  const [fileTextColor, setFileTextColor] = useState("#C8C8C8");
-
   const [isRightClicked, setIsRightClicked] = useState(false);
   const [onCommand, setOnCommand] = useState("false");
 
@@ -199,21 +188,6 @@ const DirItem = ({
     setDirItemOnHover(false);
   };
   /*Styling Related ----------------------------------------------------------------------------- */
-
-  //UPDATE FILE
-  useEffect(() => {
-    setFilename(file.fileName);
-    setFileIcon(
-      FILE_TYPE_ICON_MANAGER[file.fileName.split(".").pop()]?.ICON512
-    );
-    setFileIconBackground(
-      FILE_TYPE_ICON_MANAGER[file.fileName.split(".").pop()]?.ICON16
-    );
-    setFileTextColor(
-      FILE_TYPE_ICON_MANAGER[file.fileName.split(".").pop()]?.LABEL_COLOR
-    );
-    setExpanded(file.fileExpend);
-  }, [file, file.fileName]);
 
   const DirListRef = useRef();
 
@@ -263,34 +237,21 @@ const DirItem = ({
   };
   const [expendAnimation, setExpendAnimation] = useState({});
   const [unexpendAnimation, setUnexpendAnimation] = useState({});
-  useEffect(() => {
-    if (expanded) {
-      setExpandIconClassName("dir_item_component_arrow_icon_down0725");
-    } else {
-      setExpandIconClassName("dir_item_component_arrow_icon_right0725");
-    }
-  }, [expanded]);
 
   const handleExpandIconOnClick = (event) => {
     setChildrenOnClicked(true);
     handleOnLeftClick(event);
     if (root) {
       setExplorerExpand(!explorerExpand);
+      updateFileExpandByPath(filePath, true);
     }
-    if (!expanded) {
+    if (!accessFileExpandByPath(filePath)) {
       setExpendAnimation({
         ...dirListExpendAnimation,
         ...dirListExpendKeyframes,
       });
       setUnexpendAnimation({});
-      setExpandIconClassName("dir_item_component_arrow_icon_down0725");
-      setTimeout(() => {
-        setExpandIconClassName(
-          "dir_item_component_arrow_icon_down_no_animation1018"
-        );
-      }, expandingTime * 1000);
-      setExpanded(true);
-      file.fileExpend = true;
+      updateFileExpandByPath(filePath, true);
       //REMOVE ANIMATION
       setTimeout(() => {
         setExpendAnimation({});
@@ -301,14 +262,7 @@ const DirItem = ({
         ...dirListUnexpendAnimation,
         ...dirListUnexpendKeyframes,
       });
-      setExpandIconClassName("dir_item_component_arrow_icon_right0725");
-      setTimeout(() => {
-        setExpandIconClassName(
-          "dir_item_component_arrow_icon_right_no_animation1018"
-        );
-      }, expandingTime * 1000);
-      setExpanded(false);
-      file.fileExpend = false;
+      updateFileExpandByPath(filePath, false);
       //REMOVE ANIMATION
       setTimeout(() => {
         setUnexpendAnimation({});
@@ -318,17 +272,17 @@ const DirItem = ({
   const handleFolderOnRightClick = () => {
     if (onCopyFile !== null) {
       setOnRightClickItem({
-        source: "vecoder_explorer/" + file.filePath,
+        source: "vecoder_explorer/" + filePath,
         condition: { paste: onCopyFile.fileName },
-        content: JSON.parse(JSON.stringify(file)),
-        target: "vecoder_explorer/" + file.filePath,
+        content: JSON.parse(JSON.stringify(accessFileByPath(filePath))),
+        target: "vecoder_explorer/" + filePath,
       });
     } else {
       setOnRightClickItem({
-        source: "vecoder_explorer/" + file.filePath,
+        source: "vecoder_explorer/" + filePath,
         condition: { paste: false },
-        content: JSON.parse(JSON.stringify(file)),
-        target: "vecoder_explorer/" + file.filePath,
+        content: JSON.parse(JSON.stringify(accessFileByPath(filePath))),
+        target: "vecoder_explorer/" + filePath,
       });
     }
     setIsRightClicked(true);
@@ -336,17 +290,17 @@ const DirItem = ({
   const handleFileOnRightClick = () => {
     if (onCopyFile !== null) {
       setOnRightClickItem({
-        source: "vecoder_explorer/" + file.filePath,
+        source: "vecoder_explorer/" + filePath,
         condition: { paste: onCopyFile.fileName },
-        content: JSON.parse(JSON.stringify(file)),
-        target: "vecoder_explorer/" + file.filePath,
+        content: JSON.parse(JSON.stringify(accessFileByPath(filePath))),
+        target: "vecoder_explorer/" + filePath,
       });
     } else {
       setOnRightClickItem({
-        source: "vecoder_explorer/" + file.filePath,
+        source: "vecoder_explorer/" + filePath,
         condition: { paste: false },
-        content: JSON.parse(JSON.stringify(file)),
-        target: "vecoder_explorer/" + file.filePath,
+        content: JSON.parse(JSON.stringify(accessFileByPath(filePath))),
+        target: "vecoder_explorer/" + filePath,
       });
     }
     setIsRightClicked(true);
@@ -354,14 +308,14 @@ const DirItem = ({
   //SINGLE CLICK
   const handleOnLeftClick = (event) => {
     if (event.shiftKey) {
-      console.log("shift from file: " + file.fileName);
+      console.log("shift from file: " + accessFileNameByPath(filePath));
     } else {
-      setOnSingleClickFile(file);
+      setOnSingleClickFile(accessFileByPath(filePath));
     }
   };
   useEffect(() => {
     if (onSingleClickFile !== null) {
-      if (onSingleClickFile.filePath === file.filePath) {
+      if (onSingleClickFile.filePath === filePath) {
         setFileNameClassName("dir_item_component_file_name_on_selected0827");
       } else {
         setFileNameClassName("dir_item_component_file_name0725");
@@ -371,14 +325,11 @@ const DirItem = ({
   useEffect(() => {
     if (onRightClickItem === null) {
       setIsRightClicked(false);
-    } else if (
-      onRightClickItem.source ===
-      "vecoder_explorer/" + file.filePath
-    ) {
+    } else if (onRightClickItem.source === "vecoder_explorer/" + filePath) {
       setFileNameClassName("dir_item_component_file_name_on_selected0827");
     } else {
       if (onSingleClickFile !== null) {
-        if (onSingleClickFile.filePath === file.filePath) {
+        if (onSingleClickFile.filePath === filePath) {
           setFileNameClassName("dir_item_component_file_name_on_selected0827");
         } else {
           setFileNameClassName("dir_item_component_file_name0725");
@@ -398,7 +349,7 @@ const DirItem = ({
       const newFile = {
         fileName: newFileDefaultName,
         fileType: "file",
-        filePath: file.filePath + "/" + newFileDefaultName,
+        filePath: filePath + "/" + newFileDefaultName,
         files: [],
       };
 
@@ -414,12 +365,7 @@ const DirItem = ({
       });
 
       //EXPAND FOLDER
-      setExpanded(true);
-      file.expanded = true;
-      if (setExplorerExpand) {
-        setExplorerExpand(true);
-      }
-      setExpandIconClassName("dir_item_component_arrow_icon_down0725");
+      updateFileExpandByPath(filePath, true);
     }
   }, [onCommand]);
   const getNewFileDefaultName = () => {
@@ -463,12 +409,7 @@ const DirItem = ({
         content: null,
         target: "vecoder_explorer/" + newFolder.filePath,
       });
-      setExpanded(true);
-      file.expanded = true;
-      if (setExplorerExpand) {
-        setExplorerExpand(true);
-      }
-      setExpandIconClassName("dir_item_component_arrow_icon_down0725");
+      updateFileExpandByPath(filePath, true);
     }
   }, [onCommand]);
   const getNewFolderDefaultName = () => {
@@ -514,7 +455,7 @@ const DirItem = ({
         addPathNameAllChildren(pasteFile, filePath, pasteFileIndex);
 
         const path = pasteFile.filePath.split("/");
-        const add_path = file.filePath.split("/");
+        const add_path = filePath.split("/");
         const combinedPath = add_path.concat(path.slice(pasteFileIndex));
         pasteFile.filePath = combinedPath.join("/");
 
@@ -523,12 +464,7 @@ const DirItem = ({
         updateFileOnExploreOptionsAndContentData(filePath, editedFile);
 
         //EXPAND FOLDER
-        setExpanded(true);
-        file.expanded = true;
-        if (setExplorerExpand) {
-          setExplorerExpand(true);
-        }
-        setExpandIconClassName("dir_item_component_arrow_icon_down0725");
+        updateFileExpandByPath(filePath, true);
       } else {
         alert("File name already exist");
       }
@@ -615,14 +551,14 @@ const DirItem = ({
                   onClick={handleExpandIconOnClick}
                   onContextMenu={handleFolderOnRightClick}
                   style={
-                    expanded && dirItemOnHover
+                    accessFileExpandByPath(filePath) && dirItemOnHover
                       ? { borderRadius: "6px 6px 0pt 0pt" }
                       : { borderRadius: "6px" }
                   }
                 >
                   <img
                     src={SYSTEM_ICON_MANAGER.arrow.ICON512}
-                    className={expandIconClassName}
+                    className={accessFileExpandByPath(filePath) ? "dir_item_component_arrow_icon_down0725" : "dir_item_component_arrow_icon_right0725"}
                     onClick={handleExpandIconOnClick}
                     loading="lazy"
                   />
@@ -678,22 +614,35 @@ const DirItem = ({
               className={fileNameClassName}
               onClick={(e) => handleOnLeftClick(e)}
               style={{
-                color: fileTextColor,
+                color:
+                  FILE_TYPE_ICON_MANAGER[
+                    accessFileNameByPath(filePath).split(".").pop()
+                  ]?.LABEL_COLOR,
                 borderRadius: "6px",
                 animation:
                   "dir_item_component_container_expand_animation " +
                   expandingTime +
                   "s",
                 padding:
-                  fileIcon !== undefined
+                  FILE_TYPE_ICON_MANAGER[
+                    accessFileNameByPath(filePath).split(".").pop()
+                  ]?.ICON512 !== undefined
                     ? "1px 0px 1px 6px"
                     : "1px 0px 1px 21px",
               }}
               onContextMenu={handleFileOnRightClick}
             >
               <FileTypeIconLoader
-                fileIcon={fileIcon}
-                fileIconBackground={fileIconBackground}
+                fileIcon={
+                  FILE_TYPE_ICON_MANAGER[
+                    accessFileNameByPath(filePath).split(".").pop()
+                  ]?.ICON512
+                }
+                fileIconBackground={
+                  FILE_TYPE_ICON_MANAGER[
+                    accessFileNameByPath(filePath).split(".").pop()
+                  ]?.ICON16
+                }
               />
               {accessFileNameByPath(filePath)}
             </span>
@@ -703,7 +652,8 @@ const DirItem = ({
       {/* Dir Item ----------------------------------------------------------------------------------------- */}
 
       {/* SubFile List -------------------------------------------------------------------------------------------- */}
-      {accessFilesByPath(filePath).length !== 0 && expanded ? (
+      {accessFilesByPath(filePath).length !== 0 &&
+      accessFileExpandByPath(filePath) ? (
         /*If file has children -> Including the children file list*/
         <div ref={DirListRef} style={{ height: "fit-content" }}>
           <ul

@@ -175,11 +175,6 @@ const MinMaxIcon = ({
   );
 };
 const DirList = ({
-  files,
-  onRightClickItem,
-  setOnRightClickItem,
-  rightClickCommand,
-  setRightClickCommand,
 }) => {
   const {
     exploreOptionsAndContentData,
@@ -211,7 +206,6 @@ const DirList = ({
       ref={explorerContainerRef}
     >
       <DirItem
-        file={files}
         filePath={exploreOptionsAndContentData.filePath}
         root={true}
         explorerExpand={explorerExpand}
@@ -227,12 +221,6 @@ const DirList = ({
 };
 const Explorer = ({
   explorer_width,
-  files,
-  setFiles,
-  onRightClickItem,
-  setOnRightClickItem,
-  rightClickCommand,
-  setRightClickCommand,
   //Maximize and Minimize Container
   onMaximizeOnClick,
   onMinimizeOnClick,
@@ -249,13 +237,7 @@ const Explorer = ({
     <div className="explorer_component_container0126" ref={explorerRef}>
       {mode === "VERTICAL" ? null : (
         <div>
-          <DirList
-            files={files}
-            onRightClickItem={onRightClickItem}
-            setOnRightClickItem={setOnRightClickItem}
-            rightClickCommand={rightClickCommand}
-            setRightClickCommand={setRightClickCommand}
-          />
+          <DirList/>
           <SearchBar />
         </div>
       )}

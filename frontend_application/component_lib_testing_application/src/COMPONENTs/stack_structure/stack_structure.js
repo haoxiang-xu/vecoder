@@ -280,14 +280,6 @@ const ExplorerTypeContainer = ({
   stackRefs,
   stacks,
   setStacks,
-  //Explorer Data
-  explorer_files,
-  setExplorer_files,
-  //Context Menu Data
-  onRightClickItem,
-  setOnRightClickItem,
-  rightClickCommand,
-  setRightClickCommand,
   //Expand and Narrow Container
   expandContainer,
   narrowContainer,
@@ -325,12 +317,6 @@ const ExplorerTypeContainer = ({
     >
       <Explorer
         explorer_width={item.width}
-        files={explorer_files}
-        setFiles={setExplorer_files}
-        onRightClickItem={onRightClickItem}
-        setOnRightClickItem={setOnRightClickItem}
-        rightClickCommand={rightClickCommand}
-        setRightClickCommand={setRightClickCommand}
         onMaximizeOnClick={onMaximizeOnClick}
         onMinimizeOnClick={onMinimizeOnClick}
       />
@@ -973,14 +959,6 @@ const StackStructure = () => {
                       stackRefs={stackRefs}
                       stacks={stacks}
                       setStacks={setStacks}
-                      //Explorer Data
-                      explorer_files={explorer_files}
-                      setExplorer_files={setExplorer_files}
-                      //Context Menu Data
-                      onRightClickItem={onRightClickItem}
-                      setOnRightClickItem={setOnRightClickItem}
-                      rightClickCommand={rightClickCommand}
-                      setRightClickCommand={setRightClickCommand}
                       //Expand and Narrow Container
                       expandContainer={expandContainer}
                       narrowContainer={narrowContainer}
