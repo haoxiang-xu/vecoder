@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { ICON_MANAGER } from "../../ICONs/icon_manager";
 import { vecoderEditorContexts } from "../../CONTEXTs/vecoderEditorContexts";
+import { explorerContexts } from "../../CONTEXTs/explorerContexts";
 import DirItem from "./dirItem/dirItem.js";
 import "./explorer.css";
 
@@ -174,15 +175,19 @@ const MinMaxIcon = ({
     </div>
   );
 };
-const DirList = ({
-}) => {
-  const {
-    exploreOptionsAndContentData,
-  } = useContext(vecoderEditorContexts);
-  const [explorerExpand, setExplorerExpand] = useState(false);
-  const [childrenOnClicked, setChildrenOnClicked] = useState(null);
+const DirList = ({}) => {
+  const { exploreOptionsAndContentData } = useContext(vecoderEditorContexts);
+  const [ExplorerOnMouseOver, setExplorerOnMouseOver] = useState(false);
+  const [dirItemOnClicked, setDirItemOnClicked] = useState(null);
+  const [dirPathOnHover, setDirPathOnHover] = useState(null);
   const [onSingleClickFile, setOnSingleClickFile] = useState(null);
   const [onCopyFile, setOnCopyFile] = useState(null);
+
+  useEffect(() => {
+    if (!ExplorerOnMouseOver) {
+      setDirPathOnHover(null);
+    }
+  }, [ExplorerOnMouseOver]);
 
   const explorerContainerRef = useRef(null);
   //SCROLLABLE
@@ -204,18 +209,27 @@ const DirList = ({
         overflowY: scrollable ? "scroll" : "hidden",
       }}
       ref={explorerContainerRef}
+      onMouseEnter={() => {
+        setExplorerOnMouseOver(true);
+      }}
+      onMouseLeave={() => {
+        setExplorerOnMouseOver(false);
+      }}
     >
-      <DirItem
-        filePath={exploreOptionsAndContentData.filePath}
-        root={true}
-        explorerExpand={explorerExpand}
-        setExplorerExpand={setExplorerExpand}
-        setChildrenOnClicked={setChildrenOnClicked}
-        onSingleClickFile={onSingleClickFile}
-        setOnSingleClickFile={setOnSingleClickFile}
-        onCopyFile={onCopyFile}
-        setOnCopyFile={setOnCopyFile}
-      />
+      <explorerContexts.Provider
+        value={{
+          dirItemOnClicked,
+          setDirItemOnClicked,
+          dirPathOnHover,
+          setDirPathOnHover,
+          onSingleClickFile,
+          setOnSingleClickFile,
+          onCopyFile,
+          setOnCopyFile,
+        }}
+      >
+        <DirItem filePath={exploreOptionsAndContentData.filePath} root={true} />
+      </explorerContexts.Provider>
     </div>
   );
 };
@@ -237,7 +251,7 @@ const Explorer = ({
     <div className="explorer_component_container0126" ref={explorerRef}>
       {mode === "VERTICAL" ? null : (
         <div>
-          <DirList/>
+          <DirList />
           <SearchBar />
         </div>
       )}

@@ -63,6 +63,35 @@
   background-color: #323232;
   border-radius: 5px 5px 0px 0px;
 }
+.dir_item_component_file_name_on_hover0318 {
+
+  /*POSITION*/
+  display: flex;
+  position: relative;
+
+  /*FONT*/
+  font-size: 14px;
+  font-family: "Roboto";
+  letter-spacing: 0pt;
+  white-space: nowrap;
+  color: #cccccc;
+
+  /*SIZE*/
+  border-radius: 5px 5px 0px 0px;
+  margin: 2px 0px 2px 0px;
+  padding: 1px 0px 1px 6px;
+  right: 0px;
+  left: 0px;
+
+  /*STYLE*/
+  background-color: #262626;
+  overflow: hidden;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 .dir_item_component_script_icon0725 {
   transition: all 0.08s ease;
 

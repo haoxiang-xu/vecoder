@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import { ICON_MANAGER, ICON_LOADER } from "../../../ICONs/icon_manager";
 import { vecoderEditorContexts } from "../../../CONTEXTs/vecoderEditorContexts";
 import { rightClickContextMenuCommandContexts } from "../../../CONTEXTs/rightClickContextMenuContexts";
+import { explorerContexts } from "../../../CONTEXTs/explorerContexts";
 import "./dirItem.css";
 
 /* Load ICON manager -------------------------------- */
@@ -139,21 +140,8 @@ const RenameInputBox = ({
   );
 };
 
-const DirItem = ({
-  file,
-  filePath,
-  root,
-  explorerExpand,
-  setExplorerExpand,
-  setChildrenOnClicked,
-  onSingleClickFile,
-  setOnSingleClickFile,
-  onCopyFile,
-  setOnCopyFile,
-}) => {
+const DirItem = ({ index, filePath, root }) => {
   const {
-    exploreOptionsAndContentData,
-    setExploreOptionsAndContentData,
     updateFileOnExploreOptionsAndContentData,
     removeFileOnExploreOptionsAndContentData,
     checkDirNameExist,
@@ -170,17 +158,32 @@ const DirItem = ({
     rightClickCommand,
     setRightClickCommand,
   } = useContext(rightClickContextMenuCommandContexts);
+  const {
+    dirItemOnClicked,
+    setDirItemOnClicked,
+    dirPathOnHover,
+    setDirPathOnHover,
+    onSingleClickFile,
+    setOnSingleClickFile,
+    onCopyFile,
+    setOnCopyFile,
+  } = useContext(explorerContexts);
 
-  //Generate File name, File Icon and Text Color
-  const [isRightClicked, setIsRightClicked] = useState(false);
   const [onCommand, setOnCommand] = useState("false");
-
   const [fileNameClassName, setFileNameClassName] = useState(
     "dir_item_component_file_name0725"
   );
 
   /*Styling Related ----------------------------------------------------------------------------- */
   const [dirItemOnHover, setDirItemOnHover] = useState(false);
+  useEffect(() => {
+    if (dirItemOnHover && accessFileTypeByPath(filePath) === "file" || accessFileTypeByPath(filePath) === "folder" && !accessFileExpandByPath(filePath)) {
+      setDirPathOnHover(filePath.split("/").slice(0, -1).join("/"));
+    }
+    if (accessFileTypeByPath(filePath) === "folder" && accessFileExpandByPath(filePath)) {
+      setDirPathOnHover(null);
+    }
+  }, [dirItemOnHover]);
   const handleMouseEnter = () => {
     setDirItemOnHover(true);
   };
@@ -239,12 +242,8 @@ const DirItem = ({
   const [unexpendAnimation, setUnexpendAnimation] = useState({});
 
   const handleExpandIconOnClick = (event) => {
-    setChildrenOnClicked(true);
+    setDirItemOnClicked(true);
     handleOnLeftClick(event);
-    if (root) {
-      setExplorerExpand(!explorerExpand);
-      updateFileExpandByPath(filePath, true);
-    }
     if (!accessFileExpandByPath(filePath)) {
       setExpendAnimation({
         ...dirListExpendAnimation,
@@ -285,7 +284,6 @@ const DirItem = ({
         target: "vecoder_explorer/" + filePath,
       });
     }
-    setIsRightClicked(true);
   };
   const handleFileOnRightClick = () => {
     if (onCopyFile !== null) {
@@ -303,7 +301,6 @@ const DirItem = ({
         target: "vecoder_explorer/" + filePath,
       });
     }
-    setIsRightClicked(true);
   };
   //SINGLE CLICK
   const handleOnLeftClick = (event) => {
@@ -324,7 +321,6 @@ const DirItem = ({
   }, [onSingleClickFile]);
   useEffect(() => {
     if (onRightClickItem === null) {
-      setIsRightClicked(false);
     } else if (onRightClickItem.source === "vecoder_explorer/" + filePath) {
       setFileNameClassName("dir_item_component_file_name_on_selected0827");
     } else {
@@ -558,7 +554,11 @@ const DirItem = ({
                 >
                   <img
                     src={SYSTEM_ICON_MANAGER.arrow.ICON512}
-                    className={accessFileExpandByPath(filePath) ? "dir_item_component_arrow_icon_down0725" : "dir_item_component_arrow_icon_right0725"}
+                    className={
+                      accessFileExpandByPath(filePath)
+                        ? "dir_item_component_arrow_icon_down0725"
+                        : "dir_item_component_arrow_icon_right0725"
+                    }
                     onClick={handleExpandIconOnClick}
                     loading="lazy"
                   />
@@ -618,7 +618,13 @@ const DirItem = ({
                   FILE_TYPE_ICON_MANAGER[
                     accessFileNameByPath(filePath).split(".").pop()
                   ]?.LABEL_COLOR,
-                borderRadius: "6px",
+                borderRadius:
+                  index <
+                  accessFilesByPath(filePath.split("/").slice(0, -1).join("/"))
+                    .length -
+                    1
+                    ? "2px"
+                    : "2px 2px 6px 2px",
                 animation:
                   "dir_item_component_container_expand_animation " +
                   expandingTime +
@@ -658,23 +664,14 @@ const DirItem = ({
         <div ref={DirListRef} style={{ height: "fit-content" }}>
           <ul
             className={
-              dirItemOnHover
+              dirItemOnHover || dirPathOnHover === filePath
                 ? "dir_item_component_dir_list_on_hover0304"
                 : "dir_item_component_dir_list0725"
             }
           >
             {accessFilesByPath(filePath).map((item, index) => (
               <li key={item.filePath} style={expendAnimation}>
-                <DirItem
-                  file={item}
-                  filePath={item.filePath}
-                  root={false}
-                  setChildrenOnClicked={setChildrenOnClicked}
-                  onSingleClickFile={onSingleClickFile}
-                  setOnSingleClickFile={setOnSingleClickFile}
-                  onCopyFile={onCopyFile}
-                  setOnCopyFile={setOnCopyFile}
-                />
+                <DirItem index={index} filePath={item.filePath} root={false} />
               </li>
             ))}
           </ul>
