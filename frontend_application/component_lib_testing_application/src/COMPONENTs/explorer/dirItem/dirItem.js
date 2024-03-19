@@ -160,7 +160,12 @@ const SubDirList = ({
       >
         {accessFilesByPath(filePath).map((item, index) => (
           <li key={item.filePath} style={expendAnimation}>
-            <DirItem index={index} filePath={item.filePath} root={false} />
+            <DirItem
+              index={index}
+              filePath={item.filePath}
+              root={false}
+              parentDirItemOnHover={dirItemOnHover}
+            />
           </li>
         ))}
       </ul>
@@ -171,7 +176,7 @@ const SubDirList = ({
   );
 };
 
-const DirItem = ({ index, filePath, root }) => {
+const DirItem = ({ index, filePath, root, parentDirItemOnHover }) => {
   const {
     exploreOptionsAndContentData,
     setExploreOptionsAndContentData,
@@ -233,23 +238,23 @@ const DirItem = ({ index, filePath, root }) => {
       (accessFileExpandByPath(filePath) && dirItemOnHover) ||
       dirPathOnHover === filePath
     ) {
-      setFolderItemBorderRadius("6px 6px 0px 0px");
+      setFolderItemBorderRadius("7px 7px 0px 0px");
     } else if (
       index <
         accessFilesByPath(filePath.split("/").slice(0, -1).join("/")).length -
           1 ||
       accessFileExpandByPath(filePath)
     ) {
-      setFolderItemBorderRadius("2px");
+      setFolderItemBorderRadius("0px");
     } else if (
       index ===
         accessFilesByPath(filePath.split("/").slice(0, -1).join("/")).length -
           1 &&
       dirItemOnHover
     ) {
-      setFolderItemBorderRadius("2px 2px 6px 2px");
+      setFolderItemBorderRadius("0px 0px 7px 0px");
     } else {
-      setFolderItemBorderRadius("2px");
+      setFolderItemBorderRadius("0px");
     }
     /* Folder Item Border Radius ============================================== */
 
@@ -258,22 +263,30 @@ const DirItem = ({ index, filePath, root }) => {
       index ===
         accessFilesByPath(filePath.split("/").slice(0, -1).join("/")).length -
           1 &&
-      dirItemOnHover
+      (dirItemOnHover ||
+        dirPathOnHover === filePath.split("/").slice(0, -1).join("/"))
     ) {
-      setFileItemBorderRadius("2px 2px 6px 2px");
+      setFileItemBorderRadius("0px 0px 7px 0px");
+    } else if (
+      !root &&
+      parentDirItemOnHover &&
+      index ===
+        accessFilesByPath(filePath.split("/").slice(0, -1).join("/")).length - 1
+    ) {
+      setFileItemBorderRadius("0px 0px 7px 0px");
     } else {
-      setFileItemBorderRadius("2px");
+      setFileItemBorderRadius("0px");
     }
     /* File Item Border Radius ============================================== */
 
     if (onSingleClickFile === undefined && dirPathOnHover === filePath) {
-      setFolderItemBackgroundColor("#262626");
+      setFolderItemBackgroundColor("#2b2b2b");
     } else if (
       onSingleClickFile &&
       onSingleClickFile.filePath !== filePath &&
       dirPathOnHover === filePath
     ) {
-      setFolderItemBackgroundColor("#262626");
+      setFolderItemBackgroundColor("#2b2b2b");
     } else {
       setFolderItemBackgroundColor(null);
     }
@@ -282,6 +295,7 @@ const DirItem = ({ index, filePath, root }) => {
     dirItemOnHover,
     exploreOptionsAndContentData,
     onSingleClickFile,
+    parentDirItemOnHover,
   ]);
   const handleMouseEnter = () => {
     setDirItemOnHover(true);
