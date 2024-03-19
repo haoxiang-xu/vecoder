@@ -143,15 +143,9 @@ const SubDirList = ({
   expendAnimation,
   unexpendAnimation,
 }) => {
-  const subDirListRef = useRef();
   const { accessFileExpandByPath, accessFilesByPath } = useContext(
     vecoderEditorContexts
   );
-  useEffect(() => {
-    if (subDirListRef.current) {
-      console.log(filePath, subDirListRef.current.offsetHeight);
-    }
-  }, [subDirListRef]);
 
   return accessFilesByPath(filePath).length !== 0 &&
     accessFileExpandByPath(filePath) ? (
@@ -213,9 +207,10 @@ const DirItem = ({ index, filePath, root }) => {
 
   /*Styling Related ----------------------------------------------------------------------------- */
   const [dirItemOnHover, setDirItemOnHover] = useState(false);
-  const [folderItemBorderRadius, setFolderItemBorderRadius] = useState("6px");
+  const [folderItemBorderRadius, setFolderItemBorderRadius] = useState("2px");
   const [folderItemBackgroundColor, setFolderItemBackgroundColor] =
     useState(null);
+  const [fileItemBorderRadius, setFileItemBorderRadius] = useState("2px");
 
   useEffect(() => {
     if (
@@ -233,6 +228,7 @@ const DirItem = ({ index, filePath, root }) => {
     }
   }, [dirItemOnHover, exploreOptionsAndContentData]);
   useEffect(() => {
+    /* Folder Item Border Radius ============================================== */
     if (
       (accessFileExpandByPath(filePath) && dirItemOnHover) ||
       dirPathOnHover === filePath
@@ -247,12 +243,28 @@ const DirItem = ({ index, filePath, root }) => {
       setFolderItemBorderRadius("2px");
     } else if (
       index ===
-      accessFilesByPath(filePath.split("/").slice(0, -1).join("/")).length - 1
+        accessFilesByPath(filePath.split("/").slice(0, -1).join("/")).length -
+          1 &&
+      dirItemOnHover
     ) {
       setFolderItemBorderRadius("2px 2px 6px 2px");
     } else {
       setFolderItemBorderRadius("2px");
     }
+    /* Folder Item Border Radius ============================================== */
+
+    /* File Item Border Radius ============================================== */
+    if (
+      index ===
+        accessFilesByPath(filePath.split("/").slice(0, -1).join("/")).length -
+          1 &&
+      dirItemOnHover
+    ) {
+      setFileItemBorderRadius("2px 2px 6px 2px");
+    } else {
+      setFileItemBorderRadius("2px");
+    }
+    /* File Item Border Radius ============================================== */
 
     if (onSingleClickFile === undefined && dirPathOnHover === filePath) {
       setFolderItemBackgroundColor("#262626");
@@ -695,13 +707,7 @@ const DirItem = ({ index, filePath, root }) => {
                   FILE_TYPE_ICON_MANAGER[
                     accessFileNameByPath(filePath).split(".").pop()
                   ]?.LABEL_COLOR,
-                borderRadius:
-                  index <
-                  accessFilesByPath(filePath.split("/").slice(0, -1).join("/"))
-                    .length -
-                    1
-                    ? "2px"
-                    : "2px 2px 6px 2px",
+                borderRadius: fileItemBorderRadius,
                 animation:
                   "dir_item_component_container_expand_animation " +
                   expandingTime +
