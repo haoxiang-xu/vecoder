@@ -3,11 +3,11 @@ import { vecoderEditorContexts } from "../../CONTEXTs/vecoderEditorContexts";
 import StackStructure from "../../COMPONENTs/stack_structure/stack_structure";
 
 const DEFAULT_MONACO_EDITORS_OPTIONS_AND_CONTENT_DATA = {
-  "demo/code_editor.js": {
+  "demo/src/code_editor.js": {
     viewState: null,
     model: null,
   },
-  "demo/code_editor.css": {
+  "demo/index/style/code_editor.css": {
     viewState: null,
     model: null,
   },
@@ -15,7 +15,7 @@ const DEFAULT_MONACO_EDITORS_OPTIONS_AND_CONTENT_DATA = {
     viewState: null,
     model: null,
   },
-  "demo/index.html": {
+  "demo/index/index.html": {
     viewState: null,
     model: null,
   },
@@ -29,22 +29,22 @@ const DEFAULT_VECODER_EDITORS_OPTIONS_DATA = {
     code_editor_container_ref_index: 1,
     onSelectedMonacoIndex: -1,
     monacoEditorPaths: [
-      "demo/code_editor.js",
-      "demo/code_editor.css",
+      "demo/src/code_editor.js",
+      "demo/index/style/code_editor.css",
       "demo/main.py",
     ],
   },
   2: {
     code_editor_container_ref_index: 2,
     onSelectedMonacoIndex: -1,
-    monacoEditorPaths: ["demo/index.html", "demo/main.java"],
+    monacoEditorPaths: ["demo/index/index.html", "demo/main.java"],
   },
 };
 const DEFAULT_VECODER_EDITORS_CONTENT_DATA = {
-  "demo/code_editor.js": {
+  "demo/src/code_editor.js": {
     fileName: "code_editor.js",
     fileLanguage: "javascript",
-    filePath: "./code_editor.js",
+    filePath: "demo/src/code_editor.js",
     fileContent: `import React, { useState, useEffect, useRef } from "react";
 import MonacoEditor from "@monaco-editor/react";
 
@@ -220,10 +220,10 @@ export default CodeEditor;
 
 `,
   },
-  "demo/code_editor.css": {
+  "demo/index/style/code_editor.css": {
     fileName: "code_editor.css",
     fileLanguage: "css",
-    filePath: "demo/code_editor.css",
+    filePath: "demo/index/style/code_editor.css",
     fileContent: `#code_editor_container0829 {
   /*POSITION*/
   width: 500pt;
@@ -316,10 +316,10 @@ if __name__ == "__main__":
   main()
 `,
   },
-  "demo/index.html": {
+  "demo/index/index.html": {
     fileName: "index.html",
     fileLanguage: "html",
-    filePath: "demo/index.html",
+    filePath: "demo/index/index.html",
     fileContent: `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -384,7 +384,7 @@ renderFileContents();
   "demo/main.java": {
     fileName: "main.java",
     fileLanguage: "java",
-    filePath: "./main.java",
+    filePath: "demo/main.java",
     fileContent: `public class Main {
   public static void main(String[] args) {
     // Create some car objects
@@ -441,28 +441,45 @@ const DEFAULT_EXPLORE_OPTIONS_AND_CONTENT_DATA = {
       fileType: "folder",
       filePath: "demo/src",
       fileExpend: false,
-      files: [],
+      files: [
+        {
+          fileName: "code_editor.js",
+          fileType: "file",
+          filePath: "demo/src/code_editor.js",
+          fileExpend: false,
+          files: [],
+        },
+      ],
     },
     {
-      fileName: "code_editor.js",
-      fileType: "file",
-      filePath: "demo/code_editor.js",
+      fileName: "index",
+      fileType: "folder",
+      filePath: "demo/index",
       fileExpend: false,
-      files: [],
-    },
-    {
-      fileName: "code_editor.css",
-      fileType: "file",
-      filePath: "demo/code_editor.css",
-      fileExpend: false,
-      files: [],
-    },
-    {
-      fileName: "index.html",
-      fileType: "file",
-      filePath: "demo/index.html",
-      fileExpend: false,
-      files: [],
+      files: [
+        {
+          fileName: "style",
+          fileType: "folder",
+          filePath: "demo/index/style",
+          fileExpend: false,
+          files: [
+            {
+              fileName: "code_editor.css",
+              fileType: "file",
+              filePath: "demo/index/style/code_editor.css",
+              fileExpend: false,
+              files: [],
+            },
+          ],
+        },
+        {
+          fileName: "index.html",
+          fileType: "file",
+          filePath: "demo/index/index.html",
+          fileExpend: false,
+          files: [],
+        },
+      ],
     },
     {
       fileName: "main.java",

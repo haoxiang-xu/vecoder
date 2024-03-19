@@ -27,7 +27,7 @@ const Home = () => {
       className="main_container0315"
       onMouseMove={handleMouseMove}
       style={{
-        borderRadius: isWindowMaximized ? "0px" : "16px",
+        borderRadius: isWindowMaximized ? "0px" : "10px",
         border: isWindowMaximized ? "none" : "1px solid #585858",
       }}
     >
