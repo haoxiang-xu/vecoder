@@ -37,7 +37,6 @@
   overflow-x: hidden;
 
   animation-timing-function: linear;
-  animation: dir_list_component_container_appear_animation 1.6s;
 }
 #dir_list_component_container0725::-webkit-scrollbar {
   width: 6px;

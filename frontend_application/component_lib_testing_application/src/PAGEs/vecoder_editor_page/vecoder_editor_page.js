@@ -437,21 +437,6 @@ const DEFAULT_EXPLORE_OPTIONS_AND_CONTENT_DATA = {
   fileExpend: false,
   files: [
     {
-      fileName: "src",
-      fileType: "folder",
-      filePath: "demo/src",
-      fileExpend: false,
-      files: [
-        {
-          fileName: "code_editor.js",
-          fileType: "file",
-          filePath: "demo/src/code_editor.js",
-          fileExpend: false,
-          files: [],
-        },
-      ],
-    },
-    {
       fileName: "index",
       fileType: "folder",
       filePath: "demo/index",
@@ -476,6 +461,21 @@ const DEFAULT_EXPLORE_OPTIONS_AND_CONTENT_DATA = {
           fileName: "index.html",
           fileType: "file",
           filePath: "demo/index/index.html",
+          fileExpend: false,
+          files: [],
+        },
+      ],
+    },
+    {
+      fileName: "src",
+      fileType: "folder",
+      filePath: "demo/src",
+      fileExpend: false,
+      files: [
+        {
+          fileName: "code_editor.js",
+          fileType: "file",
+          filePath: "demo/src/code_editor.js",
           fileExpend: false,
           files: [],
         },

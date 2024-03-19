@@ -126,10 +126,7 @@ const RenameInputBox = ({
       ref={inputRef}
       style={{
         width: `calc(100% - ${22}px)`,
-        borderRadius:
-          dirItemOnHover && accessFileExpandByPath(filePath)
-            ? "6px 6px 0px 0px"
-            : "6px",
+        borderRadius: "2px",
         padding:
           accessFileTypeByPath(filePath) === "folder"
             ? "1px 0px 1px 22px"
@@ -146,15 +143,20 @@ const SubDirList = ({
   expendAnimation,
   unexpendAnimation,
 }) => {
-  const SubDirList = useRef();
+  const subDirListRef = useRef();
   const { accessFileExpandByPath, accessFilesByPath } = useContext(
     vecoderEditorContexts
   );
+  useEffect(() => {
+    if (subDirListRef.current) {
+      console.log(filePath, subDirListRef.current.offsetHeight);
+    }
+  }, [subDirListRef]);
 
   return accessFilesByPath(filePath).length !== 0 &&
     accessFileExpandByPath(filePath) ? (
     /*If file has children -> Including the children file list*/
-    <div ref={SubDirList} style={{ height: "fit-content" }}>
+    <div>
       <ul
         className={
           dirItemOnHover || dirPathOnHover === filePath
@@ -248,6 +250,8 @@ const DirItem = ({ index, filePath, root }) => {
       accessFilesByPath(filePath.split("/").slice(0, -1).join("/")).length - 1
     ) {
       setFolderItemBorderRadius("2px 2px 6px 2px");
+    } else {
+      setFolderItemBorderRadius("2px");
     }
 
     if (onSingleClickFile === undefined && dirPathOnHover === filePath) {
@@ -276,15 +280,9 @@ const DirItem = ({ index, filePath, root }) => {
   /*Styling Related ----------------------------------------------------------------------------- */
 
   //EXPAND RELATED
-  const expandingTime = Math.min(
-    Math.max(accessFilesByPath(filePath).length * 0.015, 0.08),
-    0.16
-  );
-  const unexpandingTime = Math.min(
-    Math.max(accessFilesByPath(filePath).length * 0.015, 0.08),
-    0.16
-  );
-  let dirListUnexpendKeyframes = {
+  const expandingTime = 0.12;
+  const unexpandingTime = 0.12;
+  const [dirListUnexpendKeyframes, setDirListUnexpendKeyframes] = useState({
     "0%": {
       height: "6.6px",
       opacity: 0,
@@ -297,7 +295,7 @@ const DirItem = ({ index, filePath, root }) => {
       height: "0px",
       opacity: 0,
     },
-  };
+  });
   const [dirListExpendKeyframes, setDirListExpendKeyframes] = useState({
     "0%": {
       top: "-6px",

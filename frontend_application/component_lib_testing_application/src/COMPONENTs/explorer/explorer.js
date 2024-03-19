@@ -188,26 +188,12 @@ const DirList = ({}) => {
     }
   }, [ExplorerOnMouseOver]);
 
-  const explorerContainerRef = useRef(null);
-  //SCROLLABLE
-  const [scrollable, setScrollable] = useState(false);
-  useEffect(() => {
-    if (explorerContainerRef.current) {
-      if (explorerContainerRef.current.offsetWidth > 16) {
-        setScrollable(true);
-      } else {
-        setScrollable(false);
-      }
-    }
-  }, [explorerContainerRef.current?.offsetWidth]);
-
   return (
     <div
       id={"dir_list_component_container0725"}
       style={{
-        overflowY: scrollable ? "scroll" : "hidden",
+        overflowY: "scroll",
       }}
-      ref={explorerContainerRef}
       onMouseEnter={() => {
         setExplorerOnMouseOver(true);
       }}
@@ -236,8 +222,6 @@ const Explorer = ({
   onMaximizeOnClick,
   onMinimizeOnClick,
 }) => {
-  const explorerRef = useRef(null);
-
   /* HORIZONTAL OR VERTICAL MODE ====================================================== */
   const [mode, setMode] = useState("HORIZONTAL"); //["HORIZONTAL", "VERTICAL"]
   useEffect(() => {
@@ -245,7 +229,7 @@ const Explorer = ({
   }, [explorer_width]);
   /* HORIZONTAL OR VERTICAL MODE ====================================================== */
   return (
-    <div className="explorer_component_container0126" ref={explorerRef}>
+    <div className="explorer_component_container0126">
       {mode === "VERTICAL" ? null : (
         <div>
           <DirList />

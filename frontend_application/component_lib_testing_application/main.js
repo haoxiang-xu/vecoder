@@ -92,7 +92,7 @@ const createWindow = () => {
   Menu.setApplicationMenu(menu);
 
   // Optionally open the DevTools.
-  //mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 };
 const checkServerAndLoadURL = (url) => {
   axios
