@@ -178,7 +178,6 @@ const MinMaxIcon = ({
 const DirList = ({}) => {
   const { exploreOptionsAndContentData } = useContext(vecoderEditorContexts);
   const [ExplorerOnMouseOver, setExplorerOnMouseOver] = useState(false);
-  const [dirItemOnClicked, setDirItemOnClicked] = useState(null);
   const [dirPathOnHover, setDirPathOnHover] = useState(null);
   const [onSingleClickFile, setOnSingleClickFile] = useState(null);
   const [onCopyFile, setOnCopyFile] = useState(null);
@@ -218,8 +217,6 @@ const DirList = ({}) => {
     >
       <explorerContexts.Provider
         value={{
-          dirItemOnClicked,
-          setDirItemOnClicked,
           dirPathOnHover,
           setDirPathOnHover,
           onSingleClickFile,

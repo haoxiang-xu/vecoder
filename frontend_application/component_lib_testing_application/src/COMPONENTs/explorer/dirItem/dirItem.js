@@ -139,9 +139,46 @@ const RenameInputBox = ({
     />
   );
 };
+const SubDirList = ({
+  filePath,
+  dirItemOnHover,
+  dirPathOnHover,
+  expendAnimation,
+  unexpendAnimation,
+}) => {
+  const SubDirList = useRef();
+  const { accessFileExpandByPath, accessFilesByPath } = useContext(
+    vecoderEditorContexts
+  );
+
+  return accessFilesByPath(filePath).length !== 0 &&
+    accessFileExpandByPath(filePath) ? (
+    /*If file has children -> Including the children file list*/
+    <div ref={SubDirList} style={{ height: "fit-content" }}>
+      <ul
+        className={
+          dirItemOnHover || dirPathOnHover === filePath
+            ? "dir_item_component_dir_list_on_hover0304"
+            : "dir_item_component_dir_list0725"
+        }
+      >
+        {accessFilesByPath(filePath).map((item, index) => (
+          <li key={item.filePath} style={expendAnimation}>
+            <DirItem index={index} filePath={item.filePath} root={false} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  ) : (
+    /*If file doesn't have children -> Leave empty*/
+    <div style={unexpendAnimation}></div>
+  );
+};
 
 const DirItem = ({ index, filePath, root }) => {
   const {
+    exploreOptionsAndContentData,
+    setExploreOptionsAndContentData,
     updateFileOnExploreOptionsAndContentData,
     removeFileOnExploreOptionsAndContentData,
     checkDirNameExist,
@@ -159,8 +196,6 @@ const DirItem = ({ index, filePath, root }) => {
     setRightClickCommand,
   } = useContext(rightClickContextMenuCommandContexts);
   const {
-    dirItemOnClicked,
-    setDirItemOnClicked,
     dirPathOnHover,
     setDirPathOnHover,
     onSingleClickFile,
@@ -176,14 +211,62 @@ const DirItem = ({ index, filePath, root }) => {
 
   /*Styling Related ----------------------------------------------------------------------------- */
   const [dirItemOnHover, setDirItemOnHover] = useState(false);
+  const [folderItemBorderRadius, setFolderItemBorderRadius] = useState("6px");
+  const [folderItemBackgroundColor, setFolderItemBackgroundColor] =
+    useState(null);
+
   useEffect(() => {
-    if (dirItemOnHover && accessFileTypeByPath(filePath) === "file" || accessFileTypeByPath(filePath) === "folder" && !accessFileExpandByPath(filePath)) {
+    if (
+      (dirItemOnHover && accessFileTypeByPath(filePath) === "file") ||
+      (accessFileTypeByPath(filePath) === "folder" &&
+        !accessFileExpandByPath(filePath))
+    ) {
       setDirPathOnHover(filePath.split("/").slice(0, -1).join("/"));
     }
-    if (accessFileTypeByPath(filePath) === "folder" && accessFileExpandByPath(filePath)) {
+    if (
+      accessFileTypeByPath(filePath) === "folder" &&
+      accessFileExpandByPath(filePath)
+    ) {
       setDirPathOnHover(null);
     }
-  }, [dirItemOnHover]);
+  }, [dirItemOnHover, exploreOptionsAndContentData]);
+  useEffect(() => {
+    if (
+      (accessFileExpandByPath(filePath) && dirItemOnHover) ||
+      dirPathOnHover === filePath
+    ) {
+      setFolderItemBorderRadius("6px 6px 0px 0px");
+    } else if (
+      index <
+        accessFilesByPath(filePath.split("/").slice(0, -1).join("/")).length -
+          1 ||
+      accessFileExpandByPath(filePath)
+    ) {
+      setFolderItemBorderRadius("2px");
+    } else if (
+      index ===
+      accessFilesByPath(filePath.split("/").slice(0, -1).join("/")).length - 1
+    ) {
+      setFolderItemBorderRadius("2px 2px 6px 2px");
+    }
+
+    if (onSingleClickFile === undefined && dirPathOnHover === filePath) {
+      setFolderItemBackgroundColor("#262626");
+    } else if (
+      onSingleClickFile &&
+      onSingleClickFile.filePath !== filePath &&
+      dirPathOnHover === filePath
+    ) {
+      setFolderItemBackgroundColor("#262626");
+    } else {
+      setFolderItemBackgroundColor(null);
+    }
+  }, [
+    dirPathOnHover,
+    dirItemOnHover,
+    exploreOptionsAndContentData,
+    onSingleClickFile,
+  ]);
   const handleMouseEnter = () => {
     setDirItemOnHover(true);
   };
@@ -191,8 +274,6 @@ const DirItem = ({ index, filePath, root }) => {
     setDirItemOnHover(false);
   };
   /*Styling Related ----------------------------------------------------------------------------- */
-
-  const DirListRef = useRef();
 
   //EXPAND RELATED
   const expandingTime = Math.min(
@@ -242,7 +323,6 @@ const DirItem = ({ index, filePath, root }) => {
   const [unexpendAnimation, setUnexpendAnimation] = useState({});
 
   const handleExpandIconOnClick = (event) => {
-    setDirItemOnClicked(true);
     handleOnLeftClick(event);
     if (!accessFileExpandByPath(filePath)) {
       setExpendAnimation({
@@ -546,11 +626,10 @@ const DirItem = ({ index, filePath, root }) => {
                   className={fileNameClassName}
                   onClick={handleExpandIconOnClick}
                   onContextMenu={handleFolderOnRightClick}
-                  style={
-                    accessFileExpandByPath(filePath) && dirItemOnHover
-                      ? { borderRadius: "6px 6px 0pt 0pt" }
-                      : { borderRadius: "6px" }
-                  }
+                  style={{
+                    borderRadius: folderItemBorderRadius,
+                    backgroundColor: folderItemBackgroundColor,
+                  }}
                 >
                   <img
                     src={SYSTEM_ICON_MANAGER.arrow.ICON512}
@@ -657,30 +736,15 @@ const DirItem = ({ index, filePath, root }) => {
       )}
       {/* Dir Item ----------------------------------------------------------------------------------------- */}
 
-      {/* SubFile List -------------------------------------------------------------------------------------------- */}
-      {accessFilesByPath(filePath).length !== 0 &&
-      accessFileExpandByPath(filePath) ? (
-        /*If file has children -> Including the children file list*/
-        <div ref={DirListRef} style={{ height: "fit-content" }}>
-          <ul
-            className={
-              dirItemOnHover || dirPathOnHover === filePath
-                ? "dir_item_component_dir_list_on_hover0304"
-                : "dir_item_component_dir_list0725"
-            }
-          >
-            {accessFilesByPath(filePath).map((item, index) => (
-              <li key={item.filePath} style={expendAnimation}>
-                <DirItem index={index} filePath={item.filePath} root={false} />
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : (
-        /*If file doesn't have children -> Leave empty*/
-        <div style={unexpendAnimation}></div>
-      )}
-      {/* SubFile List -------------------------------------------------------------------------------------------- */}
+      {/* SubFiles List -------------------------------------------------------------------------------------------- */}
+      <SubDirList
+        filePath={filePath}
+        dirItemOnHover={dirItemOnHover}
+        dirPathOnHover={dirPathOnHover}
+        expendAnimation={expendAnimation}
+        unexpendAnimation={unexpendAnimation}
+      />
+      {/* SubFiles List -------------------------------------------------------------------------------------------- */}
 
       <style>
         {`
