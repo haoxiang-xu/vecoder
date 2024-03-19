@@ -32,21 +32,56 @@ const menuTemplate = [
 ];
 const createWindow = () => {
   // Initialize the browser window.
-  mainWindow = new BrowserWindow({
-    title: "Vecoder",
-    width: 1200,
-    height: 800,
-    webSecurity: true,
-    transparent: true,
-    resizable: true,
-    maximizable: true,
-    webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
-      contextIsolation: true,
-      nodeIntegration: false,
-    },
-    frame: false,
-  });
+  if (process.platform === "darwin") {
+    mainWindow = new BrowserWindow({
+      title: "Vecoder",
+      width: 1200,
+      height: 800,
+      webSecurity: true,
+      transparent: true,
+      resizable: true,
+      maximizable: true,
+      webPreferences: {
+        preload: path.join(__dirname, "preload.js"),
+        contextIsolation: true,
+        nodeIntegration: false,
+      },
+      frame: false,
+    });
+  } else if (process.platform === "win32") {
+    mainWindow = new BrowserWindow({
+      title: "Vecoder",
+      width: 1200,
+      height: 800,
+      webSecurity: true,
+      transparent: true,
+      resizable: true,
+      maximizable: true,
+      webPreferences: {
+        preload: path.join(__dirname, "preload.js"),
+        contextIsolation: true,
+        nodeIntegration: false,
+      },
+      frame: false,
+    });
+  } else {
+    mainWindow = new BrowserWindow({
+      title: "Vecoder",
+      width: 1200,
+      height: 800,
+      webSecurity: true,
+      transparent: true,
+      resizable: true,
+      maximizable: true,
+      webPreferences: {
+        preload: path.join(__dirname, "preload.js"),
+        contextIsolation: true,
+        nodeIntegration: false,
+      },
+      frame: false,
+    });
+  }
+
   mainWindow.setTitle("Vecoder");
 
   // Load the index.html of the app.
@@ -57,7 +92,7 @@ const createWindow = () => {
   Menu.setApplicationMenu(menu);
 
   // Optionally open the DevTools.
-  mainWindow.webContents.openDevTools();
+  //mainWindow.webContents.openDevTools();
 };
 const checkServerAndLoadURL = (url) => {
   axios
@@ -204,4 +239,7 @@ ipcMain.on("window-control", (event, action) => {
     default:
       break;
   }
+});
+ipcMain.on("toggle-window-buttons", (event, shouldHide) => {
+  mainWindow.setWindowButtonVisibility(!shouldHide);
 });

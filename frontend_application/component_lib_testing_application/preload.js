@@ -15,6 +15,10 @@ contextBridge.exposeInMainWorld("electron", {
   },
 });
 
-contextBridge.exposeInMainWorld('osInfo', {
+contextBridge.exposeInMainWorld('electronAPI', {
+  toggleWindowButtons: (shouldHide) => ipcRenderer.send('toggle-window-buttons', shouldHide)
+});
+
+contextBridge.exposeInMainWorld("osInfo", {
   platform: process.platform,
 });
