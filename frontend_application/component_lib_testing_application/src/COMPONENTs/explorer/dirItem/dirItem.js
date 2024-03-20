@@ -189,6 +189,7 @@ const DirItem = ({ index, filePath, root, parentDirItemOnHover }) => {
     accessFileExpandByPath,
     updateFileExpandByPath,
     accessFilesByPath,
+    getExpendedFilesAmountUnderPath,
   } = useContext(vecoderEditorContexts);
   const {
     onRightClickItem,
@@ -212,10 +213,10 @@ const DirItem = ({ index, filePath, root, parentDirItemOnHover }) => {
 
   /*Styling Related ----------------------------------------------------------------------------- */
   const [dirItemOnHover, setDirItemOnHover] = useState(false);
-  const [folderItemBorderRadius, setFolderItemBorderRadius] = useState("2px");
+  const [folderItemBorderRadius, setFolderItemBorderRadius] = useState("0px");
   const [folderItemBackgroundColor, setFolderItemBackgroundColor] =
     useState(null);
-  const [fileItemBorderRadius, setFileItemBorderRadius] = useState("2px");
+  const [fileItemBorderRadius, setFileItemBorderRadius] = useState("0px");
 
   useEffect(() => {
     if (
@@ -307,33 +308,27 @@ const DirItem = ({ index, filePath, root, parentDirItemOnHover }) => {
   };
   /*Styling Related ----------------------------------------------------------------------------- */
 
-  //EXPAND RELATED
+  /* EXPAND RELATED ===================================================================== */
   const expandingTime = 0.12;
   const unexpandingTime = 0.12;
   const [dirListUnexpendKeyframes, setDirListUnexpendKeyframes] = useState({
     "0%": {
-      height: "6.6px",
-      opacity: 0,
-    },
-    "90%": {
-      height: "1.2px",
-      opacity: 0,
+      height: "18.5px",
     },
     "100%": {
       height: "0px",
-      opacity: 0,
     },
   });
   const [dirListExpendKeyframes, setDirListExpendKeyframes] = useState({
     "0%": {
-      top: "-6px",
+      height: "0px",
       opacity: 0,
     },
-    "20%": {
+    "30%": {
       opacity: 0,
     },
     "100%": {
-      top: "0px",
+      height: "18.5px",
       opacity: 1,
     },
   });
@@ -408,6 +403,8 @@ const DirItem = ({ index, filePath, root, parentDirItemOnHover }) => {
       });
     }
   };
+  /* EXPAND RELATED ===================================================================== */
+
   //SINGLE CLICK
   const handleOnLeftClick = (event) => {
     if (event.shiftKey) {

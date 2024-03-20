@@ -856,6 +856,34 @@ const VecoderEditorPage = () => {
       }
     }
   };
+  const getExpendedFilesAmountUnderPath = (path) => {
+    const pathArray = path.split("/");
+    let currentData = exploreOptionsAndContentData;
+    for (let i = 0; i < pathArray.length; i++) {
+      if (i === pathArray.length - 1) {
+        return countExpendedFilesAmountUnderPath(currentData);
+      } else {
+        currentData = currentData.files;
+        for (let j = 0; j < currentData.length; j++) {
+          if (currentData[j].fileName === pathArray[i + 1]) {
+            currentData = currentData[j];
+            break;
+          }
+        }
+      }
+    }
+  };
+  const countExpendedFilesAmountUnderPath = (data) => {
+    let count = 0;
+    for (let i = 0; i < data.files.length; i++) {
+      if (data.files[i].fileType === "folder" && data.files[i].fileExpend) {
+        count += countExpendedFilesAmountUnderPath(data.files[i]) + 1;
+      } else {
+        count++;
+      }
+    }
+    return count;
+  };
   /* Explorer Data and Functions ------------------------------------------ */
 
   /* Stack Structure Data and Functions ============================================================== */
@@ -912,6 +940,7 @@ const VecoderEditorPage = () => {
         accessFileExpandByPath,
         updateFileExpandByPath,
         accessFilesByPath,
+        getExpendedFilesAmountUnderPath,
 
         stackStructureOptionsData,
         setStackStructureOptionsData,
