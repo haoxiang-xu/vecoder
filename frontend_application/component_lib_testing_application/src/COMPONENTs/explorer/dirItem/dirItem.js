@@ -224,8 +224,7 @@ const DirItem = ({ index, filePath, root, parentDirItemOnHover }) => {
         !accessFileExpandByPath(filePath))
     ) {
       setDirPathOnHover(filePath.split("/").slice(0, -1).join("/"));
-    }
-    if (
+    } else if (
       accessFileTypeByPath(filePath) === "folder" &&
       accessFileExpandByPath(filePath)
     ) {
@@ -298,6 +297,9 @@ const DirItem = ({ index, filePath, root, parentDirItemOnHover }) => {
     parentDirItemOnHover,
   ]);
   const handleMouseEnter = () => {
+    setDirItemOnHover(true);
+  };
+  const handleMouseMover = () => {
     setDirItemOnHover(true);
   };
   const handleMouseLeave = () => {
@@ -632,7 +634,11 @@ const DirItem = ({ index, filePath, root, parentDirItemOnHover }) => {
       {/* Dir Item ----------------------------------------------------------------------------------------- */}
       {accessFileTypeByPath(filePath) === "folder" ? (
         /*If file type is folder -> style as folder*/
-        <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <div
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onMouseMove={handleMouseMover}
+        >
           {accessFilesByPath(filePath).length !== 0 ? (
             /*If file has children -> style as expendable folder*/
             <div>
@@ -703,7 +709,11 @@ const DirItem = ({ index, filePath, root, parentDirItemOnHover }) => {
         </div>
       ) : (
         /*If file type is not folder -> style as file*/
-        <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <div
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onMouseMove={handleMouseMover}
+        >
           {onCommand === "rename" ? (
             <RenameInputBox
               filePath={filePath}
