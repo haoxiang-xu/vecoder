@@ -55,7 +55,6 @@ const FileTypeIconLoader = ({ fileIcon, fileIconBackground }) => {
             className="dir_item_component_script_icon0725"
             loading="lazy"
             onLoad={handleFileTypeIconLoad}
-            draggable={"false"}
           ></img>
         </div>
       ) : null}
@@ -445,6 +444,10 @@ const DirItem = ({
       }
     }
   }, [onRightClickItem]);
+  const onDragStart = (e) => {
+    e.stopPropagation();
+
+  };
 
   /* ON COMMAND -------------------------------------------------------------------------------------------------- */
   //NEW FILE
@@ -630,7 +633,7 @@ const DirItem = ({
   /* ON COMMAND -------------------------------------------------------------------------------------------------- */
 
   return (
-    <div>
+    <div draggable={true}>
       <link
         href="https://fonts.googleapis.com/css?family=Roboto"
         rel="stylesheet"
@@ -642,6 +645,8 @@ const DirItem = ({
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           onMouseMove={handleMouseMover}
+          onDragStart={onDragStart}
+          draggable={true}
         >
           {accessFilesByPath(filePath).length !== 0 ? (
             /*If file has children -> style as expendable folder*/
@@ -717,6 +722,8 @@ const DirItem = ({
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           onMouseMove={handleMouseMover}
+          onDragStart={onDragStart}
+          draggable={true}
         >
           {onCommand === "rename" ? (
             <RenameInputBox

@@ -18,11 +18,6 @@
 
   /*STYLE*/
   overflow: hidden;
-
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 .dir_item_component_file_name_on_selected0827 {
   transition: all 0.12s ease;
@@ -50,11 +45,6 @@
 
   box-shadow: inset 0 0 0 1px #555555;
   overflow: hidden;
-
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 .dir_item_component_file_name0725:hover {
   transition: all 0.24s ease;
