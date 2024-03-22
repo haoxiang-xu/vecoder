@@ -164,6 +164,7 @@ const SubDirList = ({
               index={index}
               filePath={item.filePath}
               root={false}
+              //DirItem Styling Related
               parentDirItemOnHover={dirItemOnHover}
             />
           </li>
@@ -176,7 +177,13 @@ const SubDirList = ({
   );
 };
 
-const DirItem = ({ index, filePath, root, parentDirItemOnHover }) => {
+const DirItem = ({
+  index,
+  filePath,
+  root,
+  //DirItem Styling Related
+  parentDirItemOnHover,
+}) => {
   const {
     exploreOptionsAndContentData,
     setExploreOptionsAndContentData,
@@ -321,14 +328,14 @@ const DirItem = ({ index, filePath, root, parentDirItemOnHover }) => {
   });
   const [dirListExpendKeyframes, setDirListExpendKeyframes] = useState({
     "0%": {
-      height: "0px",
+      top: "-18.5px",
       opacity: 0,
     },
     "30%": {
       opacity: 0,
     },
     "100%": {
-      height: "18.5px",
+      top: "0px",
       opacity: 1,
     },
   });
