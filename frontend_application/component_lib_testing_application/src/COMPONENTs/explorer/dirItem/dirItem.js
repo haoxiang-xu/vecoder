@@ -764,8 +764,8 @@ const DirItem = ({
               className={fileNameClassName}
               onClick={(e) => handleOnLeftClick(e)}
               style={{
-                color:
-                  FILE_TYPE_ICON_MANAGER[
+                color: onSingleClickFile.filePath === filePath ?
+                  "#CCCCCC80" : FILE_TYPE_ICON_MANAGER[
                     accessFileNameByPath(filePath).split(".").pop()
                   ]?.LABEL_COLOR,
                 borderRadius: fileItemBorderRadius,
