@@ -182,6 +182,7 @@ const DirList = ({}) => {
   const [dirPathOnHover, setDirPathOnHover] = useState(null);
   const [onSingleClickFile, setOnSingleClickFile] = useState(null);
   const [onCopyFile, setOnCopyFile] = useState(null);
+  const [onDragFiles, setOnDragFiles] = useState(null);
 
   useEffect(() => {
     if (!ExplorerOnMouseOver) {
@@ -210,6 +211,8 @@ const DirList = ({}) => {
           setOnSingleClickFile,
           onCopyFile,
           setOnCopyFile,
+          onDragFiles,
+          setOnDragFiles,
         }}
       >
         <DirItem

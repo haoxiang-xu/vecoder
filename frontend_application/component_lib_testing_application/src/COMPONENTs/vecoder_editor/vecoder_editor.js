@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import axios from "axios";
 import Editor from "../monacoEditor/monacoEditor";
+import DirItemGhostDragImage from "../dirItemGhostDragImage/dirItemGhostDragImage";
 import "./vecoder_editor.css";
 import { ICON_MANAGER } from "../../ICONs/icon_manager";
 import { rightClickContextMenuCommandContexts } from "../../CONTEXTs/rightClickContextMenuContexts";
@@ -33,55 +34,6 @@ try {
 const GHOST_IMAGE = ICON_MANAGER().GHOST_IMAGE;
 /* Load ICON manager --------------------------------------------------------------------------------- */
 
-const GhostDragImage = ({ draggedItem }) => {
-  const { accessVecoderEditorFileNameDataByPath } = useContext(
-    vecoderEditorContexts
-  );
-  const [position, setPosition] = useState({
-    x: -9999,
-    y: -9999,
-  });
-  const [containerWidth, setContainerWidth] = useState(0);
-  const labelRef = useRef(null);
-  useEffect(() => {
-    const onDragOver = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      setPosition({
-        x: e.clientX,
-        y: e.clientY,
-      });
-    };
-    window.addEventListener("dragover", onDragOver);
-    return () => {
-      window.removeEventListener("dragover", onDragOver);
-    };
-  }, []);
-  useEffect(() => {
-    if (labelRef.current) {
-      setContainerWidth(labelRef.current.offsetWidth);
-    }
-  }, [labelRef.current]);
-
-  return (
-    <>
-      {draggedItem ? (
-        <div
-          className="ghost_drag_image_container0207"
-          style={{
-            left: position.x,
-            top: position.y,
-            width: containerWidth + 24,
-          }}
-        >
-          <span className="ghost_drag_image_filetype_label0207" ref={labelRef}>
-            {accessVecoderEditorFileNameDataByPath(draggedItem)}
-          </span>
-        </div>
-      ) : null}
-    </>
-  );
-};
 const TopLeftSection = ({
   mode,
   //Maximize and Minimize Container
@@ -589,8 +541,8 @@ const FileSelectionBar = ({
           </div>
         );
       })}
-      {onDragIndex !== -1 || draggedItem != null ? (
-        <GhostDragImage draggedItem={draggedItem} />
+      {onDragIndex !== -1 || draggedItem !== null ? (
+        <DirItemGhostDragImage draggedDirItemPath={draggedItem} />
       ) : null}
     </div>
   );

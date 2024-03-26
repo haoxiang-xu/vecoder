@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
+import DirItemGhostDragImage from "../../dirItemGhostDragImage/dirItemGhostDragImage";
 import { ICON_MANAGER, ICON_LOADER } from "../../../ICONs/icon_manager";
 import { vecoderEditorContexts } from "../../../CONTEXTs/vecoderEditorContexts";
 import { rightClickContextMenuCommandContexts } from "../../../CONTEXTs/rightClickContextMenuContexts";
 import { explorerContexts } from "../../../CONTEXTs/explorerContexts";
+import { globalDragAndDropContexts } from "../../../CONTEXTs/globalDragAndDropContexts";
 import "./dirItem.css";
 
 /* Load ICON manager -------------------------------- */
@@ -28,6 +30,7 @@ try {
 } catch (e) {
   console.log(e);
 }
+const GHOST_IMAGE = ICON_MANAGER().GHOST_IMAGE;
 /* Load ICON manager -------------------------------- */
 
 const FileTypeIconLoader = ({ fileIcon, fileIconBackground }) => {
@@ -210,7 +213,17 @@ const DirItem = ({
     setOnSingleClickFile,
     onCopyFile,
     setOnCopyFile,
+    onDragFiles,
+    setOnDragFiles,
   } = useContext(explorerContexts);
+  const {
+    draggedItem,
+    setDraggedItem,
+    draggedOverItem,
+    setDraggedOverItem,
+    dragCommand,
+    setDragCommand,
+  } = useContext(globalDragAndDropContexts);
 
   const [onCommand, setOnCommand] = useState("false");
   const [fileNameClassName, setFileNameClassName] = useState(
@@ -307,7 +320,7 @@ const DirItem = ({
   const handleMouseEnter = () => {
     setDirItemOnHover(true);
   };
-  const handleMouseMover = () => {
+  const handleMouseMove = () => {
     setDirItemOnHover(true);
   };
   const handleMouseLeave = () => {
@@ -447,6 +460,13 @@ const DirItem = ({
   }, [onRightClickItem]);
   const onDragStart = (e) => {
     e.stopPropagation();
+    e.dataTransfer.setDragImage(GHOST_IMAGE, 0, 0);
+
+    setDraggedItem(filePath);
+  };
+  const onDragEnd = (e) => {
+    e.stopPropagation();
+    setDraggedItem(null);
   };
 
   /* ON COMMAND -------------------------------------------------------------------------------------------------- */
@@ -644,8 +664,9 @@ const DirItem = ({
         <div
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          onMouseMove={handleMouseMover}
+          onMouseMove={handleMouseMove}
           onDragStart={onDragStart}
+          onDragEnd={onDragEnd}
           draggable={true}
         >
           {accessFilesByPath(filePath).length !== 0 ? (
@@ -724,8 +745,9 @@ const DirItem = ({
         <div
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          onMouseMove={handleMouseMover}
+          onMouseMove={handleMouseMove}
           onDragStart={onDragStart}
+          onDragEnd={onDragEnd}
           draggable={true}
         >
           {onCommand === "rename" ? (
@@ -788,6 +810,10 @@ const DirItem = ({
         unexpendAnimation={unexpendAnimation}
       />
       {/* SubFiles List -------------------------------------------------------------------------------------------- */}
+
+      {onDragFiles !== null && draggedItem !== null && filePath === draggedItem ? (
+        <DirItemGhostDragImage draggedDirItemPath={draggedItem} />
+      ) : null}
 
       <style>
         {`
