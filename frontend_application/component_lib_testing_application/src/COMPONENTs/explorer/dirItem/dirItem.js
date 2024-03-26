@@ -218,11 +218,12 @@ const DirItem = ({
   );
 
   /*Styling Related ----------------------------------------------------------------------------- */
+  const labelRef = useRef();
   const [dirItemOnHover, setDirItemOnHover] = useState(false);
-  const [folderItemBorderRadius, setFolderItemBorderRadius] = useState("0px");
+  const [folderItemBorderRadius, setFolderItemBorderRadius] = useState("3px");
   const [folderItemBackgroundColor, setFolderItemBackgroundColor] =
     useState(null);
-  const [fileItemBorderRadius, setFileItemBorderRadius] = useState("0px");
+  const [fileItemBorderRadius, setFileItemBorderRadius] = useState("3px");
 
   useEffect(() => {
     if (
@@ -244,23 +245,23 @@ const DirItem = ({
       (accessFileExpandByPath(filePath) && dirItemOnHover) ||
       dirPathOnHover === filePath
     ) {
-      setFolderItemBorderRadius("7px 7px 0px 0px");
+      setFolderItemBorderRadius("7px 7px 3px 3px");
     } else if (
       index <
         accessFilesByPath(filePath.split("/").slice(0, -1).join("/")).length -
           1 ||
       accessFileExpandByPath(filePath)
     ) {
-      setFolderItemBorderRadius("0px");
+      setFolderItemBorderRadius("3px");
     } else if (
       index ===
         accessFilesByPath(filePath.split("/").slice(0, -1).join("/")).length -
           1 &&
       dirItemOnHover
     ) {
-      setFolderItemBorderRadius("0px 0px 7px 0px");
+      setFolderItemBorderRadius("3px 3px 7px 3px");
     } else {
-      setFolderItemBorderRadius("0px");
+      setFolderItemBorderRadius("3px");
     }
     /* Folder Item Border Radius ============================================== */
 
@@ -272,16 +273,16 @@ const DirItem = ({
       (dirItemOnHover ||
         dirPathOnHover === filePath.split("/").slice(0, -1).join("/"))
     ) {
-      setFileItemBorderRadius("0px 0px 7px 0px");
+      setFileItemBorderRadius("3px 3px 7px 3px");
     } else if (
       !root &&
       parentDirItemOnHover &&
       index ===
         accessFilesByPath(filePath.split("/").slice(0, -1).join("/")).length - 1
     ) {
-      setFileItemBorderRadius("0px 0px 7px 0px");
+      setFileItemBorderRadius("3px 3px 7px 3px");
     } else {
-      setFileItemBorderRadius("0px");
+      setFileItemBorderRadius("3px");
     }
     /* File Item Border Radius ============================================== */
 
@@ -446,7 +447,6 @@ const DirItem = ({
   }, [onRightClickItem]);
   const onDragStart = (e) => {
     e.stopPropagation();
-
   };
 
   /* ON COMMAND -------------------------------------------------------------------------------------------------- */
@@ -662,6 +662,7 @@ const DirItem = ({
               ) : (
                 /* SPAN If file not on command -> diplay folder name and expand arrow button>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
                 <span
+                  ref={labelRef}
                   className={fileNameClassName}
                   onClick={handleExpandIconOnClick}
                   onContextMenu={handleFolderOnRightClick}
@@ -698,9 +699,11 @@ const DirItem = ({
               ) : (
                 /* SPAN If file not on command -> diplay folder name and expand arrow button>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
                 <span
+                  ref={labelRef}
                   className={fileNameClassName}
                   style={{
-                    borderRadius: "6px",
+                    borderRadius: folderItemBorderRadius,
+                    backgroundColor: folderItemBackgroundColor,
                   }}
                   onClick={(e) => handleOnLeftClick(e)}
                   onContextMenu={handleFolderOnRightClick}
@@ -735,6 +738,7 @@ const DirItem = ({
           ) : (
             /* SPAN file>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
             <span
+              ref={labelRef}
               className={fileNameClassName}
               onClick={(e) => handleOnLeftClick(e)}
               style={{

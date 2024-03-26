@@ -50,7 +50,7 @@
   transition: all 0.24s ease;
 
   background-color: #3c3c3c;
-  border-radius: 5px 5px 0px 0px;
+  border-radius: 7px 7px 3px 3px;
 }
 .dir_item_component_script_icon0725 {
   transition: all 0.08s ease;
@@ -171,7 +171,7 @@
   list-style: none;
   background-color: #2b2b2b;
   border-left: #2b2b2b solid 1px;
-  border-radius: 0px 0px 6px 6px;
+  border-radius: 3px 3px 7px 7px;
 }
 .dir_item_component_dir_list0725 li {
   /*POSITION*/
