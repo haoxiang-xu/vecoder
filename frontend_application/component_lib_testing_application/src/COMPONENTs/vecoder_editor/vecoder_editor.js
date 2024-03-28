@@ -154,6 +154,8 @@ const FileSelectionBar = ({
     setDragCommand,
   } = useContext(globalDragAndDropContexts);
   const {
+    monacoEditorsOptionsAndContentData,
+    setMonacoEditorsOptionsAndContentData,
     updateMonacoEditorPathsByEditorIndex,
     accessMonacoEditorPathsByEditorIndex,
     accessVecoderEditorFileNameDataByPath,
@@ -175,6 +177,15 @@ const FileSelectionBar = ({
     const editedFiles = [
       ...accessMonacoEditorPathsByEditorIndex(code_editor_container_ref_index),
     ];
+    const pathToRemove = accessMonacoEditorPathsByEditorIndex(
+      code_editor_container_ref_index
+    )[index];
+    setMonacoEditorsOptionsAndContentData((prevState) => {
+      let editedOptions = { ...prevState };
+      delete editedOptions[pathToRemove];
+      return editedOptions;
+    });
+
     editedFiles.splice(index, 1);
     updateMonacoEditorPathsByEditorIndex(
       code_editor_container_ref_index,
@@ -346,6 +357,7 @@ const FileSelectionBar = ({
   useEffect(() => {
     setOnDropIndex(-1);
   }, [draggedOverItem]);
+
   /* File Selection Bar parameters & Functions ==================================================== */
 
   /* Styling----------------------------------------------------------------------------------- */
@@ -593,7 +605,7 @@ const MonacoEditorGroup = ({
   return accessMonacoEditorPathsByEditorIndex(
     code_editor_container_ref_index
   ).map((filePath, index) => {
-    return filePath !== "GHOST" ? (
+    return (
       <Editor
         key={filePath}
         //Editor required parameters
@@ -617,7 +629,7 @@ const MonacoEditorGroup = ({
         //editor_diffContent={diffContent}
         //editor_setDiffContent={setDiffContent}
       ></Editor>
-    ) : null;
+    );
   });
 };
 const VecoderEditor = ({

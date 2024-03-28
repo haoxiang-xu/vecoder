@@ -466,8 +466,12 @@ const DirItem = ({
   };
   const onDragEnd = (e) => {
     e.stopPropagation();
-    setDraggedItem(null);
-    setDraggedOverItem(null);
+    if (draggedOverItem && accessFileTypeByPath(filePath) === "file") {
+      setDragCommand("APPEND TO TARGET");
+    } else {
+      setDraggedItem(null);
+      setDraggedOverItem(null);
+    }
   };
 
   /* ON COMMAND -------------------------------------------------------------------------------------------------- */

@@ -356,12 +356,18 @@ const applyEditorOptionsInMemory = (
   dragCommand,
   setDragCommand
 ) => {
-  if (monacoEditorsOptionsAndContentData[editor_filePath].model) {
+  if (
+    editor_filePath in monacoEditorsOptionsAndContentData &&
+    monacoEditorsOptionsAndContentData[editor_filePath].model
+  ) {
     monacoRef.current.setModel(
       monacoEditorsOptionsAndContentData[editor_filePath].model
     );
   }
-  if (monacoEditorsOptionsAndContentData[editor_filePath].viewState) {
+  if (
+    editor_filePath in monacoEditorsOptionsAndContentData &&
+    monacoEditorsOptionsAndContentData[editor_filePath].viewState
+  ) {
     editor.restoreViewState(
       monacoEditorsOptionsAndContentData[editor_filePath].viewState
     );
