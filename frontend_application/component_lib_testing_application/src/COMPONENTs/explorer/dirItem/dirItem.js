@@ -258,23 +258,23 @@ const DirItem = ({
       (accessFileExpandByPath(filePath) && dirItemOnHover) ||
       dirPathOnHover === filePath
     ) {
-      setFolderItemBorderRadius("7px 7px 3px 3px");
+      setFolderItemBorderRadius("7px 7px 2px 2px");
     } else if (
       index <
         accessFilesByPath(filePath.split("/").slice(0, -1).join("/")).length -
           1 ||
       accessFileExpandByPath(filePath)
     ) {
-      setFolderItemBorderRadius("3px");
+      setFolderItemBorderRadius("2px");
     } else if (
       index ===
         accessFilesByPath(filePath.split("/").slice(0, -1).join("/")).length -
           1 &&
       dirItemOnHover
     ) {
-      setFolderItemBorderRadius("3px 3px 7px 3px");
+      setFolderItemBorderRadius("2px 2px 7px 2px");
     } else {
-      setFolderItemBorderRadius("3px");
+      setFolderItemBorderRadius("2px");
     }
     /* Folder Item Border Radius ============================================== */
 
@@ -286,16 +286,16 @@ const DirItem = ({
       (dirItemOnHover ||
         dirPathOnHover === filePath.split("/").slice(0, -1).join("/"))
     ) {
-      setFileItemBorderRadius("3px 3px 7px 3px");
+      setFileItemBorderRadius("2px 2px 7px 2px");
     } else if (
       !root &&
       parentDirItemOnHover &&
       index ===
         accessFilesByPath(filePath.split("/").slice(0, -1).join("/")).length - 1
     ) {
-      setFileItemBorderRadius("3px 3px 7px 3px");
+      setFileItemBorderRadius("2px 2px 7px 2px");
     } else {
-      setFileItemBorderRadius("3px");
+      setFileItemBorderRadius("2px");
     }
     /* File Item Border Radius ============================================== */
 
@@ -467,6 +467,7 @@ const DirItem = ({
   const onDragEnd = (e) => {
     e.stopPropagation();
     setDraggedItem(null);
+    setDraggedOverItem(null);
   };
 
   /* ON COMMAND -------------------------------------------------------------------------------------------------- */
@@ -764,10 +765,12 @@ const DirItem = ({
               className={fileNameClassName}
               onClick={(e) => handleOnLeftClick(e)}
               style={{
-                color: onSingleClickFile && onSingleClickFile.filePath === filePath ?
-                  "#CCCCCC" : FILE_TYPE_ICON_MANAGER[
-                    accessFileNameByPath(filePath).split(".").pop()
-                  ]?.LABEL_COLOR,
+                color:
+                  onSingleClickFile && onSingleClickFile.filePath === filePath
+                    ? "#CCCCCC"
+                    : FILE_TYPE_ICON_MANAGER[
+                        accessFileNameByPath(filePath).split(".").pop()
+                      ]?.LABEL_COLOR,
                 borderRadius: fileItemBorderRadius,
                 animation:
                   "dir_item_component_container_expand_animation " +
@@ -811,7 +814,9 @@ const DirItem = ({
       />
       {/* SubFiles List -------------------------------------------------------------------------------------------- */}
 
-      {onDragFiles !== null && draggedItem !== null && filePath === draggedItem ? (
+      {onDragFiles !== null &&
+      draggedItem !== null &&
+      filePath === draggedItem ? (
         <DirItemGhostDragImage draggedDirItemPath={draggedItem} />
       ) : null}
 

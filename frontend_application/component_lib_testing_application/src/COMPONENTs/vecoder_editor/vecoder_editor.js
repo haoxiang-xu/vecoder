@@ -343,6 +343,9 @@ const FileSelectionBar = ({
       setDragCommand(null);
     }
   }, [dragCommand]);
+  useEffect(() => {
+    setOnDropIndex(-1);
+  }, [draggedOverItem]);
   /* File Selection Bar parameters & Functions ==================================================== */
 
   /* Styling----------------------------------------------------------------------------------- */
